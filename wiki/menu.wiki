@@ -1,1 +1,2 @@
 [Index]
+[http://code.google.com/p/actu-rss/w/list Editer le Wiki]
