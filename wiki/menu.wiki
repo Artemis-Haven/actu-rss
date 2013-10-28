@@ -1,3 +1,3 @@
-[http://code.google.com/p/actu-rss/wiki/Index Index]
+[http://code.google.com/p/actu-rss/wiki/Index?tm=6 Index]
 
 [http://code.google.com/p/actu-rss/w/list Editer le Wiki]
