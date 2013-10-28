@@ -1,0 +1,11 @@
+#summary One-sentence summary of this page.
+
+= Configurer son PC pour développer le projet =
+
+Add your content here.
+
+
+== Pré-requis ==
+
+  * Eclipse Juno (3.7) ou supérieur
+  * Mac, Windows, Linux, peut importe
