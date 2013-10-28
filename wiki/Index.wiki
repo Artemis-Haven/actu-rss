@@ -1,13 +1,9 @@
-#summary One-sentence summary of this page.
+#summary Page d'accueil du Wiki
 
-= Introduction =
+= ActuRSS =
 
-Add your content here.
+Identifiez-vous avec votre compte Google.
 
+*[configuration Marche à suivre pour configurer son PC]*.
 
-= Details =
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+[http://code.google.com/p/support/wiki/WikiSyntax Tout savoir de la mise en forme du texte pour ce Wiki.]
