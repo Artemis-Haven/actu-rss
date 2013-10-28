@@ -28,3 +28,5 @@
   * Dans le nouveau panneau de gauche, vide pour l'instant, faites _Clic droit_ > _New_ > _Repository Location_.
 
   * Copiez-collez `https://actu-rss.googlecode.com/svn`
+
+  * Normalement, le Projet Explorer s’affiche sur votre gauche. Faites un  _
