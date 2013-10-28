@@ -26,3 +26,5 @@
   *  Cliquez sur _Windows_ > _Open perspective_ > _Other..._ et choisissez _SVN Repository Exploring_.
 
   * Dans le nouveau panneau de gauche, vide pour l'instant, faites _Clic droit_ > _New_ > _Repository Location_.
+
+  * Copiez-collez `https://actu-rss.googlecode.com/svn`
