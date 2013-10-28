@@ -1,9 +1,0 @@
-#summary Page d'accueil du Wiki
-
-= ActuRSS =
-
-Identifiez-vous avec votre compte Google.
-
-*[configuration Marche à suivre pour configurer son PC]*.
-
-[http://code.google.com/p/support/wiki/WikiSyntax Tout savoir de la mise en forme du texte pour ce Wiki.]
