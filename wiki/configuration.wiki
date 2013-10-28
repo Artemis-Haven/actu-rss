@@ -2,10 +2,21 @@
 
 = Configurer son PC pour développer le projet =
 
-Add your content here.
-
-
 == Pré-requis ==
 
   * Eclipse Juno (3.7) ou supérieur
   * Mac, Windows, Linux, peut importe
+
+== Installer Subclipse ==
+
+  * Allez sur [http://subclipse.tigris.org/], cliquez sur _Download & Install_.
+
+  * Dans la section _Links for 1.10.x Release:_, copiez le lien nommé _Eclipse update site URL_.
+
+  * Dans Eclispe, allez dans le menu _Help_ > _Install New Softwares_. 
+
+  * Cliquez sur _Add_. Dans _Location_, collez le lien.
+
+  * Cliquez sur _Select all_ et sur _Finish_.
+
+  * Redémarrez Eclipse.
