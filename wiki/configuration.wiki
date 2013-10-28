@@ -11,12 +11,18 @@
 
   * Allez sur [http://subclipse.tigris.org/], cliquez sur _Download & Install_.
 
-  * Dans la section _Links for 1.10.x Release:_, copiez le lien nommé _Eclipse update site URL_.
+  * Dans la section _Links for 1.10.x Release_, copiez le lien nommé _Eclipse update site URL_.
 
-  * Dans Eclispe, allez dans le menu _Help_ > _Install New Softwares_. 
+  * Dans Eclipse, allez dans le menu _Help_ > _Install New Softwares_. 
 
   * Cliquez sur _Add_. Dans _Location_, collez le lien.
 
   * Cliquez sur _Select all_ et sur _Finish_.
 
   * Redémarrez Eclipse.
+
+== Configurer Subclipse ==
+
+  *  Cliquez sur _Windows_ > _Open perspective_ > _Other..._ et choisissez _SVN Repository Exploring_.
+
+  * Dans le nouveau panneau de gauche, vide pour l'instant, faites _Clic droit_ > _New_ > _Repository Location_.
