@@ -1,5 +1,10 @@
 
 
-public class LeZboubEnChocolat {
+public class LeZboubEnChocolat 
+{
 
+	public void fourrerSonMuseau()
+	{
+		
+	}
 }
