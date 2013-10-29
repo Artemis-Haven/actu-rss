@@ -6,8 +6,8 @@ Identifiez-vous avec votre compte Google.
 
 [Definition_des_roles Définition des rôles]
 
-[Resume_des_seances?tm=6 Résumé des séances]
+[Resume_des_seances Résumé des séances]
 
 [http://code.google.com/p/support/wiki/WikiSyntax Tout savoir de la mise en forme du texte pour ce Wiki.]
 
-[Branches?tm=6 L'organisation des branches du projet.]
+[Branches L'organisation des branches du projet.]
