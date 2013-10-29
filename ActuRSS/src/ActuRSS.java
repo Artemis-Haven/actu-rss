@@ -9,7 +9,7 @@ public class ActuRSS {
 		System.out.println("Hello Moustache");
 		for(int i =0; i<10000; i++)
 		{
-		System.out.println("Petite bite");
+		System.out.println("Petite bite yann");
 		}
 	}
 
