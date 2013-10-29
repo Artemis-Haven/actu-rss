@@ -1,4 +1,4 @@
-a/**
+/**
  * Actu-RSS
  * Couche : Couche dans notre logiciel
  * Date de création : 2013-10-28
