@@ -4,4 +4,6 @@ Identifiez-vous avec votre compte Google.
 
 *[configuration Marche à suivre pour configurer son PC]*.
 
+[Definition_des_roles Définition des rôles]
+
 [http://code.google.com/p/support/wiki/WikiSyntax Tout savoir de la mise en forme du texte pour ce Wiki.]
