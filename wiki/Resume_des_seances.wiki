@@ -1,6 +1,8 @@
 #summary résumé des séances.
 
-= Réunion du mar 29 oct. =
+= Résumé des séances =
+
+== Réunion du mar 29 oct. ==
 
   * Mise en place du Google Code
   * Mise en place de la liste de diffusion Google Groups
