@@ -1,12 +1,5 @@
 #summary résumé des séances.
 
-= Définition des rôles =
-
-*Chef de projet : * Vincent Chataignier
-*Responsable SVN / Google Code : * Rémi Patrizio
-*Responsable mails et liste de diffusion : * Yanne Seree
-
-
 = Résumé des séances =
 
 == Réunion du mardi 29 oct. ==
