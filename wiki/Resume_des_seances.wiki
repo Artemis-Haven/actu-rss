@@ -7,4 +7,4 @@
   * Mise en place du Google Code
   * Mise en place de la liste de diffusion Google Groups
   * Installation et configuration d'Eclipse et du plugin pour SVN sur tous les postes de travail
-  * 
+  * Définition des rôles
