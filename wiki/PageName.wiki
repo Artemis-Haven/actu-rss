@@ -49,9 +49,4 @@ Ce document décrit de manière très synthétique des règles concernant la doc
   * comprend, au besoin, des commentaires dans le corps qui expliquent les sections plus complexes du traitement effectué;
 
 
-<wiki:gadget url="https://docs.google.com/file/d/0B60ecGMj4WAmVEdZb2ZwdjZQa0k/preview" height="200" border="0" /> 
-
-<iframe src="https://docs.google.com/file/d/0B60ecGMj4WAmVEdZb2ZwdjZQa0k/preview" width="640" height="480"></iframe>
-
-
-<script src="//www.gmodules.com/ig/ifr?url=http://hosting.gmodules.com/ig/gadgets/file/108257444249077518195/google-drive.xml&amp;up_numDocuments=15&amp;up_viewPreference=opened_by_me&amp;synd=open&amp;w=320&amp;h=490&amp;title=Google+Drive.+__MSG_title__&amp;lang=fr&amp;country=ALL&amp;border=%23ffffff%7C3px%2C1px+solid+%23999999&amp;output=js"></script>
+<wiki:gadget url="http://hosting.gmodules.com/ig/gadgets/file/108257444249077518195/google-drive.xml" height="200" border="0" /> 
