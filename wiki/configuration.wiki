@@ -1,4 +1,4 @@
-#summary One-sentence summary of this page.
+#summary Marche à suivre pour configurer son PC.
 
 = Configurer son PC pour développer le projet =
 
@@ -31,4 +31,10 @@
 
   * Allez dans le menu _File_ > _New_ > _Project..._ (et pas _Java Project_). Choisissez _SVN_ > _Checkout Project from SVN_.
 
-  * Choisissez `https://actu-rss.googlecode.com/svn` dans la liste, cliquez sur _Next_, puis sélectionnez la racine du projet, càd `https://actu-rss.googlecode.com/svn` tout entier. Cliquez sur _Finish_.
+  * Choisissez `https://actu-rss.googlecode.com/svn` dans la liste, cliquez sur _Next_, puis sélectionnez _Actu-RSS_. Cliquez sur _Finish_.
+
+
+== Le premier commit ==
+
+Un identifiant et un mot de passe vous seront demandés.
+L'identifiant est votre adresse GMail, le mot de passe est disponible [https://code.google.com/hosting/settings ici], en haut et en gras.
