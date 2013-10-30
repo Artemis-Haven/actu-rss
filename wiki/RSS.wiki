@@ -13,6 +13,30 @@ Il existe différents types d'agrégateurs (tresseurs) : les lecteurs en ligne (
 La plupart des fils d'actualités RSS sont accessibles librement mais certains peuvent être soumis à un abonnement qui doit être souscrit sur le site du flux en question.
   _Wikipedia_
 
+= Métadonnées =
+
+Un flux contient des métadonnées obligatoires :
+  * <title>
+  * <description>
+  * <link>
+Et d'autres facultatives :
+  * <pubDate>
+  * <lastBuildDate>
+  * <image>
+  * <enclosure>
+  * <language>
+
+Idem pour les news, métadonnées obligatoires :
+  * <title>
+  * <description>
+  * <pubDate>
+  * <link>
+  * <guid>
+Et facultatives :
+  * <author>
+  * <category>
+  * <comments>
+
 
 = Détails =
 
