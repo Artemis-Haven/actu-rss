@@ -10,6 +10,8 @@ Nous utiliserons 5 branches :
 
 Chaque _commiter_ d'un même groupe travaillent sur la même branche. De ce faite lorsque il veut travailler, il doit charger (_mettre à jours_) la branche.
 
-Puis peut travailler sur le ou les fichiers voulus Enfin il _commit_ le résultat (sans oublier les commentaires).
+Il peut alors travailler sur le ou les fichiers voulus. Puis il fait une _mise à jours_ et gère les conflits avec les autres membres du groupe.
+
+Enfin il  peut _commit_ le résultat (sans oublier les commentaires).
 
 ATTENTION : LE RÉSULTAT DOIT COMPILER SANS ERREUR.
