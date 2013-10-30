@@ -8,3 +8,26 @@
   * Mise en place de la liste de diffusion Google Groups
   * Installation et configuration d'Eclipse et du plugin pour SVN sur tous les postes de travail
   * Définition des rôles
+
+=== Pour la prochaine fois ===
+
+  * Lister et distribuer les tâches 
+
+----
+
+== Réunion du mercredi 30 oct. ==
+
+  * Liste de toutes les tâches à effectuer
+  * Distribution des tâches
+  * Création des packages dans le projet
+  * Création des branches dans SVN
+
+=== Pour la prochaine fois ===
+
+Pour le mardi 5 nov.
+  * Faire les classes News, Feed et Category
+  * Faire la BdD et les tables avec SQLite
+  * Définir complètement l'interface
+  * Définir correctement le rôle des classes FeedManager et Model
+
+----
