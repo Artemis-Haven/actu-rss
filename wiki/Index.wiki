@@ -1,5 +1,3 @@
-#summary Page d'accueil
-
 = ActuRSS =
 
 Identifiez-vous avec votre compte Google.
