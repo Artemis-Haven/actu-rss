@@ -1,18 +1,20 @@
 = ActuRSS =
 
-Identifiez-vous avec votre compte Google.
-
-*[configuration Marche à suivre pour configurer son PC]*.
-
-*[Plug_In_Papyrus_UML]*.
+=== Organisation du projet ===
 
 [Definition_des_roles Définition des rôles] et [Taches Liste des tâches à effectuer]
 
 [Resume_des_seances Résumé des séances]
 
-[http://code.google.com/p/support/wiki/WikiSyntax Tout savoir de la mise en forme du texte pour ce Wiki]
-
 [Branches L'organisation des branches du projet]
+
+=== Informations utiles ===
+
+*[configuration Marche à suivre pour configurer son PC]*.
+
+*[Plug_In_Papyrus_UML]*.
+
+[http://code.google.com/p/support/wiki/WikiSyntax Tout savoir de la mise en forme du texte pour ce Wiki]
 
 [Plan_d_execution Dans quel ordre le logiciel va-t-il exécuter les tâches ?]
 
