@@ -4,9 +4,9 @@
 
 Nous utiliserons 5 branches : 
 
-* Une branche par groupe
+- Une branche par groupe
 
-* Une branche commun pour tester le resultat
+- Une branche commun pour tester le resultat
 
 Chaque _commiter_ d'un même groupe travaillent sur la même branche. De ce faite lorsque il veut travailler, il doit charger (_mettre à jours_) la branche.
 
