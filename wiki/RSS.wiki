@@ -16,26 +16,26 @@ La plupart des fils d'actualités RSS sont accessibles librement mais certains p
 = Métadonnées =
 
 Un flux contient des métadonnées obligatoires :
-  * <title>
-  * <description>
-  * <link>
+  * '<title>'
+  * '<description>'
+  * '<link>'
 Et d'autres facultatives :
-  * <pubDate>
-  * <lastBuildDate>
-  * <image>
-  * <enclosure>
-  * <language>
+  * '<pubDate>'
+  * '<lastBuildDate>'
+  * '<image>'
+  * '<enclosure>'
+  * '<language>'
 
 Idem pour les news, métadonnées obligatoires :
-  * <title>
-  * <description>
-  * <pubDate>
-  * <link>
-  * <guid>
+  * '<title>'
+  * '<description>'
+  * '<pubDate>'
+  * '<link>'
+  * '<guid>'
 Et facultatives :
-  * <author>
-  * <category>
-  * <comments>
+  * '<author>'
+  * '<category>'
+  * '<comments>'
 
 
 = Détails =
