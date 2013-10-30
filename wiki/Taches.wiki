@@ -2,12 +2,10 @@
 
 = Mise en place de la Base de Donnée =
 
-  * SQL
+  * SQL et MERISE
   * SGBD (SQLite)
   * La classe DBManager
   * Tests unitaires avec JUnit
-
-= Tests unitaires =
 
 = Interface graphique =
 
@@ -21,8 +19,8 @@
   * UML classe
   * Méthodes
 
-= FeedManager =
-
-= Model =
+= FeedManager & Model =
 
 = Controller =
+
+  * Faire ça à la fin
