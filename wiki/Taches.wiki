@@ -7,19 +7,29 @@
   * La classe DBManager
   * Tests unitaires avec JUnit
 
+-> Vincent et Matthieu
+
 = Interface graphique =
+
+-> Yann, Rémi, Bastien et Julien
 
 = FeedCatcher et Parser =
 
   * Récupérer les flux RSS sur internet
   * Transformer en classe
 
+-> Julien, Vincent et Matthieu
+
 = Feed, News et Categorie =
 
   * UML classe
   * Méthodes
 
+-> Benjamin, David et Julien
+
 = FeedManager & Model =
+
+-> Bastien, Gauthier, Yann et Rémi
 
 = Controller =
 
