@@ -13,3 +13,5 @@ Identifiez-vous avec votre compte Google.
 [Branches L'organisation des branches du projet]
 
 [Plan_d_execution Dans quel ordre le logiciel va-t-il exécuter les tâches ?]
+
+Les principales infos à retenir sur les fichiers [RSS] et [OPML].
