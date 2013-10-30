@@ -1,5 +1,14 @@
 package ca.usherbrooke.ift232.actuRSS.model;
-
+/**
+ * Actu-RSS
+ * Couche : Model
+ * Date de création : 2013-10-30
+ * Description : 
+ *   Classe Feed
+ *   
+ * @author Benjamin Ferré
+ * @version 0.1
+ */
 import java.util.ArrayList;
 import java.util.List;
 
