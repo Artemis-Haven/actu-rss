@@ -2,8 +2,10 @@
 
 = Organisation des branches du projet =
 
-Chaque _commiter_ a sa propre branche et peut _commiter_ n'importe quand, tant que son code compile et n'est pas bourré de bugs.
+Tout les _commiter_ travaillent sur la même branche. De ce faite lorsque vous voulez travaillez, vous devez charger (mettre à jours) la branche.
 
-Les personnes travaillant sur le même composant développent chacun dans leur propre branche et peuvent _merger_ les branches des autres dans la leur pour récupérer les dernières nouveautés.
+Puis vous pouvez travailler sur le ou les fichiers que vous voulez et _commiter_ le résultat sans oublier les commentaires.
 
-On ne _commit_ pas dans le tronc sans l'accord du groupe.
+ATTENTION : LE RÉSULTAT DOIT COMPILER SANS ERREUR.
+
+
