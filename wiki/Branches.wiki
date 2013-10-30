@@ -15,3 +15,9 @@ Il peut alors travailler sur le ou les fichiers voulus. Puis il fait une _mise �
 Enfin il  peut _commit_ le résultat (sans oublier les commentaires).
 
 ATTENTION : LE RÉSULTAT DOIT COMPILER SANS ERREUR.
+
+== Pour changer de branche ==
+
+  * Penser à _commmit_ votre travail sur la branche active avant de changer de branche !
+  * Faites un _clic-droit_ sur le projet _ActuRSS_ > _Team_ > _Switch to another branch_.
+  * L'url dans le champ du haut ressemble à `https://actu-rss.googlecode.com/svn/ActuRSS`, il faut rajouter `/view` pour passer sur la branche `view` par exemple.
