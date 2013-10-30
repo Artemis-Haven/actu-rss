@@ -4,6 +4,8 @@ Identifiez-vous avec votre compte Google.
 
 *[configuration Marche à suivre pour configurer son PC]*.
 
+*[Plug_In_Papyrus_UML]*.
+
 [Definition_des_roles Définition des rôles]
 
 [Resume_des_seances Résumé des séances]
