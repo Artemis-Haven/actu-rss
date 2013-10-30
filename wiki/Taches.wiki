@@ -1,6 +1,8 @@
 #summary Taches
 
-= Mise en place de la Base de Donnée =
+= Listes des tâches à effectuer =
+
+== Mise en place de la Base de Donnée ==
 
   * SQL et MERISE
   * SGBD (SQLite)
@@ -9,25 +11,25 @@
 
 -> Vincent et Matthieu
 
-= Interface graphique =
+== Interface graphique ==
 
 -> Yann, Rémi, Bastien et Julien
 
-= FeedCatcher et Parser =
+== FeedCatcher et Parser ==
 
   * Récupérer les flux RSS sur internet
   * Transformer en classe
 
 -> Julien, Vincent et Matthieu
 
-= Feed, News et Categorie =
+== Feed, News et Categorie ==
 
   * UML classe
   * Méthodes
 
 -> Benjamin, David et Julien
 
-= FeedManager & Model =
+== FeedManager & Model ==
 
 -> Bastien, Gauthier, Yann et Rémi
 
