@@ -1,0 +1,25 @@
+#summary Plan d'exécution des différentes tâches par le logiciel
+
+= Que fait le logiciel concrètement ? Et dans quel ordre ? =
+
+== Lancement du logiciel pour la toute première fois =
+
+La base de donnée n'existe pas, la liste des flux est donc vide.
+
+  # Démarrage du logiciel
+  # Check de l'existence de la BdD
+  # Création de la BdD vide et création des tables
+  # (pour la suite, idem que dans le cas général, mais avec une liste de flux vide)
+
+== Lancement du logiciel avec une BdD ==
+
+  # Démarrage du logiciel
+  # Check de l'existence de la BdD
+  # Importation de la liste de flux complète, et de toutes leurs news associées (dans le FeedManager)
+  # Récupération des url de chacun de ces flux
+  # Récupération des fichiers RSS grâce à ces url (dans le FeedCatcher)
+  # Création d'une nouvelle liste de flux et de news à partir de ces fichiers (dans le Parser)
+  # Fusion de la nouvelle liste et de l'ancienne, en ajoutant à l'ancienne les news nouvelles et en *conservant l'état* des news déjà existantes (non lue, favoris)
+  # Suppression des news trop vieilles (plus de 15 jours, par exemple, ou plus de 100 news dans ce flux) de la liste des flux
+  # Effacement complet du contenu des tables de la BdD
+  # Réécriture de la nouvelle liste de flux dans la BdD
