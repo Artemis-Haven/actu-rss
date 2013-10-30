@@ -2,8 +2,13 @@
 
 = Organisation des branches du projet =
 
-Tout les _commiter_ travaillent sur la même branche. De ce faite lorsque vous voulez travaillez, vous devez charger (_mettre à jours_) la branche.
+Nous utiliserons 5 branches : 
 
-Puis vous pouvez travailler sur le ou les fichiers que vous voulez et _commiter_ le résultat (sans oublier les commentaires).
+-une branche par groupe
+-une branche commun pour tester le resultat
+
+Chaque _commiter_ d'un même groupe travaillent sur la même branche. De ce faite lorsque il veut travailler, il doit charger (_mettre à jours_) la branche.
+
+Puis peut travailler sur le ou les fichiers voulus Enfin il _commit_ le résultat (sans oublier les commentaires).
 
 ATTENTION : LE RÉSULTAT DOIT COMPILER SANS ERREUR.
