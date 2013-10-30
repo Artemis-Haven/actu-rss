@@ -6,7 +6,7 @@ Identifiez-vous avec votre compte Google.
 
 *[Plug_In_Papyrus_UML]*.
 
-[Definition_des_roles Définition des rôles]
+[Definition_des_roles Définition des rôles] et [Taches Liste des tâches à effectuer]
 
 [Resume_des_seances Résumé des séances]
 
