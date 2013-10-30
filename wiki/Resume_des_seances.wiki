@@ -8,6 +8,7 @@
   * Mise en place de la liste de diffusion Google Groups
   * Installation et configuration d'Eclipse et du plugin pour SVN sur tous les postes de travail
   * Définition des rôles
+  * Création du Wiki
 
 === Pour la prochaine fois ===
 
@@ -21,6 +22,7 @@
   * Distribution des tâches
   * Création des packages dans le projet
   * Création des branches dans SVN
+  * Mise à jour du Wiki
 
 === Pour la prochaine fois ===
 
