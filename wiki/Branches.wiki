@@ -8,9 +8,9 @@ Nous utiliserons 5 branches :
 
   * Une branche commun pour tester le resultat
 
-Chaque _commiter_ d'un même groupe travaillent sur la même branche. De ce faite lorsque il veut travailler, il doit charger (_mettre à jours_) la branche.
+Les _commiters_ d'un même groupe travaillent sur la même branche. De ce fait, lorsque il veut travailler, il doit charger (_mettre à jour_) la branche.
 
-Il peut alors travailler sur le ou les fichiers voulus. Puis il fait une _mise à jours_ et gère les conflits avec les autres membres du groupe.
+Il peut alors travailler sur le ou les fichiers voulus. Puis il fait une _mise à jour_ et gère les conflits avec les autres membres du groupe.
 
 Enfin il  peut _commit_ le résultat (sans oublier les commentaires).
 
