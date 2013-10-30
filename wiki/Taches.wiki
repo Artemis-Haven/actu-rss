@@ -1,0 +1,28 @@
+#summary Taches
+
+= Mise en place de la Base de Donnée =
+
+  * SQL
+  * SGBD (SQLite)
+  * La classe DBManager
+  * Tests unitaires avec JUnit
+
+= Tests unitaires =
+
+= Interface graphique =
+
+= FeedCatcher et Parser =
+
+  * Récupérer les flux RSS sur internet
+  * Transformer en classe
+
+= Feed, News et Categorie =
+
+  * UML classe
+  * Méthodes
+
+= FeedManager =
+
+= Model =
+
+= Controller =
