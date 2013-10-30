@@ -2,7 +2,7 @@
 
 = Organisation des branches du projet =
 
-Chaque _commiter_ a sa propre branche et peut _commiter_ n'importe quand tant que son code compile et n'est pas bourré de bugs.
+Chaque _commiter_ a sa propre branche et peut _commiter_ n'importe quand, tant que son code compile et n'est pas bourré de bugs.
 
 Les personnes travaillant sur le même composant développent chacun dans leur propre branche et peuvent _merger_ les branches des autres dans la leur pour récupérer les dernières nouveautés.
 
