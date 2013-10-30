@@ -8,6 +8,8 @@ Identifiez-vous avec votre compte Google.
 
 [Resume_des_seances Résumé des séances]
 
-[http://code.google.com/p/support/wiki/WikiSyntax Tout savoir de la mise en forme du texte pour ce Wiki.]
+[http://code.google.com/p/support/wiki/WikiSyntax Tout savoir de la mise en forme du texte pour ce Wiki]
 
-[Branches L'organisation des branches du projet.]
+[Branches L'organisation des branches du projet]
+
+[Plan_d_execution Dans quel ordre le logiciel va-t-il exécuter les tâches ?]
