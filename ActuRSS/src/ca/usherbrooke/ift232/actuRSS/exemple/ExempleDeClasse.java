@@ -1,3 +1,4 @@
+package ca.usherbrooke.ift232.actuRSS.exemple;
 /**
  * Actu-RSS
  * Couche : Couche dans notre logiciel
