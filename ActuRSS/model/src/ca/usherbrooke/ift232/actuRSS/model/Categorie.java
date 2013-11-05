@@ -1,34 +1,24 @@
 package ca.usherbrooke.ift232.actuRSS.model;
-/**
- * Actu-RSS
- * Couche : Model
- * Date de création : 2013-11-04
- * Description : 
- *   Classe Categorie
- *   
- * @author Benjamin Ferré
- * @version 0.1
- */
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Actu-RSS
+ * Couche : Model
+ * Date de creation : 2013-10-30
+ * Description : 
+ *   Classe Categorie
+ *   Une categorie est determinee par un nom, et contient une liste de feeds 
+ *   
+ * @author Benjamin Ferre
+ * @author David Boas
+ * @version 0.3
+ */
 public class Categorie {
-	/**
-	 * Variables privees
-	 * @param nom 
-	 * 			nom de la categorie
-	 * @param entrees
-	 * 			une categorie contient plusieurs feeds
-	 */
 	private String nom;
 	private List<Feed> listFeed = new ArrayList<Feed>();
 
-	 /**
-	 * Getters
-	 * @param getNom()
-	 * Retourne le nom de la categorie
-	 */
 	public String getNom() {
 		return nom;
 	}
@@ -37,11 +27,6 @@ public class Categorie {
 		return listFeed;
 	}
 
-	 /**
-	 * Setters
-	 * @param setNom()
-	 * Permet de fixer le nom de la categorie
-	 */
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
