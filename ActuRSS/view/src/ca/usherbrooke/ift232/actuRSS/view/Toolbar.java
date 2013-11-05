@@ -1,7 +1,24 @@
 package ca.usherbrooke.ift232.actuRSS.view;
 
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Graphics;
+import java.awt.Insets;
+import java.awt.List;
+import java.awt.MenuItem;
+
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JToggleButton;
+import javax.swing.SwingConstants;
 
 /**
  * Actu-RSS
@@ -22,13 +39,63 @@ public class Toolbar extends JPanel {
 	 * @param Description d'une variable
 	 *
 	 */
-	
+	private JToggleButton allNewsBtn;
+	private JToggleButton unreadNewsBtn;
+	private JToggleButton favNewsBtn;
+	private JToggleButton syncBtn;
+	private JToggleButton readBtn;
+	private JToggleButton favBtn;
+	private ButtonGroup btnGroup;
+	private JButton menuBtn;
+	private JPanel leftPanel;
+	private JPanel rightPanel;
+
 	/**
 	 * Constructeur
 	 * 
 	 */
 	public Toolbar(){
-		JButton btn = new JButton("Texte");
-		this.add(btn);
+
+		this.setLayout(new BorderLayout());
+		
+		leftPanel = new JPanel();
+		
+		syncBtn = buildToggleButton("/img/sync.png");
+		leftPanel.add(syncBtn);
+
+		buildButtonGroup();
+		
+		rightPanel = new JPanel();
+		
+		readBtn = buildToggleButton("/img/read.png");
+		rightPanel.add(readBtn);
+		
+		favBtn = buildToggleButton("/img/favorite.png");
+		rightPanel.add(favBtn);
+		
+		menuBtn = new JButton(new ImageIcon(getClass().getResource("/img/properties.png")));
+		rightPanel.add(menuBtn);
+
+		this.add(leftPanel, BorderLayout.WEST);
+		this.add(rightPanel, BorderLayout.EAST);
+	}
+
+	private void buildButtonGroup() {
+		allNewsBtn = new JToggleButton("Tout", true);
+		unreadNewsBtn = new JToggleButton("Non lus");
+		favNewsBtn = new JToggleButton("Favoris");
+		
+		btnGroup = new ButtonGroup();
+		btnGroup.add(allNewsBtn);
+		btnGroup.add(unreadNewsBtn);
+		btnGroup.add(favNewsBtn);
+		leftPanel.add(allNewsBtn, BorderLayout.WEST);
+		leftPanel.add(unreadNewsBtn, BorderLayout.WEST);
+		leftPanel.add(favNewsBtn, BorderLayout.WEST);
+	}
+
+	private JToggleButton buildToggleButton(String path) {
+		JToggleButton btn = new JToggleButton(new ImageIcon(getClass().getResource(path)));
+		return btn;
 	}
 }
