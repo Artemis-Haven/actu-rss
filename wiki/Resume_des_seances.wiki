@@ -33,3 +33,19 @@ Pour le mardi 5 nov.
   * Définir correctement le rôle des classes FeedManager et Model
 
 ----
+
+== Réunion du mardi 5 nov. ==
+
+  * Point sur l'avancée du travail
+  * Définition des règles de Javadoc
+  * Définition du plan d'exécution du logiciel
+
+=== Pour la prochaine fois ===
+
+Pour le mardi 5 nov.
+  * Finir la base de donnée : remplacer les requêtes de type SELECT par des PreparedStatement
+  * Continuer l'interface
+  * Angliciser les noms des variables et des méthodes
+  * Commencer FeedCatcher et Parser
+
+----
