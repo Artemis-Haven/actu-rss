@@ -13,9 +13,10 @@ import java.util.Date;
  *   
  * @author Benjamin Ferre
  * @author David Boas
- * @version 0.3
+ * @version 0.4
  */
 public class News {
+	private int id;
 	private String titre;
 	private String url;
 	private String auteur;
@@ -49,6 +50,9 @@ public class News {
 	public Feed getFeed() {
 		return feed;
 	}
+	public int getId() {
+		return id;
+	}
 	
 	public void setTitre(String titre) {
 		this.titre = titre;
@@ -74,13 +78,13 @@ public class News {
 	public void setFeed(Feed feed) {
 		this.feed = feed;
 	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	
 
 	public String toString() {
 	    return "News [titre = " + titre + ", contenu = " + contenu 
 	    		+ ", url = " + url + ", auteur = " + auteur + ", date = " + date + "]";
 	}
-	
-	
-
 }

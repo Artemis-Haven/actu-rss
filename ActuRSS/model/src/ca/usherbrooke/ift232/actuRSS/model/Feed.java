@@ -13,9 +13,10 @@ import java.util.List;
  *   
  * @author Benjamin Ferre
  * @author David Boas
- * @version 0.3
+ * @version 0.4
  */
 public class Feed {
+	private int id;
 	private String nom;
 	private String url;
 	private List<News> listNews = new ArrayList<News>();
@@ -33,8 +34,10 @@ public class Feed {
 	public Category getCategory() {
 		return categorie;
 	}
-	
-	
+	public int getId() {
+		return id;
+	}
+
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
@@ -47,7 +50,9 @@ public class Feed {
 	public void setCategory(Category categorie) {
 		this.categorie = categorie;
 	}
-	
+	public void setId(int id) {
+		this.id = id;
+	}
 	/**
 	 * @param nom : le nom du flux
 	 * @param url : l'url du flux
@@ -58,5 +63,4 @@ public class Feed {
 		this.url = url;
 		listNews = entrees;
 	}
-	
 }
