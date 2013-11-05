@@ -46,7 +46,7 @@ public class Toolbar extends JPanel {
 	private JToggleButton readBtn;
 	private JToggleButton favBtn;
 	private ButtonGroup btnGroup;
-	private JButton menuBtn;
+	private Menu menuBtn;
 	private JPanel leftPanel;
 	private JPanel rightPanel;
 
@@ -73,7 +73,7 @@ public class Toolbar extends JPanel {
 		favBtn = buildToggleButton("/img/favorite.png");
 		rightPanel.add(favBtn);
 		
-		menuBtn = new JButton(new ImageIcon(getClass().getResource("/img/properties.png")));
+		menuBtn = new Menu();
 		rightPanel.add(menuBtn);
 
 		this.add(leftPanel, BorderLayout.WEST);
