@@ -8,14 +8,14 @@ import java.util.List;
  * Couche : Model
  * Date de creation : 2013-10-30
  * Description : 
- *   Classe Categorie
+ *   Classe Category
  *   Une categorie est determinee par un nom, et contient une liste de feeds 
  *   
  * @author Benjamin Ferre
  * @author David Boas
  * @version 0.3
  */
-public class Categorie {
+public class Category {
 	private String nom;
 	private List<Feed> listFeed = new ArrayList<Feed>();
 

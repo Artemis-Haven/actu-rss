@@ -19,7 +19,7 @@ public class Feed {
 	private String nom;
 	private String url;
 	private List<News> listNews = new ArrayList<News>();
-	private Categorie categorie;
+	private Category categorie;
 
 	public String getNom() {
 		return nom;
@@ -30,7 +30,7 @@ public class Feed {
 	public List<News> getListNews() {
 		return listNews;
 	}
-	public Categorie getCategorie() {
+	public Category getCategory() {
 		return categorie;
 	}
 	
@@ -44,7 +44,7 @@ public class Feed {
 	public void setListNews(List<News> entrees) {
 		this.listNews = entrees;
 	}	
-	public void setCategorie(Categorie categorie) {
+	public void setCategory(Category categorie) {
 		this.categorie = categorie;
 	}
 	
