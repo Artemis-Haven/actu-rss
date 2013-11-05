@@ -22,8 +22,7 @@ public class Categorie {
 	 * 			une categorie contient plusieurs feeds
 	 */
 	private String nom;
-	
-	public List<Feed> entrees = new ArrayList<Feed>();
+	private List<Feed> listFeed = new ArrayList<Feed>();
 
 	 /**
 	 * Getters
@@ -33,6 +32,10 @@ public class Categorie {
 	public String getNom() {
 		return nom;
 	}
+	
+	public List<Feed> getListFeed() {
+		return listFeed;
+	}
 
 	 /**
 	 * Setters
@@ -41,6 +44,10 @@ public class Categorie {
 	 */
 	public void setNom(String nom) {
 		this.nom = nom;
+	}
+	
+	public void setListFeed(List<Feed> entrees) {
+		listFeed = entrees;
 	}
 
 }

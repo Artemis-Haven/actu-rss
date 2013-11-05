@@ -39,8 +39,9 @@ public class News {
 	private String contenu;
 	private boolean Lu;
 	private boolean Favori;
+	private Feed feed;
 	
-	 /**
+	/**
 	 * Getters
 	 * @param getTitre()
 	 * Retourne le titre de la news
@@ -77,6 +78,9 @@ public class News {
 	}
 	public boolean isFavori() {
 		return Favori;
+	}
+	public Feed getFeed() {
+		return feed;
 	}
 	
 	
@@ -118,6 +122,9 @@ public class News {
 	public void setFavori(boolean Favori) {
 		this.Favori = Favori;
 	}
+	public void setFeed(Feed feed) {
+		this.feed = feed;
+	}
 	
 	 /**
 	 * Methodes
@@ -128,5 +135,7 @@ public class News {
 	    return "News [titre = " + titre + ", contenu = " + contenu 
 	    		+ ", url = " + url + ", auteur = " + auteur + ", date = " + date + "]";
 	}
+	
+	
 
 }

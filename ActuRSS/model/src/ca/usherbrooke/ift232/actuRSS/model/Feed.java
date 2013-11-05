@@ -24,8 +24,8 @@ public class Feed {
 	 */
 	private String nom;
 	private String url;
-	
-	public List<News> entrees = new ArrayList<News>();
+	private List<News> listNews = new ArrayList<News>();
+	private Categorie categorie;
 
 	 /**
 	 * Getters
@@ -41,6 +41,17 @@ public class Feed {
 
 	public String getUrl() {
 		return url;
+	}
+	
+	public List<News> getListNews() {
+		return listNews;
+	}
+	
+	/**
+	 * @return the categorie
+	 */
+	public Categorie getCategorie() {
+		return categorie;
 	}
 	
 	 /**
@@ -59,15 +70,25 @@ public class Feed {
 		this.url = url;
 	}
 	
+	public void setListNews(List<News> entrees) {
+		this.listNews = entrees;
+	}
+	
+	public void setCategorie(Categorie categorie) {
+		this.categorie = categorie;
+	}
+	
+	
 	/**
 	 * Constructeurs
 	 * @param Feed
 	 * 			Construit un feed en spécifiant un nom et son url
 	 * 
 	 */
-	public Feed(String nom, String url){
+	public Feed(String nom, String url, List<News> entrees){
 		this.nom = nom;
 		this.url = url;
+		listNews = entrees;
 	}
-
+	
 }
