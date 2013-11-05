@@ -18,18 +18,19 @@ public class DatabaseManager {
 	// Efface toute la DB
 	public void clearDB() {
 		
-		db.updateValue("drop table if exists person");
-		db.updateValue("drop table if exists feed");
-		db.updateValue("drop table if exists news");
+		db.updateValue("drop table if exists News");
+		db.updateValue("drop table if exists Feed");
+		db.updateValue("drop table if exists Category");
 		
 	}
 	
 	// Crée les tables Feed et News et Category
 		public void createDB() {
 			
+			db.updateValue("create table if not exists Category(ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, Nom  TEXT);");
 			db.updateValue("create table if not exists Feed(ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, URL TEXT, Nom TEXT, ID_Category INTEGER, FOREIGN KEY (ID_Category) REFERENCES Category(ID));");
 			db.updateValue("create table if not exists News(ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, Titre TEXT, URL TEXT, Auteur TEXT, Date_News NUMERIC, Contenu TEXT, Lu INTEGER, Favori INTEGER , ID_feed INTEGER, FOREIGN KEY (ID_feed) REFERENCES Feed(ID));");
-			db.updateValue("create table if not exists Category(ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, Nom  TEXT);");
+			
 			
 		}
 	

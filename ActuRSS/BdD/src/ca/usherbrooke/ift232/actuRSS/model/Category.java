@@ -19,6 +19,18 @@ public class Category {
 	private int id;
 	private String nom;
 	private List<Feed> listFeed = new ArrayList<Feed>();
+	
+	public Category(int id, String nom)
+	{
+	
+	}
+	
+	public Category(String nom)
+	{
+		this.id = 1;
+		this.nom = nom;
+	}
+	
 
 	public String getNom() {
 		return nom;
