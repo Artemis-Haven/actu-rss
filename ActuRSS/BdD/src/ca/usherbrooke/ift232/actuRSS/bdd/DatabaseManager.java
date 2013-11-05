@@ -1,10 +1,8 @@
 package ca.usherbrooke.ift232.actuRSS.bdd;
 
+import ca.usherbrooke.ift232.actuRSS.model.*;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
+
 import java.sql.*;
 
 
@@ -46,16 +44,16 @@ public class DatabaseManager {
 		//a coder
 	}
 	
-	/*public void insertFeed(String url, String nom, Categorie category)
+	public void insertFeed(String url, String nom, Category category)
 	{
-		String requete = "SELECT * FROM Category WHERE Nom="+category.getNom()+";";
+		String requete = "SELECT * FROM Category WHERE ID="+category.getId()+";";
 		ResultSet rs = db.getResultOf(requete);
 		try {
 			if(rs.next())
 			{
 				String requeteInsert = "INSERT INTO Feed (Url, Nom, ID_Category) " +
-		                "VALUES ('"+ url +"', '"+ nom +"', "+ category.getID +");";
-				db.updateValue(requete);
+		                "VALUES ('"+ url +"', '"+ nom +"', "+ category.getId() +");";
+				db.updateValue(requeteInsert);
 			}
 			else
 			{
@@ -68,7 +66,7 @@ public class DatabaseManager {
 			
 			e.printStackTrace();
 		}
-	}*/
+	}
 	
 	public void deleteCategory(int id)
 	{
