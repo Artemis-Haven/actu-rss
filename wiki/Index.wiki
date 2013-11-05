@@ -8,6 +8,8 @@
 
 [Branches L'organisation des branches du projet]
 
+*[Remarques_Suggestions_sur_interface Avancement de l'interface]*
+
 === Informations utiles ===
 
 *[configuration Marche à suivre pour configurer son PC]*.
