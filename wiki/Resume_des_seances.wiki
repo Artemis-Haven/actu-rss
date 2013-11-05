@@ -42,7 +42,7 @@ Pour le mardi 5 nov.
 
 === Pour la prochaine fois ===
 
-Pour le mardi 5 nov.
+Pour le mardi 12 nov.
   * Finir la base de donnée : remplacer les requêtes de type SELECT par des PreparedStatement
   * Continuer l'interface
   * Angliciser les noms des variables et des méthodes
