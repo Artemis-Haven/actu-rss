@@ -1,12 +1,12 @@
-package database;
+package ca.usherbrooke.ift232.actuRSS.bdd;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import content.Feed;
-import content.News;
+import ca.usherbrooke.ift232.actuRSS.model.Feed;
+import ca.usherbrooke.ift232.actuRSS.model.News;
 
 public class DatabaseManager {
 	

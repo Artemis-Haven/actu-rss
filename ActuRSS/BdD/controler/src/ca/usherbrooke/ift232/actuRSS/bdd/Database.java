@@ -1,4 +1,4 @@
-package database;
+package ca.usherbrooke.ift232.actuRSS.bdd;
  
 import java.sql.Connection;
 import java.sql.DriverManager;
