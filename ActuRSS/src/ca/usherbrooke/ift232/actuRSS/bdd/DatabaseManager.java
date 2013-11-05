@@ -1,3 +1,4 @@
+package ca.usherbrooke.ift232.actuRSS.bdd;
 
 
 import java.sql.PreparedStatement;
