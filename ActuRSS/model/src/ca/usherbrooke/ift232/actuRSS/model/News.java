@@ -24,10 +24,10 @@ public class News {
 	 * 			date de la news
 	 * @param contenu
 	 * 			contenu de la news 
-	 * @param estLu
+	 * @param Lu
 	 * 			0 si la news n'est pas lu
 	 * 			1 sinon
-	 * @param estFavori
+	 * @param Favori
 	 * 			0 si la news n'est pas en favori
 	 * 			1 sinon
 	 *
@@ -37,8 +37,8 @@ public class News {
 	private String auteur;
 	private Date date;
 	private String contenu;
-	private boolean estLu;
-	private boolean estFavori;
+	private boolean Lu;
+	private boolean Favori;
 	
 	 /**
 	 * Getters
@@ -52,9 +52,9 @@ public class News {
 	 * Retourne la date de la news
 	 * @param getContenu()
 	 * Retourne le contenu de la news
-	 * @param isEstLu()
+	 * @param isLu()
 	 * Retourne la valeur de estLu
-	 * @param isEstFavori()
+	 * @param isFavori()
 	 * Retourne la valeur de estFavori
 	 */
 	public String getTitre() {
@@ -72,11 +72,11 @@ public class News {
 	public String getContenu() {
 		return contenu;
 	}
-	public boolean isEstLu() {
-		return estLu;
+	public boolean isLu() {
+		return Lu;
 	}
-	public boolean isEstFavori() {
-		return estFavori;
+	public boolean isFavori() {
+		return Favori;
 	}
 	
 	
@@ -112,11 +112,11 @@ public class News {
 	public void setContenu(String contenu) {
 		this.contenu = contenu;
 	}
-	public void setEstLu(boolean estLu) {
-		this.estLu = estLu;
+	public void setLu(boolean Lu) {
+		this.Lu = Lu;
 	}
-	public void setEstFavori(boolean estFavori) {
-		this.estFavori = estFavori;
+	public void setFavori(boolean Favori) {
+		this.Favori = Favori;
 	}
 	
 	 /**
