@@ -13,17 +13,37 @@ import java.util.List;
  *   
  * @author Benjamin Ferre
  * @author David Boas
- * @version 0.4
+ * @version 0.5
  */
 public class Feed {
+	
+	//variables de classe
 	private int id;
-	private String nom;
+	private String name;
 	private String url;
 	private List<News> listNews = new ArrayList<News>();
-	private Category categorie;
+	private Category category;
 
+	//constructeurs
+	public Feed(){
+		this.name = "";
+		this.url = "";
+		listNews = null;
+	}
+	
+	/**
+	 * @param name le nom du flux
+	 * @param url l'url du flux
+	 * @param entries la liste des news du flux
+	 */
+	public Feed(String name, String url, List<News> entries){
+		this.name = name;
+		this.url = url;
+		listNews = entries;
+	}
+	//accesseurs
 	public String getNom() {
-		return nom;
+		return name;
 	}
 	public String getUrl() {
 		return url;
@@ -32,14 +52,14 @@ public class Feed {
 		return listNews;
 	}
 	public Category getCategory() {
-		return categorie;
+		return category;
 	}
 	public int getId() {
 		return id;
 	}
 
-	public void setNom(String nom) {
-		this.nom = nom;
+	public void setName(String name) {
+		this.name = name;
 	}
 	public void setUrl(String url) {
 		this.url = url;
@@ -47,20 +67,11 @@ public class Feed {
 	public void setListNews(List<News> entrees) {
 		this.listNews = entrees;
 	}	
-	public void setCategory(Category categorie) {
-		this.categorie = categorie;
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
-	/**
-	 * @param nom : le nom du flux
-	 * @param url : l'url du flux
-	 * @param entrees : la liste des news du flux
-	 */
-	public Feed(String nom, String url, List<News> entrees){
-		this.nom = nom;
-		this.url = url;
-		listNews = entrees;
-	}
+
 }

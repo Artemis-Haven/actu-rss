@@ -13,27 +13,36 @@ import java.util.List;
  *   
  * @author Benjamin Ferre
  * @author David Boas
- * @version 0.4
+ * @version 0.5
  */
 public class Category {
+	
+	//variables de classe
 	private int id;
-	private String nom;
+	private String name;
 	private List<Feed> listFeed = new ArrayList<Feed>();
 	
-	public Category(int id, String nom)
-	{
-	
+	//constructeurs
+	public Category(){
+		this.id = 0;
+		this.name = "";
+		this.listFeed = null;
 	}
 	
-	public Category(String nom)
-	{
-		this.id = 1;
-		this.nom = nom;
+	/**
+	 * @param name le nom de la categorie
+	 * @param url l'url de la categorie
+	 * @param listFeed la liste des flux de la categorie
+	 */
+	public Category(int id, String name, List<Feed> listFeed){
+		this.id = id;
+		this.name = name;
+		this.listFeed = listFeed;
 	}
-	
 
-	public String getNom() {
-		return nom;
+	//accesseurs
+	public String getName() {
+		return name;
 	}
 	public List<Feed> getListFeed() {
 		return listFeed;
@@ -41,11 +50,11 @@ public class Category {
 	public int getId() {
 		return id;
 	}
-	public void setNom(String nom) {
-		this.nom = nom;
+	public void setName(String name) {
+		this.name = name;
 	}
-	public void setListFeed(List<Feed> entrees) {
-		listFeed = entrees;
+	public void setListFeed(List<Feed> entries) {
+		listFeed = entries;
 	}
 	public void setId(int id) {
 		this.id = id;
