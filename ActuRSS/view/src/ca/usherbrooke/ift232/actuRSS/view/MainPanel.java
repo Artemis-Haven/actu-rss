@@ -3,6 +3,7 @@ package ca.usherbrooke.ift232.actuRSS.view;
 import java.awt.BorderLayout;
 
 import javax.swing.JPanel;
+import javax.swing.JSplitPane;
 
 /**
  * Actu-RSS
@@ -25,6 +26,8 @@ public class MainPanel extends JPanel {
 	 *
 	 */
 	 public Toolbar toolbar;
+	 public TreeAndList treeandlist;
+	 JSplitPane splitPane;
 	 
 	/**
 	 * Constructeur
@@ -34,7 +37,12 @@ public class MainPanel extends JPanel {
 	 {
 		 this.setLayout(new BorderLayout());
 		 this.toolbar = new Toolbar();
+		 this.treeandlist = new TreeAndList();
 		 this.add(toolbar, BorderLayout.PAGE_START);
+		 splitPane = new JSplitPane();
+		 splitPane.setLeftComponent(treeandlist);
+		 splitPane.setRightComponent(new JPanel());
+		 this.add(splitPane);
 	 }
 	
 }

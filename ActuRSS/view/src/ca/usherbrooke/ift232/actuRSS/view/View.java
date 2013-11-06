@@ -41,7 +41,7 @@ public class View extends JFrame implements Observer {
 	 */
 	public View(Model model) {
 		// Utiliser le look and feel de l'OS utilisé
-		// si possible.
+	    //si possible.
 		try {
         UIManager.setLookAndFeel(
             UIManager.getSystemLookAndFeelClassName());
@@ -64,6 +64,7 @@ public class View extends JFrame implements Observer {
 	    
 	    // Ajouter le panel principal
 	    this.setContentPane(mainPanel);
+	    
 	}
 
 	/**

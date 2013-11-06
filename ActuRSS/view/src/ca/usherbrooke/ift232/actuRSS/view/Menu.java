@@ -35,11 +35,11 @@ public class Menu extends JMenuBar{
 		mnParametre.setAlignmentY(Component.TOP_ALIGNMENT);
 		mnParametre.setAlignmentX(Component.LEFT_ALIGNMENT);
 		mnParametre.setHorizontalTextPosition(SwingConstants.CENTER);
-		mnParametre.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-		mnParametre.setBorderPainted(true);
-		mnParametre.setBorder(new LineBorder(new Color(0, 0, 0), 1, false));
+		//mnParametre.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+		mnParametre.setBorderPainted(false);
+		//mnParametre.setBorder(new LineBorder(new Color(0, 0, 0), 1, false));
 		mnParametre.setHorizontalAlignment(SwingConstants.CENTER);
-		mnParametre.setIcon(new ImageIcon("D:\\Projet\\workspace\\ActuRSSvew\\src\\img\\properties.png"));
+		mnParametre.setIcon(new ImageIcon(getClass().getResource("/img/properties.png")));
 		
 		paraPreferency = new JMenuItem("Préférences");
 		mnParametre.add(paraPreferency);
