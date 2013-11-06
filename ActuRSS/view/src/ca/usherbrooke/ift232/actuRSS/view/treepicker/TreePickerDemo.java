@@ -48,7 +48,7 @@ public class TreePickerDemo {
 		
 		//================== Création des données de démonstration
 		
-		HashMap<Category, List<Source>> feedByCat = new HashMap<Category, List<Source>>();
+		final HashMap<Category, List<Source>> feedByCat = new HashMap<Category, List<Source>>();
 		
 		List<Source> sportSources = new ArrayList<Source>();
 		sportSources.add(new Source("SportSource1"));
@@ -58,20 +58,22 @@ public class TreePickerDemo {
 		sportSources.add(new Source("SportSource5"));
 		
 		feedByCat.put(new Category("Sport"), sportSources);
-		List<Source> financeSources = new ArrayList<Source>();
+		final List<Source> financeSources = new ArrayList<Source>();
 		financeSources.add(new Source("FinanceSource1"));
 		financeSources.add(new Source("FinanceSource2"));
 		feedByCat.put(new Category("Finance"), financeSources);
 		
 		//================== Ajout du composant à la fenêtre
 		
-		TreePicker tree = new TreePicker( feedByCat);
+		final TreePicker tree = new TreePicker( feedByCat, true);
 		tree.addSourceSelectedListener(new SourceSelectedListener(){
 
 			@Override
 			public void onSourceSelected(SourceSelectedEvent event) {
 				System.out.println("Vous avez sélectionné la source: " + event.getSelectedSource());
-				
+
+				financeSources.clear();
+				tree.refreshFeeds(feedByCat);
 			}
 			
 		});

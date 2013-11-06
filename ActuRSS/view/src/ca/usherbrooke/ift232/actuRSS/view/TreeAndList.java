@@ -47,7 +47,7 @@ public class TreeAndList extends JPanel{
 		
 		//================== Ajout du composant à la fenêtre
 		
-		TreePicker tree = new TreePicker( feedByCat);
+		TreePicker tree = new TreePicker( feedByCat, false);
 		listModel = new DefaultListModel<String>();
 		tree.addSourceSelectedListener(new SourceSelectedListener(){
 
