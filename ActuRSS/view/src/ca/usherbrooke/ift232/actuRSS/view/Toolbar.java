@@ -83,6 +83,8 @@ public class Toolbar extends JPanel {
 
 	private JToggleButton buildToggleButton(String path) {
 		JToggleButton btn = new JToggleButton(new ImageIcon(getClass().getResource(path)));
+		btn.setBorderPainted(false);
+		btn.setFocusPainted(true);
 		return btn;
 	}
 }
