@@ -16,10 +16,31 @@ import java.util.List;
  * @version 0.5
  */
 public class Category {
+	
+	//variables de classe
 	private int id;
 	private String name;
 	private List<Feed> listFeed = new ArrayList<Feed>();
+	
+	//constructeurs
+	public Category(){
+		this.id = 0;
+		this.name = "";
+		this.listFeed = null;
+	}
+	
+	/**
+	 * @param name le nom de la categorie
+	 * @param url l'url de la categorie
+	 * @param listFeed la liste des flux de la categorie
+	 */
+	public Category(int id, String name, List<Feed> listFeed){
+		this.id = id;
+		this.name = name;
+		this.listFeed = listFeed;
+	}
 
+	//accesseurs
 	public String getName() {
 		return name;
 	}

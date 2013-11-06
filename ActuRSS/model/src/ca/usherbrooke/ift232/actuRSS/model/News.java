@@ -1,6 +1,7 @@
 package ca.usherbrooke.ift232.actuRSS.model;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Actu-RSS
@@ -16,6 +17,8 @@ import java.util.Date;
  * @version 0.5
  */
 public class News {
+	
+	//variables de classe
 	private String title;
 	private String url;
 	private String author;
@@ -25,6 +28,40 @@ public class News {
 	private boolean favorite;
 	private Feed feed;
 
+	//constructeurs
+		public News(){
+			this.title = "";
+			this.url = "";
+			this.author = "";
+			this.date = null;
+			this.contents = "";
+			this.read = false;
+			this.favorite = false;
+			this.feed = null;
+		}
+		
+		/**
+		 * @param title le titre de la news
+		 * @param url l'url de la news
+		 * @param author l'auteur de la news
+		 * @param date la date de la news
+		 * @param contents le contenu de la news
+		 * @param read renseigne si la news a ete lue
+		 * @param favorite renseigne si la news a ete classee en favori
+		 */
+		public News(String title, String url, String author, Date date,
+				String contents, boolean read, boolean favorite, Feed feed) {
+			this.title = title;
+			this.url = url;
+			this.author = author;
+			this.date = date;
+			this.contents = contents;
+			this.read = read;
+			this.favorite = favorite;
+			this.feed = feed;
+		}
+		
+	//accesseurs
 	public String getTitle() {
 		return title;
 	}
@@ -75,6 +112,7 @@ public class News {
 		this.feed = feed;
 	}
 	
+	//methodes
 	@Override
 	public String toString() {
 	    return "News [title = " + title + ", contents = " + contents 

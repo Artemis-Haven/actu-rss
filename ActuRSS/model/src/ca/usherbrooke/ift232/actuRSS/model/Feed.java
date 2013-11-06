@@ -16,12 +16,32 @@ import java.util.List;
  * @version 0.5
  */
 public class Feed {
+	
+	//variables de classe
 	private int id;
 	private String name;
 	private String url;
 	private List<News> listNews = new ArrayList<News>();
 	private Category category;
 
+	//constructeurs
+	public Feed(){
+		this.name = "";
+		this.url = "";
+		listNews = null;
+	}
+	
+	/**
+	 * @param name le nom du flux
+	 * @param url l'url du flux
+	 * @param entries la liste des news du flux
+	 */
+	public Feed(String name, String url, List<News> entries){
+		this.name = name;
+		this.url = url;
+		listNews = entries;
+	}
+	//accesseurs
 	public String getNom() {
 		return name;
 	}
@@ -53,14 +73,5 @@ public class Feed {
 	public void setId(int id) {
 		this.id = id;
 	}
-	/**
-	 * @param nom : le nom du flux
-	 * @param url : l'url du flux
-	 * @param entrees : la liste des news du flux
-	 */
-	public Feed(String name, String url, List<News> entries){
-		this.name = name;
-		this.url = url;
-		listNews = entries;
-	}
+
 }
