@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -20,6 +21,7 @@ import ca.usherbrooke.ift232.actuRSS.view.treepicker.TreePicker;
 public class TreeAndList extends JPanel{
 	
 	JSplitPane splitPane;
+	DefaultListModel<String> listModel;
 	
 	public TreeAndList(){
 		
@@ -46,26 +48,29 @@ public class TreeAndList extends JPanel{
 		//================== Ajout du composant à la fenêtre
 		
 		TreePicker tree = new TreePicker( feedByCat);
-		JList lst = new JList();
-		lst.setPreferredSize(new Dimension(75,50));
-		lst.setMinimumSize(new Dimension(30,50));
-		
+		listModel = new DefaultListModel<String>();
 		tree.addSourceSelectedListener(new SourceSelectedListener(){
 
 			@Override
 			public void onSourceSelected(SourceSelectedEvent event) {
+				listModel.removeAllElements();
+				listModel.addElement("" + event.getSelectedSource());
 				System.out.println("Vous avez sélectionné la source: " + event.getSelectedSource());
 				
 			}
 			
 		});
 		
+		JList lst = new JList(listModel);
 		add(splitPane);
-		JScrollPane scrollPane = new JScrollPane(tree);
-		scrollPane.setMinimumSize(new Dimension(30,50));
-		scrollPane.setPreferredSize(new Dimension(75,50));
-		splitPane.setLeftComponent(scrollPane);
-		splitPane.setRightComponent(lst);
+		JScrollPane treescrollPane = new JScrollPane(tree);
+		treescrollPane.setMinimumSize(new Dimension(30,50));
+		treescrollPane.setPreferredSize(new Dimension(75,50));
+		JScrollPane listcrollPane = new JScrollPane(lst);
+		listcrollPane.setMinimumSize(new Dimension(75,50));
+		listcrollPane.setPreferredSize(new Dimension(120,50));
+		splitPane.setLeftComponent(treescrollPane);
+		splitPane.setRightComponent(listcrollPane);
 	}
 
 }

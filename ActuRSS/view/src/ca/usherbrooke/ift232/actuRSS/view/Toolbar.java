@@ -1,9 +1,14 @@
 package ca.usherbrooke.ift232.actuRSS.view;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.ComponentOrientation;
+import java.awt.Cursor;
+import java.awt.Dimension;
 
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
+import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
@@ -53,6 +58,11 @@ public class Toolbar extends JPanel {
 		buildButtonGroup();
 		
 		rightPanel = new JPanel();
+		rightPanel.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		rightPanel.setOpaque(false);
+		rightPanel.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+		rightPanel.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+		rightPanel.setSize(new Dimension(24, 24));
 		
 		readBtn = buildToggleButton("/img/read.png");
 		rightPanel.add(readBtn);
@@ -61,6 +71,13 @@ public class Toolbar extends JPanel {
 		rightPanel.add(favBtn);
 		
 		menuBtn = new Menu();
+		menuBtn.setMaximumSize(new Dimension(24, 24));
+		menuBtn.setRequestFocusEnabled(false);
+		menuBtn.setOpaque(false);
+		menuBtn.setIgnoreRepaint(true);
+		menuBtn.setBorderPainted(false);
+		menuBtn.setAlignmentY(Component.CENTER_ALIGNMENT);
+		menuBtn.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		rightPanel.add(menuBtn);
 
 		this.add(leftPanel, BorderLayout.WEST);
