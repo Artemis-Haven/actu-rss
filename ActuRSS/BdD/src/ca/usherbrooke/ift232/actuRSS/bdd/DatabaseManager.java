@@ -108,6 +108,10 @@ public class DatabaseManager {
 			e.printStackTrace();
 		}
 	}*/
+	
+	/**
+	 * CONVERTION DE LA bdd EN OBJET CATEGORY, FEED, NEWS
+	 */
 
     /**
      * 
@@ -117,16 +121,14 @@ public class DatabaseManager {
 		
 		ArrayList<Category> listCategory = new ArrayList<Category>();
 		Category category;
-		int id;
-		String name;
+		
 				
 		ResultSet resultat = db.getResultOf("SELECT * FROM Category;");
 		try {
 			while (resultat.next()) {
-				id = resultat.getInt("ID");
-				name = resultat.getString("Name");
 				
-				category = new Category(id, name);
+				category = new Category(resultat.getInt("ID"), resultat.getString("Name"));
+				listFeed = getFeedFromCatergory(category);
 				listCategory.add(category);
 			}
 		} catch (SQLException e) {
@@ -135,6 +137,7 @@ public class DatabaseManager {
 		}
 		return listCategory;
 	}
+	
 	
 	
 	

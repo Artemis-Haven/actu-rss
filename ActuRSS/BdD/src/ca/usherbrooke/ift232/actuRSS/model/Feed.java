@@ -22,7 +22,6 @@ public class Feed {
 	private String name;
 	private String url;
 	private List<News> listNews = new ArrayList<News>();
-	private Category category;
 
 	//constructeurs
 	public Feed(){
@@ -36,10 +35,18 @@ public class Feed {
 	 * @param url l'url du flux
 	 * @param entries la liste des news du flux
 	 */
-	public Feed(String name, String url, List<News> entries){
+	public Feed(int id, String name, String url, List<News> entries){
+		this.id = id;
 		this.name = name;
 		this.url = url;
 		listNews = entries;
+	}
+	
+	public Feed(int id, String name, String url){
+		this.id = id;
+		this.name = name;
+		this.url = url;
+		listNews = null;
 	}
 	//accesseurs
 	public String getNom() {

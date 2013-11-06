@@ -26,7 +26,6 @@ public class News {
 	private String contents;
 	private boolean read;
 	private boolean favorite;
-	private Feed feed;
 
 	//constructeurs
 		public News(){
