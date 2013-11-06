@@ -76,6 +76,11 @@ public class Toolbar extends JPanel {
 		btnGroup.add(allNewsBtn);
 		btnGroup.add(unreadNewsBtn);
 		btnGroup.add(favNewsBtn);
+
+		allNewsBtn.setFocusPainted(false);
+		unreadNewsBtn.setFocusPainted(false);
+		favNewsBtn.setFocusPainted(false);
+		
 		leftPanel.add(allNewsBtn, BorderLayout.WEST);
 		leftPanel.add(unreadNewsBtn, BorderLayout.WEST);
 		leftPanel.add(favNewsBtn, BorderLayout.WEST);
@@ -84,7 +89,7 @@ public class Toolbar extends JPanel {
 	private JToggleButton buildToggleButton(String path) {
 		JToggleButton btn = new JToggleButton(new ImageIcon(getClass().getResource(path)));
 		btn.setBorderPainted(false);
-		btn.setFocusPainted(true);
+		btn.setFocusPainted(false);
 		return btn;
 	}
 }
