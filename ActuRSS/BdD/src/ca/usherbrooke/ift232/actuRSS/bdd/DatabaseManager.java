@@ -1,9 +1,16 @@
 package ca.usherbrooke.ift232.actuRSS.bdd;
 
+import bdd.Database;
 import ca.usherbrooke.ift232.actuRSS.model.*;
 
-
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import model.Category;
+import model.Feed;
+import model.News;
 
 
 public class DatabaseManager {
@@ -24,28 +31,61 @@ public class DatabaseManager {
 		
 	}
 	
-	// CrÃ©e les tables Feed et News et Category
+	// Créé les tables Feed, News et Category
 		public void createDB() {
 			
-			db.updateValue("create table if not exists Category(ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, Nom  TEXT);");
-			db.updateValue("create table if not exists Feed(ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, URL TEXT, Nom TEXT, ID_Category INTEGER, FOREIGN KEY (ID_Category) REFERENCES Category(ID));");
-			db.updateValue("create table if not exists News(ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, Titre TEXT, URL TEXT, Auteur TEXT, Date_News NUMERIC, Contenu TEXT, Lu INTEGER, Favori INTEGER , ID_feed INTEGER, FOREIGN KEY (ID_feed) REFERENCES Feed(ID));");
+			//db.updateValue("create table if not exists Category(ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, Nom  TEXT);");
+			
+			db.updateValue("CREATE TABLE if not exists Feed("+
+								"ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL ,"+
+								"URL    TEXT ,"+
+								"Title  TEXT ,"+
+								"ID_Category  INTEGER ,"+
+								"FOREIGN KEY (ID_Category) REFERENCES Category(ID)"+
+							");"+
+							
+							"CREATE TABLE if not exists News("+
+								"URL        TEXT PRIMARY KEY NOT NULL ,"+
+								"Title      TEXT ,"+
+								"Author     TEXT ,"+
+								"Date_News  NUMERIC ,"+
+								"Contents   TEXT ,"+
+								"Read       INTEGER ,"+
+								"Favorite   INTEGER ,"+
+								"ID_Feed    INTEGER ,"+
+								"FOREIGN KEY (ID_Feed) REFERENCES Feed(ID)"+
+							");"+
+							
+							"CREATE TABLE if not exists Category("+
+							"	ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL ,"+
+							"	Name  TEXT )");
+			
+			
+			//db.updateValue("create table if not exists Feed(ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, URL TEXT, Nom TEXT, ID_Category INTEGER, FOREIGN KEY (ID_Category) REFERENCES Category(ID));");
+			//db.updateValue("create table if not exists News(ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, Titre TEXT, URL TEXT, Auteur TEXT, Date_News NUMERIC, Contenu TEXT, Lu INTEGER, Favori INTEGER , ID_feed INTEGER, FOREIGN KEY (ID_feed) REFERENCES Feed(ID));");
 			
 			
 		}
 	
-	public void insertCategory(String nom)
+	public void insertCategory(Category category)
 	{
-		String requete = "INSERT INTO Category (Nom) " +
-                "VALUES ('"+ nom +"');";
-		db.updateValue(requete);
+		try {
+            PreparedStatement prstmt = db.connection.prepareStatement("INSERT INTO Category (Name) VALUES(?)");
+            prstmt.setString(1, category.getName());
+            prstmt.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }/*
+		String requete = "INSERT INTO Category (Name) " +
+                "VALUES ('"+ category.getName() +"');";
+		db.updateValue(requete);*/
 	}
 	public void insertNews(String titre, String url, String auteur, Date date_News, String contenu, Boolean lu, Boolean favori, Feed feed)
 	{
 		//a coder
 	}
 	
-	public void insertFeed(String url, String nom, Category category)
+	/*public void insertFeed(String url, String nom, Category category)
 	{
 		String requete = "SELECT * FROM Category WHERE ID="+category.getId()+";";
 		ResultSet rs = db.getResultOf(requete);
@@ -58,7 +98,7 @@ public class DatabaseManager {
 			}
 			else
 			{
-				this.insertCategory(category.getNom());
+				this.insertCategory(category);
 				this.insertFeed(url, nom, category);
 			}
 			
@@ -67,7 +107,124 @@ public class DatabaseManager {
 			
 			e.printStackTrace();
 		}
+	}*/
+
+    /**
+     * 
+     * @return Une liste contenant toutes les catégories
+     */
+	public ArrayList<Category> getAllCategories() throws SQLException {
+		
+		ArrayList<Category> listCategory = new ArrayList<Category>();
+		Category category;
+		int id;
+		String name;
+				
+		ResultSet resultat = db.getResultOf("SELECT * FROM Category;");
+		try {
+			while (resultat.next()) {
+				id = resultat.getInt("ID");
+				name = resultat.getString("Name");
+				
+				category = new Category(id, name);
+				listCategory.add(category);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return listCategory;
 	}
+	
+	
+	
+    /**
+     * 
+     * @return Une liste contenant tout les flux
+     */
+	public ArrayList<Feed> getAllFeeds() throws SQLException {
+		
+		int id;
+		String title;
+		String url;
+		List<News> listNews = new ArrayList<News>();
+		int ID_category;
+		Category category;
+		
+		ResultSet resultat = db.getResultOf("SELECT * FROM feed;");
+		ArrayList<Feed> listFeed = new ArrayList<Feed>();
+		Feed feed;
+		try {
+			while (resultat.next()) {
+				id = resultat.getInt("ID");
+				title = resultat.getString("Title");
+				url = resultat.getString("Url");
+				feed = new Feed(id, title, url);
+				
+				listNews = this.getAllNewsFromFeed(feed);  
+				feed.setListNews(listNews);
+				
+				ID_category = resultat.getInt("ID_Category");
+				category = GetCategory(ID_category);
+				feed.setCategory(category);
+				listFeed.add(feed);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return listFeed;
+	}
+	
+	/**
+     * @param Identifiant de la catégorie à rechercher
+     * @return La liste de toutes les news correspondant à un flux
+     */
+    private Category GetCategory(int ID_category) {
+    	// à voir
+		return null;
+	}
+
+	/**
+     * 
+     * @return La liste de toutes les news correspondant à un flux
+     */
+		public ArrayList<News> getAllNewsFromFeed(Feed feed) throws SQLException {
+			ArrayList<News> list = new ArrayList<News>();
+			
+			int id;
+			String title;
+			String url;
+			String author;
+			Date date;
+			String contents;
+			boolean read;
+			boolean favorite;
+			
+			
+			PreparedStatement prstmt = db.connection.prepareStatement("SELECT * FROM news WHERE URL=?");
+			prstmt.setString(1, feed.getUrl());
+			ResultSet resultat = prstmt.executeQuery();
+			
+			News news;
+			while (resultat.next()) {
+				
+				url = resultat.getString(1);
+				title = resultat.getString(2);
+				author = resultat.getString(3);
+				date = resultat.getDate(4);
+				contents = resultat.getString(5);
+				read = (resultat.getInt(6) == 1);
+				favorite = (resultat.getInt(7) == 1);
+				
+				
+				news = new News(url, title, author, date, contents, read, favorite, feed);
+				list.add(news);
+			}
+			return list;
+		}
+	
+	/*
 	
 	public void deleteCategory(int id)
 	{
@@ -87,7 +244,7 @@ public class DatabaseManager {
 		db.updateValue(requete);
 	}
 	
-	
+	*/
 	public void returnCategory()
 	{
 		
@@ -96,7 +253,7 @@ public class DatabaseManager {
 	      try {
 			while ( rs.next() ) {
 			     int id = rs.getInt("ID");
-			     String  nom = rs.getString("Nom");
+			     String  nom = rs.getString("Name");
 			     System.out.println( "ID = " + id );
 			     System.out.println( "Nom = " + nom );
 			     System.out.println();

@@ -1,42 +1,72 @@
-package ca.usherbrooke.ift232.actuRSS.bdd;
-
+package bdd;
+import model.*;
 import static org.junit.Assert.*;
 
-import org.junit.After;
-import org.junit.Before;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
-
-import ca.usherbrooke.ift232.actuRSS.model.Category;
 
 public class DatabaseManagerTest {
 
-	@Before
-	public void setUp() throws Exception {
+	@BeforeClass
+	public static void setUpBeforeClass() throws Exception {
 		
 	}
 
-	@After
-	public void tearDown() throws Exception {
+	@AfterClass
+	public static void tearDownAfterClass() throws Exception {
+	}
+
+	@Test
+	public void testClearDB() {
+		/*Database db = new Database("RSS.db");
+		DatabaseManager dbManager = new DatabaseManager(db);
+		dbManager.clearDB();*/
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testCreateDB() {
+		Database db = new Database("RSS.db");
+		DatabaseManager dbManager = new DatabaseManager(db);
+		dbManager.createDB();
+	}
+
+	@Test
+	public void testInsertCategory() {
+		Database db = new Database("RSS.db");
+		DatabaseManager dbManager = new DatabaseManager(db);
+		dbManager.clearDB();
+		dbManager.createDB();
+		Category category = new Category("France");
+		dbManager.insertCategory(category);
+		dbManager.returnCategory();
 		
 	}
 
-	
+	@Test
+	public void testInsertNews() {
+		fail("Not yet implemented");
+	}
 
 	@Test
 	public void testInsertFeed() {
-		
-		DatabaseManager dbManager = new DatabaseManager(new Database("RSS.db"));
-		dbManager.connect();
-		/*Category cat = new Category("sport");*/
-		
-		dbManager.insertCategory("sport");
-		/*dbManager.insertFeed("url", "nom", cat);*/
-		dbManager.returnCategory();
-		System.out.println("Records created successfully");
-		
-		
+		fail("Not yet implemented");
 	}
 
-	
+	@Test
+	public void testDeleteCategory() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testConnect() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testDisconnect() {
+		fail("Not yet implemented");
+	}
 
 }
