@@ -1,7 +1,6 @@
 package ca.usherbrooke.ift232.actuRSS.model;
 
 import java.util.Date;
-import java.util.List;
 
 /**
  * Actu-RSS
@@ -36,7 +35,6 @@ public class News {
 			this.contents = "";
 			this.read = false;
 			this.favorite = false;
-			this.feed = null;
 		}
 		
 		/**
@@ -49,7 +47,7 @@ public class News {
 		 * @param favorite renseigne si la news a ete classee en favori
 		 */
 		public News(String title, String url, String author, Date date,
-				String contents, boolean read, boolean favorite, Feed feed) {
+				String contents, boolean read, boolean favorite) {
 			this.title = title;
 			this.url = url;
 			this.author = author;
@@ -57,7 +55,6 @@ public class News {
 			this.contents = contents;
 			this.read = read;
 			this.favorite = favorite;
-			this.feed = feed;
 		}
 		
 	//accesseurs
@@ -82,9 +79,7 @@ public class News {
 	public boolean isFavorite() {
 		return favorite;
 	}
-	public Feed getFeed() {
-		return feed;
-	}
+
 	
 	public void setTitle(String title) {
 		this.title = title;
@@ -106,9 +101,6 @@ public class News {
 	}
 	public void setFavorite(boolean favorite) {
 		this.favorite = favorite;
-	}
-	public void setFeed(Feed feed) {
-		this.feed = feed;
 	}
 	
 	//methodes

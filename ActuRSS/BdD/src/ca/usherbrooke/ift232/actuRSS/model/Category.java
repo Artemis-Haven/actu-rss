@@ -39,6 +39,12 @@ public class Category {
 		this.name = name;
 		this.listFeed = listFeed;
 	}
+	
+	public Category(int id, String name){
+		this.id = id;
+		this.name = name;
+		this.listFeed =  null;
+	}
 
 	//accesseurs
 	public String getName() {

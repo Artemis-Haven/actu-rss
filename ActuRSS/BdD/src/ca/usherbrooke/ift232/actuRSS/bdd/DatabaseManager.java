@@ -1,6 +1,6 @@
 package ca.usherbrooke.ift232.actuRSS.bdd;
 
-import News;
+
 import ca.usherbrooke.ift232.actuRSS.model.*;
 
 import java.sql.*;
@@ -8,9 +8,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import ca.usherbrooke.ift232.actuRSS.model.*;
 
-import model.*;
+
 
 
 
@@ -140,9 +139,7 @@ public class DatabaseManager {
 				
 				listFeed = getAllFeedFromCategory(category);
 
-				category = new Category(resultat.getInt("ID"), resultat.getString("Name"));
-				listFeed = getFeedFromCategory(category);
-				category.set
+				category.setListFeed(listFeed);
 
 				listCategory.add(category);
 			}
@@ -153,10 +150,6 @@ public class DatabaseManager {
 		return listCategory;
 	}
 	
-	
-	
-
-  
 
 	private ArrayList<Feed> getAllFeedFromCategory(Category category) {
 		
@@ -165,29 +158,61 @@ public class DatabaseManager {
 		
 		Feed feed;
 		
-		
-		PreparedStatement prstmt = db.connection.prepareStatement("SELECT * FROM Feed WHERE ID_Category=?");
-		prstmt.setInt(1, category.getId());
-		ResultSet result = prstmt.executeQuery();
-
-		while (resultat.next()) {
+		try {
+			PreparedStatement prstmt = db.connection.prepareStatement("SELECT * FROM Feed WHERE ID_Category=?");
+			prstmt.setInt(1, category.getId());
+			ResultSet result = prstmt.executeQuery();
 			
-			feed = new Feed(result.getInt("ID"), result.getString("Title"), result.getString("URL"));
-			listNews = getAllNewsFromFeed(feed);
-			feed.setListNews(listNews);
-			
-			list.add(feed);
+			while (result.next()) {
+				
+				feed = new Feed(result.getInt("ID"), result.getString("Title"), result.getString("URL"));
+				listNews = getAllNewsFromFeed(feed);
+				feed.setListNews(listNews);
+				
+				list.add(feed);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return list;
 		
-		return null;
 	}
+	
+
+	/**
+     * 
+     * @return La liste de toutes les news correspondant à un flux
+     */
+		private ArrayList<News> getAllNewsFromFeed(Feed feed) throws SQLException {
+			ArrayList<News> list = new ArrayList<News>();
+			
+			boolean read;
+			boolean favorite;
+			
+			
+			PreparedStatement prstmt = db.connection.prepareStatement("SELECT * FROM news WHERE URL=?");
+			prstmt.setString(1, feed.getUrl());
+			ResultSet resultat = prstmt.executeQuery();
+			
+			News news;
+			while (resultat.next()) {
+				
+				read = (resultat.getInt("Read") == 1);
+				favorite = (resultat.getInt("Favorite") == 1);
+				
+				
+				news = new News(resultat.getString("Title"), resultat.getString("URL"), resultat.getString("Author"), resultat.getDate("Date_News"), resultat.getString("Contents"), read, favorite);
+				list.add(news);
+			}
+			return list;
+		}
 
 	/**
      * 
      * @return Une liste contenant tout les flux
      */
-	public ArrayList<Feed> getAllFeeds() throws SQLException {
+	/*public ArrayList<Feed> getAllFeeds() throws SQLException {
 		
 		int id;
 		String title;
@@ -219,55 +244,9 @@ public class DatabaseManager {
 			e.printStackTrace();
 		}
 		return listFeed;
-	}
+	}*/
 	
-	/**
-     * @param Identifiant de la catégorie à rechercher
-     * @return La liste de toutes les news correspondant à un flux
-     */
-    private Category GetCategory(int ID_category) {
-    	// à voir
-		return null;
-	}
 
-	/**
-     * 
-     * @return La liste de toutes les news correspondant à un flux
-     */
-		public ArrayList<News> getAllNewsFromFeed(Feed feed) throws SQLException {
-			ArrayList<News> list = new ArrayList<News>();
-			
-			int id;
-			String title;
-			String url;
-			String author;
-			Date date;
-			String contents;
-			boolean read;
-			boolean favorite;
-			
-			
-			PreparedStatement prstmt = db.connection.prepareStatement("SELECT * FROM news WHERE URL=?");
-			prstmt.setString(1, feed.getUrl());
-			ResultSet resultat = prstmt.executeQuery();
-			
-			News news;
-			while (resultat.next()) {
-				
-				url = resultat.getString(1);
-				title = resultat.getString(2);
-				author = resultat.getString(3);
-				date = resultat.getDate(4);
-				contents = resultat.getString(5);
-				read = (resultat.getInt(6) == 1);
-				favorite = (resultat.getInt(7) == 1);
-				
-				
-				news = new News(url, title, author, date, contents, read, favorite, feed);
-				list.add(news);
-			}
-			return list;
-		}
 	
 	/*
 	

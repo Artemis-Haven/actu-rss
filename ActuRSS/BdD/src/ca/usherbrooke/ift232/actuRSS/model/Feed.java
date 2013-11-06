@@ -58,9 +58,6 @@ public class Feed {
 	public List<News> getListNews() {
 		return listNews;
 	}
-	public Category getCategory() {
-		return category;
-	}
 	public int getId() {
 		return id;
 	}
@@ -74,9 +71,7 @@ public class Feed {
 	public void setListNews(List<News> entrees) {
 		this.listNews = entrees;
 	}	
-	public void setCategory(Category category) {
-		this.category = category;
-	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
