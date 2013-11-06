@@ -10,6 +10,9 @@ import java.util.List;
 
 import ca.usherbrooke.ift232.actuRSS.model.*;
 
+import model.*;
+
+
 
 public class DatabaseManager {
 	
@@ -138,7 +141,8 @@ public class DatabaseManager {
 				listFeed = getAllFeedFromCategory(category);
 
 				category = new Category(resultat.getInt("ID"), resultat.getString("Name"));
-				listFeed = getFeedFromCatergory(category);
+				listFeed = getFeedFromCategory(category);
+				category.set
 
 				listCategory.add(category);
 			}
@@ -157,6 +161,8 @@ public class DatabaseManager {
 	private ArrayList<Feed> getAllFeedFromCategory(Category category) {
 		
 		ArrayList<Feed> list = new ArrayList<Feed>();
+		ArrayList<News> listNews = new ArrayList<News>();
+		
 		Feed feed;
 		
 		
@@ -166,12 +172,11 @@ public class DatabaseManager {
 
 		while (resultat.next()) {
 			
-
 			feed = new Feed(result.getInt("ID"), result.getString("Title"), result.getString("URL"));
+			listNews = getAllNewsFromFeed(feed);
+			feed.setListNews(listNews);
 			
-			
-			news = new News(url, title, author, date, contents, read, favorite, feed);
-			list.add(news);
+			list.add(feed);
 		}
 		return list;
 		
@@ -179,10 +184,6 @@ public class DatabaseManager {
 	}
 
 	/**
-=======
-	
-    /**
->>>>>>> .r146
      * 
      * @return Une liste contenant tout les flux
      */
