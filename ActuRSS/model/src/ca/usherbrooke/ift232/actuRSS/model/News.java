@@ -13,78 +13,71 @@ import java.util.Date;
  *   
  * @author Benjamin Ferre
  * @author David Boas
- * @version 0.4
+ * @version 0.5
  */
 public class News {
-	private int id;
-	private String titre;
+	private String title;
 	private String url;
-	private String auteur;
+	private String author;
 	private Date date;
-	private String contenu;
-	private boolean Lu;
-	private boolean Favori;
+	private String contents;
+	private boolean read;
+	private boolean favorite;
 	private Feed feed;
 
-	public String getTitre() {
-		return titre;
+	public String getTitle() {
+		return title;
 	}
 	public String getUrl() {
 		return url;
 	}
-	public String getAuteur() {
-		return auteur;
+	public String getAuthor() {
+		return author;
 	}
 	public Date getDate() {
 		return date;
 	}
-	public String getContenu() {
-		return contenu;
+	public String getContents() {
+		return contents;
 	}
-	public boolean isLu() {
-		return Lu;
+	public boolean isRead() {
+		return read;
 	}
-	public boolean isFavori() {
-		return Favori;
+	public boolean isFavorite() {
+		return favorite;
 	}
 	public Feed getFeed() {
 		return feed;
 	}
-	public int getId() {
-		return id;
-	}
 	
-	public void setTitre(String titre) {
-		this.titre = titre;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 	public void setUrl(String url) {
 		this.url = url;
 	}
-	public void setAuteur(String auteur) {
-		this.auteur = auteur;
+	public void setAuthor(String author) {
+		this.author = author;
 	}
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	public void setContenu(String contenu) {
-		this.contenu = contenu;
+	public void setContents(String contents) {
+		this.contents = contents;
 	}
-	public void setLu(boolean Lu) {
-		this.Lu = Lu;
+	public void setRead(boolean read) {
+		this.read = read;
 	}
-	public void setFavori(boolean Favori) {
-		this.Favori = Favori;
+	public void setFavorite(boolean favorite) {
+		this.favorite = favorite;
 	}
 	public void setFeed(Feed feed) {
 		this.feed = feed;
 	}
-	public void setId(int id) {
-		this.id = id;
-	}
 	
-
+	@Override
 	public String toString() {
-	    return "News [titre = " + titre + ", contenu = " + contenu 
-	    		+ ", url = " + url + ", auteur = " + auteur + ", date = " + date + "]";
+	    return "News [title = " + title + ", contents = " + contents 
+	    		+ ", url = " + url + ", author = " + author + ", date = " + date + "]";
 	}
 }

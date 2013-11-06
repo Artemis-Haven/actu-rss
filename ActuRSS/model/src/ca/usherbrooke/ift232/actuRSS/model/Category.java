@@ -13,15 +13,15 @@ import java.util.List;
  *   
  * @author Benjamin Ferre
  * @author David Boas
- * @version 0.4
+ * @version 0.5
  */
 public class Category {
 	private int id;
-	private String nom;
+	private String name;
 	private List<Feed> listFeed = new ArrayList<Feed>();
 
-	public String getNom() {
-		return nom;
+	public String getName() {
+		return name;
 	}
 	public List<Feed> getListFeed() {
 		return listFeed;
@@ -29,11 +29,11 @@ public class Category {
 	public int getId() {
 		return id;
 	}
-	public void setNom(String nom) {
-		this.nom = nom;
+	public void setName(String name) {
+		this.name = name;
 	}
-	public void setListFeed(List<Feed> entrees) {
-		listFeed = entrees;
+	public void setListFeed(List<Feed> entries) {
+		listFeed = entries;
 	}
 	public void setId(int id) {
 		this.id = id;
