@@ -1,6 +1,6 @@
 package ca.usherbrooke.ift232.actuRSS.bdd;
 
-import bdd.Database;
+import News;
 import ca.usherbrooke.ift232.actuRSS.model.*;
 
 import java.sql.*;
@@ -8,9 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import model.Category;
-import model.Feed;
-import model.News;
+import ca.usherbrooke.ift232.actuRSS.model.*;
 
 
 public class DatabaseManager {
@@ -108,10 +106,13 @@ public class DatabaseManager {
 			e.printStackTrace();
 		}
 	}*/
+
 	
 	/**
-	 * CONVERTION DE LA bdd EN OBJET CATEGORY, FEED, NEWS
+	 * Conversion de la BDD en Objet
 	 */
+
+	
 
     /**
      * 
@@ -121,14 +122,24 @@ public class DatabaseManager {
 		
 		ArrayList<Category> listCategory = new ArrayList<Category>();
 		Category category;
+
+		ArrayList<Feed> listFeed = new ArrayList<Feed>();
+
 		
+
 				
 		ResultSet resultat = db.getResultOf("SELECT * FROM Category;");
 		try {
 			while (resultat.next()) {
 				
+
+				category = new Category(resultat.getInt("ID"), resultat.getString("Name"));
+				
+				listFeed = getAllFeedFromCategory(category);
+
 				category = new Category(resultat.getInt("ID"), resultat.getString("Name"));
 				listFeed = getFeedFromCatergory(category);
+
 				listCategory.add(category);
 			}
 		} catch (SQLException e) {
@@ -140,8 +151,38 @@ public class DatabaseManager {
 	
 	
 	
+
+  
+
+	private ArrayList<Feed> getAllFeedFromCategory(Category category) {
+		
+		ArrayList<Feed> list = new ArrayList<Feed>();
+		Feed feed;
+		
+		
+		PreparedStatement prstmt = db.connection.prepareStatement("SELECT * FROM Feed WHERE ID_Category=?");
+		prstmt.setInt(1, category.getId());
+		ResultSet result = prstmt.executeQuery();
+
+		while (resultat.next()) {
+			
+
+			feed = new Feed(result.getInt("ID"), result.getString("Title"), result.getString("URL"));
+			
+			
+			news = new News(url, title, author, date, contents, read, favorite, feed);
+			list.add(news);
+		}
+		return list;
+		
+		return null;
+	}
+
+	/**
+=======
 	
     /**
+>>>>>>> .r146
      * 
      * @return Une liste contenant tout les flux
      */
