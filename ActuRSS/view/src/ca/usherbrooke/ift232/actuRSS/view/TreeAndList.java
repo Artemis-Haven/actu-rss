@@ -22,6 +22,7 @@ public class TreeAndList extends JPanel{
 	
 	JSplitPane splitPane;
 	DefaultListModel<String> listModel;
+	TreePicker tree;
 	
 	public TreeAndList(){
 		
@@ -47,15 +48,17 @@ public class TreeAndList extends JPanel{
 		
 		//================== Ajout du composant à la fenêtre
 		
-		TreePicker tree = new TreePicker( feedByCat, false);
+		tree = new TreePicker( feedByCat, false);
 		listModel = new DefaultListModel<String>();
 		tree.addSourceSelectedListener(new SourceSelectedListener(){
 
 			@Override
 			public void onSourceSelected(SourceSelectedEvent event) {
 				listModel.removeAllElements();
-				listModel.addElement("" + event.getSelectedSource());
-				System.out.println("Vous avez sélectionné la source: " + event.getSelectedSource());
+				for(int i = 0; i < tree.getSelectedSources().size();i++){
+					listModel.addElement("" + tree.getSelectedSources().get(i) + "\n testttt");
+					System.out.println("Vous avez sélectionné la source: " + tree.getSelectedSources().get(i));
+				}
 				
 			}
 			
