@@ -8,6 +8,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import model.Category;
+import model.Feed;
+import model.News;
+
 
 
 
@@ -67,23 +71,56 @@ public class DatabaseManager {
 			
 		}
 	
-	public void insertCategory(Category category)
-	{
-		try {
-            PreparedStatement prstmt = db.connection.prepareStatement("INSERT INTO Category (Name) VALUES(?)");
-            prstmt.setString(1, category.getName());
-            prstmt.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }/*
-		String requete = "INSERT INTO Category (Name) " +
-                "VALUES ('"+ category.getName() +"');";
-		db.updateValue(requete);*/
-	}
-	public void insertNews(String titre, String url, String auteur, Date date_News, String contenu, Boolean lu, Boolean favori, Feed feed)
-	{
-		//a coder
-	}
+		public void insertCategory(Category category)
+		{
+			try {
+	            PreparedStatement prstmt = db.connection.prepareStatement("INSERT INTO Category (Name) VALUES(?)");
+	            prstmt.setString(1, category.getName());
+	            prstmt.execute();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+		}
+		
+		
+		public void insertFeed(Feed feed, int ID_Category)
+		{
+			try {
+	            PreparedStatement prstmt = db.connection.prepareStatement("INSERT INTO Feed (Title, URL, ID_Category) VALUES(?, ?, ?)");
+	            prstmt.setString(1, feed.getTitle());
+	            prstmt.setString(2, feed.getUrl());
+	            prstmt.setInt(3, ID_Category);
+	            prstmt.execute();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+		}
+		
+		public void insertNews(News news, int ID_Feed)
+		{
+			int read = 0;
+			int favorite = 0;
+			
+			if (news.isRead())
+				read =1;
+			if (news.isFavorite())
+				favorite = 1;
+				
+			try {
+	            PreparedStatement prstmt = db.connection.prepareStatement("INSERT INTO News (URL, Title, Author, Date_News, Contents, Read, Favorite, ID_Feed) VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
+	            prstmt.setString(1, news.getUrl());
+	            prstmt.setString(2, news.getTitle());
+	            prstmt.setString(3, news.getAuthor());
+	            prstmt.setDate(4, (java.sql.Date) news.getDate());
+	            prstmt.setString(5, news.getContents());
+	            prstmt.setInt(6, read);
+	            prstmt.setInt(7, favorite);
+	            prstmt.setInt(8, ID_Feed);
+	            prstmt.execute();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+		}
 	
 	/*public void insertFeed(String url, String nom, Category category)
 	{
