@@ -1,11 +1,13 @@
 package ca.usherbrooke.ift232.actuRSS.view;
 
-import javax.swing.JPanel;
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
 
-public class NewsListPanel extends JPanel {
+public class NewsListPanel extends JList {
 
-	public NewsListPanel() {
-		
+	public NewsListPanel() {			
+		super(new DefaultListModel<String>());
+
 	}
 
 }

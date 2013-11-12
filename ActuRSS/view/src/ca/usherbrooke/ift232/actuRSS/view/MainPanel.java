@@ -8,12 +8,15 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.script.ScriptEngineManager;
+import javax.swing.DefaultListModel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 
 import ca.usherbrooke.ift232.actuRSS.model.Category;
 import ca.usherbrooke.ift232.actuRSS.model.Feed;
+import ca.usherbrooke.ift232.actuRSS.view.treepicker.FeedSelectedEvent;
+import ca.usherbrooke.ift232.actuRSS.view.treepicker.FeedSelectedListener;
 import ca.usherbrooke.ift232.actuRSS.view.treepicker.TreePicker;
 
 /**
@@ -121,6 +124,26 @@ public class MainPanel extends JPanel {
 		 mainSplitPane.setRightComponent(contentPanel);
 		 this.add(mainSplitPane, BorderLayout.CENTER);
 		 
+		 
+		 /*TODO A mettre dans le controleur*/
+		 feedTreePicker.addFeedSelectedListener(new FeedSelectedListener(){
+
+				@Override
+				public void onFeedSelected(FeedSelectedEvent event) {
+					
+					DefaultListModel<String> listModel = (DefaultListModel<String>) newsListPanel.getModel();					
+					listModel.removeAllElements();			
+				
+					for(int i = 0; i < feedTreePicker.getSelectedFeeds().size();i++){
+						listModel.addElement("" + feedTreePicker.getSelectedFeeds().get(i) + "\n testttt");
+						System.out.println("Vous avez sélectionné la source: " + feedTreePicker.getSelectedFeeds().get(i));
+					}
+					
+				}				
+				
+			});				 
+		 
+		 	 
 		 /*
 		 this.treeandlist = new TreeAndList();
 		 this.add(toolbar, BorderLayout.PAGE_START);
