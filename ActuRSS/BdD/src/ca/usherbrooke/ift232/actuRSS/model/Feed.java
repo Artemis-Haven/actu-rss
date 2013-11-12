@@ -1,4 +1,4 @@
-package ca.usherbrooke.ift232.actuRSS.model;
+package model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,45 +13,43 @@ import java.util.List;
  *   
  * @author Benjamin Ferre
  * @author David Boas
- * @version 0.5
+ * @version 0.4
  */
 public class Feed {
 	
 	//variables de classe
 	private int id;
-	private String name;
+	private String title;
 	private String url;
 	private List<News> listNews = new ArrayList<News>();
 
 	//constructeurs
 	public Feed(){
-		this.name = "";
+		this.title = "";
 		this.url = "";
 		listNews = null;
 	}
 	
 	/**
-	 * @param name le nom du flux
+	 * @param title le nom du flux
 	 * @param url l'url du flux
 	 * @param entries la liste des news du flux
 	 */
-	public Feed(int id, String name, String url, List<News> entries){
+	public Feed(int id, String title, String url, List<News> entries){
 		this.id = id;
-		this.name = name;
+		this.title = title;
 		this.url = url;
 		listNews = entries;
 	}
 	
-	public Feed(int id, String name, String url){
+	public Feed(int id, String title, String url){
 		this.id = id;
-		this.name = name;
+		this.title = title;
 		this.url = url;
 		listNews = null;
 	}
 	//accesseurs
-	public String getNom() {
-		return name;
-	}
+
 	public String getUrl() {
 		return url;
 	}
@@ -62,9 +60,7 @@ public class Feed {
 		return id;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
+
 	public void setUrl(String url) {
 		this.url = url;
 	}	
@@ -74,6 +70,14 @@ public class Feed {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 }

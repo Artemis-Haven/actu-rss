@@ -1,6 +1,7 @@
-package ca.usherbrooke.ift232.actuRSS.model;
+package model;
 
-import java.util.Date;
+import java.util.Calendar;
+
 
 /**
  * Actu-RSS
@@ -13,7 +14,7 @@ import java.util.Date;
  *   
  * @author Benjamin Ferre
  * @author David Boas
- * @version 0.5
+ * @version 0.4
  */
 public class News {
 	
@@ -21,7 +22,7 @@ public class News {
 	private String title;
 	private String url;
 	private String author;
-	private Date date;
+	private Calendar date;
 	private String contents;
 	private boolean read;
 	private boolean favorite;
@@ -46,7 +47,7 @@ public class News {
 		 * @param read renseigne si la news a ete lue
 		 * @param favorite renseigne si la news a ete classee en favori
 		 */
-		public News(String title, String url, String author, Date date,
+		public News(String title, String url, String author, Calendar date,
 				String contents, boolean read, boolean favorite) {
 			this.title = title;
 			this.url = url;
@@ -67,7 +68,7 @@ public class News {
 	public String getAuthor() {
 		return author;
 	}
-	public Date getDate() {
+	public Calendar getDate() {
 		return date;
 	}
 	public String getContents() {
@@ -90,7 +91,7 @@ public class News {
 	public void setAuthor(String author) {
 		this.author = author;
 	}
-	public void setDate(Date date) {
+	public void setDate(Calendar date) {
 		this.date = date;
 	}
 	public void setContents(String contents) {

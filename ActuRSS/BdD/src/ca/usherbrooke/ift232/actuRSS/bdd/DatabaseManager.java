@@ -1,16 +1,12 @@
-package ca.usherbrooke.ift232.actuRSS.bdd;
+package bdd;
 
 
-import ca.usherbrooke.ift232.actuRSS.model.*;
+import model.*;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
-
-import model.Category;
-import model.Feed;
-import model.News;
 
 
 public class DatabaseManager {
@@ -48,7 +44,7 @@ public class DatabaseManager {
 								"URL        TEXT PRIMARY KEY NOT NULL ,"+
 								"Title      TEXT ,"+
 								"Author     TEXT ,"+
-								"Date_News  NUMERIC ,"+
+								"Date_News  NUMERIC ,"+ //YYYY-MM-DD HH:MM:SS.SSS
 								"Contents   TEXT ,"+
 								"Read       INTEGER ,"+
 								"Favorite   INTEGER ,"+
@@ -66,94 +62,141 @@ public class DatabaseManager {
 			
 			
 		}
-	
-		
-		/**
-		 * Insére tout les objets du modèle dans la base de données
-		 * @param listCategory Liste à inserer dans la Base de données
-		 */
-		public void insertObjetToDB(ArrayList<Category> listCategory)
+	/**
+	 * Insére tout les objets du modèle dans la base de données
+	 * @param listCategory Liste à inserer dans la Base de données
+	 */
+	public void insertObjetToDB(ArrayList<Category> listCategory)
+	{
+
+		for(int i=0;i<listCategory.size();i++)
 		{
-			
-			for(int i=0;i<listCategory.size();i++)
-			{						
-				for(int j = 0; j < listCategory.get(i).getListFeed().size(); j++)
-				{
-					for(int k = 0; k < listCategory.get(i).getListFeed().get(j).getListNews().size(); k++)
-					{
-						insertNews(listCategory.get(i).getListFeed().get(j).getListNews().get(k), listCategory.get(i).getListFeed().get(j).getId());
-					}
-					insertFeed(listCategory.get(i).getListFeed().get(j), listCategory.get(i).getId());
-				}
-				insertCategory(listCategory.get(i));
-			}
-						
-		}
-		
-		
-		/**
-		 * Insére une catégorie dans la BDD
-		 * @param category Objet contenant la description de la catégorie à insérer
-		 */
-		public void insertCategory(Category category)
-		{
-			try {
-	            PreparedStatement prstmt = db.connection.prepareStatement("INSERT INTO Category (Name) VALUES(?)");
-	            prstmt.setString(1, category.getName());
-	            prstmt.execute();
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        }
-		}
-		
-		/**
-		 * Insére un flux dans la BDD
-		 * @param feed Objet contenant la description du flux à insérer
-		 * @param ID_Category Identifiant de la catégorie correspondant au flux
-		 */
-		public void insertFeed(Feed feed, int ID_Category)
-		{
-			try {
-	            PreparedStatement prstmt = db.connection.prepareStatement("INSERT INTO Feed (Title, URL, ID_Category) VALUES(?, ?, ?)");
-	            prstmt.setString(1, feed.getTitle());
-	            prstmt.setString(2, feed.getUrl());
-	            prstmt.setInt(3, ID_Category);
-	            prstmt.execute();
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        }
-		}
-		
-		/**
-		 * Insére une news dans la BDD
-		 * @param News Objet contenant la description de la news à insérer
-		 * @param ID_Feed Identifiant du flux correspondant à la news
-		 */
-		public void insertNews(News news, int ID_Feed)
-		{
-			int read = 0;
-			int favorite = 0;
-			
-			if (news.isRead())
-				read =1;
-			if (news.isFavorite())
-				favorite = 1;
+					
+			for(int j = 0; j < listCategory.get(i).getListFeed().size(); j++)
+			{
 				
-			try {
-	            PreparedStatement prstmt = db.connection.prepareStatement("INSERT INTO News (URL, Title, Author, Date_News, Contents, Read, Favorite, ID_Feed) VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
-	            prstmt.setString(1, news.getUrl());
-	            prstmt.setString(2, news.getTitle());
-	            prstmt.setString(3, news.getAuthor());
-	            prstmt.setDate(4, (java.sql.Date) news.getDate());
-	            prstmt.setString(5, news.getContents());
-	            prstmt.setInt(6, read);
-	            prstmt.setInt(7, favorite);
-	            prstmt.setInt(8, ID_Feed);
-	            prstmt.execute();
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        }
+				
+				for(int k = 0; k < listCategory.get(i).getListFeed().get(j).getListNews().size(); k++)
+				{
+					
+					insertNews(listCategory.get(i).getListFeed().get(j).getListNews().get(k), listCategory.get(i).getListFeed().get(j).getId());
+					
+				}
+				insertFeed(listCategory.get(i).getListFeed().get(j), listCategory.get(i).getId());
+			}
+			
+			insertCategory(listCategory.get(i));
+			
 		}
+			
+			
+	}
+	/**
+	 * Insére une catégorie dans la BDD
+	 * @param category Objet contenant la description de la catégorie à insérer
+	 */
+	
+	public void insertCategory(Category category)
+	{
+		try {
+            PreparedStatement prstmt = db.connection.prepareStatement("INSERT INTO Category (Name) VALUES(?)");
+            prstmt.setString(1, category.getName());
+            prstmt.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+	}
+	
+	/**
+	 * Insére un flux dans la BDD
+	 * @param feed Objet contenant la description du flux à insérer
+	 * @param ID_Category Identifiant de la catégorie correspondant au flux
+	 */
+	
+	public void insertFeed(Feed feed, int ID_Category)
+	{
+		try {
+            PreparedStatement prstmt = db.connection.prepareStatement("INSERT INTO Feed (Title, URL, ID_Category) VALUES(?, ?, ?)");
+            prstmt.setString(1, feed.getTitle());
+            prstmt.setString(2, feed.getUrl());
+            prstmt.setInt(3, ID_Category);
+            prstmt.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+	}
+	
+	/**
+	 * Insére une news dans la BDD
+	 * @param News Objet contenant la description de la news à insérer
+	 * @param ID_Feed Identifiant du flux correspondant à la news
+	 */
+	public void insertNews(News news, int ID_Feed)
+	{
+		int read = 0;
+		int favorite = 0;
+		String date = ConvertCalendarToString(news.getDate());
+		if (news.isRead())
+			read =1;
+		if (news.isFavorite())
+			favorite = 1;
+		try {
+            PreparedStatement prstmt = db.connection.prepareStatement("INSERT INTO News (URL, Title, Author, Date_News, Contents, Read, Favorite, ID_Feed) VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
+            prstmt.setString(1, news.getUrl());
+            prstmt.setString(2, news.getTitle());
+            prstmt.setString(3, news.getAuthor());
+            prstmt.setString(4, date); 
+            prstmt.setString(5, news.getContents());
+            prstmt.setInt(6, read);
+            prstmt.setInt(7, favorite);
+            prstmt.setInt(8, ID_Feed);
+            prstmt.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+	}
+	/**
+	 * 
+	 * @param date Date à convertir
+	 * @return La date en chaine de caractères
+	 */
+
+	private String ConvertCalendarToString(Calendar date) {
+		StringBuffer dateToReturn = null;
+		
+		/* Partie Date  **************************************/
+		dateToReturn.append(date.get(Calendar.YEAR));
+		dateToReturn.append("-");
+		String month = null;
+	      int mo = date.get(Calendar.MONTH) + 1;
+	      if(mo < 10) {
+	        month = "0" + mo;
+	      }
+	      else {
+	        month = "" + mo;
+	      }
+	      dateToReturn.append(month);      
+	      
+	      dateToReturn.append("-");
+	      
+	      String day = null;
+	      int dt = date.get(Calendar.DATE);
+	      if(dt < 10) {
+	        day = "0" + dt;
+	      }
+	      else {
+	        day = "" + dt;
+	      }
+	      dateToReturn.append(" ");
+	      /* Partie Heure ************************************/
+	      dateToReturn.append(date.get(Calendar.HOUR_OF_DAY));
+	      dateToReturn.append(":");
+	      dateToReturn.append(date.get(Calendar.MINUTE));
+	      dateToReturn.append(":");
+	      dateToReturn.append(date.get(Calendar.SECOND));
+		
+		return dateToReturn.toString();
+	}
 	
 	/*public void insertFeed(String url, String nom, Category category)
 	{
@@ -270,9 +313,10 @@ public class DatabaseManager {
 				
 				read = (resultat.getInt("Read") == 1);
 				favorite = (resultat.getInt("Favorite") == 1);
+				Calendar date = Calendar.getInstance();
+				date.setTime(resultat.getDate("Date_News"));
 				
-				
-				news = new News(resultat.getString("Title"), resultat.getString("URL"), resultat.getString("Author"), resultat.getDate("Date_News"), resultat.getString("Contents"), read, favorite);
+				news = new News(resultat.getString("Title"), resultat.getString("URL"), resultat.getString("Author"), date, resultat.getString("Contents"), read, favorite);
 				list.add(news);
 			}
 			return list;

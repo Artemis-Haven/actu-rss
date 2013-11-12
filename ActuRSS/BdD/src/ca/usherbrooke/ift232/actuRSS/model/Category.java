@@ -1,4 +1,6 @@
-package ca.usherbrooke.ift232.actuRSS.model;
+package model;
+
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +15,7 @@ import java.util.List;
  *   
  * @author Benjamin Ferre
  * @author David Boas
- * @version 0.5
+ * @version 0.4
  */
 public class Category {
 	
