@@ -103,8 +103,8 @@ public class TreePickerDemo {
 			public void onSourceSelected(FeedSelectedEvent event) {
 				System.out.println("Vous avez sélectionné la source: " + event.getSelectedSource());
 
-				financeSources.clear();
-				tree.refreshFeeds(cats);
+				//financeSources.clear();
+				//tree.refreshFeeds(cats);
 			}
 			
 		});
