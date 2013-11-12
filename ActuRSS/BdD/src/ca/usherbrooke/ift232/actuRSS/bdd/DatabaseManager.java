@@ -10,14 +10,25 @@ import java.util.Calendar;
 
 public class DatabaseManager {
 	
+	/**
+	 * Variable privée
+	 */
 	private Database db;
 
+	
+	/**
+	 * Constructeur 
+	 * @param db : classe dataBase
+	 */
 	public DatabaseManager(Database db) {
 		this.db = db;
 		connect();
 	}
 	
-	// Efface toute la DB
+	
+	/**
+	 * Permet d'effacer la base de donnée existante.
+	 */
 	public void clearDB() {
 		
 		db.updateValue("drop table if exists News");
@@ -26,41 +37,38 @@ public class DatabaseManager {
 		
 	}
 	
-	// Créé les tables Feed, News et Category
-		public void createDB() {
-			
-			//db.updateValue("create table if not exists Category(ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, Nom  TEXT);");
-			
-			db.updateValue("CREATE TABLE if not exists Feed("+
-								"ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL ,"+
-								"URL    TEXT ,"+
-								"Title  TEXT ,"+
-								"ID_Category  INTEGER ,"+
-								"FOREIGN KEY (ID_Category) REFERENCES Category(ID)"+
-							");"+
-							
+	
+	/**
+	 * Créé les tables Feed, News et Category
+	 */
+	public void createDB() {
+
+		db.updateValue("CREATE TABLE if not exists Feed("+
+				"ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL ,"+
+				"URL    TEXT ,"+
+				"Title  TEXT ,"+
+				"ID_Category  INTEGER ,"+
+				"FOREIGN KEY (ID_Category) REFERENCES Category(ID)"+
+				");"+
+
 							"CREATE TABLE if not exists News("+
-								"URL        TEXT PRIMARY KEY NOT NULL ,"+
-								"Title      TEXT ,"+
-								"Author     TEXT ,"+
-								"Date_News  NUMERIC ,"+ //YYYY-MM-DD HH:MM:SS.SSS
-								"Contents   TEXT ,"+
-								"Read       INTEGER ,"+
-								"Favorite   INTEGER ,"+
-								"ID_Feed    INTEGER ,"+
-								"FOREIGN KEY (ID_Feed) REFERENCES Feed(ID)"+
+							"URL        TEXT PRIMARY KEY NOT NULL ,"+
+							"Title      TEXT ,"+
+							"Author     TEXT ,"+
+							"Date_News  TEXT ,"+ //YYYY-MM-DD HH:MM:SS.SSS
+							"Contents   TEXT ,"+
+							"Read       INTEGER ,"+
+							"Favorite   INTEGER ,"+
+							"ID_Feed    INTEGER ,"+
+							"FOREIGN KEY (ID_Feed) REFERENCES Feed(ID)"+
 							");"+
-							
+
 							"CREATE TABLE if not exists Category("+
 							"	ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL ,"+
-							"	Name  TEXT )");
-			
-			
-			//db.updateValue("create table if not exists Feed(ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, URL TEXT, Nom TEXT, ID_Category INTEGER, FOREIGN KEY (ID_Category) REFERENCES Category(ID));");
-			//db.updateValue("create table if not exists News(ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, Titre TEXT, URL TEXT, Auteur TEXT, Date_News NUMERIC, Contenu TEXT, Lu INTEGER, Favori INTEGER , ID_feed INTEGER, FOREIGN KEY (ID_feed) REFERENCES Feed(ID));");
-			
-			
-		}
+				"	Name  TEXT )");
+	}
+	
+	
 	/**
 	 * Insére tout les objets du modèle dans la base de données
 	 * @param listCategory Liste à inserer dans la Base de données
@@ -90,6 +98,8 @@ public class DatabaseManager {
 			
 			
 	}
+	
+	
 	/**
 	 * Insére une catégorie dans la BDD
 	 * @param category Objet contenant la description de la catégorie à insérer
@@ -106,12 +116,12 @@ public class DatabaseManager {
         }
 	}
 	
+	
 	/**
 	 * Insére un flux dans la BDD
 	 * @param feed Objet contenant la description du flux à insérer
 	 * @param ID_Category Identifiant de la catégorie correspondant au flux
 	 */
-	
 	public void insertFeed(Feed feed, int ID_Category)
 	{
 		try {
@@ -124,6 +134,7 @@ public class DatabaseManager {
             e.printStackTrace();
         }
 	}
+	
 	
 	/**
 	 * Insére une news dans la BDD
@@ -154,12 +165,13 @@ public class DatabaseManager {
             e.printStackTrace();
         }
 	}
+	
+	
 	/**
 	 * 
 	 * @param date Date à convertir
 	 * @return La date en chaine de caractères
 	 */
-
 	private String ConvertCalendarToString(Calendar date) {
 		StringBuffer dateToReturn = null;
 		
@@ -197,36 +209,26 @@ public class DatabaseManager {
 		return dateToReturn.toString();
 	}
 	
-	public void insertFeed(String url, String nom, Category category)
+	private Calendar convertStringToCalendar(String date)
 	{
-		/*String requete = "SELECT * FROM Category WHERE ID="+category.getId()+";";
-		ResultSet rs = db.getResultOf(requete);
-		try {
-			if(rs.next())
-			{
-				String requeteInsert = "INSERT INTO Feed (Url, Nom, ID_Category) " +
-		                "VALUES ('"+ url +"', '"+ nom +"', "+ category.getId() +");";
-				db.updateValue(requeteInsert);
-			}
-			else
-			{
-				this.insertCategory(category);
-				this.insertFeed(url, nom, category);
-			}
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			
-			e.printStackTrace();
-		}*/
+		//YYYY-MM-DD HH:MM:SS.SSS
+		Calendar calendar = Calendar.getInstance();
+		
+		int year = Integer.parseInt(date.substring(0, 3));
+		int month = Integer.parseInt(date.substring(4, 5));
+		int day = Integer.parseInt(date.substring(6, 7));
+		int hourOfDay = Integer.parseInt(date.substring(9, 10));
+		int minute = Integer.parseInt(date.substring(11, 12));
+		int second = Integer.parseInt(date.substring(13, 14));
+		
+ 		calendar.set(year, month, day, hourOfDay, minute, second);
+		
+		return calendar;
 	}
-
 	
 	/**
 	 * Conversion de la BDD en Objet
 	 */
-
-	
 
     /**
      * 
@@ -263,6 +265,11 @@ public class DatabaseManager {
 	}
 	
 
+	/**
+	 * 
+	 * @param category : Objet Category
+	 * @return une liste de Feed
+	 */
 	private ArrayList<Feed> getAllFeedFromCategory(Category category) {
 		
 		ArrayList<Feed> list = new ArrayList<Feed>();
@@ -293,14 +300,15 @@ public class DatabaseManager {
 	
 
 	/**
-     * 
+     * @param feed Objet Feed
      * @return La liste de toutes les news correspondant à un flux
      */
-		private ArrayList<News> getAllNewsFromFeed(Feed feed) throws SQLException {
+	private ArrayList<News> getAllNewsFromFeed(Feed feed) throws SQLException {
 			ArrayList<News> list = new ArrayList<News>();
 			
 			boolean read;
 			boolean favorite;
+			Calendar date;
 			
 			
 			PreparedStatement prstmt = db.connection.prepareStatement("SELECT * FROM news WHERE URL=?");
@@ -312,8 +320,9 @@ public class DatabaseManager {
 				
 				read = (resultat.getInt("Read") == 1);
 				favorite = (resultat.getInt("Favorite") == 1);
-				Calendar date = Calendar.getInstance();
-				date.setTime(resultat.getDate("Date_News"));
+				date = convertStringToCalendar(resultat.getString("Date_News"));
+				
+				
 				
 				news = new News(resultat.getString("Title"), resultat.getString("URL"), resultat.getString("Author"), date, resultat.getString("Contents"), read, favorite);
 				list.add(news);
