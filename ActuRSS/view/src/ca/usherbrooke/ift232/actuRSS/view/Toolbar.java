@@ -8,6 +8,7 @@ import java.awt.Dimension;
 
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
@@ -34,7 +35,7 @@ public class Toolbar extends JPanel {
 	private JToggleButton allNewsBtn;
 	private JToggleButton unreadNewsBtn;
 	private JToggleButton favNewsBtn;
-	private JToggleButton syncBtn;
+	private JButton syncBtn;
 	private JToggleButton readBtn;
 	private JToggleButton favBtn;
 	private ButtonGroup btnGroup;
@@ -52,7 +53,9 @@ public class Toolbar extends JPanel {
 		
 		leftPanel = new JPanel();
 		
-		syncBtn = buildToggleButton("/img/sync.png");
+		syncBtn = new JButton(new ImageIcon(getClass().getResource("/img/sync.png")));
+		syncBtn.setBorderPainted(false);
+		syncBtn.setFocusPainted(false);
 		leftPanel.add(syncBtn);
 
 		buildButtonGroup();
