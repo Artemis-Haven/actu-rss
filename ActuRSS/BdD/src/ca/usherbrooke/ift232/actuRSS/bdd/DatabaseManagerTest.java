@@ -1,4 +1,4 @@
-package bdd;
+package ca.usherbrooke.ift232.actuRSS.bdd;
 
 import static org.junit.Assert.*;
 
@@ -11,9 +11,7 @@ import java.util.ArrayList;
 
 import java.util.Calendar;
 
-import model.Category;
-import model.Feed;
-import model.News;
+import ca.usherbrooke.ift232.actuRSS.model.*;
 
 import org.junit.After;
 import org.junit.AfterClass;

@@ -1,12 +1,11 @@
-package bdd;
+package ca.usherbrooke.ift232.actuRSS.bdd;
 
 
-import model.*;
+import ca.usherbrooke.ift232.actuRSS.model.*;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 
 public class DatabaseManager {
@@ -198,9 +197,9 @@ public class DatabaseManager {
 		return dateToReturn.toString();
 	}
 	
-	/*public void insertFeed(String url, String nom, Category category)
+	public void insertFeed(String url, String nom, Category category)
 	{
-		String requete = "SELECT * FROM Category WHERE ID="+category.getId()+";";
+		/*String requete = "SELECT * FROM Category WHERE ID="+category.getId()+";";
 		ResultSet rs = db.getResultOf(requete);
 		try {
 			if(rs.next())
@@ -219,8 +218,8 @@ public class DatabaseManager {
 			// TODO Auto-generated catch block
 			
 			e.printStackTrace();
-		}
-	}*/
+		}*/
+	}
 
 	
 	/**
