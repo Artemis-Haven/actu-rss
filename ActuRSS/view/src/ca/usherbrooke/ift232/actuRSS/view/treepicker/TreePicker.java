@@ -1,7 +1,6 @@
 package ca.usherbrooke.ift232.actuRSS.view.treepicker;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.JTree;
@@ -12,7 +11,6 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
-import javax.xml.transform.Source;
 
 import ca.usherbrooke.ift232.actuRSS.model.Category;
 import ca.usherbrooke.ift232.actuRSS.model.Feed;
@@ -37,7 +35,7 @@ public class TreePicker extends JTree {
 						.getPath().getLastPathComponent();
 				Object obj = node.getUserObject();
 				if (obj instanceof Feed)
-					fireSourceSelectedEvent(new FeedSelectedEvent(this,
+					fireFeedSelectedEvent(new FeedSelectedEvent(this,
 							(Feed) obj));
 			}
 
@@ -92,8 +90,8 @@ public class TreePicker extends JTree {
 	 * 
 	 * @return Liste des source sélectionnées
 	 */
-	public List<Source> getSelectedSources() {
-		List<Source> sourcesSelected = new ArrayList<Source>();
+	public List<Feed> getSelectedFeeds() {
+		List<Feed> feedSelected = new ArrayList<Feed>();
 
 		TreePath[] selectedPaths = this.getSelectionPaths();
 
@@ -101,11 +99,11 @@ public class TreePicker extends JTree {
 			for (TreePath path : selectedPaths) {
 				DefaultMutableTreeNode node = (DefaultMutableTreeNode) path
 						.getLastPathComponent();
-				sourcesSelected.add((Source) node.getUserObject());
+				feedSelected.add((Feed) node.getUserObject());
 			}
 		}
 
-		return sourcesSelected;
+		return feedSelected;
 
 	}
 
@@ -113,19 +111,19 @@ public class TreePicker extends JTree {
 
 	private final EventListenerList listenerList = new EventListenerList();
 
-	public void addSourceSelectedListener(
-			FeedSelectedListener sourceSelectedListener) {
-		listenerList.add(FeedSelectedListener.class, sourceSelectedListener);
+	public void addFeedSelectedListener(
+			FeedSelectedListener feedSelectedListener) {
+		listenerList.add(FeedSelectedListener.class, feedSelectedListener);
 	}
 
-	public void removeSourceSelectedListener(FeedSelectedListener l) {
+	public void removeFeedSelectedListener(FeedSelectedListener l) {
 		listenerList.remove(FeedSelectedListener.class, l);
 	}
 
-	protected void fireSourceSelectedEvent(FeedSelectedEvent event) {
+	protected void fireFeedSelectedEvent(FeedSelectedEvent event) {
 		for (FeedSelectedListener l : listenerList
 				.getListeners(FeedSelectedListener.class)) {
-			l.onSourceSelected(event);
+			l.onFeedSelected(event);
 		}
 	}
 

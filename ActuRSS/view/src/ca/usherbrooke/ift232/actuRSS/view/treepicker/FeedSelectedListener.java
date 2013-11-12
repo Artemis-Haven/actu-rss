@@ -4,5 +4,5 @@ import java.util.EventListener;
 
 public interface FeedSelectedListener extends EventListener
 {
-	public void onSourceSelected(FeedSelectedEvent event);
+	public void onFeedSelected(FeedSelectedEvent event);
 }

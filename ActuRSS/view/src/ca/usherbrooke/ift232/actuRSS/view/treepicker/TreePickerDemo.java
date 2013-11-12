@@ -97,10 +97,10 @@ public class TreePickerDemo {
 		//================== Ajout du composant à la fenêtre
 		
 		final TreePicker tree = new TreePicker( cats, true);
-		tree.addSourceSelectedListener(new FeedSelectedListener(){
+		tree.addFeedSelectedListener(new FeedSelectedListener(){
 
 			@Override
-			public void onSourceSelected(FeedSelectedEvent event) {
+			public void onFeedSelected(FeedSelectedEvent event) {
 				System.out.println("Vous avez sélectionné la source: " + event.getSelectedSource());
 
 				//financeSources.clear();
