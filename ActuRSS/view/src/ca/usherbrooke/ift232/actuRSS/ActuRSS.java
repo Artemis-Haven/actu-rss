@@ -26,7 +26,6 @@ public class ActuRSS {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		System.out.println("Hello Moustache");
 		
 		Model model = new Model();
 		View view  = new View(model);
