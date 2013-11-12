@@ -13,10 +13,6 @@ import model.Feed;
 import model.News;
 
 
-
-
-
-
 public class DatabaseManager {
 	
 	private Database db;
@@ -71,6 +67,42 @@ public class DatabaseManager {
 			
 		}
 	
+		
+		/**
+		 * Insére tout les objets du modèle dans la base de données
+		 * @param listCategory Liste à inserer dans la Base de données
+		 */
+		public void insertObjetToDB(ArrayList<Category> listCategory)
+		{
+
+			for(int i=0;i<listCategory.size();i++)
+			{
+						
+				for(int j = 0; j < listCategory.get(i).getListFeed().size(); j++)
+				{
+					
+					
+					for(int k = 0; k < listCategory.get(i).getListFeed().get(j).getListNews().size(); k++)
+					{
+						
+						insertNews(listCategory.get(i).getListFeed().get(j).getListNews().get(k), listCategory.get(i).getListFeed().get(j).getId());
+						
+					}
+					insertFeed(listCategory.get(i).getListFeed().get(j), listCategory.get(i).getId());
+				}
+				
+				insertCategory(listCategory.get(i));
+				
+			}
+				
+				
+		}
+		
+		
+		/**
+		 * Insére une catégorie dans la BDD
+		 * @param category Objet contenant la description de la catégorie à insérer
+		 */
 		public void insertCategory(Category category)
 		{
 			try {
@@ -82,7 +114,11 @@ public class DatabaseManager {
 	        }
 		}
 		
-		
+		/**
+		 * Insére un flux dans la BDD
+		 * @param feed Objet contenant la description du flux à insérer
+		 * @param ID_Category Identifiant de la catégorie correspondant au flux
+		 */
 		public void insertFeed(Feed feed, int ID_Category)
 		{
 			try {
@@ -96,6 +132,11 @@ public class DatabaseManager {
 	        }
 		}
 		
+		/**
+		 * Insére une news dans la BDD
+		 * @param News Objet contenant la description de la news à insérer
+		 * @param ID_Feed Identifiant du flux correspondant à la news
+		 */
 		public void insertNews(News news, int ID_Feed)
 		{
 			int read = 0;
