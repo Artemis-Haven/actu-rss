@@ -7,9 +7,10 @@ import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
+import javax.xml.transform.Source;
 
-import ca.usherbrooke.ift232.actuRSS.common.Category;
-import ca.usherbrooke.ift232.actuRSS.common.Source;
+import ca.usherbrooke.ift232.actuRSS.model.Category;
+import ca.usherbrooke.ift232.actuRSS.model.Feed;
 
 public class TreePickerDemo {
 
@@ -48,32 +49,62 @@ public class TreePickerDemo {
 		
 		//================== Création des données de démonstration
 		
-		final HashMap<Category, List<Source>> feedByCat = new HashMap<Category, List<Source>>();
+		Category sportCat = new Category();
 		
-		List<Source> sportSources = new ArrayList<Source>();
-		sportSources.add(new Source("SportSource1"));
-		sportSources.add(new Source("SportSource2"));
-		sportSources.add(new Source("SportSource3"));
-		sportSources.add(new Source("SportSource4"));
-		sportSources.add(new Source("SportSource5"));
+		sportCat.setName("Sport");
 		
-		feedByCat.put(new Category("Sport"), sportSources);
-		final List<Source> financeSources = new ArrayList<Source>();
-		financeSources.add(new Source("FinanceSource1"));
-		financeSources.add(new Source("FinanceSource2"));
-		feedByCat.put(new Category("Finance"), financeSources);
+		final List<Category> cats = new ArrayList<Category>();
+		
+		List<Feed> sportSources = new ArrayList<Feed>();
+		
+		Feed sportSource1 = new Feed();
+		sportSource1.setName("sportSource1");
+		Feed sportSource2 = new Feed();
+		sportSource1.setName("sportSource1");
+		Feed sportSource3 = new Feed();
+		sportSource1.setName("sportSource1");
+		Feed sportSource4 = new Feed();
+		sportSource1.setName("sportSource4");
+		sportCat.setListFeed(sportSources);
+		
+		sportCat.setListFeed(sportSources);
+		
+		sportSources.add(sportSource1);
+		sportSources.add(sportSource2);
+		sportSources.add(sportSource3);
+		sportSources.add(sportSource4);
+		
+		
+		
+		final List<Feed> financeSources = new ArrayList<Feed>();
+		
+		Feed financeSource1 = new Feed();
+		financeSource1.setName("FinanceSource1");
+		Feed financeSource2 = new Feed();
+		financeSource2.setName("sportSource1");
+		Feed financeSource3 = new Feed();
+		financeSource3.setName("sportSource1");
+		
+		financeSources.add(financeSource1);
+		financeSources.add(financeSource2);
+		financeSources.add(financeSource3);
+		
+		Category financeCat = new Category(1, "Finance", financeSources);
+		
+		cats.add(sportCat);
+		cats.add(sportCat);
 		
 		//================== Ajout du composant à la fenêtre
 		
-		final TreePicker tree = new TreePicker( feedByCat, true);
-		tree.addSourceSelectedListener(new SourceSelectedListener(){
+		final TreePicker tree = new TreePicker( cats, true);
+		tree.addSourceSelectedListener(new FeedSelectedListener(){
 
 			@Override
-			public void onSourceSelected(SourceSelectedEvent event) {
+			public void onSourceSelected(FeedSelectedEvent event) {
 				System.out.println("Vous avez sélectionné la source: " + event.getSelectedSource());
 
 				financeSources.clear();
-				tree.refreshFeeds(feedByCat);
+				tree.refreshFeeds(cats);
 			}
 			
 		});

@@ -7,7 +7,7 @@ import java.util.List;
 
 import javax.swing.JFrame;
 
-import ca.usherbrooke.ift232.actuRSS.common.Actu;
+import ca.usherbrooke.ift232.actuRSS.model.News;
 
 public class ActuListDemo {
 
@@ -51,11 +51,15 @@ public class ActuListDemo {
 		//================== Création des données de démonstration
 		
 
-		List<Actu> news = new ArrayList<Actu>();
+		List<News> news = new ArrayList<News>();
 		
-		news.add(new Actu("dfghjkl"));
-		news.add(new Actu("gfhjkl"));
-		news.add(new Actu("yhgfd"));
+		/*news.add(new News("dfghjkl"));
+		news.add(new News("gfhjkl"));
+		news.add(new News("yhgfd"));
+		*/
+
+		//La flemme de créer des objets de test maintenant
+		
 		ActuList myActuList = new ActuList(news);
 		
 		//================== Ajout d'un écouteur bidon

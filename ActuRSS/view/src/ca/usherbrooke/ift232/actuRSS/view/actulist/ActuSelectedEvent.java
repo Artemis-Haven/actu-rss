@@ -2,22 +2,22 @@ package ca.usherbrooke.ift232.actuRSS.view.actulist;
 
 import javax.swing.event.ChangeEvent;
 
-import ca.usherbrooke.ift232.actuRSS.common.Actu;
+import ca.usherbrooke.ift232.actuRSS.model.News;
 
 
 public class ActuSelectedEvent extends ChangeEvent
 {
 
-	private Actu _selectedActu;
+	private News _selectedActu;
 	
-	public ActuSelectedEvent(Object objSource, Actu selectedActu) 
+	public ActuSelectedEvent(Object objSource, News selectedActu) 
 	{
 		super(objSource);
 	
 		_selectedActu = selectedActu;
 	}
 	
-	public Actu getSelectedSource()
+	public News getSelectedSource()
 	{
 		return this._selectedActu;
 	}

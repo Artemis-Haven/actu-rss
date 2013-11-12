@@ -12,14 +12,15 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
+import javax.xml.transform.Source;
 
-import ca.usherbrooke.ift232.actuRSS.common.Category;
-import ca.usherbrooke.ift232.actuRSS.common.Source;
+import ca.usherbrooke.ift232.actuRSS.model.Category;
+import ca.usherbrooke.ift232.actuRSS.model.Feed;
 
 public class TreePicker extends JTree {
-	public TreePicker(HashMap<Category, List<Source>> feeds,
+	public TreePicker(List<Category> categories,
 			boolean multipleSelection) {
-		super(generateHierarchy(feeds));
+		super(generateHierarchy(categories));
 		this.setRootVisible(false);
 
 		// Multiple selection or not (Ternary operation ftw)
@@ -36,8 +37,8 @@ public class TreePicker extends JTree {
 						.getPath().getLastPathComponent();
 				Object obj = node.getUserObject();
 				if (obj instanceof Source)
-					fireSourceSelectedEvent(new SourceSelectedEvent(this,
-							(Source) obj));
+					fireSourceSelectedEvent(new FeedSelectedEvent(this,
+							(Feed) obj));
 			}
 
 		});
@@ -46,19 +47,19 @@ public class TreePicker extends JTree {
 	/**
 	 * Génère une hiérarchie (Catégorie => Source) à partir d'un dictionnaire.
 	 * 
-	 * @param feeds
+	 * @param categories
 	 *            Dictionnaire
 	 * 
 	 * @return Hiérarchie générée.
 	 */
 	private static DefaultMutableTreeNode generateHierarchy(
-			HashMap<Category, List<Source>> feeds) {
+			List<Category> categories) {
 		DefaultMutableTreeNode root = new DefaultMutableTreeNode();
 
-		for (Category cat : feeds.keySet()) {
+		for (Category cat : categories) {
 			DefaultMutableTreeNode catNode = new DefaultMutableTreeNode(cat);
 
-			for (Source src : feeds.get(cat)) {
+			for (Feed src : cat.getListFeed()) {
 				catNode.add(new DefaultMutableTreeNode(src));
 			}
 
@@ -70,14 +71,14 @@ public class TreePicker extends JTree {
 
 	/**
 	 * 
-	 * @param feeds
+	 * @param categories
 	 */
-	public void refreshFeeds(HashMap<Category, List<Source>> feeds) {
+	public void refreshFeeds(List<Category> categories) {
 		DefaultMutableTreeNode rootNode = (DefaultMutableTreeNode) this
 				.getModel().getRoot();
 		rootNode.removeAllChildren();
 
-		DefaultMutableTreeNode generated = generateHierarchy(feeds);
+		DefaultMutableTreeNode generated = generateHierarchy(categories);
 
 		DefaultTreeModel plop = (DefaultTreeModel) this.getModel();
 		plop.setRoot(generated);
@@ -113,17 +114,17 @@ public class TreePicker extends JTree {
 	private final EventListenerList listenerList = new EventListenerList();
 
 	public void addSourceSelectedListener(
-			SourceSelectedListener sourceSelectedListener) {
-		listenerList.add(SourceSelectedListener.class, sourceSelectedListener);
+			FeedSelectedListener sourceSelectedListener) {
+		listenerList.add(FeedSelectedListener.class, sourceSelectedListener);
 	}
 
-	public void removeSourceSelectedListener(SourceSelectedListener l) {
-		listenerList.remove(SourceSelectedListener.class, l);
+	public void removeSourceSelectedListener(FeedSelectedListener l) {
+		listenerList.remove(FeedSelectedListener.class, l);
 	}
 
-	protected void fireSourceSelectedEvent(SourceSelectedEvent event) {
-		for (SourceSelectedListener l : listenerList
-				.getListeners(SourceSelectedListener.class)) {
+	protected void fireSourceSelectedEvent(FeedSelectedEvent event) {
+		for (FeedSelectedListener l : listenerList
+				.getListeners(FeedSelectedListener.class)) {
 			l.onSourceSelected(event);
 		}
 	}
