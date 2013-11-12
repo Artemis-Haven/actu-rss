@@ -36,7 +36,7 @@ public class TreePicker extends JTree {
 				DefaultMutableTreeNode node = (DefaultMutableTreeNode) event
 						.getPath().getLastPathComponent();
 				Object obj = node.getUserObject();
-				if (obj instanceof Source)
+				if (obj instanceof Feed)
 					fireSourceSelectedEvent(new FeedSelectedEvent(this,
 							(Feed) obj));
 			}
