@@ -74,28 +74,20 @@ public class DatabaseManager {
 		 */
 		public void insertObjetToDB(ArrayList<Category> listCategory)
 		{
-
+			
 			for(int i=0;i<listCategory.size();i++)
-			{
-						
+			{						
 				for(int j = 0; j < listCategory.get(i).getListFeed().size(); j++)
 				{
-					
-					
 					for(int k = 0; k < listCategory.get(i).getListFeed().get(j).getListNews().size(); k++)
 					{
-						
 						insertNews(listCategory.get(i).getListFeed().get(j).getListNews().get(k), listCategory.get(i).getListFeed().get(j).getId());
-						
 					}
 					insertFeed(listCategory.get(i).getListFeed().get(j), listCategory.get(i).getId());
 				}
-				
 				insertCategory(listCategory.get(i));
-				
 			}
-				
-				
+						
 		}
 		
 		
