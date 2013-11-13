@@ -80,4 +80,9 @@ public class Feed {
 		this.title = title;
 	}
 
+	@Override
+	public String toString() {
+		return "Feed [id=" + id + ", title=" + title + "]";
+	}
+
 }

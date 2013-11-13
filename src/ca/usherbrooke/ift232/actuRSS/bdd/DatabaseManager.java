@@ -11,7 +11,7 @@ import java.util.Calendar;
 public class DatabaseManager {
 	
 	/**
-	 * Variable privée
+	 * Variable privï¿½e
 	 */
 	private Database db;
 
@@ -27,7 +27,7 @@ public class DatabaseManager {
 	
 	
 	/**
-	 * Permet d'effacer la base de donnée existante.
+	 * Permet d'effacer la base de donnï¿½e existante.
 	 */
 	public void clearDB() {
 		
@@ -39,7 +39,7 @@ public class DatabaseManager {
 	
 	
 	/**
-	 * Créé les tables Feed, News et Category
+	 * Crï¿½ï¿½ les tables Feed, News et Category
 	 */
 	public void createDB() {
 
@@ -70,8 +70,8 @@ public class DatabaseManager {
 	
 	
 	/**
-	 * Insére tout les objets du modèle dans la base de données
-	 * @param listCategory Liste à inserer dans la Base de données
+	 * Insï¿½re tout les objets du modï¿½le dans la base de donnï¿½es
+	 * @param listCategory Liste ï¿½ inserer dans la Base de donnï¿½es
 	 */
 	public void insertObjetToDB(ArrayList<Category> listCategory)
 	{
@@ -101,8 +101,8 @@ public class DatabaseManager {
 	
 	
 	/**
-	 * Insére une catégorie dans la BDD
-	 * @param category Objet contenant la description de la catégorie à insérer
+	 * Insï¿½re une catï¿½gorie dans la BDD
+	 * @param category Objet contenant la description de la catï¿½gorie ï¿½ insï¿½rer
 	 */
 	
 	public void insertCategory(Category category)
@@ -118,9 +118,9 @@ public class DatabaseManager {
 	
 	
 	/**
-	 * Insére un flux dans la BDD
-	 * @param feed Objet contenant la description du flux à insérer
-	 * @param ID_Category Identifiant de la catégorie correspondant au flux
+	 * Insï¿½re un flux dans la BDD
+	 * @param feed Objet contenant la description du flux ï¿½ insï¿½rer
+	 * @param ID_Category Identifiant de la catï¿½gorie correspondant au flux
 	 */
 	public void insertFeed(Feed feed, int ID_Category)
 	{
@@ -137,9 +137,9 @@ public class DatabaseManager {
 	
 	
 	/**
-	 * Insére une news dans la BDD
-	 * @param News Objet contenant la description de la news à insérer
-	 * @param ID_Feed Identifiant du flux correspondant à la news
+	 * Insï¿½re une news dans la BDD
+	 * @param News Objet contenant la description de la news ï¿½ insï¿½rer
+	 * @param ID_Feed Identifiant du flux correspondant ï¿½ la news
 	 */
 	public void insertNews(News news, int ID_Feed)
 	{
@@ -169,11 +169,11 @@ public class DatabaseManager {
 	
 	/**
 	 * 
-	 * @param date Date à convertir
-	 * @return La date en chaine de caractères
+	 * @param date Date ï¿½ convertir
+	 * @return La date en chaine de caractï¿½res
 	 */
 	private String ConvertCalendarToString(Calendar date) {
-		StringBuffer dateToReturn = null;
+		StringBuffer dateToReturn = new StringBuffer();
 		
 		/* Partie Date  **************************************/
 		dateToReturn.append(date.get(Calendar.YEAR));
@@ -232,7 +232,7 @@ public class DatabaseManager {
 
     /**
      * 
-     * @return Une liste contenant toutes les catégories
+     * @return Une liste contenant toutes les catï¿½gories
      */
 	public ArrayList<Category> getAllCategories() throws SQLException {
 		
@@ -301,7 +301,7 @@ public class DatabaseManager {
 
 	/**
      * @param feed Objet Feed
-     * @return La liste de toutes les news correspondant à un flux
+     * @return La liste de toutes les news correspondant ï¿½ un flux
      */
 	private ArrayList<News> getAllNewsFromFeed(Feed feed) throws SQLException {
 			ArrayList<News> list = new ArrayList<News>();
