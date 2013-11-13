@@ -209,7 +209,7 @@ public class DatabaseManager {
 		return dateToReturn.toString();
 	}
 	
-	private Calendar convertStringToCalendar(String date)
+	public Calendar convertStringToCalendar(String date)
 	{
 		//YYYY-MM-DD HH:MM:SS.SSS
 		Calendar calendar = Calendar.getInstance();
