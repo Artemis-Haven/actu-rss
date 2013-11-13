@@ -181,7 +181,7 @@ public class DatabaseManagerTest {
 		}
 	}
 
-	/*@Test
+	@Test
 	public void testInsertNews() {
 		Database db = new Database("DBRSS");
 		DatabaseManager dbManager = new DatabaseManager(db);
@@ -195,15 +195,15 @@ public class DatabaseManagerTest {
 		Feed feed1 = new Feed(1, "Le Monde", "www.lemonde.fr/rss/une/xml");
 		dbManager.insertFeed(feed1, 1);
 		Calendar date1 = Calendar.getInstance();
-		date1 = dbManager.convertStringToCalendar("2013-11-12 12:05:33");
-		
+		date1.set(2013, 11, 12, 05, 05, 05);
+				
 		News news1 = new News("Football - Ligue 1 - L1 : Le top 10 des idées reçues… battues en brèche", "http://www.eurosport.fr/football/ligue-1/2013-2014/l1-le-top-10-des-idees-recues.-battues-en-breche_sto4004002/story.shtml", "Ta mère", date1 ,"Championnat homogène, gardiens infranchissables, Paris et Monaco seuls au monde : la Ligue 1 charrie des clichés qui ne correspondent pas à sa réalité. Notre top 10.", false, false  );
 		
 		ArrayList<News> listNewsExpected = new ArrayList<News>();
 		listNewsExpected.add(news1);
 		try {
 			ArrayList<Category> listCategory = dbManager.getAllCategories();
-			for(int i=0;i<listCategory.get(0).getListFeed().size();i++)
+			for(int i=0;i<listCategory.get(0).getListFeed().get(0).getListNews().size();i++)
 			{
 				assertEquals(listNewsExpected.get(i).getUrl(), listCategory.get(0).getListFeed().get(0).getListNews().get(i).getUrl());
 				assertEquals(listNewsExpected.get(i).getTitle(), listCategory.get(0).getListFeed().get(0).getListNews().get(i).getTitle());
@@ -218,13 +218,6 @@ public class DatabaseManagerTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}*/
-	@Test
-	public void testConvertStringToCalendar() {
-		Database db = new Database("DBRSS");
-		DatabaseManager dbManager = new DatabaseManager(db);
-		Calendar date1 = Calendar.getInstance();
-		date1 = dbManager.convertStringToCalendar("2013-11-12 12:05:33");
 	}
 
 	@Test

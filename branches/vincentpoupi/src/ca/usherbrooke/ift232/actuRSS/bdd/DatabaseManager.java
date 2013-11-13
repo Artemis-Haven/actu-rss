@@ -14,7 +14,7 @@ public class DatabaseManager {
 	 * Variable priv�e
 	 */
 	private Database db;
-
+	private DatabaseUtil dbUtil;
 	
 	/**
 	 * Constructeur 
@@ -145,7 +145,8 @@ public class DatabaseManager {
 	{
 		int read = 0;
 		int favorite = 0;
-		String date = ConvertCalendarToString(news.getDate());
+		
+		String date = this.getDbUtil().ConvertCalendarToString(news.getDate());
 		if (news.isRead())
 			read =1;
 		if (news.isFavorite())
@@ -172,10 +173,10 @@ public class DatabaseManager {
 	 * @param date Date � convertir
 	 * @return La date en chaine de caract�res
 	 */
-	private String ConvertCalendarToString(Calendar date) {
+	/*private String ConvertCalendarToString(Calendar date) {
 		StringBuffer dateToReturn = new StringBuffer();
 		
-		/* Partie Date  **************************************/
+		
 		dateToReturn.append(date.get(Calendar.YEAR));
 		dateToReturn.append("-");
 		String month = null;
@@ -199,7 +200,7 @@ public class DatabaseManager {
 	        day = "" + dt;
 	      }
 	      dateToReturn.append(" ");
-	      /* Partie Heure ************************************/
+	      
 	      dateToReturn.append(date.get(Calendar.HOUR_OF_DAY));
 	      dateToReturn.append(":");
 	      dateToReturn.append(date.get(Calendar.MINUTE));
@@ -224,7 +225,7 @@ public class DatabaseManager {
  		calendar.set(year, month, day, hourOfDay, minute, second);
 		
 		return calendar;
-	}
+	}*/
 	
 	/**
 	 * Conversion de la BDD en Objet
@@ -320,7 +321,7 @@ public class DatabaseManager {
 				
 				read = (resultat.getInt("Read") == 1);
 				favorite = (resultat.getInt("Favorite") == 1);
-				date = convertStringToCalendar(resultat.getString("Date_News"));
+				date = this.getDbUtil().convertStringToCalendar(resultat.getString("Date_News"));
 				
 				
 				
@@ -499,6 +500,9 @@ public class DatabaseManager {
 
 	public Database getDb() {
 		return db;
+	}
+	public DatabaseUtil getDbUtil() {
+		return this.dbUtil;
 	}
 	
 	
