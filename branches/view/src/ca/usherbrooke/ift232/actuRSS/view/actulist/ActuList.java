@@ -27,6 +27,11 @@ public class ActuList extends JList implements ListSelectionListener
 		
 	}
 
+	public ActuList() 
+	{
+		
+	}
+
 	private static ListModel<News> buildListModelNews(List<News> news) {
 		final DefaultListModel<News> listModelNews = new DefaultListModel<News>();
 		fillNews(listModelNews, news);
@@ -34,6 +39,13 @@ public class ActuList extends JList implements ListSelectionListener
 		return listModelNews;
 	}
 
+	public void changeNews(List<News> news)
+	{
+		ListModel<News> modelNews = buildListModelNews(news);
+		
+		this.setModel(modelNews);
+	}
+	
 	private static void fillNews(DefaultListModel<News> listModel, List<News> news) {
 
 		System.out.println(news);

@@ -15,6 +15,8 @@ import javax.swing.JSplitPane;
 
 import ca.usherbrooke.ift232.actuRSS.model.Category;
 import ca.usherbrooke.ift232.actuRSS.model.Feed;
+import ca.usherbrooke.ift232.actuRSS.model.News;
+import ca.usherbrooke.ift232.actuRSS.view.actulist.ActuList;
 import ca.usherbrooke.ift232.actuRSS.view.treepicker.FeedSelectedEvent;
 import ca.usherbrooke.ift232.actuRSS.view.treepicker.FeedSelectedListener;
 import ca.usherbrooke.ift232.actuRSS.view.treepicker.TreePicker;
@@ -61,7 +63,7 @@ public class MainPanel extends JPanel {
 	 public JSplitPane mainSplitPane;
 	 public JSplitPane innerSplitPane;
 	 public TreePicker feedTreePicker;
-	 public NewsListPanel newsListPanel;
+	 public ActuList newsList;
 	 public JPanel contentPanel;
 	 
 	/**
@@ -104,20 +106,20 @@ public class MainPanel extends JPanel {
 		 // Création des éléments centraux de la fenetre
 		 this.feedTreePicker = new TreePicker(categoryList, false);
 		 this.innerSplitPane = new JSplitPane();
-		 this.newsListPanel = new NewsListPanel();
+		 this.newsList = new ActuList();
 		 this.mainSplitPane = new JSplitPane();
 		 this.contentPanel = new JPanel();
 
 		 // Dimensions des deux listes de gauche
 		 feedTreePicker.setMinimumSize(new Dimension(80,50));
 		 feedTreePicker.setPreferredSize(new Dimension(150,50));
-		 newsListPanel.setMinimumSize(new Dimension(150,50));
-		 newsListPanel.setPreferredSize(new Dimension(180,50));
+		 newsList.setMinimumSize(new Dimension(150,50));
+		 newsList.setPreferredSize(new Dimension(180,50));
 
 		 //On ajoute le panel (scrollable) des flux à gauche
 		 innerSplitPane.setLeftComponent(new JScrollPane(feedTreePicker));
 		 //On ajoute le panel (scrollable) des news au centre
-		 innerSplitPane.setRightComponent(new JScrollPane(newsListPanel));
+		 innerSplitPane.setRightComponent(new JScrollPane(newsList));
 		 //On ajoute le panel contenant feedTree et newsList à gauche
 		 mainSplitPane.setLeftComponent(innerSplitPane);
 		 //On ajoute le panel du contenu de la news à droite
@@ -131,13 +133,27 @@ public class MainPanel extends JPanel {
 				@Override
 				public void onFeedSelected(FeedSelectedEvent event) {
 					
-					DefaultListModel listModel = (DefaultListModel) newsListPanel.getModel();					
-					listModel.removeAllElements();			
 					
-					for(int i = 0; i < feedTreePicker.getSelectedFeeds().size();i++){
-						listModel.addElement("" + feedTreePicker.getSelectedFeeds().get(i) + "\n testttt");
-						System.out.println("Vous avez s�lectionn� la source: " + feedTreePicker.getSelectedFeeds().get(i));
+					List<News> news = new ArrayList<News>();
+					
+					for(Feed feed : feedTreePicker.getSelectedFeeds())
+					{
+						if(feed == null)
+							continue;
+						
+						for(News actu : feed.getListNews())
+						{
+							if(actu == null)
+								continue;
+							
+							news.add(actu);
+						}
+							
 					}
+						
+					
+					newsList.changeNews(news);
+				
 					
 				}				
 				
