@@ -7,7 +7,7 @@ import java.util.List;
 
 import javax.swing.JFrame;
 
-import ca.usherbrooke.ift232.actuRSS.model.News;
+import ca.usherbrooke.ift232.actuRSS.News;
 
 public class ActuListDemo {
 

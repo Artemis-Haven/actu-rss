@@ -9,8 +9,8 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.xml.transform.Source;
 
-import ca.usherbrooke.ift232.actuRSS.model.Category;
-import ca.usherbrooke.ift232.actuRSS.model.Feed;
+import ca.usherbrooke.ift232.actuRSS.Category;
+import ca.usherbrooke.ift232.actuRSS.Feed;
 
 public class TreePickerDemo {
 
