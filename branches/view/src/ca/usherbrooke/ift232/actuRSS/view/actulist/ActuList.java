@@ -10,7 +10,7 @@ import javax.swing.event.EventListenerList;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import ca.usherbrooke.ift232.actuRSS.model.News;
+import ca.usherbrooke.ift232.actuRSS.News;
 
 public class ActuList extends JList implements ListSelectionListener
 {

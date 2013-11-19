@@ -2,6 +2,8 @@ package ca.usherbrooke.ift232.actuRSS.model;
 
 import java.util.ArrayList;
 
+import ca.usherbrooke.ift232.actuRSS.Category;
+
 public class FeedManager {
 
 	private ArrayList<Category> listCategory;

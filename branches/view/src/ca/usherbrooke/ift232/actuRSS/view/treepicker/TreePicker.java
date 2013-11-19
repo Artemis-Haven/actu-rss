@@ -12,8 +12,8 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
-import ca.usherbrooke.ift232.actuRSS.model.Category;
-import ca.usherbrooke.ift232.actuRSS.model.Feed;
+import ca.usherbrooke.ift232.actuRSS.Category;
+import ca.usherbrooke.ift232.actuRSS.Feed;
 
 public class TreePicker extends JTree {
 	public TreePicker(List<Category> categories,
