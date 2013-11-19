@@ -32,7 +32,7 @@ public class DatabaseManager {
 	/**
 	 * Permet d'effacer la base de donn�e existante.
 	 */
-	public void clearDB() {
+	public void deleteDB() {
 		
 		db.updateValue("drop table if exists News");
 		db.updateValue("drop table if exists Feed");
