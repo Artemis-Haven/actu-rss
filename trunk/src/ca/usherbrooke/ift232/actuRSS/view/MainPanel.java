@@ -13,8 +13,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 
-import ca.usherbrooke.ift232.actuRSS.model.Category;
-import ca.usherbrooke.ift232.actuRSS.model.Feed;
+import ca.usherbrooke.ift232.actuRSS.Category;
+import ca.usherbrooke.ift232.actuRSS.Feed;
 import ca.usherbrooke.ift232.actuRSS.view.treepicker.FeedSelectedEvent;
 import ca.usherbrooke.ift232.actuRSS.view.treepicker.FeedSelectedListener;
 import ca.usherbrooke.ift232.actuRSS.view.treepicker.TreePicker;
@@ -131,7 +131,7 @@ public class MainPanel extends JPanel {
 				@Override
 				public void onFeedSelected(FeedSelectedEvent event) {
 					
-					DefaultListModel listModel = (DefaultListModel) newsListPanel.getModel();					
+					DefaultListModel listModel = (DefaultListModel ) newsListPanel.getModel();					
 					listModel.removeAllElements();			
 					
 					for(int i = 0; i < feedTreePicker.getSelectedFeeds().size();i++){

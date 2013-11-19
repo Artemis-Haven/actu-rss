@@ -1,4 +1,4 @@
-package ca.usherbrooke.ift232.actuRSS.model;
+package ca.usherbrooke.ift232.actuRSS;
 
 
 
