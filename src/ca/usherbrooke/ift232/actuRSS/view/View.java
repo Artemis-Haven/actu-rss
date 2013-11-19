@@ -77,7 +77,8 @@ public class View extends JFrame implements Observer {
 	 */
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub		
+		// Mettre a jour la liste de categorie
 		
 		
 	}
