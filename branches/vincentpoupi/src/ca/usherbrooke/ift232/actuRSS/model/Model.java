@@ -5,6 +5,9 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import ca.usherbrooke.ift232.actuRSS.Category;
+import ca.usherbrooke.ift232.actuRSS.Feed;
+import ca.usherbrooke.ift232.actuRSS.News;
 import ca.usherbrooke.ift232.actuRSS.bdd.Database;
 import ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager;
 

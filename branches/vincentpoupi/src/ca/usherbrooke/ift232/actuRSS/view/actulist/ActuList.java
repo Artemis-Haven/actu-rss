@@ -10,11 +10,11 @@ import javax.swing.event.EventListenerList;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import ca.usherbrooke.ift232.actuRSS.model.News;
+import ca.usherbrooke.ift232.actuRSS.News;
 
 public class ActuList extends JList implements ListSelectionListener
 {
-	public ActuList(List<News> news) {
+	public ActuList(List news) {
 
 		super(buildListModelNews(news));
 		
@@ -27,14 +27,14 @@ public class ActuList extends JList implements ListSelectionListener
 		
 	}
 
-	private static ListModel<News> buildListModelNews(List<News> news) {
-		final DefaultListModel<News> listModelNews = new DefaultListModel<News>();
+	private static ListModel buildListModelNews(List<News> news) {
+		final DefaultListModel listModelNews = new DefaultListModel();
 		fillNews(listModelNews, news);
 
 		return listModelNews;
 	}
 
-	private static void fillNews(DefaultListModel<News> listModel, List<News> news) {
+	private static void fillNews(DefaultListModel listModel, List<News> news) {
 
 		System.out.println(news);
 		for (News element : news) 
