@@ -49,3 +49,26 @@ Pour le mardi 12 nov.
   * Commencer FeedCatcher et Parser
 
 ----
+
+== Réunion du mardi 19 nov. ==
+
+  * Les requetes dans DBManager utilisent des PreparedStatement
+  * Toutes les variables sont en anglais
+  * Début d'interface pour les listes de catégories et de flux à gauche, et de news au milieu
+  * News, Feed et Category sont désormais dans le package commun
+  * Création de la classe Model
+  * Suppression de la classe FeedCatcher etintégration directement dans Model
+  * ajout des fonctions clearDB et deleteDB dans DBManager
+  * recherches pour le contentPane pour afficher un article en HTML
+
+=== Pour la prochaine fois ===
+
+  * Continuer l'interface :
+   * Panel d'affichage de la news : Rémi
+   * ActuList : Gauthier
+  * Commencer le contrôleur : Yann
+  * Commencer et finir le Parser
+  * Tester le modèle
+  * Finir les tests unitaires de Feed, News et Category : Julian
+
+----
