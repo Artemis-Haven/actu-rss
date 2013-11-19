@@ -1,6 +1,9 @@
 package ca.usherbrooke.ift232.actuRSS.bdd;
 
 
+import ca.usherbrooke.ift232.actuRSS.Category;
+import ca.usherbrooke.ift232.actuRSS.Feed;
+import ca.usherbrooke.ift232.actuRSS.News;
 import ca.usherbrooke.ift232.actuRSS.model.*;
 
 import java.sql.*;

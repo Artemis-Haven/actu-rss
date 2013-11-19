@@ -10,6 +10,9 @@ import java.util.ArrayList;
 
 import java.util.Calendar;
 
+import ca.usherbrooke.ift232.actuRSS.Category;
+import ca.usherbrooke.ift232.actuRSS.Feed;
+import ca.usherbrooke.ift232.actuRSS.News;
 import ca.usherbrooke.ift232.actuRSS.model.*;
 
 
@@ -57,7 +60,7 @@ public class DatabaseManagerTest {
 				
 		Feed feed1 = new Feed(1, "Le Monde", "www.lemonde.fr/rss/une/xml");
 		Feed feed2 = new Feed(2, "Eurosport", "http://www.eurosport.fr/rss.xml");
-		Feed feed3 = new Feed(3, "L'équipe", "http://www.lequipe.fr/rss/actu_rss.xml");
+		Feed feed3 = new Feed(3, "L'ï¿½quipe", "http://www.lequipe.fr/rss/actu_rss.xml");
 		
 		ArrayList<Feed> listFeedExpected = new ArrayList<Feed>();
 		
@@ -70,7 +73,7 @@ public class DatabaseManagerTest {
 		date.set(Calendar.DAY_OF_MONTH, 12);
 		
 		
-		News news1 = new News("Football - Ligue 1 - L1 : Le top 10 des idées reçues… battues en brèche", "ttp://www.eurosport.fr/football/ligue-1/2013-2014/l1-le-top-10-des-idees-recues.-battues-en-breche_sto4004002/story.shtml", "Ta mère", date ,"Championnat homogène, gardiens infranchissables, Paris et Monaco seuls au monde : la Ligue 1 charrie des clichés qui ne correspondent pas à sa réalité. Notre top 10.", false, false  );
+		News news1 = new News("Football - Ligue 1 - L1 : Le top 10 des idï¿½es reï¿½uesï¿½ battues en brï¿½che", "ttp://www.eurosport.fr/football/ligue-1/2013-2014/l1-le-top-10-des-idees-recues.-battues-en-breche_sto4004002/story.shtml", "Ta mï¿½re", date ,"Championnat homogï¿½ne, gardiens infranchissables, Paris et Monaco seuls au monde : la Ligue 1 charrie des clichï¿½s qui ne correspondent pas ï¿½ sa rï¿½alitï¿½. Notre top 10.", false, false  );
 		
 		Category category1 = new Category(1, "France", listFeedExpected);
 		Category category2 = new Category(2, "Sport");
@@ -152,7 +155,7 @@ public class DatabaseManagerTest {
 		
 		Feed feed1 = new Feed(1, "Le Monde", "www.lemonde.fr/rss/une/xml");
 		Feed feed2 = new Feed(2, "Eurosport", "http://www.eurosport.fr/rss.xml");
-		Feed feed3 = new Feed(3, "L'équipe", "http://www.lequipe.fr/rss/actu_rss.xml");
+		Feed feed3 = new Feed(3, "L'ï¿½quipe", "http://www.lequipe.fr/rss/actu_rss.xml");
 		
 		dbManager.insertFeed(feed1, 1);
 		dbManager.insertFeed(feed2, 1);
@@ -197,7 +200,7 @@ public class DatabaseManagerTest {
 		Calendar date1 = Calendar.getInstance();
 		date1.set(2013, 11, 12, 05, 05, 05);
 				
-		News news1 = new News("Football - Ligue 1 - L1 : Le top 10 des idées reçues… battues en brèche", "http://www.eurosport.fr/football/ligue-1/2013-2014/l1-le-top-10-des-idees-recues.-battues-en-breche_sto4004002/story.shtml", "Ta mère", date1 ,"Championnat homogène, gardiens infranchissables, Paris et Monaco seuls au monde : la Ligue 1 charrie des clichés qui ne correspondent pas à sa réalité. Notre top 10.", false, false  );
+		News news1 = new News("Football - Ligue 1 - L1 : Le top 10 des idï¿½es reï¿½uesï¿½ battues en brï¿½che", "http://www.eurosport.fr/football/ligue-1/2013-2014/l1-le-top-10-des-idees-recues.-battues-en-breche_sto4004002/story.shtml", "Ta mï¿½re", date1 ,"Championnat homogï¿½ne, gardiens infranchissables, Paris et Monaco seuls au monde : la Ligue 1 charrie des clichï¿½s qui ne correspondent pas ï¿½ sa rï¿½alitï¿½. Notre top 10.", false, false  );
 		
 		ArrayList<News> listNewsExpected = new ArrayList<News>();
 		listNewsExpected.add(news1);

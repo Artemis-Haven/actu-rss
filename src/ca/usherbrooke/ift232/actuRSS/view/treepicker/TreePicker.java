@@ -12,8 +12,8 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
-import ca.usherbrooke.ift232.actuRSS.model.Category;
-import ca.usherbrooke.ift232.actuRSS.model.Feed;
+import ca.usherbrooke.ift232.actuRSS.Category;
+import ca.usherbrooke.ift232.actuRSS.Feed;
 
 public class TreePicker extends JTree {
 	public TreePicker(List<Category> categories,
@@ -43,12 +43,12 @@ public class TreePicker extends JTree {
 	}
 
 	/**
-	 * Génère une hiérarchie (Catégorie => Source) à partir d'un dictionnaire.
+	 * Gï¿½nï¿½re une hiï¿½rarchie (Catï¿½gorie => Source) ï¿½ partir d'un dictionnaire.
 	 * 
 	 * @param categories
 	 *            Dictionnaire
 	 * 
-	 * @return Hiérarchie générée.
+	 * @return Hiï¿½rarchie gï¿½nï¿½rï¿½e.
 	 */
 	private static DefaultMutableTreeNode generateHierarchy(
 			List<Category> categories) {
@@ -86,9 +86,9 @@ public class TreePicker extends JTree {
 	}
 
 	/**
-	 * Sert à obtenir la liste des sources sélectionnées
+	 * Sert ï¿½ obtenir la liste des sources sï¿½lectionnï¿½es
 	 * 
-	 * @return Liste des source sélectionnées
+	 * @return Liste des source sï¿½lectionnï¿½es
 	 */
 	public List<Feed> getSelectedFeeds() {
 		List<Feed> feedSelected = new ArrayList<Feed>();
