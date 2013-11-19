@@ -418,7 +418,7 @@ public class DatabaseManager {
 	 * Supprime les donnees de la Bdd
 	 * @author Vincent Chataignier
 	 */
-	public void clearDb()
+	public void clearDB()
 	{
 		String requete = "DELETE FROM News;";
 		db.updateValue(requete);
