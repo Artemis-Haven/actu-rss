@@ -31,15 +31,15 @@ public class View extends JFrame implements Observer {
 	 * l'application
 	 *
 	 */
-	public MainPanel mainPanel;
-	public Model model;
+	private MainPanel mainPanel;
+	//private Model model;
 	
 	/**
 	 * Constructeur
 	 * @param model : 
 	 * 
 	 */
-	public View(Model model) {
+	public View() {
 		// Utiliser le look and feel de l'OS utilisé
 	    //si possible.
 		try {
@@ -52,8 +52,6 @@ public class View extends JFrame implements Observer {
 		
 		// Initialisation des variables		
 		this.mainPanel = new MainPanel();
-		this.model = model;
-		
 		
 		
 		// Définir les caractéristiques de la fenetre.
@@ -66,6 +64,8 @@ public class View extends JFrame implements Observer {
 	    this.setContentPane(mainPanel);
 	    
 	}
+
+	public MainPanel getMainPanel() {return mainPanel;}
 
 	/**
 	 * update(Observable, Object)
