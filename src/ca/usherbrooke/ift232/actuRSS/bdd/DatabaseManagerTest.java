@@ -45,7 +45,7 @@ public class DatabaseManagerTest {
 		DatabaseManager dbManager = new DatabaseManager(db);
 		
 		dbManager.connect();
-		dbManager.clearDB();
+		dbManager.deleteDB();
 		dbManager.createDB();
 	}
 
@@ -55,7 +55,7 @@ public class DatabaseManagerTest {
 		DatabaseManager dbManager = new DatabaseManager(db);
 		
 		dbManager.connect();
-		dbManager.clearDB();
+		dbManager.deleteDB();
 		dbManager.createDB();
 				
 		Feed feed1 = new Feed(1, "Le Monde", "www.lemonde.fr/rss/une/xml");
@@ -111,7 +111,7 @@ public class DatabaseManagerTest {
 		DatabaseManager dbManager = new DatabaseManager(db);
 		
 		dbManager.connect();
-		dbManager.clearDB();
+		dbManager.deleteDB();
 		dbManager.createDB();
 		
 		Category category1 = new Category(1, "France");
@@ -148,7 +148,7 @@ public class DatabaseManagerTest {
 		DatabaseManager dbManager = new DatabaseManager(db);
 		
 		dbManager.connect();
-		dbManager.clearDB();
+		dbManager.deleteDB();
 		dbManager.createDB();
 		Category category1 = new Category(1, "France");
 		dbManager.insertCategory(category1);
@@ -190,7 +190,7 @@ public class DatabaseManagerTest {
 		DatabaseManager dbManager = new DatabaseManager(db);
 		
 		dbManager.connect();
-		dbManager.clearDB();
+		dbManager.deleteDB();
 		dbManager.createDB();
 		Category category1 = new Category(1, "France");
 		dbManager.insertCategory(category1);
