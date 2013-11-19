@@ -58,13 +58,17 @@ public class MainPanel extends JPanel {
 	 * @param newsListPanel: est un panel qui affiche la liste des news
 	 *
 	 */
-	 public Toolbar toolbar;
-	 //public TreeAndList treeandlist;
-	 public JSplitPane mainSplitPane;
-	 public JSplitPane innerSplitPane;
-	 public TreePicker feedTreePicker;
-	 public ActuList newsList;
-	 public JPanel contentPanel;
+	private Toolbar toolbar;
+	 
+	
+
+	//public TreeAndList treeandlist;
+	 private JSplitPane mainSplitPane;
+	 private JSplitPane innerSplitPane;
+	 private TreePicker feedTreePicker;
+	 private ActuList newsList;
+	 private JPanel contentPanel;
+	 private List<Category> categoryList;
 	 
 	/**
 	 * Constructeur
@@ -74,8 +78,7 @@ public class MainPanel extends JPanel {
 	 {
 		 // TODO TEMPORAIRE ! A SUPPRIMER BIENTOT
 		this.setLayout(new BorderLayout(1, 2));
-		
-		List<Category> categoryList = new ArrayList<Category>();
+	    categoryList = new ArrayList<Category>();
 
 		List<Feed> sportSources = new ArrayList<Feed>();
 		sportSources.add(new Feed(-1, "Sport1", "url", null));
@@ -168,5 +171,10 @@ public class MainPanel extends JPanel {
 		 mainSplitPane.setRightComponent(new JPanel());
 		 this.add(mainSplitPane);*/
 	 }
+	 public List<Category> getCategoryList() {return categoryList;}
+
+		public void setCategoryList(List<Category> categoryList) {
+			this.categoryList = categoryList;
+		}
 	
 }
