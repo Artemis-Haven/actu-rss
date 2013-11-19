@@ -414,6 +414,20 @@ public class DatabaseManager {
 		}
 	}
 	
+	/**
+	 * Supprime les donnees de la Bdd
+	 * @author Vincent Chataignier
+	 */
+	public void clearDb()
+	{
+		String requete = "DELETE FROM News;";
+		db.updateValue(requete);
+		requete = "DELETE FROM Feed;";
+		db.updateValue(requete);
+		requete = "DELETE FROM Category;";
+		db.updateValue(requete);
+	}
+	
 	
 // Récupère toutes les news d'un feed
 	/*public ArrayList<News> getAllNewsFromFeed(Feed feed) throws SQLException {
