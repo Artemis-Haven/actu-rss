@@ -40,6 +40,16 @@ public class FeedManager {
 	public ArrayList<Category> getListCategory() {return listCategory;}
 	public ArrayList<Category> getOldListCategory() {return oldListCategory;}
 
+	public void setListCategory(ArrayList<Category> listCategory) {
+		this.listCategory = listCategory;
+	}
+
+	public void setOldListCategory(ArrayList<Category> oldListCategory) {
+		this.oldListCategory = oldListCategory;
+	}
+	
+	
+
 
 	
 
