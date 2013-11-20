@@ -198,7 +198,7 @@ public class DatabaseManagerTest {
 		date1.set(2013, 11, 12, 05, 05, 05);
 				
 		News news1 = new News("Football - Ligue 1 - L1 : Le top 10 des id�es re�ues� battues en br�che", "http://www.eurosport.fr/football/ligue-1/2013-2014/l1-le-top-10-des-idees-recues.-battues-en-breche_sto4004002/story.shtml", "Ta m�re", date1 ,"Championnat homog�ne, gardiens infranchissables, Paris et Monaco seuls au monde : la Ligue 1 charrie des clich�s qui ne correspondent pas � sa r�alit�. Notre top 10.", false, false  );
-		News news2 = new News("Football - Ligue 1 - L1 : Le top 10 des id�es re�ues� battues en br�che", "http://www.eurosport.fr/football/ligue-1/2013-2014/l1-le-top-10-des-idees-recues.-battues-en-breche_sto4004002/story.shtml", "Ta m�re", date1 ,"Championnat homog�ne, gardiens infranchissables, Paris et Monaco seuls au monde : la Ligue 1 charrie des clich�s qui ne correspondent pas � sa r�alit�. Notre top 10.", false, false  );
+		News news2 = new News("Football - Ligue 1 - L1 : Le top 10 des id�es re�ues� battues en br�che", "http://www.eurosport.fr/football/ligue-1/2013-2014/l1-le-top-10-des-idees-recues.-battues-en-breche_sto4004003/story.shtml", "Ta m�re", date1 ,"Championnat homog�ne, gardiens infranchissables, Paris et Monaco seuls au monde : la Ligue 1 charrie des clich�s qui ne correspondent pas � sa r�alit�. Notre top 10.", false, false  );
 		
 		ArrayList<News> listNewsExpected = new ArrayList<News>();
 		dbManager.insertNews(news1, 1);

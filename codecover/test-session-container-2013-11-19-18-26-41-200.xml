@@ -1,0 +1,1409 @@
+<?xml version="1.0" encoding="UTF-8"?><TestSessionContainer xmlns="http://www.codecover.org/xml/testsession-container" Date="1384903601000" TestSessionContainerId="2fc71b4d-a205-4bc4-b47f-bb7af1ab1d50" version="1.0">
+<SrcFileList>
+<SrcFile Content="package ca.usherbrooke.ift232.actuRSS.bdd;&#10;&#10;&#10;import ca.usherbrooke.ift232.actuRSS.Category;&#10;import ca.usherbrooke.ift232.actuRSS.Feed;&#10;import ca.usherbrooke.ift232.actuRSS.News;&#10;import ca.usherbrooke.ift232.actuRSS.model.*;&#10;&#10;import java.sql.*;&#10;import java.util.ArrayList;&#10;import java.util.Calendar;&#10;&#10;&#10;public class DatabaseManager {&#10;&#9;&#10;&#9;/**&#10;&#9; * Variable privï¿½e&#10;&#9; */&#10;&#9;private Database db;&#10;&#9;private DatabaseUtil dbUtil;&#10;&#9;&#10;&#9;/**&#10;&#9; * Constructeur &#10;&#9; * @param db : classe dataBase&#10;&#9; */&#10;&#9;public DatabaseManager(Database db) {&#10;&#9;&#9;this.db = db;&#10;&#9;&#9;connect();&#10;&#9;}&#10;&#9;&#10;&#9;&#10;&#9;/**&#10;&#9; * Permet d'effacer la base de donnï¿½e existante.&#10;&#9; */&#10;&#9;public void deleteDB() {&#10;&#9;&#9;&#10;&#9;&#9;db.updateValue(&quot;drop table if exists News&quot;);&#10;&#9;&#9;db.updateValue(&quot;drop table if exists Feed&quot;);&#10;&#9;&#9;db.updateValue(&quot;drop table if exists Category&quot;);&#10;&#9;&#9;&#10;&#9;}&#10;&#9;&#10;&#9;&#10;&#9;/**&#10;&#9; * Crï¿½ï¿½ les tables Feed, News et Category&#10;&#9; */&#10;&#9;public void createDB() {&#10;&#10;&#9;&#9;db.updateValue(&quot;CREATE TABLE if not exists Feed(&quot;+&#10;&#9;&#9;&#9;&#9;&quot;ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL ,&quot;+&#10;&#9;&#9;&#9;&#9;&quot;URL    TEXT ,&quot;+&#10;&#9;&#9;&#9;&#9;&quot;Title  TEXT ,&quot;+&#10;&#9;&#9;&#9;&#9;&quot;ID_Category  INTEGER ,&quot;+&#10;&#9;&#9;&#9;&#9;&quot;FOREIGN KEY (ID_Category) REFERENCES Category(ID)&quot;+&#10;&#9;&#9;&#9;&#9;&quot;);&quot;+&#10;&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&quot;CREATE TABLE if not exists News(&quot;+&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&quot;URL        TEXT PRIMARY KEY NOT NULL ,&quot;+&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&quot;Title      TEXT ,&quot;+&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&quot;Author     TEXT ,&quot;+&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&quot;Date_News  TEXT ,&quot;+ //YYYY-MM-DD HH:MM:SS.SSS&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&quot;Contents   TEXT ,&quot;+&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&quot;Read       INTEGER ,&quot;+&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&quot;Favorite   INTEGER ,&quot;+&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&quot;ID_Feed    INTEGER ,&quot;+&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&quot;FOREIGN KEY (ID_Feed) REFERENCES Feed(ID)&quot;+&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&quot;);&quot;+&#10;&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&quot;CREATE TABLE if not exists Category(&quot;+&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&quot;&#9;ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL ,&quot;+&#10;&#9;&#9;&#9;&#9;&quot;&#9;Name  TEXT )&quot;);&#10;&#9;}&#10;&#9;&#10;&#9;&#10;&#9;/**&#10;&#9; * Insï¿½re tout les objets du modï¿½le dans la base de donnï¿½es&#10;&#9; * @param listCategory Liste ï¿½ inserer dans la Base de donnï¿½es&#10;&#9; */&#10;&#9;public void insertObjetToDB(ArrayList&lt;Category&gt; listCategory)&#10;&#9;{&#10;&#10;&#9;&#9;for(int i=0;i&lt;listCategory.size();i++)&#10;&#9;&#9;{&#10;&#9;&#9;&#9;&#9;&#9;&#10;&#9;&#9;&#9;for(int j = 0; j &lt; listCategory.get(i).getListFeed().size(); j++)&#10;&#9;&#9;&#9;{&#10;&#9;&#9;&#9;&#9;&#10;&#9;&#9;&#9;&#9;&#10;&#9;&#9;&#9;&#9;for(int k = 0; k &lt; listCategory.get(i).getListFeed().get(j).getListNews().size(); k++)&#10;&#9;&#9;&#9;&#9;{&#10;&#9;&#9;&#9;&#9;&#9;&#10;&#9;&#9;&#9;&#9;&#9;insertNews(listCategory.get(i).getListFeed().get(j).getListNews().get(k), listCategory.get(i).getListFeed().get(j).getId());&#10;&#9;&#9;&#9;&#9;&#9;&#10;&#9;&#9;&#9;&#9;}&#10;&#9;&#9;&#9;&#9;insertFeed(listCategory.get(i).getListFeed().get(j), listCategory.get(i).getId());&#10;&#9;&#9;&#9;}&#10;&#9;&#9;&#9;&#10;&#9;&#9;&#9;insertCategory(listCategory.get(i));&#10;&#9;&#9;&#9;&#10;&#9;&#9;}&#10;&#9;&#9;&#9;&#10;&#9;&#9;&#9;&#10;&#9;}&#10;&#9;&#10;&#9;&#10;&#9;/**&#10;&#9; * Insï¿½re une catï¿½gorie dans la BDD&#10;&#9; * @param category Objet contenant la description de la catï¿½gorie ï¿½ insï¿½rer&#10;&#9; */&#10;&#9;&#10;&#9;public void insertCategory(Category category)&#10;&#9;{&#10;&#9;&#9;try {&#10;            PreparedStatement prstmt = db.connection.prepareStatement(&quot;INSERT INTO Category (Name) VALUES(?)&quot;);&#10;            prstmt.setString(1, category.getName());&#10;            prstmt.execute();&#10;        } catch (SQLException e) {&#10;            e.printStackTrace();&#10;        }&#10;&#9;}&#10;&#9;&#10;&#9;&#10;&#9;/**&#10;&#9; * Insï¿½re un flux dans la BDD&#10;&#9; * @param feed Objet contenant la description du flux ï¿½ insï¿½rer&#10;&#9; * @param ID_Category Identifiant de la catï¿½gorie correspondant au flux&#10;&#9; */&#10;&#9;public void insertFeed(Feed feed, int ID_Category)&#10;&#9;{&#10;&#9;&#9;try {&#10;            PreparedStatement prstmt = db.connection.prepareStatement(&quot;INSERT INTO Feed (Title, URL, ID_Category) VALUES(?, ?, ?)&quot;);&#10;            prstmt.setString(1, feed.getTitle());&#10;            prstmt.setString(2, feed.getUrl());&#10;            prstmt.setInt(3, ID_Category);&#10;            prstmt.execute();&#10;        } catch (SQLException e) {&#10;            e.printStackTrace();&#10;        }&#10;&#9;}&#10;&#9;&#10;&#9;&#10;&#9;/**&#10;&#9; * Insï¿½re une news dans la BDD&#10;&#9; * @param News Objet contenant la description de la news ï¿½ insï¿½rer&#10;&#9; * @param ID_Feed Identifiant du flux correspondant ï¿½ la news&#10;&#9; */&#10;&#9;public void insertNews(News news, int ID_Feed)&#10;&#9;{&#10;&#9;&#9;int read = 0;&#10;&#9;&#9;int favorite = 0;&#10;&#9;&#9;&#10;&#9;&#9;String date = this.getDbUtil().ConvertCalendarToString(news.getDate());&#10;&#9;&#9;if (news.isRead())&#10;&#9;&#9;&#9;read =1;&#10;&#9;&#9;if (news.isFavorite())&#10;&#9;&#9;&#9;favorite = 1;&#10;&#9;&#9;try {&#10;            PreparedStatement prstmt = db.connection.prepareStatement(&quot;INSERT INTO News (URL, Title, Author, Date_News, Contents, Read, Favorite, ID_Feed) VALUES(?, ?, ?, ?, ?, ?, ?, ?)&quot;);&#10;            prstmt.setString(1, news.getUrl());&#10;            prstmt.setString(2, news.getTitle());&#10;            prstmt.setString(3, news.getAuthor());&#10;            prstmt.setString(4, date); &#10;            prstmt.setString(5, news.getContents());&#10;            prstmt.setInt(6, read);&#10;            prstmt.setInt(7, favorite);&#10;            prstmt.setInt(8, ID_Feed);&#10;            prstmt.execute();&#10;        } catch (SQLException e) {&#10;            e.printStackTrace();&#10;        }&#10;&#9;}&#10;&#9;&#10;&#9;&#10;&#9;/**&#10;&#9; * &#10;&#9; * @param date Date ï¿½ convertir&#10;&#9; * @return La date en chaine de caractï¿½res&#10;&#9; */&#10;&#9;/*private String ConvertCalendarToString(Calendar date) {&#10;&#9;&#9;StringBuffer dateToReturn = new StringBuffer();&#10;&#9;&#9;&#10;&#9;&#9;&#10;&#9;&#9;dateToReturn.append(date.get(Calendar.YEAR));&#10;&#9;&#9;dateToReturn.append(&quot;-&quot;);&#10;&#9;&#9;String month = null;&#10;&#9;      int mo = date.get(Calendar.MONTH) + 1;&#10;&#9;      if(mo &lt; 10) {&#10;&#9;        month = &quot;0&quot; + mo;&#10;&#9;      }&#10;&#9;      else {&#10;&#9;        month = &quot;&quot; + mo;&#10;&#9;      }&#10;&#9;      dateToReturn.append(month);      &#10;&#9;      &#10;&#9;      dateToReturn.append(&quot;-&quot;);&#10;&#9;      &#10;&#9;      String day = null;&#10;&#9;      int dt = date.get(Calendar.DATE);&#10;&#9;      if(dt &lt; 10) {&#10;&#9;        day = &quot;0&quot; + dt;&#10;&#9;      }&#10;&#9;      else {&#10;&#9;        day = &quot;&quot; + dt;&#10;&#9;      }&#10;&#9;      dateToReturn.append(&quot; &quot;);&#10;&#9;      &#10;&#9;      dateToReturn.append(date.get(Calendar.HOUR_OF_DAY));&#10;&#9;      dateToReturn.append(&quot;:&quot;);&#10;&#9;      dateToReturn.append(date.get(Calendar.MINUTE));&#10;&#9;      dateToReturn.append(&quot;:&quot;);&#10;&#9;      dateToReturn.append(date.get(Calendar.SECOND));&#10;&#9;&#9;&#10;&#9;&#9;return dateToReturn.toString();&#10;&#9;}&#10;&#9;&#10;&#9;public Calendar convertStringToCalendar(String date)&#10;&#9;{&#10;&#9;&#9;//YYYY-MM-DD HH:MM:SS.SSS&#10;&#9;&#9;Calendar calendar = Calendar.getInstance();&#10;&#9;&#9;&#10;&#9;&#9;int year = Integer.parseInt(date.substring(0, 3));&#10;&#9;&#9;int month = Integer.parseInt(date.substring(4, 5));&#10;&#9;&#9;int day = Integer.parseInt(date.substring(6, 7));&#10;&#9;&#9;int hourOfDay = Integer.parseInt(date.substring(9, 10));&#10;&#9;&#9;int minute = Integer.parseInt(date.substring(11, 12));&#10;&#9;&#9;int second = Integer.parseInt(date.substring(13, 14));&#10;&#9;&#9;&#10; &#9;&#9;calendar.set(year, month, day, hourOfDay, minute, second);&#10;&#9;&#9;&#10;&#9;&#9;return calendar;&#10;&#9;}*/&#10;&#9;&#10;&#9;/**&#10;&#9; * Conversion de la BDD en Objet&#10;&#9; */&#10;&#10;    /**&#10;     * &#10;     * @return Une liste contenant toutes les catï¿½gories&#10;     */&#10;&#9;public ArrayList&lt;Category&gt; getAllCategories() throws SQLException {&#10;&#9;&#9;&#10;&#9;&#9;ArrayList&lt;Category&gt; listCategory = new ArrayList&lt;Category&gt;();&#10;&#9;&#9;Category category;&#10;&#10;&#9;&#9;ArrayList&lt;Feed&gt; listFeed = new ArrayList&lt;Feed&gt;();&#10;&#10;&#9;&#9;&#10;&#10;&#9;&#9;&#9;&#9;&#10;&#9;&#9;ResultSet resultat = db.getResultOf(&quot;SELECT * FROM Category;&quot;);&#10;&#9;&#9;try {&#10;&#9;&#9;&#9;while (resultat.next()) {&#10;&#9;&#9;&#9;&#9;&#10;&#10;&#9;&#9;&#9;&#9;category = new Category(resultat.getInt(&quot;ID&quot;), resultat.getString(&quot;Name&quot;));&#10;&#9;&#9;&#9;&#9;&#10;&#9;&#9;&#9;&#9;listFeed = getAllFeedFromCategory(category);&#10;&#10;&#9;&#9;&#9;&#9;category.setListFeed(listFeed);&#10;&#10;&#9;&#9;&#9;&#9;listCategory.add(category);&#10;&#9;&#9;&#9;}&#10;&#9;&#9;} catch (SQLException e) {&#10;&#9;&#9;&#9;// TODO Auto-generated catch block&#10;&#9;&#9;&#9;e.printStackTrace();&#10;&#9;&#9;}&#10;&#9;&#9;return listCategory;&#10;&#9;}&#10;&#9;&#10;&#10;&#9;/**&#10;&#9; * &#10;&#9; * @param category : Objet Category&#10;&#9; * @return une liste de Feed&#10;&#9; */&#10;&#9;private ArrayList&lt;Feed&gt; getAllFeedFromCategory(Category category) {&#10;&#9;&#9;&#10;&#9;&#9;ArrayList&lt;Feed&gt; list = new ArrayList&lt;Feed&gt;();&#10;&#9;&#9;ArrayList&lt;News&gt; listNews = new ArrayList&lt;News&gt;();&#10;&#9;&#9;&#10;&#9;&#9;Feed feed;&#10;&#9;&#9;&#10;&#9;&#9;try {&#10;&#9;&#9;&#9;PreparedStatement prstmt = db.connection.prepareStatement(&quot;SELECT * FROM Feed WHERE ID_Category=?&quot;);&#10;&#9;&#9;&#9;prstmt.setInt(1, category.getId());&#10;&#9;&#9;&#9;ResultSet result = prstmt.executeQuery();&#10;&#9;&#9;&#9;&#10;&#9;&#9;&#9;while (result.next()) {&#10;&#9;&#9;&#9;&#9;&#10;&#9;&#9;&#9;&#9;feed = new Feed(result.getInt(&quot;ID&quot;), result.getString(&quot;Title&quot;), result.getString(&quot;URL&quot;));&#10;&#9;&#9;&#9;&#9;listNews = getAllNewsFromFeed(feed);&#10;&#9;&#9;&#9;&#9;feed.setListNews(listNews);&#10;&#9;&#9;&#9;&#9;&#10;&#9;&#9;&#9;&#9;list.add(feed);&#10;&#9;&#9;&#9;}&#10;&#9;&#9;} catch (SQLException e) {&#10;&#9;&#9;&#9;// TODO Auto-generated catch block&#10;&#9;&#9;&#9;e.printStackTrace();&#10;&#9;&#9;}&#10;&#9;&#9;return list;&#10;&#9;&#9;&#10;&#9;}&#10;&#9;&#10;&#10;&#9;/**&#10;     * @param feed Objet Feed&#10;     * @return La liste de toutes les news correspondant ï¿½ un flux&#10;     */&#10;&#9;private ArrayList&lt;News&gt; getAllNewsFromFeed(Feed feed) throws SQLException {&#10;&#9;&#9;&#9;ArrayList&lt;News&gt; list = new ArrayList&lt;News&gt;();&#10;&#9;&#9;&#9;&#10;&#9;&#9;&#9;boolean read;&#10;&#9;&#9;&#9;boolean favorite;&#10;&#9;&#9;&#9;Calendar date;&#10;&#9;&#9;&#9;&#10;&#9;&#9;&#9;&#10;&#9;&#9;&#9;PreparedStatement prstmt = db.connection.prepareStatement(&quot;SELECT * FROM news WHERE URL=?&quot;);&#10;&#9;&#9;&#9;prstmt.setString(1, feed.getUrl());&#10;&#9;&#9;&#9;ResultSet resultat = prstmt.executeQuery();&#10;&#9;&#9;&#9;&#10;&#9;&#9;&#9;News news;&#10;&#9;&#9;&#9;while (resultat.next()) {&#10;&#9;&#9;&#9;&#9;&#10;&#9;&#9;&#9;&#9;read = (resultat.getInt(&quot;Read&quot;) == 1);&#10;&#9;&#9;&#9;&#9;favorite = (resultat.getInt(&quot;Favorite&quot;) == 1);&#10;&#9;&#9;&#9;&#9;date = this.getDbUtil().convertStringToCalendar(resultat.getString(&quot;Date_News&quot;));&#10;&#9;&#9;&#9;&#9;&#10;&#9;&#9;&#9;&#9;&#10;&#9;&#9;&#9;&#9;&#10;&#9;&#9;&#9;&#9;news = new News(resultat.getString(&quot;Title&quot;), resultat.getString(&quot;URL&quot;), resultat.getString(&quot;Author&quot;), date, resultat.getString(&quot;Contents&quot;), read, favorite);&#10;&#9;&#9;&#9;&#9;list.add(news);&#10;&#9;&#9;&#9;}&#10;&#9;&#9;&#9;return list;&#10;&#9;&#9;}&#10;&#10;&#9;/**&#10;     * &#10;     * @return Une liste contenant tout les flux&#10;     */&#10;&#9;/*public ArrayList&lt;Feed&gt; getAllFeeds() throws SQLException {&#10;&#9;&#9;&#10;&#9;&#9;int id;&#10;&#9;&#9;String title;&#10;&#9;&#9;String url;&#10;&#9;&#9;List&lt;News&gt; listNews = new ArrayList&lt;News&gt;();&#10;&#9;&#9;int ID_category;&#10;&#9;&#9;Category category;&#10;&#9;&#9;&#10;&#9;&#9;ResultSet resultat = db.getResultOf(&quot;SELECT * FROM feed;&quot;);&#10;&#9;&#9;ArrayList&lt;Feed&gt; listFeed = new ArrayList&lt;Feed&gt;();&#10;&#9;&#9;Feed feed;&#10;&#9;&#9;try {&#10;&#9;&#9;&#9;while (resultat.next()) {&#10;&#9;&#9;&#9;&#9;id = resultat.getInt(&quot;ID&quot;);&#10;&#9;&#9;&#9;&#9;title = resultat.getString(&quot;Title&quot;);&#10;&#9;&#9;&#9;&#9;url = resultat.getString(&quot;Url&quot;);&#10;&#9;&#9;&#9;&#9;feed = new Feed(id, title, url);&#10;&#9;&#9;&#9;&#9;&#10;&#9;&#9;&#9;&#9;listNews = this.getAllNewsFromFeed(feed);  &#10;&#9;&#9;&#9;&#9;feed.setListNews(listNews);&#10;&#9;&#9;&#9;&#9;&#10;&#9;&#9;&#9;&#9;ID_category = resultat.getInt(&quot;ID_Category&quot;);&#10;&#9;&#9;&#9;&#9;category = GetCategory(ID_category);&#10;&#9;&#9;&#9;&#9;feed.setCategory(category);&#10;&#9;&#9;&#9;&#9;listFeed.add(feed);&#10;&#9;&#9;&#9;}&#10;&#9;&#9;} catch (SQLException e) {&#10;&#9;&#9;&#9;// TODO Auto-generated catch block&#10;&#9;&#9;&#9;e.printStackTrace();&#10;&#9;&#9;}&#10;&#9;&#9;return listFeed;&#10;&#9;}*/&#10;&#9;&#10;&#10;&#9;&#10;&#9;/*&#10;&#9;&#10;&#9;public void deleteCategory(int id)&#10;&#9;{&#10;&#9;&#9;String requete = &quot;DELETE from Category where ID=&quot;+ id +&quot;&quot;;&#10;&#9;&#9;db.updateValue(requete);&#10;&#9;}&#10;&#9;&#10;&#9;public void deleteNews(int id)&#10;&#9;{&#10;&#9;&#9;String requete = &quot;DELETE from News where ID=&quot;+ id +&quot;&quot;;&#10;&#9;&#9;db.updateValue(requete);&#10;&#9;}&#10;&#9;&#10;&#9;public void deleteFeed(int id)&#10;&#9;{&#10;&#9;&#9;String requete = &quot;DELETE from Feed where ID=&quot;+ id +&quot;&quot;;&#10;&#9;&#9;db.updateValue(requete);&#10;&#9;}&#10;&#9;&#10;&#9;*/&#10;&#9;public void returnCategory()&#10;&#9;{&#10;&#9;&#9;&#10;&#9;&#9;String requete = &quot;SELECT * FROM Category;&quot;;&#10;&#9;&#9; ResultSet rs = db.getResultOf(requete);&#10;&#9;      try {&#10;&#9;&#9;&#9;while ( rs.next() ) {&#10;&#9;&#9;&#9;     int id = rs.getInt(&quot;ID&quot;);&#10;&#9;&#9;&#9;     String  nom = rs.getString(&quot;Name&quot;);&#10;&#9;&#9;&#9;     System.out.println( &quot;ID = &quot; + id );&#10;&#9;&#9;&#9;     System.out.println( &quot;Nom = &quot; + nom );&#10;&#9;&#9;&#9;     System.out.println();&#10;&#9;&#9;&#9;  }&#10;&#9;&#9;} catch (SQLException e) {&#10;&#9;&#9;&#9;// TODO Auto-generated catch block&#10;&#9;&#9;&#9;e.printStackTrace();&#10;&#9;&#9;}&#10;&#9;}&#10;&#9;&#10;&#9;/**&#10;&#9; * Supprime les donnees de la Bdd&#10;&#9; * @author Vincent Chataignier&#10;&#9; */&#10;&#9;public void clearDB()&#10;&#9;{&#10;&#9;&#9;String requete = &quot;DELETE FROM News;&quot;;&#10;&#9;&#9;db.updateValue(requete);&#10;&#9;&#9;requete = &quot;DELETE FROM Feed;&quot;;&#10;&#9;&#9;db.updateValue(requete);&#10;&#9;&#9;requete = &quot;DELETE FROM Category;&quot;;&#10;&#9;&#9;db.updateValue(requete);&#10;&#9;}&#10;&#9;&#10;&#9;&#10;// RÃ©cupÃ¨re toutes les news d'un feed&#10;&#9;/*public ArrayList&lt;News&gt; getAllNewsFromFeed(Feed feed) throws SQLException {&#10;&#9;&#9;&#10;&#9;&#9;PreparedStatement prstmt = db.connection.prepareStatement(&quot;SELECT * FROM news WHERE feed=?&quot;);&#10;&#9;&#9;prstmt.setInt(1, feed.getId());&#10;&#9;&#9;ResultSet resultat = prstmt.executeQuery();&#10;&#9;&#9;ArrayList&lt;News&gt; list = new ArrayList&lt;News&gt;();&#10;&#9;&#9;News news;&#10;&#9;&#9;while (resultat.next()) {&#10;&#9;&#9;&#9;news = new News(resultat.getInt(1), resultat.getString(2), resultat.getString(4), resultat.getDate(5), resultat.getString(6), resultat.getString(3), resultat.getInt(8)==1, resultat.getInt(9)==1);&#10;&#9;&#9;&#9;list.add(news);&#10;&#9;&#9;}&#10;&#9;&#9;return list;&#10;&#9;}*/&#10;&#9;&#10;&#9;/*// RÃ©cupÃ¨re toutes les news d'un feed&#10;&#9;public ArrayList&lt;Feed&gt; getAllFeeds() throws SQLException {&#10;&#9;&#9;ResultSet resultat = db.getResultOf(&quot;SELECT * FROM feed;&quot;);&#10;&#9;&#9;ArrayList&lt;Feed&gt; list = new ArrayList&lt;Feed&gt;();&#10;&#9;&#9;Feed feed;&#10;&#9;&#9;while (resultat.next()) {&#10;&#9;&#9;&#9;feed = new Feed(resultat.getString(2), resultat.getString(3), resultat.getInt(1));&#10;&#9;&#9;&#9;list.add(feed);&#10;&#9;&#9;}&#10;&#9;&#9;return list;&#10;&#9;}&#10;&#9;&#10;&#9;// Envoie la news X du feed Y&#10;&#9;public void addNewsFromFeed(News news, Feed feed){&#10;&#9;&#9;try {&#10;&#9;&#9;&#9;if(news.getId()==-1){&#10;&#9;&#9;&#9;&#9;PreparedStatement prstmt = db.connection.prepareStatement(&quot;INSERT INTO news VALUES( null, ?, ?, ?, ?, ?, ?, ?, ? )&quot;);&#10;&#9;&#9;&#9;&#9;prstmt.setString(1, news.getTitle());&#10;&#9;&#9;&#9;&#9;prstmt.setString(2, news.getUrl());&#10;&#9;&#9;&#9;&#9;prstmt.setString(3, news.getAuthor());&#10;&#9;&#9;&#9;&#9;prstmt.setString(4, news.getDate().toString());&#10;&#9;&#9;&#9;&#9;prstmt.setString(5, news.getContent());&#10;&#9;&#9;&#9;&#9;prstmt.setInt(6, feed.getId());&#10;&#9;&#9;&#9;&#9;prstmt.setInt(7, news.isRead() ? 1 : 0);&#10;&#9;&#9;&#9;&#9;prstmt.setInt(8, news.isStarred() ? 1 : 0);&#10;&#9;&#9;&#9;&#9;prstmt.execute();&#10;&#9;&#9;&#9;}&#10;&#9;&#9;&#9;else {&#10;&#9;&#9;&#9;&#9;PreparedStatement prstmt = db.connection.prepareStatement(&quot;UPDATE news SET title=? , url=? , author=? , date=? , content=? , feed=? , read=? , starred=? WHERE id=?&quot;);&#10;&#9;&#9;&#9;&#9;prstmt.setString(1, news.getTitle());&#10;&#9;&#9;&#9;&#9;prstmt.setString(2, news.getUrl());&#10;&#9;&#9;&#9;&#9;prstmt.setString(3, news.getAuthor());&#10;&#9;&#9;&#9;&#9;prstmt.setString(4, news.getDate().toString());&#10;&#9;&#9;&#9;&#9;prstmt.setString(5, news.getContent());&#10;&#9;&#9;&#9;&#9;prstmt.setInt(6, feed.getId());&#10;&#9;&#9;&#9;&#9;prstmt.setInt(7, news.isRead() ? 1 : 0);&#10;&#9;&#9;&#9;&#9;prstmt.setInt(8, news.isStarred() ? 1 : 0);&#10;&#9;&#9;&#9;&#9;prstmt.setInt(9, news.getId());&#10;&#9;&#9;&#9;&#9;prstmt.execute();&#10;&#9;&#9;&#9;}&#10;&#9;&#9;&#9;&#10;&#9;&#9;&#9;&#10;&#9;&#9;} catch (SQLException e) {&#10;&#9;&#9;&#9;e.printStackTrace();&#10;&#9;&#9;}&#10;&#9;}&#10;&#9;&#10;&#9;// Envoie un feed&#10;&#9;public void addFeed(Feed feed){&#10;&#9;&#9;try {&#10;&#9;&#9;&#9;PreparedStatement prstmt = db.connection.prepareStatement(&quot;INSERT INTO feed VALUES(null, ?, ? )&quot;);&#10;&#9;&#9;&#9;prstmt.setString(1, feed.getTitle());&#10;&#9;&#9;&#9;prstmt.setString(2, feed.getUrl());&#10;&#9;&#9;&#9;prstmt.execute();&#10;&#9;&#9;} catch (SQLException e) {&#10;&#9;&#9;&#9;e.printStackTrace();&#10;&#9;&#9;}&#10;&#9;}*/&#10;&#9;&#10;&#9;public void connect() {&#10;&#9;&#9;db.connect();&#10;&#9;}&#10;&#9;&#10;&#9;public void disconnect() {&#10;&#9;&#9;db.disconnect();&#10;&#9;}&#10;&#10;&#9;public void emptyNews() {&#10;&#9;&#9;db.updateValue(&quot;DELETE FROM news;&quot;);&#9;&#9;&#10;&#9;}&#10;&#10;&#9;public Database getDb() {&#10;&#9;&#9;return db;&#10;&#9;}&#10;&#9;public DatabaseUtil getDbUtil() {&#10;&#9;&#9;return this.dbUtil;&#10;&#9;}&#10;&#9;&#10;&#9;&#10;}&#10;" Filename="DatabaseManager.java" Intrnl_Id="1"/>
+</SrcFileList>
+<CritList>
+<CritListEntry Name="org.codecover.model.utils.criteria.LoopCoverage" PluginName="org.codecover"/>
+<CritListEntry Name="org.codecover.model.utils.criteria.BranchCoverage" PluginName="org.codecover"/>
+<CritListEntry Name="org.codecover.model.utils.criteria.ConditionCoverage" PluginName="org.codecover"/>
+</CritList>
+<BoolOpList/>
+<HierarchyLvlTypeList>
+<HierarchyLvlType EnglishName="package" IntrnlName="package" Intrnl_Id="2"/>
+<HierarchyLvlType EnglishName="class" IntrnlName="class" Intrnl_Id="3"/>
+<HierarchyLvlType EnglishName="method" IntrnlName="method" Intrnl_Id="4"/>
+<HierarchyLvlType EnglishName="default package" IntrnlName="default package" Intrnl_Id="5"/>
+</HierarchyLvlTypeList>
+<MASTRoot>
+<HierarchyLvl HierarchyLvlId="24" HierarchyLvlTypeId="5" Intrnl_Id="6" Name="default package">
+<Header/>
+<LocList/>
+<HierarchyLvl HierarchyLvlId="23" HierarchyLvlTypeId="2" Intrnl_Id="7" Name="ca">
+<Header/>
+<LocList/>
+<HierarchyLvl HierarchyLvlId="22" HierarchyLvlTypeId="2" Intrnl_Id="8" Name="usherbrooke">
+<Header/>
+<LocList/>
+<HierarchyLvl HierarchyLvlId="21" HierarchyLvlTypeId="2" Intrnl_Id="9" Name="ift232">
+<Header/>
+<LocList/>
+<HierarchyLvl HierarchyLvlId="20" HierarchyLvlTypeId="2" Intrnl_Id="10" Name="actuRSS">
+<Header/>
+<LocList/>
+<HierarchyLvl HierarchyLvlId="19" HierarchyLvlTypeId="2" Intrnl_Id="11" Name="bdd">
+<Header/>
+<LocList/>
+<HierarchyLvl HierarchyLvlId="18" HierarchyLvlTypeId="3" Intrnl_Id="12" Name="DatabaseManager">
+<Header>
+<Loc EndOffset="329" SrcFileId="1" StartOffset="301"/>
+</Header>
+<LocList>
+<Loc EndOffset="13760" SrcFileId="1" StartOffset="301"/>
+</LocList>
+<HierarchyLvl HierarchyLvlId="1" HierarchyLvlTypeId="4" Intrnl_Id="13" Name="DatabaseManager">
+<Header>
+<Loc EndOffset="516" SrcFileId="1" StartOffset="481"/>
+</Header>
+<LocList>
+<Loc EndOffset="550" SrcFileId="1" StartOffset="481"/>
+</LocList>
+<StmntSeq Intrnl_Id="14">
+<LocList>
+<Loc EndOffset="534" SrcFileId="1" StartOffset="521"/>
+<Loc EndOffset="547" SrcFileId="1" StartOffset="537"/>
+</LocList>
+<BasicStmnt CovItemId="S1" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="15">
+<LocList>
+<Loc EndOffset="534" SrcFileId="1" StartOffset="521"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S2" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="16">
+<LocList>
+<Loc EndOffset="547" SrcFileId="1" StartOffset="537"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="2" HierarchyLvlTypeId="4" Intrnl_Id="17" Name="deleteDB">
+<Header>
+<Loc EndOffset="640" SrcFileId="1" StartOffset="618"/>
+</Header>
+<LocList>
+<Loc EndOffset="796" SrcFileId="1" StartOffset="618"/>
+</LocList>
+<StmntSeq Intrnl_Id="18">
+<LocList>
+<Loc EndOffset="692" SrcFileId="1" StartOffset="648"/>
+<Loc EndOffset="739" SrcFileId="1" StartOffset="695"/>
+<Loc EndOffset="790" SrcFileId="1" StartOffset="742"/>
+</LocList>
+<BasicStmnt CovItemId="S3" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="19">
+<LocList>
+<Loc EndOffset="692" SrcFileId="1" StartOffset="648"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S4" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="20">
+<LocList>
+<Loc EndOffset="739" SrcFileId="1" StartOffset="695"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S5" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="21">
+<LocList>
+<Loc EndOffset="790" SrcFileId="1" StartOffset="742"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="3" HierarchyLvlTypeId="4" Intrnl_Id="22" Name="createDB">
+<Header>
+<Loc EndOffset="881" SrcFileId="1" StartOffset="859"/>
+</Header>
+<LocList>
+<Loc EndOffset="1652" SrcFileId="1" StartOffset="859"/>
+</LocList>
+<StmntSeq Intrnl_Id="23">
+<LocList>
+<Loc EndOffset="1649" SrcFileId="1" StartOffset="887"/>
+</LocList>
+<BasicStmnt CovItemId="S6" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="24">
+<LocList>
+<Loc EndOffset="1649" SrcFileId="1" StartOffset="887"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="4" HierarchyLvlTypeId="4" Intrnl_Id="25" Name="insertObjetToDB">
+<Header>
+<Loc EndOffset="1864" SrcFileId="1" StartOffset="1803"/>
+</Header>
+<LocList>
+<Loc EndOffset="2403" SrcFileId="1" StartOffset="1803"/>
+</LocList>
+<StmntSeq Intrnl_Id="26">
+<LocList>
+<Loc EndOffset="2392" SrcFileId="1" StartOffset="1871"/>
+</LocList>
+<LoopStmnt CovItemId="S7" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="27" MltplExecId="L1-2" MltplExecPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" NvrExecId="L1-0" NvrExecPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" OnceExecutedId="L1-1" OnceExecutedPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" OptBodyExec="true">
+<StmntSeq Intrnl_Id="28">
+<LocList>
+<Loc EndOffset="2340" SrcFileId="1" StartOffset="1923"/>
+<Loc EndOffset="2384" SrcFileId="1" StartOffset="2348"/>
+</LocList>
+<LoopStmnt CovItemId="S8" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="29" MltplExecId="L2-2" MltplExecPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" NvrExecId="L2-0" NvrExecPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" OnceExecutedId="L2-1" OnceExecutedPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" OptBodyExec="true">
+<StmntSeq Intrnl_Id="30">
+<LocList>
+<Loc EndOffset="2248" SrcFileId="1" StartOffset="2008"/>
+<Loc EndOffset="2335" SrcFileId="1" StartOffset="2253"/>
+</LocList>
+<LoopStmnt CovItemId="S9" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="31" MltplExecId="L3-2" MltplExecPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" NvrExecId="L3-0" NvrExecPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" OnceExecutedId="L3-1" OnceExecutedPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" OptBodyExec="true">
+<StmntSeq Intrnl_Id="32">
+<LocList>
+<Loc EndOffset="2236" SrcFileId="1" StartOffset="2112"/>
+</LocList>
+<BasicStmnt CovItemId="S10" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="33">
+<LocList>
+<Loc EndOffset="2236" SrcFileId="1" StartOffset="2112"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+<Keyword EndOffset="2011" SrcFileId="1" StartOffset="2008"/>
+<LocList>
+<Loc EndOffset="2248" SrcFileId="1" StartOffset="2008"/>
+</LocList>
+<RootTerm CovItemId="C3" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="34">
+<BasicBoolTerm Intrnl_Id="35">
+<LocList>
+<Loc EndOffset="2088" SrcFileId="1" StartOffset="2023"/>
+</LocList>
+</BasicBoolTerm>
+</RootTerm>
+</LoopStmnt>
+<BasicStmnt CovItemId="S11" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="36">
+<LocList>
+<Loc EndOffset="2335" SrcFileId="1" StartOffset="2253"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+<Keyword EndOffset="1926" SrcFileId="1" StartOffset="1923"/>
+<LocList>
+<Loc EndOffset="2340" SrcFileId="1" StartOffset="1923"/>
+</LocList>
+<RootTerm CovItemId="C2" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="37">
+<BasicBoolTerm Intrnl_Id="38">
+<LocList>
+<Loc EndOffset="1982" SrcFileId="1" StartOffset="1938"/>
+</LocList>
+</BasicBoolTerm>
+</RootTerm>
+</LoopStmnt>
+<BasicStmnt CovItemId="S12" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="39">
+<LocList>
+<Loc EndOffset="2384" SrcFileId="1" StartOffset="2348"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+<Keyword EndOffset="1874" SrcFileId="1" StartOffset="1871"/>
+<LocList>
+<Loc EndOffset="2392" SrcFileId="1" StartOffset="1871"/>
+</LocList>
+<RootTerm CovItemId="C1" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="40">
+<BasicBoolTerm Intrnl_Id="41">
+<LocList>
+<Loc EndOffset="1904" SrcFileId="1" StartOffset="1883"/>
+</LocList>
+</BasicBoolTerm>
+</RootTerm>
+</LoopStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="5" HierarchyLvlTypeId="4" Intrnl_Id="42" Name="insertCategory">
+<Header>
+<Loc EndOffset="2590" SrcFileId="1" StartOffset="2545"/>
+</Header>
+<LocList>
+<Loc EndOffset="2877" SrcFileId="1" StartOffset="2545"/>
+</LocList>
+<StmntSeq Intrnl_Id="43">
+<LocList>
+<Loc EndOffset="2713" SrcFileId="1" StartOffset="2614"/>
+<Loc EndOffset="2766" SrcFileId="1" StartOffset="2726"/>
+<Loc EndOffset="2796" SrcFileId="1" StartOffset="2779"/>
+<Loc EndOffset="2874" SrcFileId="1" StartOffset="2596"/>
+</LocList>
+<BasicStmnt CovItemId="S14" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="44">
+<LocList>
+<Loc EndOffset="2713" SrcFileId="1" StartOffset="2614"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S15" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="45">
+<LocList>
+<Loc EndOffset="2766" SrcFileId="1" StartOffset="2726"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S16" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="46">
+<LocList>
+<Loc EndOffset="2796" SrcFileId="1" StartOffset="2779"/>
+</LocList>
+</BasicStmnt>
+<CondStmnt CovItemId="S13" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="47">
+<Branch CovItemId="B1" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Implct="true" Intrnl_Id="48">
+<Cond/>
+<LocList/>
+<StmntSeq Intrnl_Id="49">
+<LocList/>
+</StmntSeq>
+</Branch>
+<Branch CovItemId="B2" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Implct="false" Intrnl_Id="50">
+<Cond>
+<Loc EndOffset="2829" SrcFileId="1" StartOffset="2807"/>
+</Cond>
+<LocList>
+<Loc EndOffset="2874" SrcFileId="1" StartOffset="2830"/>
+</LocList>
+<StmntSeq Intrnl_Id="51">
+<LocList>
+<Loc EndOffset="2864" SrcFileId="1" StartOffset="2844"/>
+</LocList>
+<BasicStmnt CovItemId="S17" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="52">
+<LocList>
+<Loc EndOffset="2864" SrcFileId="1" StartOffset="2844"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</Branch>
+<Keyword EndOffset="2599" SrcFileId="1" StartOffset="2596"/>
+<LocList>
+<Loc EndOffset="2874" SrcFileId="1" StartOffset="2596"/>
+</LocList>
+</CondStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="6" HierarchyLvlTypeId="4" Intrnl_Id="53" Name="insertFeed">
+<Header>
+<Loc EndOffset="3120" SrcFileId="1" StartOffset="3070"/>
+</Header>
+<LocList>
+<Loc EndOffset="3516" SrcFileId="1" StartOffset="3070"/>
+</LocList>
+<StmntSeq Intrnl_Id="54">
+<LocList>
+<Loc EndOffset="3264" SrcFileId="1" StartOffset="3144"/>
+<Loc EndOffset="3314" SrcFileId="1" StartOffset="3277"/>
+<Loc EndOffset="3362" SrcFileId="1" StartOffset="3327"/>
+<Loc EndOffset="3405" SrcFileId="1" StartOffset="3375"/>
+<Loc EndOffset="3435" SrcFileId="1" StartOffset="3418"/>
+<Loc EndOffset="3513" SrcFileId="1" StartOffset="3126"/>
+</LocList>
+<BasicStmnt CovItemId="S19" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="55">
+<LocList>
+<Loc EndOffset="3264" SrcFileId="1" StartOffset="3144"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S20" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="56">
+<LocList>
+<Loc EndOffset="3314" SrcFileId="1" StartOffset="3277"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S21" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="57">
+<LocList>
+<Loc EndOffset="3362" SrcFileId="1" StartOffset="3327"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S22" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="58">
+<LocList>
+<Loc EndOffset="3405" SrcFileId="1" StartOffset="3375"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S23" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="59">
+<LocList>
+<Loc EndOffset="3435" SrcFileId="1" StartOffset="3418"/>
+</LocList>
+</BasicStmnt>
+<CondStmnt CovItemId="S18" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="60">
+<Branch CovItemId="B3" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Implct="true" Intrnl_Id="61">
+<Cond/>
+<LocList/>
+<StmntSeq Intrnl_Id="62">
+<LocList/>
+</StmntSeq>
+</Branch>
+<Branch CovItemId="B4" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Implct="false" Intrnl_Id="63">
+<Cond>
+<Loc EndOffset="3468" SrcFileId="1" StartOffset="3446"/>
+</Cond>
+<LocList>
+<Loc EndOffset="3513" SrcFileId="1" StartOffset="3469"/>
+</LocList>
+<StmntSeq Intrnl_Id="64">
+<LocList>
+<Loc EndOffset="3503" SrcFileId="1" StartOffset="3483"/>
+</LocList>
+<BasicStmnt CovItemId="S24" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="65">
+<LocList>
+<Loc EndOffset="3503" SrcFileId="1" StartOffset="3483"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</Branch>
+<Keyword EndOffset="3129" SrcFileId="1" StartOffset="3126"/>
+<LocList>
+<Loc EndOffset="3513" SrcFileId="1" StartOffset="3126"/>
+</LocList>
+</CondStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="7" HierarchyLvlTypeId="4" Intrnl_Id="66" Name="insertNews">
+<Header>
+<Loc EndOffset="3749" SrcFileId="1" StartOffset="3703"/>
+</Header>
+<LocList>
+<Loc EndOffset="4605" SrcFileId="1" StartOffset="3703"/>
+</LocList>
+<StmntSeq Intrnl_Id="67">
+<LocList>
+<Loc EndOffset="3768" SrcFileId="1" StartOffset="3755"/>
+<Loc EndOffset="3788" SrcFileId="1" StartOffset="3771"/>
+<Loc EndOffset="3865" SrcFileId="1" StartOffset="3794"/>
+<Loc EndOffset="3898" SrcFileId="1" StartOffset="3868"/>
+<Loc EndOffset="3940" SrcFileId="1" StartOffset="3901"/>
+<Loc EndOffset="4137" SrcFileId="1" StartOffset="3961"/>
+<Loc EndOffset="4185" SrcFileId="1" StartOffset="4150"/>
+<Loc EndOffset="4235" SrcFileId="1" StartOffset="4198"/>
+<Loc EndOffset="4286" SrcFileId="1" StartOffset="4248"/>
+<Loc EndOffset="4325" SrcFileId="1" StartOffset="4299"/>
+<Loc EndOffset="4379" SrcFileId="1" StartOffset="4339"/>
+<Loc EndOffset="4415" SrcFileId="1" StartOffset="4392"/>
+<Loc EndOffset="4455" SrcFileId="1" StartOffset="4428"/>
+<Loc EndOffset="4494" SrcFileId="1" StartOffset="4468"/>
+<Loc EndOffset="4524" SrcFileId="1" StartOffset="4507"/>
+<Loc EndOffset="4602" SrcFileId="1" StartOffset="3943"/>
+</LocList>
+<BasicStmnt CovItemId="S25" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="68">
+<LocList>
+<Loc EndOffset="3768" SrcFileId="1" StartOffset="3755"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S26" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="69">
+<LocList>
+<Loc EndOffset="3788" SrcFileId="1" StartOffset="3771"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S27" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="70">
+<LocList>
+<Loc EndOffset="3865" SrcFileId="1" StartOffset="3794"/>
+</LocList>
+</BasicStmnt>
+<CondStmnt CovItemId="S28" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="71">
+<Branch CovItemId="B5" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Implct="false" Intrnl_Id="72">
+<Cond/>
+<LocList>
+<Loc EndOffset="3898" SrcFileId="1" StartOffset="3890"/>
+</LocList>
+<StmntSeq Intrnl_Id="73">
+<LocList>
+<Loc EndOffset="3898" SrcFileId="1" StartOffset="3890"/>
+</LocList>
+<BasicStmnt CovItemId="S29" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="74">
+<LocList>
+<Loc EndOffset="3898" SrcFileId="1" StartOffset="3890"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</Branch>
+<Branch CovItemId="B6" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Implct="true" Intrnl_Id="75">
+<Cond/>
+<LocList/>
+<StmntSeq Intrnl_Id="76">
+<LocList/>
+</StmntSeq>
+</Branch>
+<Keyword EndOffset="3870" SrcFileId="1" StartOffset="3868"/>
+<LocList>
+<Loc EndOffset="3898" SrcFileId="1" StartOffset="3868"/>
+</LocList>
+<RootTerm CovItemId="C4" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="77">
+<BasicBoolTerm Intrnl_Id="78">
+<LocList>
+<Loc EndOffset="3885" SrcFileId="1" StartOffset="3872"/>
+</LocList>
+</BasicBoolTerm>
+</RootTerm>
+</CondStmnt>
+<CondStmnt CovItemId="S30" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="79">
+<Branch CovItemId="B7" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Implct="false" Intrnl_Id="80">
+<Cond/>
+<LocList>
+<Loc EndOffset="3940" SrcFileId="1" StartOffset="3927"/>
+</LocList>
+<StmntSeq Intrnl_Id="81">
+<LocList>
+<Loc EndOffset="3940" SrcFileId="1" StartOffset="3927"/>
+</LocList>
+<BasicStmnt CovItemId="S31" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="82">
+<LocList>
+<Loc EndOffset="3940" SrcFileId="1" StartOffset="3927"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</Branch>
+<Branch CovItemId="B8" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Implct="true" Intrnl_Id="83">
+<Cond/>
+<LocList/>
+<StmntSeq Intrnl_Id="84">
+<LocList/>
+</StmntSeq>
+</Branch>
+<Keyword EndOffset="3903" SrcFileId="1" StartOffset="3901"/>
+<LocList>
+<Loc EndOffset="3940" SrcFileId="1" StartOffset="3901"/>
+</LocList>
+<RootTerm CovItemId="C5" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="85">
+<BasicBoolTerm Intrnl_Id="86">
+<LocList>
+<Loc EndOffset="3922" SrcFileId="1" StartOffset="3905"/>
+</LocList>
+</BasicBoolTerm>
+</RootTerm>
+</CondStmnt>
+<BasicStmnt CovItemId="S33" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="87">
+<LocList>
+<Loc EndOffset="4137" SrcFileId="1" StartOffset="3961"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S34" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="88">
+<LocList>
+<Loc EndOffset="4185" SrcFileId="1" StartOffset="4150"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S35" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="89">
+<LocList>
+<Loc EndOffset="4235" SrcFileId="1" StartOffset="4198"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S36" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="90">
+<LocList>
+<Loc EndOffset="4286" SrcFileId="1" StartOffset="4248"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S37" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="91">
+<LocList>
+<Loc EndOffset="4325" SrcFileId="1" StartOffset="4299"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S38" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="92">
+<LocList>
+<Loc EndOffset="4379" SrcFileId="1" StartOffset="4339"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S39" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="93">
+<LocList>
+<Loc EndOffset="4415" SrcFileId="1" StartOffset="4392"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S40" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="94">
+<LocList>
+<Loc EndOffset="4455" SrcFileId="1" StartOffset="4428"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S41" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="95">
+<LocList>
+<Loc EndOffset="4494" SrcFileId="1" StartOffset="4468"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S42" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="96">
+<LocList>
+<Loc EndOffset="4524" SrcFileId="1" StartOffset="4507"/>
+</LocList>
+</BasicStmnt>
+<CondStmnt CovItemId="S32" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="97">
+<Branch CovItemId="B9" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Implct="true" Intrnl_Id="98">
+<Cond/>
+<LocList/>
+<StmntSeq Intrnl_Id="99">
+<LocList/>
+</StmntSeq>
+</Branch>
+<Branch CovItemId="B10" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Implct="false" Intrnl_Id="100">
+<Cond>
+<Loc EndOffset="4557" SrcFileId="1" StartOffset="4535"/>
+</Cond>
+<LocList>
+<Loc EndOffset="4602" SrcFileId="1" StartOffset="4558"/>
+</LocList>
+<StmntSeq Intrnl_Id="101">
+<LocList>
+<Loc EndOffset="4592" SrcFileId="1" StartOffset="4572"/>
+</LocList>
+<BasicStmnt CovItemId="S43" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="102">
+<LocList>
+<Loc EndOffset="4592" SrcFileId="1" StartOffset="4572"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</Branch>
+<Keyword EndOffset="3946" SrcFileId="1" StartOffset="3943"/>
+<LocList>
+<Loc EndOffset="4602" SrcFileId="1" StartOffset="3943"/>
+</LocList>
+</CondStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="8" HierarchyLvlTypeId="4" Intrnl_Id="103" Name="getAllCategories">
+<Header>
+<Loc EndOffset="6404" SrcFileId="1" StartOffset="6339"/>
+</Header>
+<LocList>
+<Loc EndOffset="6996" SrcFileId="1" StartOffset="6339"/>
+</LocList>
+<StmntSeq Intrnl_Id="104">
+<LocList>
+<Loc EndOffset="6473" SrcFileId="1" StartOffset="6412"/>
+<Loc EndOffset="6547" SrcFileId="1" StartOffset="6498"/>
+<Loc EndOffset="6623" SrcFileId="1" StartOffset="6560"/>
+<Loc EndOffset="6875" SrcFileId="1" StartOffset="6635"/>
+<Loc EndOffset="6970" SrcFileId="1" StartOffset="6626"/>
+<Loc EndOffset="6993" SrcFileId="1" StartOffset="6973"/>
+</LocList>
+<BasicStmnt CovItemId="S44" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="105">
+<LocList>
+<Loc EndOffset="6473" SrcFileId="1" StartOffset="6412"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S45" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="106">
+<LocList>
+<Loc EndOffset="6547" SrcFileId="1" StartOffset="6498"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S46" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="107">
+<LocList>
+<Loc EndOffset="6623" SrcFileId="1" StartOffset="6560"/>
+</LocList>
+</BasicStmnt>
+<LoopStmnt CovItemId="S48" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="108" MltplExecId="L4-2" MltplExecPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" NvrExecId="L4-0" NvrExecPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" OnceExecutedId="L4-1" OnceExecutedPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" OptBodyExec="true">
+<StmntSeq Intrnl_Id="109">
+<LocList>
+<Loc EndOffset="6746" SrcFileId="1" StartOffset="6671"/>
+<Loc EndOffset="6800" SrcFileId="1" StartOffset="6756"/>
+<Loc EndOffset="6837" SrcFileId="1" StartOffset="6806"/>
+<Loc EndOffset="6870" SrcFileId="1" StartOffset="6843"/>
+</LocList>
+<BasicStmnt CovItemId="S49" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="110">
+<LocList>
+<Loc EndOffset="6746" SrcFileId="1" StartOffset="6671"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S50" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="111">
+<LocList>
+<Loc EndOffset="6800" SrcFileId="1" StartOffset="6756"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S51" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="112">
+<LocList>
+<Loc EndOffset="6837" SrcFileId="1" StartOffset="6806"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S52" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="113">
+<LocList>
+<Loc EndOffset="6870" SrcFileId="1" StartOffset="6843"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+<Keyword EndOffset="6640" SrcFileId="1" StartOffset="6635"/>
+<LocList>
+<Loc EndOffset="6875" SrcFileId="1" StartOffset="6635"/>
+</LocList>
+<RootTerm CovItemId="C6" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="114">
+<BasicBoolTerm Intrnl_Id="115">
+<LocList>
+<Loc EndOffset="6657" SrcFileId="1" StartOffset="6642"/>
+</LocList>
+</BasicBoolTerm>
+</RootTerm>
+</LoopStmnt>
+<CondStmnt CovItemId="S47" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="116">
+<Branch CovItemId="B11" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Implct="true" Intrnl_Id="117">
+<Cond/>
+<LocList/>
+<StmntSeq Intrnl_Id="118">
+<LocList/>
+</StmntSeq>
+</Branch>
+<Branch CovItemId="B12" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Implct="false" Intrnl_Id="119">
+<Cond>
+<Loc EndOffset="6902" SrcFileId="1" StartOffset="6880"/>
+</Cond>
+<LocList>
+<Loc EndOffset="6970" SrcFileId="1" StartOffset="6903"/>
+</LocList>
+<StmntSeq Intrnl_Id="120">
+<LocList>
+<Loc EndOffset="6966" SrcFileId="1" StartOffset="6946"/>
+</LocList>
+<BasicStmnt CovItemId="S53" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="121">
+<LocList>
+<Loc EndOffset="6966" SrcFileId="1" StartOffset="6946"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</Branch>
+<Keyword EndOffset="6629" SrcFileId="1" StartOffset="6626"/>
+<LocList>
+<Loc EndOffset="6970" SrcFileId="1" StartOffset="6626"/>
+</LocList>
+</CondStmnt>
+<BasicStmnt CovItemId="S54" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="122">
+<LocList>
+<Loc EndOffset="6993" SrcFileId="1" StartOffset="6973"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="9" HierarchyLvlTypeId="4" Intrnl_Id="123" Name="getAllFeedFromCategory">
+<Header>
+<Loc EndOffset="7148" SrcFileId="1" StartOffset="7083"/>
+</Header>
+<LocList>
+<Loc EndOffset="7817" SrcFileId="1" StartOffset="7083"/>
+</LocList>
+<StmntSeq Intrnl_Id="124">
+<LocList>
+<Loc EndOffset="7201" SrcFileId="1" StartOffset="7156"/>
+<Loc EndOffset="7253" SrcFileId="1" StartOffset="7204"/>
+<Loc EndOffset="7384" SrcFileId="1" StartOffset="7284"/>
+<Loc EndOffset="7423" SrcFileId="1" StartOffset="7388"/>
+<Loc EndOffset="7468" SrcFileId="1" StartOffset="7427"/>
+<Loc EndOffset="7701" SrcFileId="1" StartOffset="7476"/>
+<Loc EndOffset="7796" SrcFileId="1" StartOffset="7275"/>
+<Loc EndOffset="7811" SrcFileId="1" StartOffset="7799"/>
+</LocList>
+<BasicStmnt CovItemId="S55" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="125">
+<LocList>
+<Loc EndOffset="7201" SrcFileId="1" StartOffset="7156"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S56" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="126">
+<LocList>
+<Loc EndOffset="7253" SrcFileId="1" StartOffset="7204"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S58" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="127">
+<LocList>
+<Loc EndOffset="7384" SrcFileId="1" StartOffset="7284"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S59" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="128">
+<LocList>
+<Loc EndOffset="7423" SrcFileId="1" StartOffset="7388"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S60" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="129">
+<LocList>
+<Loc EndOffset="7468" SrcFileId="1" StartOffset="7427"/>
+</LocList>
+</BasicStmnt>
+<LoopStmnt CovItemId="S61" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="130" MltplExecId="L5-2" MltplExecPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" NvrExecId="L5-0" NvrExecPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" OnceExecutedId="L5-1" OnceExecutedPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" OptBodyExec="true">
+<StmntSeq Intrnl_Id="131">
+<LocList>
+<Loc EndOffset="7598" SrcFileId="1" StartOffset="7509"/>
+<Loc EndOffset="7639" SrcFileId="1" StartOffset="7603"/>
+<Loc EndOffset="7671" SrcFileId="1" StartOffset="7644"/>
+<Loc EndOffset="7696" SrcFileId="1" StartOffset="7681"/>
+</LocList>
+<BasicStmnt CovItemId="S62" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="132">
+<LocList>
+<Loc EndOffset="7598" SrcFileId="1" StartOffset="7509"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S63" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="133">
+<LocList>
+<Loc EndOffset="7639" SrcFileId="1" StartOffset="7603"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S64" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="134">
+<LocList>
+<Loc EndOffset="7671" SrcFileId="1" StartOffset="7644"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S65" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="135">
+<LocList>
+<Loc EndOffset="7696" SrcFileId="1" StartOffset="7681"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+<Keyword EndOffset="7481" SrcFileId="1" StartOffset="7476"/>
+<LocList>
+<Loc EndOffset="7701" SrcFileId="1" StartOffset="7476"/>
+</LocList>
+<RootTerm CovItemId="C7" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="136">
+<BasicBoolTerm Intrnl_Id="137">
+<LocList>
+<Loc EndOffset="7496" SrcFileId="1" StartOffset="7483"/>
+</LocList>
+</BasicBoolTerm>
+</RootTerm>
+</LoopStmnt>
+<CondStmnt CovItemId="S57" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="138">
+<Branch CovItemId="B13" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Implct="true" Intrnl_Id="139">
+<Cond/>
+<LocList/>
+<StmntSeq Intrnl_Id="140">
+<LocList/>
+</StmntSeq>
+</Branch>
+<Branch CovItemId="B14" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Implct="false" Intrnl_Id="141">
+<Cond>
+<Loc EndOffset="7728" SrcFileId="1" StartOffset="7706"/>
+</Cond>
+<LocList>
+<Loc EndOffset="7796" SrcFileId="1" StartOffset="7729"/>
+</LocList>
+<StmntSeq Intrnl_Id="142">
+<LocList>
+<Loc EndOffset="7792" SrcFileId="1" StartOffset="7772"/>
+</LocList>
+<BasicStmnt CovItemId="S66" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="143">
+<LocList>
+<Loc EndOffset="7792" SrcFileId="1" StartOffset="7772"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</Branch>
+<Keyword EndOffset="7278" SrcFileId="1" StartOffset="7275"/>
+<LocList>
+<Loc EndOffset="7796" SrcFileId="1" StartOffset="7275"/>
+</LocList>
+</CondStmnt>
+<BasicStmnt CovItemId="S67" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="144">
+<LocList>
+<Loc EndOffset="7811" SrcFileId="1" StartOffset="7799"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="10" HierarchyLvlTypeId="4" Intrnl_Id="145" Name="getAllNewsFromFeed">
+<Header>
+<Loc EndOffset="8007" SrcFileId="1" StartOffset="7934"/>
+</Header>
+<LocList>
+<Loc EndOffset="8761" SrcFileId="1" StartOffset="7934"/>
+</LocList>
+<StmntSeq Intrnl_Id="146">
+<LocList>
+<Loc EndOffset="8058" SrcFileId="1" StartOffset="8013"/>
+<Loc EndOffset="8222" SrcFileId="1" StartOffset="8130"/>
+<Loc EndOffset="8261" SrcFileId="1" StartOffset="8226"/>
+<Loc EndOffset="8308" SrcFileId="1" StartOffset="8265"/>
+<Loc EndOffset="8741" SrcFileId="1" StartOffset="8330"/>
+<Loc EndOffset="8757" SrcFileId="1" StartOffset="8745"/>
+</LocList>
+<BasicStmnt CovItemId="S68" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="147">
+<LocList>
+<Loc EndOffset="8058" SrcFileId="1" StartOffset="8013"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S69" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="148">
+<LocList>
+<Loc EndOffset="8222" SrcFileId="1" StartOffset="8130"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S70" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="149">
+<LocList>
+<Loc EndOffset="8261" SrcFileId="1" StartOffset="8226"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S71" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="150">
+<LocList>
+<Loc EndOffset="8308" SrcFileId="1" StartOffset="8265"/>
+</LocList>
+</BasicStmnt>
+<LoopStmnt CovItemId="S72" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="151" MltplExecId="L6-2" MltplExecPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" NvrExecId="L6-0" NvrExecPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" OnceExecutedId="L6-1" OnceExecutedPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" OptBodyExec="true">
+<StmntSeq Intrnl_Id="152">
+<LocList>
+<Loc EndOffset="8403" SrcFileId="1" StartOffset="8365"/>
+<Loc EndOffset="8454" SrcFileId="1" StartOffset="8408"/>
+<Loc EndOffset="8540" SrcFileId="1" StartOffset="8459"/>
+<Loc EndOffset="8716" SrcFileId="1" StartOffset="8560"/>
+<Loc EndOffset="8736" SrcFileId="1" StartOffset="8721"/>
+</LocList>
+<BasicStmnt CovItemId="S73" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="153">
+<LocList>
+<Loc EndOffset="8403" SrcFileId="1" StartOffset="8365"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S74" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="154">
+<LocList>
+<Loc EndOffset="8454" SrcFileId="1" StartOffset="8408"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S75" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="155">
+<LocList>
+<Loc EndOffset="8540" SrcFileId="1" StartOffset="8459"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S76" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="156">
+<LocList>
+<Loc EndOffset="8716" SrcFileId="1" StartOffset="8560"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S77" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="157">
+<LocList>
+<Loc EndOffset="8736" SrcFileId="1" StartOffset="8721"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+<Keyword EndOffset="8335" SrcFileId="1" StartOffset="8330"/>
+<LocList>
+<Loc EndOffset="8741" SrcFileId="1" StartOffset="8330"/>
+</LocList>
+<RootTerm CovItemId="C8" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="158">
+<BasicBoolTerm Intrnl_Id="159">
+<LocList>
+<Loc EndOffset="8352" SrcFileId="1" StartOffset="8337"/>
+</LocList>
+</BasicBoolTerm>
+</RootTerm>
+</LoopStmnt>
+<BasicStmnt CovItemId="S78" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="160">
+<LocList>
+<Loc EndOffset="8757" SrcFileId="1" StartOffset="8745"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="11" HierarchyLvlTypeId="4" Intrnl_Id="161" Name="returnCategory">
+<Header>
+<Loc EndOffset="10124" SrcFileId="1" StartOffset="10096"/>
+</Header>
+<LocList>
+<Loc EndOffset="10560" SrcFileId="1" StartOffset="10096"/>
+</LocList>
+<StmntSeq Intrnl_Id="162">
+<LocList>
+<Loc EndOffset="10176" SrcFileId="1" StartOffset="10133"/>
+<Loc EndOffset="10219" SrcFileId="1" StartOffset="10180"/>
+<Loc EndOffset="10462" SrcFileId="1" StartOffset="10236"/>
+<Loc EndOffset="10557" SrcFileId="1" StartOffset="10227"/>
+</LocList>
+<BasicStmnt CovItemId="S79" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="163">
+<LocList>
+<Loc EndOffset="10176" SrcFileId="1" StartOffset="10133"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S80" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="164">
+<LocList>
+<Loc EndOffset="10219" SrcFileId="1" StartOffset="10180"/>
+</LocList>
+</BasicStmnt>
+<LoopStmnt CovItemId="S82" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="165" MltplExecId="L7-2" MltplExecPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" NvrExecId="L7-0" NvrExecPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" OnceExecutedId="L7-1" OnceExecutedPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" OptBodyExec="true">
+<StmntSeq Intrnl_Id="166">
+<LocList>
+<Loc EndOffset="10291" SrcFileId="1" StartOffset="10266"/>
+<Loc EndOffset="10335" SrcFileId="1" StartOffset="10300"/>
+<Loc EndOffset="10379" SrcFileId="1" StartOffset="10344"/>
+<Loc EndOffset="10425" SrcFileId="1" StartOffset="10388"/>
+<Loc EndOffset="10455" SrcFileId="1" StartOffset="10434"/>
+</LocList>
+<BasicStmnt CovItemId="S83" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="167">
+<LocList>
+<Loc EndOffset="10291" SrcFileId="1" StartOffset="10266"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S84" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="168">
+<LocList>
+<Loc EndOffset="10335" SrcFileId="1" StartOffset="10300"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S85" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="169">
+<LocList>
+<Loc EndOffset="10379" SrcFileId="1" StartOffset="10344"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S86" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="170">
+<LocList>
+<Loc EndOffset="10425" SrcFileId="1" StartOffset="10388"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S87" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="171">
+<LocList>
+<Loc EndOffset="10455" SrcFileId="1" StartOffset="10434"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+<Keyword EndOffset="10241" SrcFileId="1" StartOffset="10236"/>
+<LocList>
+<Loc EndOffset="10462" SrcFileId="1" StartOffset="10236"/>
+</LocList>
+<RootTerm CovItemId="C9" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="172">
+<BasicBoolTerm Intrnl_Id="173">
+<LocList>
+<Loc EndOffset="10253" SrcFileId="1" StartOffset="10244"/>
+</LocList>
+</BasicBoolTerm>
+</RootTerm>
+</LoopStmnt>
+<CondStmnt CovItemId="S81" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="174">
+<Branch CovItemId="B15" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Implct="true" Intrnl_Id="175">
+<Cond/>
+<LocList/>
+<StmntSeq Intrnl_Id="176">
+<LocList/>
+</StmntSeq>
+</Branch>
+<Branch CovItemId="B16" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Implct="false" Intrnl_Id="177">
+<Cond>
+<Loc EndOffset="10489" SrcFileId="1" StartOffset="10467"/>
+</Cond>
+<LocList>
+<Loc EndOffset="10557" SrcFileId="1" StartOffset="10490"/>
+</LocList>
+<StmntSeq Intrnl_Id="178">
+<LocList>
+<Loc EndOffset="10553" SrcFileId="1" StartOffset="10533"/>
+</LocList>
+<BasicStmnt CovItemId="S88" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="179">
+<LocList>
+<Loc EndOffset="10553" SrcFileId="1" StartOffset="10533"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</Branch>
+<Keyword EndOffset="10230" SrcFileId="1" StartOffset="10227"/>
+<LocList>
+<Loc EndOffset="10557" SrcFileId="1" StartOffset="10227"/>
+</LocList>
+</CondStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="12" HierarchyLvlTypeId="4" Intrnl_Id="180" Name="clearDB">
+<Header>
+<Loc EndOffset="10662" SrcFileId="1" StartOffset="10641"/>
+</Header>
+<LocList>
+<Loc EndOffset="10859" SrcFileId="1" StartOffset="10641"/>
+</LocList>
+<StmntSeq Intrnl_Id="181">
+<LocList>
+<Loc EndOffset="10705" SrcFileId="1" StartOffset="10668"/>
+<Loc EndOffset="10732" SrcFileId="1" StartOffset="10708"/>
+<Loc EndOffset="10765" SrcFileId="1" StartOffset="10735"/>
+<Loc EndOffset="10792" SrcFileId="1" StartOffset="10768"/>
+<Loc EndOffset="10829" SrcFileId="1" StartOffset="10795"/>
+<Loc EndOffset="10856" SrcFileId="1" StartOffset="10832"/>
+</LocList>
+<BasicStmnt CovItemId="S89" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="182">
+<LocList>
+<Loc EndOffset="10705" SrcFileId="1" StartOffset="10668"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S90" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="183">
+<LocList>
+<Loc EndOffset="10732" SrcFileId="1" StartOffset="10708"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S91" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="184">
+<LocList>
+<Loc EndOffset="10765" SrcFileId="1" StartOffset="10735"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S92" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="185">
+<LocList>
+<Loc EndOffset="10792" SrcFileId="1" StartOffset="10768"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S93" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="186">
+<LocList>
+<Loc EndOffset="10829" SrcFileId="1" StartOffset="10795"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S94" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="187">
+<LocList>
+<Loc EndOffset="10856" SrcFileId="1" StartOffset="10832"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="13" HierarchyLvlTypeId="4" Intrnl_Id="188" Name="connect">
+<Header>
+<Loc EndOffset="13505" SrcFileId="1" StartOffset="13484"/>
+</Header>
+<LocList>
+<Loc EndOffset="13526" SrcFileId="1" StartOffset="13484"/>
+</LocList>
+<StmntSeq Intrnl_Id="189">
+<LocList>
+<Loc EndOffset="13523" SrcFileId="1" StartOffset="13510"/>
+</LocList>
+<BasicStmnt CovItemId="S95" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="190">
+<LocList>
+<Loc EndOffset="13523" SrcFileId="1" StartOffset="13510"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="14" HierarchyLvlTypeId="4" Intrnl_Id="191" Name="disconnect">
+<Header>
+<Loc EndOffset="13554" SrcFileId="1" StartOffset="13530"/>
+</Header>
+<LocList>
+<Loc EndOffset="13578" SrcFileId="1" StartOffset="13530"/>
+</LocList>
+<StmntSeq Intrnl_Id="192">
+<LocList>
+<Loc EndOffset="13575" SrcFileId="1" StartOffset="13559"/>
+</LocList>
+<BasicStmnt CovItemId="S96" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="193">
+<LocList>
+<Loc EndOffset="13575" SrcFileId="1" StartOffset="13559"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="15" HierarchyLvlTypeId="4" Intrnl_Id="194" Name="emptyNews">
+<Header>
+<Loc EndOffset="13604" SrcFileId="1" StartOffset="13581"/>
+</Header>
+<LocList>
+<Loc EndOffset="13650" SrcFileId="1" StartOffset="13581"/>
+</LocList>
+<StmntSeq Intrnl_Id="195">
+<LocList>
+<Loc EndOffset="13645" SrcFileId="1" StartOffset="13609"/>
+</LocList>
+<BasicStmnt CovItemId="S97" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="196">
+<LocList>
+<Loc EndOffset="13645" SrcFileId="1" StartOffset="13609"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="16" HierarchyLvlTypeId="4" Intrnl_Id="197" Name="getDb">
+<Header>
+<Loc EndOffset="13676" SrcFileId="1" StartOffset="13653"/>
+</Header>
+<LocList>
+<Loc EndOffset="13694" SrcFileId="1" StartOffset="13653"/>
+</LocList>
+<StmntSeq Intrnl_Id="198">
+<LocList>
+<Loc EndOffset="13691" SrcFileId="1" StartOffset="13681"/>
+</LocList>
+<BasicStmnt CovItemId="S98" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="199">
+<LocList>
+<Loc EndOffset="13691" SrcFileId="1" StartOffset="13681"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="17" HierarchyLvlTypeId="4" Intrnl_Id="200" Name="getDbUtil">
+<Header>
+<Loc EndOffset="13727" SrcFileId="1" StartOffset="13696"/>
+</Header>
+<LocList>
+<Loc EndOffset="13754" SrcFileId="1" StartOffset="13696"/>
+</LocList>
+<StmntSeq Intrnl_Id="201">
+<LocList>
+<Loc EndOffset="13751" SrcFileId="1" StartOffset="13732"/>
+</LocList>
+<BasicStmnt CovItemId="S99" CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java" Intrnl_Id="202">
+<LocList>
+<Loc EndOffset="13751" SrcFileId="1" StartOffset="13732"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+</HierarchyLvl>
+</HierarchyLvl>
+</HierarchyLvl>
+</HierarchyLvl>
+</HierarchyLvl>
+</HierarchyLvl>
+</HierarchyLvl>
+</MASTRoot>
+<TestSession Comment="" Date="1384903614821" Name="19-Nov-2013 6:26:54 PM">
+<TestCase Comment="" Date="1384903613769" Name="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManagerTest:testCreateDB">
+<CovList/>
+<AssgnmntList/>
+<ObjMetaDataList/>
+<MetaDataList/>
+</TestCase>
+<TestCase Comment="" Date="1384903614388" Name="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManagerTest:testGetAllCategories">
+<CovList/>
+<AssgnmntList/>
+<ObjMetaDataList/>
+<MetaDataList/>
+</TestCase>
+<TestCase Comment="" Date="1384903614399" Name="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManagerTest:testGetDb">
+<CovList/>
+<AssgnmntList/>
+<ObjMetaDataList/>
+<MetaDataList/>
+</TestCase>
+<TestCase Comment="" Date="1384903614408" Name="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManagerTest:testEmptyNews">
+<CovList/>
+<AssgnmntList/>
+<ObjMetaDataList/>
+<MetaDataList/>
+</TestCase>
+<TestCase Comment="" Date="1384903614418" Name="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManagerTest:testDisconnect">
+<CovList/>
+<AssgnmntList/>
+<ObjMetaDataList/>
+<MetaDataList/>
+</TestCase>
+<TestCase Comment="" Date="1384903614431" Name="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManagerTest:testInsertCategory">
+<CovList>
+<CovPrefix CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java">
+<Cov CovItemId="B1" Value="3"/>
+<Cov CovItemId="B11" Value="1"/>
+<Cov CovItemId="B13" Value="3"/>
+<Cov CovItemId="L4-2" Value="1"/>
+<Cov CovItemId="L5-0" Value="3"/>
+</CovPrefix>
+</CovList>
+<AssgnmntList>
+<AssgnmntPrefix RootTermCovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java">
+<AssgnmntListEntry Length="1" RootTermCovItemId="C6">
+<MapEntry BoolAssgnmnt="0" Value="1"/>
+<MapEntry BoolAssgnmnt="1" Value="3"/>
+</AssgnmntListEntry>
+<AssgnmntListEntry Length="1" RootTermCovItemId="C7">
+<MapEntry BoolAssgnmnt="0" Value="3"/>
+</AssgnmntListEntry>
+</AssgnmntPrefix>
+</AssgnmntList>
+<ObjMetaDataList/>
+<MetaDataList/>
+</TestCase>
+<TestCase Comment="" Date="1384903614480" Name="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManagerTest:testInsertFeed">
+<CovList>
+<CovPrefix CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java">
+<Cov CovItemId="B1" Value="1"/>
+<Cov CovItemId="B11" Value="1"/>
+<Cov CovItemId="B13" Value="1"/>
+<Cov CovItemId="B3" Value="3"/>
+<Cov CovItemId="L4-1" Value="1"/>
+<Cov CovItemId="L5-2" Value="1"/>
+<Cov CovItemId="L6-0" Value="3"/>
+</CovPrefix>
+</CovList>
+<AssgnmntList>
+<AssgnmntPrefix RootTermCovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java">
+<AssgnmntListEntry Length="1" RootTermCovItemId="C6">
+<MapEntry BoolAssgnmnt="0" Value="1"/>
+<MapEntry BoolAssgnmnt="1" Value="1"/>
+</AssgnmntListEntry>
+<AssgnmntListEntry Length="1" RootTermCovItemId="C7">
+<MapEntry BoolAssgnmnt="0" Value="1"/>
+<MapEntry BoolAssgnmnt="1" Value="3"/>
+</AssgnmntListEntry>
+<AssgnmntListEntry Length="1" RootTermCovItemId="C8">
+<MapEntry BoolAssgnmnt="0" Value="3"/>
+</AssgnmntListEntry>
+</AssgnmntPrefix>
+</AssgnmntList>
+<ObjMetaDataList/>
+<MetaDataList/>
+</TestCase>
+<TestCase Comment="" Date="1384903614531" Name="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManagerTest:testInsertNews">
+<CovList>
+<CovPrefix CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java">
+<Cov CovItemId="B1" Value="1"/>
+<Cov CovItemId="B11" Value="1"/>
+<Cov CovItemId="B13" Value="1"/>
+<Cov CovItemId="B3" Value="1"/>
+<Cov CovItemId="L4-1" Value="1"/>
+<Cov CovItemId="L5-1" Value="1"/>
+<Cov CovItemId="L6-0" Value="1"/>
+</CovPrefix>
+</CovList>
+<AssgnmntList>
+<AssgnmntPrefix RootTermCovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java">
+<AssgnmntListEntry Length="1" RootTermCovItemId="C6">
+<MapEntry BoolAssgnmnt="0" Value="1"/>
+<MapEntry BoolAssgnmnt="1" Value="1"/>
+</AssgnmntListEntry>
+<AssgnmntListEntry Length="1" RootTermCovItemId="C7">
+<MapEntry BoolAssgnmnt="0" Value="1"/>
+<MapEntry BoolAssgnmnt="1" Value="1"/>
+</AssgnmntListEntry>
+<AssgnmntListEntry Length="1" RootTermCovItemId="C8">
+<MapEntry BoolAssgnmnt="0" Value="1"/>
+</AssgnmntListEntry>
+</AssgnmntPrefix>
+</AssgnmntList>
+<ObjMetaDataList/>
+<MetaDataList/>
+</TestCase>
+<TestCase Comment="" Date="1384903614594" Name="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManagerTest:testConnect">
+<CovList/>
+<AssgnmntList/>
+<ObjMetaDataList/>
+<MetaDataList/>
+</TestCase>
+<TestCase Comment="" Date="1384903614604" Name="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManagerTest:testInsertObjetToDB">
+<CovList>
+<CovPrefix CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java">
+<Cov CovItemId="B1" Value="3"/>
+<Cov CovItemId="B11" Value="1"/>
+<Cov CovItemId="B13" Value="3"/>
+<Cov CovItemId="L4-2" Value="1"/>
+<Cov CovItemId="L5-0" Value="3"/>
+</CovPrefix>
+</CovList>
+<AssgnmntList>
+<AssgnmntPrefix RootTermCovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java">
+<AssgnmntListEntry Length="1" RootTermCovItemId="C6">
+<MapEntry BoolAssgnmnt="0" Value="1"/>
+<MapEntry BoolAssgnmnt="1" Value="3"/>
+</AssgnmntListEntry>
+<AssgnmntListEntry Length="1" RootTermCovItemId="C7">
+<MapEntry BoolAssgnmnt="0" Value="3"/>
+</AssgnmntListEntry>
+</AssgnmntPrefix>
+</AssgnmntList>
+<ObjMetaDataList/>
+<MetaDataList/>
+</TestCase>
+<TestCase Comment="" Date="1384903614649" Name="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManagerTest:testReturnCategory">
+<CovList/>
+<AssgnmntList/>
+<ObjMetaDataList/>
+<MetaDataList/>
+</TestCase>
+<MetaDataList/>
+</TestSession>
+<TestSession Comment="" Date="1384903729552" Name="19-Nov-2013 6:28:49 PM">
+<TestCase Comment="" Date="1384903728395" Name="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManagerTest:testCreateDB">
+<CovList/>
+<AssgnmntList/>
+<ObjMetaDataList/>
+<MetaDataList/>
+</TestCase>
+<TestCase Comment="" Date="1384903729157" Name="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManagerTest:testGetAllCategories">
+<CovList/>
+<AssgnmntList/>
+<ObjMetaDataList/>
+<MetaDataList/>
+</TestCase>
+<TestCase Comment="" Date="1384903729171" Name="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManagerTest:testGetDb">
+<CovList/>
+<AssgnmntList/>
+<ObjMetaDataList/>
+<MetaDataList/>
+</TestCase>
+<TestCase Comment="" Date="1384903729185" Name="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManagerTest:testEmptyNews">
+<CovList/>
+<AssgnmntList/>
+<ObjMetaDataList/>
+<MetaDataList/>
+</TestCase>
+<TestCase Comment="" Date="1384903729203" Name="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManagerTest:testDisconnect">
+<CovList/>
+<AssgnmntList/>
+<ObjMetaDataList/>
+<MetaDataList/>
+</TestCase>
+<TestCase Comment="" Date="1384903729218" Name="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManagerTest:testInsertCategory">
+<CovList>
+<CovPrefix CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java">
+<Cov CovItemId="B1" Value="3"/>
+<Cov CovItemId="B11" Value="1"/>
+<Cov CovItemId="B13" Value="3"/>
+<Cov CovItemId="L4-2" Value="1"/>
+<Cov CovItemId="L5-0" Value="3"/>
+</CovPrefix>
+</CovList>
+<AssgnmntList>
+<AssgnmntPrefix RootTermCovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java">
+<AssgnmntListEntry Length="1" RootTermCovItemId="C6">
+<MapEntry BoolAssgnmnt="0" Value="1"/>
+<MapEntry BoolAssgnmnt="1" Value="3"/>
+</AssgnmntListEntry>
+<AssgnmntListEntry Length="1" RootTermCovItemId="C7">
+<MapEntry BoolAssgnmnt="0" Value="3"/>
+</AssgnmntListEntry>
+</AssgnmntPrefix>
+</AssgnmntList>
+<ObjMetaDataList/>
+<MetaDataList/>
+</TestCase>
+<TestCase Comment="" Date="1384903729290" Name="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManagerTest:testInsertFeed">
+<CovList>
+<CovPrefix CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java">
+<Cov CovItemId="B1" Value="1"/>
+<Cov CovItemId="B11" Value="1"/>
+<Cov CovItemId="B13" Value="1"/>
+<Cov CovItemId="B3" Value="3"/>
+<Cov CovItemId="L4-1" Value="1"/>
+<Cov CovItemId="L5-2" Value="1"/>
+<Cov CovItemId="L6-0" Value="3"/>
+</CovPrefix>
+</CovList>
+<AssgnmntList>
+<AssgnmntPrefix RootTermCovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java">
+<AssgnmntListEntry Length="1" RootTermCovItemId="C6">
+<MapEntry BoolAssgnmnt="0" Value="1"/>
+<MapEntry BoolAssgnmnt="1" Value="1"/>
+</AssgnmntListEntry>
+<AssgnmntListEntry Length="1" RootTermCovItemId="C7">
+<MapEntry BoolAssgnmnt="0" Value="1"/>
+<MapEntry BoolAssgnmnt="1" Value="3"/>
+</AssgnmntListEntry>
+<AssgnmntListEntry Length="1" RootTermCovItemId="C8">
+<MapEntry BoolAssgnmnt="0" Value="3"/>
+</AssgnmntListEntry>
+</AssgnmntPrefix>
+</AssgnmntList>
+<ObjMetaDataList/>
+<MetaDataList/>
+</TestCase>
+<TestCase Comment="" Date="1384903729364" Name="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManagerTest:testInsertNews">
+<CovList>
+<CovPrefix CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java">
+<Cov CovItemId="B1" Value="1"/>
+<Cov CovItemId="B11" Value="1"/>
+<Cov CovItemId="B13" Value="1"/>
+<Cov CovItemId="B3" Value="1"/>
+<Cov CovItemId="L4-1" Value="1"/>
+<Cov CovItemId="L5-1" Value="1"/>
+<Cov CovItemId="L6-0" Value="1"/>
+</CovPrefix>
+</CovList>
+<AssgnmntList>
+<AssgnmntPrefix RootTermCovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java">
+<AssgnmntListEntry Length="1" RootTermCovItemId="C6">
+<MapEntry BoolAssgnmnt="0" Value="1"/>
+<MapEntry BoolAssgnmnt="1" Value="1"/>
+</AssgnmntListEntry>
+<AssgnmntListEntry Length="1" RootTermCovItemId="C7">
+<MapEntry BoolAssgnmnt="0" Value="1"/>
+<MapEntry BoolAssgnmnt="1" Value="1"/>
+</AssgnmntListEntry>
+<AssgnmntListEntry Length="1" RootTermCovItemId="C8">
+<MapEntry BoolAssgnmnt="0" Value="1"/>
+</AssgnmntListEntry>
+</AssgnmntPrefix>
+</AssgnmntList>
+<ObjMetaDataList/>
+<MetaDataList/>
+</TestCase>
+<TestCase Comment="" Date="1384903729431" Name="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManagerTest:testConnect">
+<CovList/>
+<AssgnmntList/>
+<ObjMetaDataList/>
+<MetaDataList/>
+</TestCase>
+<TestCase Comment="" Date="1384903729443" Name="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManagerTest:testInsertObjetToDB">
+<CovList>
+<CovPrefix CovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java">
+<Cov CovItemId="B1" Value="3"/>
+<Cov CovItemId="B11" Value="1"/>
+<Cov CovItemId="B13" Value="3"/>
+<Cov CovItemId="L4-2" Value="1"/>
+<Cov CovItemId="L5-0" Value="3"/>
+</CovPrefix>
+</CovList>
+<AssgnmntList>
+<AssgnmntPrefix RootTermCovItemPrefix="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager.java">
+<AssgnmntListEntry Length="1" RootTermCovItemId="C6">
+<MapEntry BoolAssgnmnt="0" Value="1"/>
+<MapEntry BoolAssgnmnt="1" Value="3"/>
+</AssgnmntListEntry>
+<AssgnmntListEntry Length="1" RootTermCovItemId="C7">
+<MapEntry BoolAssgnmnt="0" Value="3"/>
+</AssgnmntListEntry>
+</AssgnmntPrefix>
+</AssgnmntList>
+<ObjMetaDataList/>
+<MetaDataList/>
+</TestCase>
+<TestCase Comment="" Date="1384903729501" Name="ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManagerTest:testReturnCategory">
+<CovList/>
+<AssgnmntList/>
+<ObjMetaDataList/>
+<MetaDataList/>
+</TestCase>
+<MetaDataList/>
+</TestSession>
+</TestSessionContainer>

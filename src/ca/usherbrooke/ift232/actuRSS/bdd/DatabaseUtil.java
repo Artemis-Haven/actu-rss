@@ -5,6 +5,7 @@ import java.util.Calendar;
 public class DatabaseUtil {
 
 	public String ConvertCalendarToString(Calendar date) {
+		
 		StringBuffer dateToReturn = new StringBuffer();
 		
 		/* Partie Date  **************************************/
