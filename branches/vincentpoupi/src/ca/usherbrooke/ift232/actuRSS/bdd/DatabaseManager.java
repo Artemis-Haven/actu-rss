@@ -258,8 +258,8 @@ public class DatabaseManager {
 			Calendar date;
 			
 			
-			PreparedStatement prstmt = db.connection.prepareStatement("SELECT * FROM news WHERE URL=?");
-			prstmt.setString(1, feed.getUrl());
+			PreparedStatement prstmt = db.connection.prepareStatement("SELECT * FROM news WHERE ID_Feed=?");
+			prstmt.setInt(1, feed.getId());
 			ResultSet resultat = prstmt.executeQuery();
 			
 			News news;

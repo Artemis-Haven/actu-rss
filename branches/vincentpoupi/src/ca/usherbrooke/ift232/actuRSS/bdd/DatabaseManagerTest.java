@@ -185,7 +185,7 @@ public class DatabaseManagerTest {
 	public void testInsertNews() {
 		Database db = new Database("DBRSS");
 		DatabaseManager dbManager = new DatabaseManager(db);
-		
+		DatabaseUtil dbUtil = new DatabaseUtil();
 		dbManager.connect();
 		dbManager.deleteDB();
 		dbManager.createDB();
@@ -212,8 +212,8 @@ public class DatabaseManagerTest {
 				assertEquals(listNewsExpected.get(i).getUrl(), listCategory.get(0).getListFeed().get(0).getListNews().get(i).getUrl());
 				assertEquals(listNewsExpected.get(i).getTitle(), listCategory.get(0).getListFeed().get(0).getListNews().get(i).getTitle());
 				assertEquals(listNewsExpected.get(i).getAuthor(), listCategory.get(0).getListFeed().get(0).getListNews().get(i).getAuthor());
-				assertEquals(listNewsExpected.get(i).getDate(), listCategory.get(0).getListFeed().get(i).getListNews().get(i).getDate());
-				assertEquals(listNewsExpected.get(i).getContents(), listCategory.get(0).getListFeed().get(i).getListNews().get(i).getContents());
+				assertEquals(dbUtil.ConvertCalendarToString(listNewsExpected.get(i).getDate()), dbUtil.ConvertCalendarToString(listCategory.get(0).getListFeed().get(0).getListNews().get(i).getDate()));
+				assertEquals(listNewsExpected.get(i).getContents(), listCategory.get(0).getListFeed().get(0).getListNews().get(i).getContents());
 			}
 			
 		} 
