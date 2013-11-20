@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Observable;
 
 import javax.swing.text.html.parser.Parser;
 
@@ -15,7 +16,7 @@ import ca.usherbrooke.ift232.actuRSS.News;
 import ca.usherbrooke.ift232.actuRSS.bdd.Database;
 import ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager;
 
-public class Model {
+public class Model extends Observable{
 
 	DatabaseManager dbManager;
 	FeedManager feedManager;
@@ -119,7 +120,21 @@ public class Model {
 		//On
 		sendAllToDB();
 		
+		//Notifier la vue
+		this.notifyObserver();
 		
+		
+		//TODO		
 	}
+	
+	public void notifyObserver()
+	{
+		List<Category> oldListCategory = (List<Category>)feedManager.getOldListCategory();
+		setChanged();
+		notifyObservers(oldListCategory);	
+	}
+	
+	
+	
+	
 }
-
