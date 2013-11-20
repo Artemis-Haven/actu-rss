@@ -120,12 +120,20 @@ public class Model extends Observable{
 		//On
 		sendAllToDB();
 		
-		//TODO 		
+		//Notifier la vue
+		this.notifyObserver();
+		
+		
+		//TODO		
 	}
 	
 	public void notifyObserver()
 	{
+		List<Category> oldListCategory = (List<Category>)feedManager.getOldListCategory();
+		setChanged();
 		
+		//Mettre a jour la liste de catégorie
+		notifyObservers(oldListCategory);	
 	}
 	
 	

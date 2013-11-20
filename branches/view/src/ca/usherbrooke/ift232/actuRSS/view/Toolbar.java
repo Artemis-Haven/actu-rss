@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.ComponentOrientation;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.event.ActionListener;
 
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -54,6 +55,7 @@ public class Toolbar extends JPanel {
 		leftPanel = new JPanel();
 		
 		syncBtn = new JButton(new ImageIcon(getClass().getResource("/img/sync.png")));
+		syncBtn.setActionCommand("Sync");
 		syncBtn.setBorderPainted(false);
 		syncBtn.setFocusPainted(false);
 		leftPanel.add(syncBtn);
@@ -68,9 +70,12 @@ public class Toolbar extends JPanel {
 		rightPanel.setSize(new Dimension(24, 24));
 		
 		readBtn = buildToggleButton("/img/read.png");
+		readBtn.setActionCommand("Read");
+		
 		rightPanel.add(readBtn);
 		
 		favBtn = buildToggleButton("/img/favorite.png");
+		favBtn.setActionCommand("FavBtn");
 		rightPanel.add(favBtn);
 		
 		menuBtn = new Menu();
@@ -111,5 +116,20 @@ public class Toolbar extends JPanel {
 		btn.setBorderPainted(false);
 		btn.setFocusPainted(false);
 		return btn;
+	}
+	public void addListener(ActionListener e)
+	{
+		allNewsBtn.addActionListener(e);
+		unreadNewsBtn.addActionListener(e);
+		favNewsBtn.addActionListener(e);
+		
+		syncBtn.addActionListener(e);
+		
+		readBtn.addActionListener(e);
+		favBtn.addActionListener(e);			
+		
+		menuBtn.addListener(e);
+		
+		
 	}
 }
