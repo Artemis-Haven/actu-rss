@@ -170,66 +170,6 @@ public class DatabaseManager {
         }
 	}
 	
-	
-	/**
-	 * 
-	 * @param date Date � convertir
-	 * @return La date en chaine de caract�res
-	 */
-	/*private String ConvertCalendarToString(Calendar date) {
-		StringBuffer dateToReturn = new StringBuffer();
-		
-		
-		dateToReturn.append(date.get(Calendar.YEAR));
-		dateToReturn.append("-");
-		String month = null;
-	      int mo = date.get(Calendar.MONTH) + 1;
-	      if(mo < 10) {
-	        month = "0" + mo;
-	      }
-	      else {
-	        month = "" + mo;
-	      }
-	      dateToReturn.append(month);      
-	      
-	      dateToReturn.append("-");
-	      
-	      String day = null;
-	      int dt = date.get(Calendar.DATE);
-	      if(dt < 10) {
-	        day = "0" + dt;
-	      }
-	      else {
-	        day = "" + dt;
-	      }
-	      dateToReturn.append(" ");
-	      
-	      dateToReturn.append(date.get(Calendar.HOUR_OF_DAY));
-	      dateToReturn.append(":");
-	      dateToReturn.append(date.get(Calendar.MINUTE));
-	      dateToReturn.append(":");
-	      dateToReturn.append(date.get(Calendar.SECOND));
-		
-		return dateToReturn.toString();
-	}
-	
-	public Calendar convertStringToCalendar(String date)
-	{
-		//YYYY-MM-DD HH:MM:SS.SSS
-		Calendar calendar = Calendar.getInstance();
-		
-		int year = Integer.parseInt(date.substring(0, 3));
-		int month = Integer.parseInt(date.substring(4, 5));
-		int day = Integer.parseInt(date.substring(6, 7));
-		int hourOfDay = Integer.parseInt(date.substring(9, 10));
-		int minute = Integer.parseInt(date.substring(11, 12));
-		int second = Integer.parseInt(date.substring(13, 14));
-		
- 		calendar.set(year, month, day, hourOfDay, minute, second);
-		
-		return calendar;
-	}*/
-	
 	/**
 	 * Conversion de la BDD en Objet
 	 */
@@ -302,7 +242,6 @@ public class DatabaseManager {
 		
 	}
 	
-
 	/**
      * @param feed Objet Feed
      * @return La liste de toutes les news correspondant � un flux
@@ -427,22 +366,6 @@ public class DatabaseManager {
 		requete = "DELETE FROM Category;";
 		db.updateValue(requete);
 	}
-	
-	
-// Récupère toutes les news d'un feed
-	/*public ArrayList<News> getAllNewsFromFeed(Feed feed) throws SQLException {
-		
-		PreparedStatement prstmt = db.connection.prepareStatement("SELECT * FROM news WHERE feed=?");
-		prstmt.setInt(1, feed.getId());
-		ResultSet resultat = prstmt.executeQuery();
-		ArrayList<News> list = new ArrayList<News>();
-		News news;
-		while (resultat.next()) {
-			news = new News(resultat.getInt(1), resultat.getString(2), resultat.getString(4), resultat.getDate(5), resultat.getString(6), resultat.getString(3), resultat.getInt(8)==1, resultat.getInt(9)==1);
-			list.add(news);
-		}
-		return list;
-	}*/
 	
 	/*// Récupère toutes les news d'un feed
 	public ArrayList<Feed> getAllFeeds() throws SQLException {
