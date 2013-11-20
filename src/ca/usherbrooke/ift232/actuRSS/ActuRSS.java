@@ -14,7 +14,7 @@ public class ActuRSS {
 		System.out.println("Hello Moustache");
 		Model model = new Model();
 		View view  = new View();
-	//	Controller controller = new Controller(model,view);
+		Controller controller = new Controller(model,view);
 		
 		view.setVisible(true);
 	}

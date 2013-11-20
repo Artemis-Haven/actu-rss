@@ -1,10 +1,13 @@
 package ca.usherbrooke.ift232.actuRSS.view;
 
+import java.awt.event.ActionListener;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 
+import ca.usherbrooke.ift232.actuRSS.Category;
 import ca.usherbrooke.ift232.actuRSS.model.Model;
 
 /**
@@ -67,6 +70,13 @@ public class View extends JFrame implements Observer {
 
 	public MainPanel getMainPanel() {return mainPanel;}
 
+	
+	public void addListener(ActionListener e)
+	{
+		this.mainPanel.addListener(e);
+	}
+	
+	
 	/**
 	 * update(Observable, Object)
 	 * 
@@ -76,10 +86,12 @@ public class View extends JFrame implements Observer {
 	 * @param Object
 	 */
 	@Override
-	public void update(Observable arg0, Object arg1) {
-		// TODO Auto-generated method stub		
-		// Mettre a jour la liste de categorie
+	public void update(Observable arg0, Object arg1) {		
 		
+		List<Category> categoryList = (List<Category>)arg1;
+		
+		/* Refactorisation	*/	
+		this.getMainPanel().update(categoryList);		
 		
 	}
 }

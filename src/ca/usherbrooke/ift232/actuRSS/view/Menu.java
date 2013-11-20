@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -26,6 +27,7 @@ public class Menu extends JMenuBar{
 	JMenuItem paraHelp;
 	
 	public Menu(){
+		
 		setRequestFocusEnabled(false);
 		setOpaque(false);
 		setMaximumSize(new Dimension(24, 24));
@@ -50,15 +52,19 @@ public class Menu extends JMenuBar{
 		mnParametre.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		paraPreferency = new JMenuItem("Préférences");
-		mnParametre.add(paraPreferency);
+		paraPreferency.setActionCommand("Pref");
 		
+		mnParametre.add(paraPreferency);
+
 		paraSource = new JMenuItem("Gérer les sources");
+		paraSource.setActionCommand("GererSources");
 		mnParametre.add(paraSource);
 		
 		paraHelp = new JMenuItem("Help");
+		
 		mnParametre.add(paraHelp);
 		
-		paraAbout = new JMenuItem("?");
+		paraAbout = new JMenuItem("About");
 		mnParametre.add(paraAbout);
 	}
 	
@@ -79,5 +85,15 @@ public class Menu extends JMenuBar{
 			}
 		});
 	}
+	
+	public void addListener(ActionListener e)
+	{		
+		paraPreferency.addActionListener(e);
+		paraSource.addActionListener(e);
+		paraAbout.addActionListener(e);		
+		paraHelp.addActionListener(e);		
+
+	}
+	
 
 }
