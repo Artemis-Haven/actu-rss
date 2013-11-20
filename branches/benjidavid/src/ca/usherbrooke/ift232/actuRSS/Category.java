@@ -17,9 +17,14 @@ public class Category {
 	// variables de classe
 	private int id;
 	private String name;
-	private List<Feed> listFeed = new ArrayList<Feed>();
+	private List<Feed> listFeed;
 
-	// constructeur
+	// constructeurs
+	public Category() {
+		this.id = -1;
+		this.name = "";
+		this.listFeed = new ArrayList<Feed>();
+	}
 
 	/**
 	 * @param name
