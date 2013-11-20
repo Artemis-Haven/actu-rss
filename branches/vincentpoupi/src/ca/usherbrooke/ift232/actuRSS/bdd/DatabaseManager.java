@@ -17,7 +17,7 @@ public class DatabaseManager {
 	 * Variable priv�e
 	 */
 	private Database db;
-	private DatabaseUtil dbUtil;
+	private DatabaseUtil dbUtil = new DatabaseUtil();
 	
 	/**
 	 * Constructeur 
@@ -27,6 +27,7 @@ public class DatabaseManager {
 		this.db = db;
 		connect();
 	}
+	
 	
 	
 	/**
@@ -149,9 +150,12 @@ public class DatabaseManager {
 		int read = 0;
 		int favorite = 0;
 		
-		String date = this.getDbUtil().ConvertCalendarToString(news.getDate());
+		String date = "";
+		Calendar cal = news.getDate();
+		date = dbUtil.ConvertCalendarToString(cal);
+		
 		if (news.isRead())
-			read =1;
+			read = 1;
 		if (news.isFavorite())
 			favorite = 1;
 		try {
