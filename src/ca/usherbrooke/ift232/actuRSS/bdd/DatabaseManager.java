@@ -27,9 +27,7 @@ public class DatabaseManager {
 		this.db = db;
 		connect();
 	}
-	
-	
-	
+		
 	/**
 	 * Permet d'effacer la base de donn�e existante.
 	 */
@@ -38,7 +36,6 @@ public class DatabaseManager {
 		db.updateValue("drop table if exists News");
 		db.updateValue("drop table if exists Feed");
 		db.updateValue("drop table if exists Category");
-		
 	}
 	
 	
@@ -82,22 +79,22 @@ public class DatabaseManager {
 
 		for(int i=0;i<listCategory.size();i++)
 		{
-					
+
 			for(int j = 0; j < listCategory.get(i).getListFeed().size(); j++)
 			{
-				
-				
+
 				for(int k = 0; k < listCategory.get(i).getListFeed().get(j).getListNews().size(); k++)
 				{
-					
+
 					insertNews(listCategory.get(i).getListFeed().get(j).getListNews().get(k), listCategory.get(i).getListFeed().get(j).getId());
-					
+
 				}
+
 				insertFeed(listCategory.get(i).getListFeed().get(j), listCategory.get(i).getId());
 			}
-			
+
 			insertCategory(listCategory.get(i));
-			
+
 		}
 			
 			
@@ -189,13 +186,9 @@ public class DatabaseManager {
 
 		ArrayList<Feed> listFeed = new ArrayList<Feed>();
 
-		
-
-				
 		ResultSet resultat = db.getResultOf("SELECT * FROM Category;");
 		try {
-			while (resultat.next()) {
-				
+			while (resultat.next()) {				
 
 				category = new Category(resultat.getInt("ID"), resultat.getString("Name"));
 				
@@ -316,28 +309,53 @@ public class DatabaseManager {
 	}*/
 	
 
+		
+	public void clearCategory(Category category)
+	{
+		if(category.getListFeed().isEmpty())
+		{
+			try {
+				PreparedStatement prstmt = db.connection.prepareStatement("DELETE from Category where ID= ?" );
+				prstmt.setInt(1, category.getId());
+				prstmt.execute();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	
+	
+	public void clearFeed(Feed feed)
+	{
+		if(feed.getListNews().isEmpty())
+		{
+			try {
+				PreparedStatement prstmt = db.connection.prepareStatement("DELETE from Feed where ID= ?" );
+				prstmt.setInt(1, feed.getId());
+				prstmt.execute();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public void clearNews(News news)
+	{
+			try {
+				PreparedStatement prstmt = db.connection.prepareStatement("DELETE from News where URL= ?" );
+				prstmt.setString(1, news.getUrl());
+				prstmt.execute();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+	}
 	
 	/*
-	
-	public void deleteCategory(int id)
-	{
-		String requete = "DELETE from Category where ID="+ id +"";
-		db.updateValue(requete);
-	}
-	
-	public void deleteNews(int id)
-	{
-		String requete = "DELETE from News where ID="+ id +"";
-		db.updateValue(requete);
-	}
-	
-	public void deleteFeed(int id)
-	{
-		String requete = "DELETE from Feed where ID="+ id +"";
-		db.updateValue(requete);
-	}
-	
-	*/
 	public void returnCategory()
 	{
 		
@@ -356,7 +374,7 @@ public class DatabaseManager {
 			e.printStackTrace();
 		}
 	}
-	
+	*/
 	/**
 	 * Supprime les donnees de la Bdd
 	 * @author Vincent Chataignier
@@ -438,13 +456,6 @@ public class DatabaseManager {
 		db.disconnect();
 	}
 
-	public void emptyNews() {
-		db.updateValue("DELETE FROM news;");		
-	}
-
-	public Database getDb() {
-		return db;
-	}
 	public DatabaseUtil getDbUtil() {
 		return this.dbUtil;
 	}
