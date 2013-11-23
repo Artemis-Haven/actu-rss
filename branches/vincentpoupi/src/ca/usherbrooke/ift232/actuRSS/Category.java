@@ -28,7 +28,7 @@ public class Category {
 	public Category(){
 		this.id = 0;
 		this.name = "";
-		this.listFeed = null;
+		this.listFeed = new ArrayList<Feed>();
 	}
 	
 	/**
@@ -45,7 +45,7 @@ public class Category {
 	public Category(int id, String name){
 		this.id = id;
 		this.name = name;
-		this.listFeed =  null;
+		this.listFeed =  new ArrayList<Feed>();
 	}
 
 	//accesseurs

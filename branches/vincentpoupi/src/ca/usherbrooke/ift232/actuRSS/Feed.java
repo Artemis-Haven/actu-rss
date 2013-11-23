@@ -27,7 +27,7 @@ public class Feed {
 	public Feed(){
 		this.title = "";
 		this.url = "";
-		listNews = null;
+		listNews = new ArrayList<News>();
 	}
 	
 	/**
@@ -46,7 +46,7 @@ public class Feed {
 		this.id = id;
 		this.title = title;
 		this.url = url;
-		listNews = null;
+		listNews = new ArrayList<News>();
 	}
 	//accesseurs
 
