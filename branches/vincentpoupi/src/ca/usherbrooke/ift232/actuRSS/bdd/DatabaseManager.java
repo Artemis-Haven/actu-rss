@@ -17,7 +17,6 @@ public class DatabaseManager {
 	 * Variable priv�e
 	 */
 	private Database db;
-	private DatabaseUtil dbUtil = new DatabaseUtil();
 	
 	/**
 	 * Constructeur 
@@ -149,7 +148,7 @@ public class DatabaseManager {
 		
 		String date = "";
 		Calendar cal = news.getDate();
-		date = dbUtil.ConvertCalendarToString(cal);
+		date = DatabaseUtil.ConvertCalendarToString(cal);
 		
 		if (news.isRead())
 			read = 1;
@@ -260,7 +259,7 @@ public class DatabaseManager {
 				
 				read = (resultat.getInt("Read") == 1);
 				favorite = (resultat.getInt("Favorite") == 1);
-				date = this.getDbUtil().convertStringToCalendar(resultat.getString("Date_News"));
+				date = DatabaseUtil.convertStringToCalendar(resultat.getString("Date_News"));
 				
 				
 				
@@ -456,9 +455,6 @@ public class DatabaseManager {
 		db.disconnect();
 	}
 
-	public DatabaseUtil getDbUtil() {
-		return this.dbUtil;
-	}
 	
 	
 }

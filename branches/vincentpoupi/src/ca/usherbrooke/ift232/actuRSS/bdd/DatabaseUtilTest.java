@@ -32,27 +32,25 @@ public class DatabaseUtilTest {
 
 	@Test
 	public void testConvertCalendarToString() {
-		DatabaseUtil dbUtil = new DatabaseUtil();
 		
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(2013, 01, 12, 05, 06, 03);
 		
-		String date = dbUtil.ConvertCalendarToString(calendar);
+		String date = DatabaseUtil.ConvertCalendarToString(calendar);
 		//System.out.println(date);
 		assertEquals(date, "2013-01-12 05:06:03");
 		
 		
 		News news1 = new News("Football - Ligue 1 - L1 : Le top 10 des id�es re�ues� battues en br�che", "http://www.eurosport.fr/football/ligue-1/2013-2014/l1-le-top-10-des-idees-recues.-battues-en-breche_sto4004002/story.shtml", "Ta m�re", calendar ,"Championnat homog�ne, gardiens infranchissables, Paris et Monaco seuls au monde : la Ligue 1 charrie des clich�s qui ne correspondent pas � sa r�alit�. Notre top 10.", false, false  );
-		date = dbUtil.ConvertCalendarToString(news1.getDate());
+		date = DatabaseUtil.ConvertCalendarToString(news1.getDate());
 		assertEquals(date, "2013-01-12 05:06:03");
 	}
 
 	@Test
 	public void testConvertStringToCalendar() {
-		DatabaseUtil dbUtil = new DatabaseUtil();
 		String date = "2013-11-12 12:05:33";
 		Calendar calendar = Calendar.getInstance();
-		calendar = dbUtil.convertStringToCalendar(date);
+		calendar = DatabaseUtil.convertStringToCalendar(date);
 		//date = dbUtil.ConvertCalendarToString(calendar);
 		//System.out.println(date);
 		assertEquals(calendar.get(Calendar.YEAR), 2013);

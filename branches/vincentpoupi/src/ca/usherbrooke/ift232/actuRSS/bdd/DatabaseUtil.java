@@ -4,7 +4,7 @@ import java.util.Calendar;
 
 public class DatabaseUtil {
 
-	public String ConvertCalendarToString(Calendar date) {
+	public static String ConvertCalendarToString(Calendar date) {
 		
 		StringBuffer dateToReturn = new StringBuffer();
 		
@@ -14,25 +14,25 @@ public class DatabaseUtil {
 		
 		dateToReturn.append("-");
 
-		dateToReturn.append(this.GetNormalForm(date.get(Calendar.MONTH)));      
+		dateToReturn.append(GetNormalForm(date.get(Calendar.MONTH)));      
 
 		dateToReturn.append("-");
 		
-		dateToReturn.append(this.GetNormalForm(date.get(Calendar.DATE)));
+		dateToReturn.append(GetNormalForm(date.get(Calendar.DATE)));
 		
 		dateToReturn.append(" ");
 		
 		/* Partie Heure ************************************/
-		dateToReturn.append(this.GetNormalForm(date.get(Calendar.HOUR_OF_DAY)));
+		dateToReturn.append(GetNormalForm(date.get(Calendar.HOUR_OF_DAY)));
 		dateToReturn.append(":");
-		dateToReturn.append(this.GetNormalForm(date.get(Calendar.MINUTE)));
+		dateToReturn.append(GetNormalForm(date.get(Calendar.MINUTE)));
 		dateToReturn.append(":");
-		dateToReturn.append(this.GetNormalForm(date.get(Calendar.SECOND)));
+		dateToReturn.append(GetNormalForm(date.get(Calendar.SECOND)));
 
 		return dateToReturn.toString();
 	}
 	
-	private String GetNormalForm(int value) {
+	private static String GetNormalForm(int value) {
 		String toReturn = null;
 		if(value < 10) {
 			toReturn = "0" + value;
@@ -43,7 +43,7 @@ public class DatabaseUtil {
 		return toReturn;
 	}
 
-	public Calendar convertStringToCalendar(String date)
+	public static Calendar convertStringToCalendar(String date)
 	{
 		//YYYY-MM-DD HH:MM:SS.SSS
 		Calendar calendar = Calendar.getInstance();

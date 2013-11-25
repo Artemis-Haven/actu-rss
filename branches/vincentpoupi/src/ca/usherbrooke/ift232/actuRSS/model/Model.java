@@ -18,7 +18,7 @@ public class Model {
 	
 	public Model() {
 
-		dbManager = new DatabaseManager(new Database("acturss.db"));
+		/*dbManager = new DatabaseManager(new Database("acturss.db"));
 		dbManager.createDB();
 
 		News n1 = new News("titre1", "url1", "author1", new GregorianCalendar(), "contents1", false, false);
@@ -55,7 +55,7 @@ public class Model {
 
 		feedManager = new FeedManager(catList, catList);
 		
-		dbManager.insertObjetToDB(feedManager.getListCategory());
+		dbManager.insertObjetToDB(feedManager.getListCategory());*/
 		
 	}
 }
