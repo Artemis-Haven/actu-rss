@@ -49,7 +49,7 @@ public class DatabaseManagerTest {
 	}
 
 	@Test
-	public void testInsertObjetToDB() {
+	public void testInsertObjetToDB() throws SQLException {
 		Calendar date1 = Calendar.getInstance();
 		date1.set(Calendar.DAY_OF_MONTH, 12);
 		
@@ -57,16 +57,24 @@ public class DatabaseManagerTest {
 		News news1 = new News("Football - Ligue 1 - L1 : Le top 10 des id�es re�ues� battues en br�che", "http://www.eurosport.fr/football/ligue-1/2013-2014/l1-le-top-10-des-idees-recues.-battues-en-breche_sto4004002/story.shtml", "Ta m�re", date1 ,"Championnat homog�ne, gardiens infranchissables, Paris et Monaco seuls au monde : la Ligue 1 charrie des clich�s qui ne correspondent pas � sa r�alit�. Notre top 10.", true, true  );
 		News news2 = new News("Football - Ligue 1 - L1 : Le top 10 des id�es re�ues� battues en br�che", "http://www.eurosport.fr/football/ligue-1/2013-2014/l1-le-top-10-des-idees-recues.-battues-en-breche_sto4004000/story.shtml", "Ta m�re", date1 ,"Championnat homog�ne, gardiens infranchissables, Paris et Monaco seuls au monde : la Ligue 1 charrie des clich�s qui ne correspondent pas � sa r�alit�. Notre top 10.", false, false  );
 		ArrayList<News> listNewsExpected = new ArrayList<News>();
+		//listNewsExpected.add(news1);
+		//listNewsExpected.add(news2);
 		
 		Feed feed1 = new Feed(1, "Le Monde", "www.lemonde.fr/rss/une/xml");
 		Feed feed2 = new Feed(2, "Eurosport", "http://www.eurosport.fr/rss.xml");
 		Feed feed3 = new Feed(3, "L'�quipe", "http://www.lequipe.fr/rss/actu_rss.xml");
 		ArrayList<Feed> listFeedExpected = new ArrayList<Feed>();
+		//listFeedExpected.add(feed1);
+		//listFeedExpected.add(feed2);
+		//listFeedExpected.add(feed3);
 		
 		Category category1 = new Category(1, "France");
 		Category category2 = new Category(2, "Sport");
 		Category category3 = new Category(3, "Culture");
 		ArrayList<Category> listCategoryExpected = new ArrayList<Category>();
+		//listCategoryExpected.add(category1);
+		//listCategoryExpected.add(category2);
+		//listCategoryExpected.add(category3);
 		// 0 Time 
 		dbManager.insertObjetToDB(listCategoryExpected);
 		
@@ -77,7 +85,18 @@ public class DatabaseManagerTest {
 		category1.setListFeed(listFeedExpected);
 		listCategoryExpected.add(category1);
 		
+		assertEquals(listCategoryExpected.get(0).getName(), "France" );
+		assertEquals(listCategoryExpected.get(0).getListFeed().get(0).getTitle(), "Le Monde");
+		assertEquals(listCategoryExpected.get(0).getListFeed().get(0).getListNews().get(0).getTitle(), "Football - Ligue 1 - L1 : Le top 10 des id�es re�ues� battues en br�che");
+		
 		dbManager.insertObjetToDB(listCategoryExpected);
+		
+		ArrayList<Category> listCategoryBDD = new ArrayList<Category>();
+		listCategoryBDD = dbManager.getAllCategories();
+		assertEquals(listCategoryExpected.get(0).getName(), listCategoryBDD.get(0).getName());
+		assertEquals(listCategoryExpected.get(0).getListFeed().get(0).getTitle(), listCategoryBDD.get(0).getListFeed().get(0).getTitle());
+		assertEquals(listCategoryExpected.get(0).getListFeed().get(0).getListNews().get(0).getTitle(), listCategoryBDD.get(0).getListFeed().get(0).getListNews().get(0).getTitle());
+		
 		dbManager.deleteDB();
 		dbManager.createDB();
 		
