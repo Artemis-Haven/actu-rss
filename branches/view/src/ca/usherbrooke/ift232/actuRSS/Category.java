@@ -22,13 +22,13 @@ public class Category {
 	//variables de classe
 	private int id;
 	private String name;
-	private List<Feed> listFeed = new ArrayList<Feed>();
+	private List<Feed> listFeed;
 	
 	//constructeurs
 	public Category(){
 		this.id = 0;
 		this.name = "";
-		this.listFeed = null;
+		this.listFeed = new ArrayList<Feed>();
 	}
 	
 	/**
@@ -45,7 +45,7 @@ public class Category {
 	public Category(int id, String name){
 		this.id = id;
 		this.name = name;
-		this.listFeed =  null;
+		this.listFeed = new ArrayList<Feed>();
 	}
 
 	//accesseurs

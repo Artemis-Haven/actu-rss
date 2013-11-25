@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Scrollbar;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -82,7 +83,11 @@ public class MainPanel extends JPanel {
 		categoryList = new ArrayList<Category>();
 
 		List<Feed> sportSources = new ArrayList<Feed>();
-		sportSources.add(new Feed(-1, "Sport1", "url", null));
+		
+		
+
+		
+		/*sportSources.add(new Feed(-1, "Sport1", "url", null));
 		sportSources.add(new Feed(-1, "Sport2", "url", null));
 		sportSources.add(new Feed(-1, "Sport3", "url", null));
 		sportSources.add(new Feed(-1, "Sport4", "url", null));
@@ -100,8 +105,40 @@ public class MainPanel extends JPanel {
 		Category financeCat = new Category(2, "Finance", financeSources);
 
 		categoryList.add(sportCat);
-		categoryList.add(financeCat);
+		categoryList.add(financeCat);*/
 		//FIN DE LA ZONE A SUPPRIMER
+		
+		
+		News n1 = new News("titre1", "url1", "author1", new GregorianCalendar(), "contents1", false, false);
+		News n2 = new News("titre2", "url2", "author2", new GregorianCalendar(), "contents2", false, false);
+		News n3 = new News("titre3", "url3", "author3", new GregorianCalendar(), "contents3", false, false);
+		
+		News n4 = new News("titre4", "url4", "author4", new GregorianCalendar(), "contents4", false, false);
+		News n5 = new News("titre5", "url5", "author5", new GregorianCalendar(), "contents5", false, false);
+		News n6 = new News("titre6", "url6", "author6", new GregorianCalendar(), "contents6", false, false);
+
+		ArrayList<News> f1List = new ArrayList<News>();
+		ArrayList<News> f2List = new ArrayList<News>();
+		
+		
+		Feed f1 = new Feed(1, "title feed 1", "url", f1List);
+		Feed f2 = new Feed(2, "title feed 2", "url", f2List);
+
+		f1.getListNews().add(n1);
+		f1.getListNews().add(n2);
+		f1.getListNews().add(n3);
+		f2.getListNews().add(n4);
+		f2.getListNews().add(n5);
+		f2.getListNews().add(n6);
+		
+		ArrayList<Feed> feedList = new ArrayList<Feed>();
+		
+		Category cat = new Category(1, "nom de la categorie", feedList);
+		cat.getListFeed().add(f1);
+		cat.getListFeed().add(f2);		
+		
+		categoryList.add(cat);
+		
 
 		this.setLayout(new BorderLayout());
 		this.toolbar = new Toolbar();
@@ -143,13 +180,17 @@ public class MainPanel extends JPanel {
 				{
 					if(feed == null)
 						continue;						
+					
 					for(News actu : feed.getListNews())
 					{
 						if(actu == null)
 							continue;							
 						news.add(actu);
-					}							
+					}	
+					System.out.println("Vous avez selectionne la source: " + feed );
+					
 				}	
+				
 				newsList.changeNews(news);
 			}	
 		});	
