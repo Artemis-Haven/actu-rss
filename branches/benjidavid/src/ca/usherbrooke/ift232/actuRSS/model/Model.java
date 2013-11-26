@@ -101,8 +101,8 @@ public class Model extends Observable{
 					// on les parse 
 					// et on les envoie dans le feedManager
 					File f = new File(feed.getUrl());
-					Feed newFeed = parser.parse(f);
-					newCat.getListFeed().add(newFeed);
+					//Feed newFeed = parser.parse(f);
+					//newCat.getListFeed().add(newFeed);
 				} catch (Exception e) {
 					// TODO: handle exception
 					System.out.println("Problème de connexion à internet.");
