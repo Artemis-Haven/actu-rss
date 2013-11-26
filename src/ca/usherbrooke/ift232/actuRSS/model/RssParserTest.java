@@ -20,10 +20,11 @@ public class RssParserTest {
 			
 	@Test
 	public void testParse() {
-		String text = parser.parse(StrSimpleTest);
+		String text = parser.parse("http://feeds2.feedburner.com/KorbensBlog-UpgradeYourMind");
+		//String text = parser.parse("http://feeds.feedburner.com/abry");
 		assertNotNull(text);
 		System.out.println(text);
-		System.out.println(StrSimpleTest);
+		//System.out.println(StrSimpleTest);
 	}
 
 	@Test

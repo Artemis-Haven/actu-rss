@@ -113,6 +113,8 @@ public class News {
 	public String toString() {
 		return "News [title = " + title + ", contents = " + contents
 				+ ", url = " + url + ", author = " + author + ", date = "
-				+ date + "]";
+				+ "(jour de la semaine : " + date.get(Calendar.DAY_OF_WEEK)+"), "+ date.get(Calendar.DAY_OF_MONTH) +"/"+ date.get(Calendar.MONTH) + "/"
+				+ date.get(Calendar.YEAR) + " " + date.get(Calendar.HOUR_OF_DAY) + ":" + date.get(Calendar.MINUTE) +":" 
+				+ date.get(Calendar.SECOND) + "]";
 	}
 }

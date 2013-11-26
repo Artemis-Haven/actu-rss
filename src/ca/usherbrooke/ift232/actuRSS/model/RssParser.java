@@ -71,6 +71,7 @@ public class RssParser {
             for(int j =0; j < feed.getListNews().size(); j++)
             {
             	result += feed.getListNews().get(j).toString();
+            	result += "\n";
             }
             
     
@@ -143,7 +144,6 @@ public class RssParser {
     public Calendar parsePubDate(String pubDate) {
     	Calendar cal = Calendar.getInstance();
     	try {
-    		//DateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z");
     		DateFormat formatter = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z", Locale.ENGLISH);
         	Date date = formatter.parse(pubDate);
         	cal.setTime(date);

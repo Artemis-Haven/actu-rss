@@ -22,6 +22,7 @@ public class Feed {
 
 	// constructeurs
 	public Feed() {
+		this.id = -1;
 		this.title = "";
 		this.url = "";
 		listNews = new ArrayList<News>();
@@ -35,6 +36,14 @@ public class Feed {
 	 * @param entries
 	 *            la liste des news du flux
 	 */
+	
+	public Feed(String title, String url, List<News> entries) {
+		this.id = -1;
+		this.title = title;
+		this.url = url;
+		listNews = entries;
+	}
+	
 	public Feed(int id, String title, String url, List<News> entries) {
 		this.id = id;
 		this.title = title;
