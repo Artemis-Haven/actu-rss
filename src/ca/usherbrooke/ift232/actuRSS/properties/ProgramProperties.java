@@ -1,4 +1,4 @@
-package Properties;
+package ca.usherbrooke.ift232.actuRSS.properties;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
