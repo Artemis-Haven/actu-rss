@@ -36,7 +36,7 @@ public class ActuList extends JList implements ListSelectionListener
 	
 	
 
-	private News getSelectedNew()
+	public News getSelectedNew()
 	{
 		return (News) this.getSelectedValue();
 		
