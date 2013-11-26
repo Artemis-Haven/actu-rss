@@ -68,8 +68,10 @@ public class ActuListDemo {
 		{
 
 			@Override
-			public void onActuSelected(ActuSelectedEvent event) {
-				System.out.println("Source " + event.getSelectedSource() + "s�lectionn�e");
+			public void onActuSelected(ActuSelectedEvent event) 
+			{
+				
+				System.out.println("Source " + event.getSelectedActu() + "s�lectionn�e");
 				
 			}
 			

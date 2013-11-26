@@ -17,7 +17,7 @@ public class ActuSelectedEvent extends ChangeEvent
 		_selectedActu = selectedActu;
 	}
 	
-	public News getSelectedSource()
+	public News getSelectedActu()
 	{
 		return this._selectedActu;
 	}
