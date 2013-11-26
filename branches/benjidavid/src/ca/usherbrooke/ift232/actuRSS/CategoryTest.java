@@ -33,7 +33,7 @@ public class CategoryTest extends TestCase  {
 
 	
 	@Before
-	// setUp des trois differents constructeurs
+	// setUp avec les trois differents constructeurs
 	public void setUp() throws Exception {
 		categoryExample1 = new Category();
 		categoryExample2 = new Category(2,Sport,listFeedEx);
