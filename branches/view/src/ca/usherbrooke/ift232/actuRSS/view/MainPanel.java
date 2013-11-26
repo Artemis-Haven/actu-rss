@@ -153,9 +153,9 @@ public class MainPanel extends JPanel {
 
 		// Dimensions des deux listes de gauche
 		feedTreePicker.setMinimumSize(new Dimension(80,50));
-		feedTreePicker.setPreferredSize(new Dimension(150,50));
+		feedTreePicker.setPreferredSize(new Dimension(100,50));
 		newsList.setMinimumSize(new Dimension(150,50));
-		newsList.setPreferredSize(new Dimension(180,50));
+		//newsList.setPreferredSize(new Dimension(180,50));
 
 		//On ajoute le panel (scrollable) des flux à gauche
 		innerSplitPane.setLeftComponent(new JScrollPane(feedTreePicker));

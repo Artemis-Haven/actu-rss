@@ -82,7 +82,7 @@ public class Feed {
 
 	@Override
 	public String toString() {
-		return "Feed [id=" + id + ", title=" + title + "]";
+		return "Feed " + id;//[id=" + id + ", title=" + title + "]";
 	}
 
 }
