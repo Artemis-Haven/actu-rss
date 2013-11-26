@@ -1,5 +1,6 @@
 package ca.usherbrooke.ift232.actuRSS.view.actulist;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
@@ -30,6 +31,7 @@ public class ActuList extends JList implements ListSelectionListener
 	public ActuList() 
 	{
 		
+		this(new ArrayList<News>());
 	}
 	
 	
