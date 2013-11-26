@@ -31,6 +31,14 @@ public class ActuList extends JList implements ListSelectionListener
 	{
 		
 	}
+	
+	
+
+	private News getSelectedNew()
+	{
+		return (News) this.getSelectedValue();
+		
+	}
 
 	private static ListModel buildListModelNews(List<News> news) {
 		final DefaultListModel listModelNews = new DefaultListModel();
