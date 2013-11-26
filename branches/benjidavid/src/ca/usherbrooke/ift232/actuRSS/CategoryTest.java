@@ -21,7 +21,7 @@ import org.junit.Test;
 
 public class CategoryTest extends TestCase  {
 
-	// Variable d'exemples
+	// Variable exemples
 	private static final String Sport = "Sport";
 	private static final String Politique = "Politique";
 	private List<Feed> listFeedEx = new ArrayList<Feed>();
