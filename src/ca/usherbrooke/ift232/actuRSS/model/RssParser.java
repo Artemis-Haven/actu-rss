@@ -33,28 +33,32 @@ public class RssParser {
      * Parser le fichier XML
      * @param feedurl URL du flux RSS
      */
-    public String parse(String feedurl) {
-    	String result = "";
+    public List<News> parse(String feedurl) {
+    	//String result = "";
+    	ArrayList<News> listNewsFeed = new ArrayList<News>();
         try {
-        	
+        	//On créé le document à partir du fichier xml pointé par l'url
             DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
             URL url = new URL(feedurl);
             Document doc = builder.parse(url.openStream());
             NodeList nodes = null;
             Element element = null;
+            
             /**
              * Titre et date du flux
+             * En commentaire : on cherche (pour le moment) à renvoyer juste la liste de News
+             * 
+             * String nameFeed = "";
+        	 * String urlFeed = "";
+        	 * 
+        	 * nodes = doc.getElementsByTagName("title");
+             * Node node = doc.getDocumentElement();
+			 *
+			 * nameFeed = this.readNode(node, "channel|title");
+             * urlFeed = this.readNode(node, "channel|link");
+             * 
              */
-        	String nameFeed = "";
-        	String urlFeed = "";
-        	ArrayList<News> listNewsFeed = new ArrayList<News>();
         	
-            
-            nodes = doc.getElementsByTagName("title");
-            Node node = doc.getDocumentElement();
-
-            nameFeed = this.readNode(node, "channel|title");
-            urlFeed = this.readNode(node, "channel|link");
 
             /**
              * Elements du flux RSS
@@ -67,14 +71,6 @@ public class RssParser {
 
             } 
             
-            Feed feed = new Feed(nameFeed, urlFeed, listNewsFeed);
-            for(int j =0; j < feed.getListNews().size(); j++)
-            {
-            	result += feed.getListNews().get(j).toString();
-            	result += "\n";
-            }
-            
-    
         } catch (SAXException ex) {
             Logger.getLogger(RssParser.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -82,7 +78,7 @@ public class RssParser {
         } catch (ParserConfigurationException ex) {
             Logger.getLogger(RssParser.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return result;
+        return listNewsFeed;
     }
 
     /**
