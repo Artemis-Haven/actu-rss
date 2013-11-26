@@ -2,6 +2,14 @@ package ca.usherbrooke.ift232.actuRSS;
 
 import static org.junit.Assert.*;
 
+/**
+ * Actu-RSS Couche : Model 
+ * Date de creation : 2013-11-26
+ * Description : Test de la classe Category
+ * @author Julian Bironneau
+ * @version 0.1
+ */
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,6 +75,7 @@ public class CategoryTest extends TestCase  {
 
 	
 	@After
+	// Nettoyage d'après test
 	public void tearDown() throws Exception {
 		categoryExample1=null;
 		categoryExample2=null;
