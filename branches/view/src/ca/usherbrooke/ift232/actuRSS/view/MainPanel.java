@@ -19,6 +19,8 @@ import ca.usherbrooke.ift232.actuRSS.Category;
 import ca.usherbrooke.ift232.actuRSS.Feed;
 import ca.usherbrooke.ift232.actuRSS.News;
 import ca.usherbrooke.ift232.actuRSS.view.actulist.ActuList;
+import ca.usherbrooke.ift232.actuRSS.view.actulist.ActuSelectedEvent;
+import ca.usherbrooke.ift232.actuRSS.view.actulist.ActuSelectedListener;
 import ca.usherbrooke.ift232.actuRSS.view.treepicker.FeedSelectedEvent;
 import ca.usherbrooke.ift232.actuRSS.view.treepicker.FeedSelectedListener;
 import ca.usherbrooke.ift232.actuRSS.view.treepicker.TreePicker;
@@ -120,6 +122,9 @@ public class MainPanel extends JPanel {
 		ArrayList<News> f1List = new ArrayList<News>();
 		ArrayList<News> f2List = new ArrayList<News>();
 		
+		ArrayList<News> f3List = new ArrayList<News>();
+		f3List.add(n1);
+		f3List.add(n2);
 		
 		Feed f1 = new Feed(1, "title feed 1", "url", f1List);
 		Feed f2 = new Feed(2, "title feed 2", "url", f2List);
@@ -148,6 +153,7 @@ public class MainPanel extends JPanel {
 		this.feedTreePicker = new TreePicker(categoryList, false);
 		this.innerSplitPane = new JSplitPane();
 		this.newsList = new ActuList();
+		//this.newsList = new ActuList(f3List);
 		this.mainSplitPane = new JSplitPane();
 		this.contentPanel = new JPanel();
 
@@ -165,39 +171,16 @@ public class MainPanel extends JPanel {
 		mainSplitPane.setLeftComponent(innerSplitPane);
 		//On ajoute le panel du contenu de la news à droite
 		mainSplitPane.setRightComponent(contentPanel);
-		this.add(mainSplitPane, BorderLayout.CENTER);
-
+		this.add(mainSplitPane, BorderLayout.CENTER);		
 
 		/*TODO A mettre dans le controleur*/
-		feedTreePicker.addFeedSelectedListener(new FeedSelectedListener(){
 
-			//Placer dans le controler ?
-			@Override
-			public void onFeedSelected(FeedSelectedEvent event) {					
-
-				List<News> news = new ArrayList<News>();					
-				for(Feed feed : feedTreePicker.getSelectedFeeds())
-				{
-					if(feed == null)
-						continue;						
-					
-					for(News actu : feed.getListNews())
-					{
-						if(actu == null)
-							continue;							
-						news.add(actu);
-					}	
-					System.out.println("Vous avez selectionne la source: " + feed );
-					
-				}	
 				
-				newsList.changeNews(news);
-			}	
-		});	
-		
 	}
 	
 	// ---                                            Methode addListener
+
+	
 
 	public void addListener(ActionListener e){
 		toolbar.addListener(e);		
@@ -207,11 +190,21 @@ public class MainPanel extends JPanel {
 	public void update(List<Category> categoryList)
 	{
 		this.setCategoryList(categoryList);	
-	}	
+	}
+	
+	public TreePicker getFeedTreePicker() {
+		return feedTreePicker;
+	}
 
 	public List<Category> getCategoryList() {return categoryList;}
 	public void setCategoryList(List<Category> categoryList) {
 		this.categoryList = categoryList;
 	}
+
+	public ActuList getNewsList() {
+		return newsList;
+	}
+
+
 
 }

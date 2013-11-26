@@ -79,13 +79,13 @@ public class Model extends Observable{
 	
 	private void sendAllToDB() {
 		//vider la BdD avec clearDB
-		//dbManager.clearDB();
+		dbManager.clearDB();
 		dbManager.insertObjetToDB(feedManager.getOldListCategory());
 	}
 	
 	public void synchronize() {
 		
-		//Si la liste des catégories est vide, on la charge depuis la BD
+		//Si la liste des categories est vide, on la charge depuis la BD
 		if(feedManager.getOldListCategory().isEmpty()) {
 			loadAllFromDB();
 		}
