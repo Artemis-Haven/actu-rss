@@ -22,7 +22,7 @@ import javax.swing.JToggleButton;
  *   La Toolbar est la barre avec les boutons qui
  *   figure en haut de notre fenetre principale.
  *   
- * @author Prenom Nom
+ * @author Rémi Patrizio, Bastien Meunier, Yann Serée
  * @version 0.1
  */
  
@@ -35,6 +35,12 @@ public class Toolbar extends JPanel {
 	 */
 	private JToggleButton allNewsBtn;
 	private JToggleButton unreadNewsBtn;
+	public JToggleButton getAllNewsBtn() {
+		return allNewsBtn;
+	}
+
+	
+	
 	private JToggleButton favNewsBtn;
 	private JButton syncBtn;
 	private JToggleButton readBtn;
@@ -97,6 +103,16 @@ public class Toolbar extends JPanel {
 		unreadNewsBtn = new JToggleButton("Non lus");
 		favNewsBtn = new JToggleButton("Favoris");
 		
+		allNewsBtn.setPreferredSize(new Dimension(100,30));
+		allNewsBtn.setMinimumSize(new Dimension(100,30));
+		
+		unreadNewsBtn.setPreferredSize(new Dimension(100,30));
+		unreadNewsBtn.setMinimumSize(new Dimension(100,30));
+		
+		favNewsBtn.setPreferredSize(new Dimension(100,30));
+		favNewsBtn.setMinimumSize(new Dimension(100,30));
+		
+		
 		btnGroup = new ButtonGroup();
 		btnGroup.add(allNewsBtn);
 		btnGroup.add(unreadNewsBtn);
@@ -128,8 +144,17 @@ public class Toolbar extends JPanel {
 		readBtn.addActionListener(e);
 		favBtn.addActionListener(e);			
 		
-		menuBtn.addListener(e);
-		
+		menuBtn.addListener(e);	
 		
 	}
+	
+	public JToggleButton getUnreadNewsBtn() {return unreadNewsBtn;}
+	public JToggleButton getFavNewsBtn() {return favNewsBtn;}
+	public JButton getSyncBtn() {return syncBtn;}
+	public JToggleButton getReadBtn() {return readBtn;}
+	public JToggleButton getFavBtn() {return favBtn;}
+	public ButtonGroup getBtnGroup() {return btnGroup;}
+	public Menu getMenuBtn() {return menuBtn;}
+	public JPanel getLeftPanel() {return leftPanel;}
+	public JPanel getRightPanel() {return rightPanel;}
 }

@@ -64,8 +64,6 @@ public class MainPanel extends JPanel {
 	 */
 	private Toolbar toolbar;
 
-
-
 	//public TreeAndList treeandlist;
 	private JSplitPane mainSplitPane;
 	private JSplitPane innerSplitPane;
@@ -178,6 +176,7 @@ public class MainPanel extends JPanel {
 				
 	}
 	
+	
 	// ---                                            Methode addListener
 
 	
@@ -201,9 +200,10 @@ public class MainPanel extends JPanel {
 		this.categoryList = categoryList;
 	}
 
-	public ActuList getNewsList() {
-		return newsList;
-	}
+	public ActuList getNewsList() {return newsList;}
+
+	public Toolbar getToolbar() {return toolbar;}	
+	
 
 
 
