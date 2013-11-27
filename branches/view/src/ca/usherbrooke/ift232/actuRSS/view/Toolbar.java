@@ -106,11 +106,11 @@ public class Toolbar extends JPanel {
 		favNewsBtn = new JToggleButton("Favoris");
 		readNewsBtn = new JToggleButton("Lus");
 		
-		if(Controller.afficherBase.equals("Tout"))
+		if(Controller.defaultDisplay.equals("All"))
 			allNewsBtn.setSelected(true);
-		else if(Controller.afficherBase.equals("Nonlu"))
+		else if(Controller.defaultDisplay.equals("Not Read"))
 			unreadNewsBtn.setSelected(true);
-		else if(Controller.afficherBase.equals("Favoris"))
+		else if(Controller.defaultDisplay.equals("Favorite"))
 			favNewsBtn.setSelected(true);
 		else
 			readNewsBtn.setSelected(true);

@@ -21,6 +21,7 @@ public class ProgramProperties extends Properties {
 			Properties defaultProps = new Properties();
 			defaultProps.setProperty("News Number", "20");
 			defaultProps.setProperty("Default Display", "Not Read");
+			defaultProps.setProperty("CSS Style", "src/resources/default.css");
 			FileInputStream in;
 
 			try { 

@@ -10,6 +10,8 @@ import org.xhtmlrenderer.resource.XMLResource;
 import org.xhtmlrenderer.simple.XHTMLPanel;
 import org.xml.sax.InputSource;
 
+import ca.usherbrooke.ift232.actuRSS.controller.Controller;
+
 public class ContentPanel extends XHTMLPanel {
 
 	public ContentPanel() {
@@ -54,7 +56,7 @@ public class ContentPanel extends XHTMLPanel {
 	}
 	
 	public String getStyleFromFile() throws IOException {
-		BufferedReader br = new BufferedReader(new FileReader("src/resources/default.css"));
+		BufferedReader br = new BufferedReader(new FileReader(Controller.properties.getProperty("CSS Style")));
 		String everything = "";
 	    try {
 	        StringBuilder sb = new StringBuilder();
