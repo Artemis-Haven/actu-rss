@@ -153,7 +153,7 @@ public class MainPanel extends JPanel {
 		this.newsList = new ActuList();
 		//this.newsList = new ActuList(f3List);
 		this.mainSplitPane = new JSplitPane();
-		this.contentPanel = new JPanel();
+		this.contentPanel = new ContentPanel();
 
 		// Dimensions des deux listes de gauche
 		feedTreePicker.setMinimumSize(new Dimension(80,50));
@@ -168,7 +168,7 @@ public class MainPanel extends JPanel {
 		//On ajoute le panel contenant feedTree et newsList à gauche
 		mainSplitPane.setLeftComponent(innerSplitPane);
 		//On ajoute le panel du contenu de la news à droite
-		mainSplitPane.setRightComponent(contentPanel);
+		mainSplitPane.setRightComponent(new JScrollPane(contentPanel));
 		this.add(mainSplitPane, BorderLayout.CENTER);		
 
 		/*TODO A mettre dans le controleur*/

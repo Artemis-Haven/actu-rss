@@ -39,7 +39,7 @@ public class Menu extends JMenuBar{
 		this.setLayout(new BorderLayout());
 		
 		mnParametre = new JMenu("");
-		mnParametre.setIcon(new ImageIcon(Menu.class.getResource("/img/properties.png")));
+		mnParametre.setIcon(new ImageIcon(Menu.class.getResource("/resources/properties.png")));
 		mnParametre.setPreferredSize(new Dimension(50, 30));
 		this.add(mnParametre);
 		mnParametre.setAutoscrolls(true);
@@ -51,12 +51,12 @@ public class Menu extends JMenuBar{
 		//mnParametre.setBorder(new LineBorder(new Color(0, 0, 0), 1, false));
 		mnParametre.setHorizontalAlignment(SwingConstants.CENTER);
 		
-		paraPreferency = new JMenuItem("Préférences");
+		paraPreferency = new JMenuItem("Prï¿½fï¿½rences");
 		paraPreferency.setActionCommand("Pref");
 		
 		mnParametre.add(paraPreferency);
 
-		paraSource = new JMenuItem("Gérer les sources");
+		paraSource = new JMenuItem("Gï¿½rer les sources");
 		paraSource.setActionCommand("GererSources");
 		mnParametre.add(paraSource);
 		
