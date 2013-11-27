@@ -20,7 +20,7 @@ public class ProgramProperties extends Properties {
 			// create and load default properties
 			Properties defaultProps = new Properties();
 			defaultProps.setProperty("NewsNumber", "20");
-			defaultProps.setProperty("AfficherBase", "Tous");
+			defaultProps.setProperty("AfficherBase", "Tout");
 			FileInputStream in;
 
 			try { 
@@ -66,7 +66,7 @@ public class ProgramProperties extends Properties {
 		try {
 
 			out = new FileOutputStream(USER_FILE_NAME);
-			this.store(out, "---No Comment---");
+			this.store(out,"");
 			out.close();
 
 		} catch (FileNotFoundException e) {

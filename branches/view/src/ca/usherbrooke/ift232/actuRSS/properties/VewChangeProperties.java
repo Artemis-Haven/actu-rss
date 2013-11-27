@@ -13,10 +13,11 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JSpinner;
 
+import ca.usherbrooke.ift232.actuRSS.controller.Controller;
+
 public class VewChangeProperties extends ParamDialog {
 
 	
-	ProgramProperties properties = ProgramProperties.getInstance();
 	private JPanel content;
 	private JPanel controle;
 	private JButton okbutton;
@@ -33,21 +34,23 @@ public class VewChangeProperties extends ParamDialog {
 		this.initDialog();
 	}
 
+	public void showDialog(){
+		super.showDialog();
+	}
 	public void initDialog() {
 		content = new JPanel();
 		
 		afficherBase = new JPanel();
 		afficherBase.setBorder(BorderFactory.createTitledBorder("Affichage par defaut"));
-		tous = new JRadioButton("Tous");
+		tous = new JRadioButton("Tout");
 		favoris = new JRadioButton("Favoris");
 		nonlu = new JRadioButton("Non lu");
 		lu = new JRadioButton("Lu");
-		String afficher = properties.getProperty("AfficherBase");
-		if(afficher.matches("Tous"))
+		if(Controller.afficherBase.matches("Tout"))
 			tous.setSelected(true);
-		else if(afficher.matches("Favoris"))
+		else if(Controller.afficherBase.matches("Favoris"))
 			favoris.setSelected(true);
-		else if(afficher.matches("Non Lu"))
+		else if(Controller.afficherBase.matches("Nonlu"))
 			nonlu.setSelected(true);
 		else
 			lu.setSelected(true);
@@ -66,8 +69,7 @@ public class VewChangeProperties extends ParamDialog {
 		spinNumber = new JSpinner();
 		newsNumber.setPreferredSize(new Dimension(300, 50));
 		spinNumber.setPreferredSize(new Dimension(100, 20));
-		String initValue = properties.getProperty("NewsNumber");
-		spinNumber.setValue(Integer.parseInt(initValue));
+		spinNumber.setValue(Integer.parseInt(Controller.properties.getProperty("NewsNumber")));
 		newsNumber.add(spinNumber);
 		
 		content.add(afficherBase);
@@ -114,24 +116,34 @@ public class VewChangeProperties extends ParamDialog {
 		String newNumber;
 		
 		if(tous.isSelected())
-			newAfficher = "Tous";
+			newAfficher = "Tout";
 		else if(favoris.isSelected())
 			newAfficher = "Favoris";
 		else if(nonlu.isSelected())
-			newAfficher = "Non lu";
+			newAfficher = "Nonlu";
 		else
 			newAfficher = "Lu";
 		
-		properties.setProperty("AfficherBase", newAfficher);
+		Controller.properties.setProperty("AfficherBase", newAfficher);
+		Controller.afficherBase  = newAfficher;
 		
 		newNumber = spinNumber.getValue().toString();
-		properties.setProperty("NewsNumber", newNumber);
-		properties.save();
+		Controller.properties.setProperty("NewsNumber", newNumber);
+		Controller.properties.save();
 		super.closeDialog();
 	}
 	
 	public void closeDialog(){
 		super.closeDialog();
+		spinNumber.setValue(Integer.parseInt(Controller.properties.getProperty("NewsNumber")));
+		if(Controller.afficherBase.matches("Tout"))
+			tous.setSelected(true);
+		else if(Controller.afficherBase.matches("Favoris"))
+			favoris.setSelected(true);
+		else if(Controller.afficherBase.matches("Nonlu"))
+			nonlu.setSelected(true);
+		else
+			lu.setSelected(true);
 	}
 
 	public void renewDialog(){

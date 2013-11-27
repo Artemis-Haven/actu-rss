@@ -14,6 +14,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
+import ca.usherbrooke.ift232.actuRSS.controller.Controller;
+
 /**
  * Actu-RSS
  * Couche : View
@@ -99,11 +101,20 @@ public class Toolbar extends JPanel {
 	}
 
 	private void buildButtonGroup() {
-		allNewsBtn = new JToggleButton("Tout", true);
+		allNewsBtn = new JToggleButton("Tout");
 		unreadNewsBtn = new JToggleButton("Non lus");
 		favNewsBtn = new JToggleButton("Favoris");
 		readNewsBtn = new JToggleButton("Lus");
 		
+		if(Controller.afficherBase.equals("Tout"))
+			allNewsBtn.setSelected(true);
+		else if(Controller.afficherBase.equals("Nonlu"))
+			unreadNewsBtn.setSelected(true);
+		else if(Controller.afficherBase.equals("Favoris"))
+			favNewsBtn.setSelected(true);
+		else
+			readNewsBtn.setSelected(true);
+				
 		allNewsBtn.setPreferredSize(new Dimension(100,30));
 		allNewsBtn.setMinimumSize(new Dimension(100,30));
 		
