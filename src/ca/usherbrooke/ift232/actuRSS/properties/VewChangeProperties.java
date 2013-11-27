@@ -50,7 +50,7 @@ public class VewChangeProperties extends ParamDialog {
 			tous.setSelected(true);
 		else if(Controller.afficherBase.matches("Favoris"))
 			favoris.setSelected(true);
-		else if(Controller.afficherBase.matches("Nonlu"))
+		else if(Controller.afficherBase.matches("Non lu"))
 			nonlu.setSelected(true);
 		else
 			lu.setSelected(true);
@@ -67,8 +67,8 @@ public class VewChangeProperties extends ParamDialog {
 		newsNumber = new JPanel();
 		newsNumber.setBorder(BorderFactory.createTitledBorder("Nombre de news par flux RSS"));
 		spinNumber = new JSpinner();
-		newsNumber.setPreferredSize(new Dimension(300, 50));
-		spinNumber.setPreferredSize(new Dimension(100, 20));
+		newsNumber.setPreferredSize(new Dimension(300, 60));
+		spinNumber.setPreferredSize(new Dimension(100, 30));
 		spinNumber.setValue(Integer.parseInt(Controller.properties.getProperty("NewsNumber")));
 		newsNumber.add(spinNumber);
 		
@@ -120,7 +120,7 @@ public class VewChangeProperties extends ParamDialog {
 		else if(favoris.isSelected())
 			newAfficher = "Favoris";
 		else if(nonlu.isSelected())
-			newAfficher = "Nonlu";
+			newAfficher = "Non lu";
 		else
 			newAfficher = "Lu";
 		
@@ -140,7 +140,7 @@ public class VewChangeProperties extends ParamDialog {
 			tous.setSelected(true);
 		else if(Controller.afficherBase.matches("Favoris"))
 			favoris.setSelected(true);
-		else if(Controller.afficherBase.matches("Nonlu"))
+		else if(Controller.afficherBase.matches("Non lu"))
 			nonlu.setSelected(true);
 		else
 			lu.setSelected(true);
