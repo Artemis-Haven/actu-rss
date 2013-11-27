@@ -1,0 +1,52 @@
+body {
+	font-family:Calibri, Arial, Geneva, sans-serif;
+	background-color: #F9F8F2;
+	padding: 15px;
+	background-color: #100C5E;
+	color: #F9F8F2;
+}
+
+.header {
+	border-color: #302C7E;
+	background-color: #201C6E;
+	border-style: solid;
+	border-width: 2px;
+	padding: 10px;
+}
+
+.title {
+	font-size: 30px;
+	text-align: center;
+	font-weight: bold;
+}
+
+.feedName {
+	font-weight: bold;
+	font-size: 12px;
+}
+
+.author {
+	font-weight: bold;
+	font-size: 12px;
+	float: right;
+}
+
+.date {
+	font-size: 12px;
+}
+
+.article {
+	text-align:justify;
+	padding: 20px;
+}
+
+
+a {
+	text-decoration: none;
+	color: #F9F8F2;
+}
+
+p {
+	margin-top: 0px;
+	margin-bottom: 0px;
+}

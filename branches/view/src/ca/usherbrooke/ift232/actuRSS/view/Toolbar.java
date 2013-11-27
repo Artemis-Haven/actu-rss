@@ -24,7 +24,7 @@ import ca.usherbrooke.ift232.actuRSS.controller.Controller;
  *   La Toolbar est la barre avec les boutons qui
  *   figure en haut de notre fenetre principale.
  *   
- * @author Rémi Patrizio, Bastien Meunier, Yann Serée
+ * @author Rï¿½mi Patrizio, Bastien Meunier, Yann Serï¿½e
  * @version 0.1
  */
  
@@ -59,7 +59,7 @@ public class Toolbar extends JPanel {
 		
 		leftPanel = new JPanel();
 		
-		syncBtn = new JButton(new ImageIcon(getClass().getResource("/img/sync.png")));
+		syncBtn = new JButton(new ImageIcon(getClass().getResource("/resources/sync.png")));
 		syncBtn.setActionCommand("Sync");
 		syncBtn.setBorderPainted(false);
 		syncBtn.setFocusPainted(false);
@@ -74,13 +74,13 @@ public class Toolbar extends JPanel {
 		rightPanel.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		rightPanel.setSize(new Dimension(24, 24));
 		
-		readBtn = buildToggleButton("/img/read.png");
+		readBtn = buildToggleButton("/resources/read.png");
 		readBtn.setActionCommand("Read");
 		readBtn.setEnabled(false);
 		
 		rightPanel.add(readBtn);
 		
-		favBtn = buildToggleButton("/img/favorite.png");
+		favBtn = buildToggleButton("/resources/favorite.png");
 		favBtn.setActionCommand("FavBtn");
 		favBtn.setEnabled(false);
 		
