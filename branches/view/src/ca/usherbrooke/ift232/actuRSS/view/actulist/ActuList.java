@@ -19,7 +19,7 @@ public class ActuList extends JList implements ListSelectionListener
 	
 	public ActuList(List<News> news) {
 
-		super(buildListModelNews(news,"Tous"));
+		super(buildListModelNews(news,"Tout"));
 
 
 		this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -60,20 +60,28 @@ public class ActuList extends JList implements ListSelectionListener
 
 	private static void fillNews(DefaultListModel listModel, List<News> news,String state) {
 
-		System.out.println(news);
+		listModel.clear();
 		for (News element : news) 
 		{
+			
 			if(state.equals("Favoris")){
-				if(element.isFavorite())
+				if(element.isFavorite()){
+					System.out.println(element);
 					listModel.addElement(element);
+				}
 			}else if(state.equals("Lu")){
-				if(element.isRead())
+				if(element.isRead()){
 					listModel.addElement(element);
+					System.out.println(element);
+				}
 			}else if(state.equals("Non lu")){
-				if(!element.isRead())
+				if(element.isRead() == false){
 					listModel.addElement(element);
+					System.out.println(element);
+				}
 			}else{
 				listModel.addElement(element);
+				System.out.println(element);
 			}	
 		}
 

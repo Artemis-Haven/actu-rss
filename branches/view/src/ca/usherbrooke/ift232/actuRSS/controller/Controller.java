@@ -138,7 +138,7 @@ public class Controller implements ActionListener{
 
 		if (action.equals("Tout")) {			
 			//List<News> news = new ArrayList<News>();
-			afficherBase = "Tous";
+			afficherBase = "Tout";
 			/*for(Feed feed : feedTreePicker.getSelectedFeeds())
 			{
 				if(feed == null)
@@ -165,7 +165,7 @@ public class Controller implements ActionListener{
 		if (action.equals("Non lus")) {			
 
 			//List<News> news = new ArrayList<News>();
-			afficherBase = "Non Lu";
+			afficherBase = "Non lu";
 			/*for(Feed feed : feedTreePicker.getSelectedFeeds())
 			{
 				if(feed == null)
