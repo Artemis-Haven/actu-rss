@@ -20,7 +20,7 @@ public class ProgramProperties extends Properties {
 			// create and load default properties
 			Properties defaultProps = new Properties();
 			defaultProps.setProperty("NewsNumber", "20");
-			defaultProps.setProperty("Afficher", "Tous");
+			defaultProps.setProperty("AfficherBase", "Tous");
 			FileInputStream in;
 
 			try { 

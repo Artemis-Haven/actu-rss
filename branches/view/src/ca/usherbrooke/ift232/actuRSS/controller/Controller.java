@@ -12,6 +12,8 @@ import javax.swing.JToggleButton;
 import ca.usherbrooke.ift232.actuRSS.Feed;
 import ca.usherbrooke.ift232.actuRSS.News;
 import ca.usherbrooke.ift232.actuRSS.model.Model;
+import ca.usherbrooke.ift232.actuRSS.properties.ParamDialog;
+import ca.usherbrooke.ift232.actuRSS.properties.VewChangeProperties;
 import ca.usherbrooke.ift232.actuRSS.view.MainPanel;
 import ca.usherbrooke.ift232.actuRSS.view.Toolbar;
 import ca.usherbrooke.ift232.actuRSS.view.View;
@@ -30,6 +32,7 @@ public class Controller implements ActionListener{
 	private Toolbar toolbar;
 	private TreePicker feedTreePicker;
 	private ActuList newsList;
+	ParamDialog pref;
 
 	public Controller(Model model, View view) {		
 		this.model = model;
@@ -71,7 +74,7 @@ public class Controller implements ActionListener{
 
 				toolbar.getFavBtn().setSelected(false);
 				toolbar.getReadBtn().setSelected(false);			
-				
+
 				newsList.changeNews(news);
 				toolbar.getFavBtn().setEnabled(false);
 				toolbar.getReadBtn().setEnabled(false);
@@ -127,7 +130,8 @@ public class Controller implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent arg0) {		
 
-		String action = arg0.getActionCommand();				
+		String action = arg0.getActionCommand();
+		System.out.println(action);
 
 		if (action.equals("Tout")) {			
 			List<News> news = new ArrayList<News>();					
@@ -181,7 +185,7 @@ public class Controller implements ActionListener{
 			newsList.changeNews(news);
 
 		}
-		
+
 		if (action.equals("Lus")) {			
 
 			List<News> news = new ArrayList<News>();					
@@ -210,13 +214,13 @@ public class Controller implements ActionListener{
 
 
 		}
-		
-		
-		
-		
+
+
+
+
 		if (action.equals("Favoris")) {	
 
-			System.out.println("Favoris");	
+			//System.out.println("Favoris");	
 			List<News> news = new ArrayList<News>();					
 			for(Feed feed : feedTreePicker.getSelectedFeeds())
 			{
@@ -242,11 +246,11 @@ public class Controller implements ActionListener{
 		}
 
 		if (action.equals("Sync")) {			
-			System.out.println("Sync");	
+			//System.out.println("Sync");	
 			//TODO ne fonctionne pas model.synchronize();
 		}
 		if (action.equals("Read")) {			
-			System.out.println("Read");	
+			//System.out.println("Read");	
 
 			News newsSelected = this.getSelectedNews();
 
@@ -264,7 +268,7 @@ public class Controller implements ActionListener{
 
 		}
 		if (action.equals("FavBtn")) {			
-			System.out.println("FavBtn");	
+			//System.out.println("FavBtn");	
 
 			News newsSelected = this.getSelectedNews();
 			if(newsSelected!=null){
@@ -280,21 +284,21 @@ public class Controller implements ActionListener{
 			}
 		}		
 
-		if (action.equals("Pref")) {			
-			System.out.println("Pref");		
+		if (action.equals("Pref")) {
+			pref = new VewChangeProperties(null, "Préference", true);
+			pref.showDialog();
 		}
 		if (action.equals("GererSources")) {			
-			System.out.println("GererSources");		
+			//System.out.println("GererSources");		
 		}
 		if (action.equals("Help")) {			
-			System.out.println("Help");		
+			//System.out.println("Help");		
 		}
 		if (action.equals("About")) {			
-			System.out.println("About");
+			//System.out.println("About");
 			JDialog Dev = new JDialog();
 			JOptionPane.showMessageDialog(Dev,"Developpés par plusieurs moustachus et quelques Zboubs", "Actu-RSS",new Integer(JOptionPane.INFORMATION_MESSAGE).intValue());
 		}
-
 
 	}
 
