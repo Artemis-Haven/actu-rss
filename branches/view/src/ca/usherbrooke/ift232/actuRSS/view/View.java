@@ -1,5 +1,6 @@
 package ca.usherbrooke.ift232.actuRSS.view;
 
+import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.Observable;
@@ -19,7 +20,7 @@ import ca.usherbrooke.ift232.actuRSS.model.Model;
  *   contient le Panel principal et qui implémente 
  *   l'interface Observer.
  *   
- * @author Rémi Patrizio, Yann Seree
+ * @author Remi Patrizio, Yann Seree
  * @version 0.1
  */
 
@@ -60,6 +61,7 @@ public class View extends JFrame implements Observer {
 		// Définir les caractéristiques de la fenetre.
 		this.setTitle("MoustachuRSS");
 	    this.setSize(800, 500);
+	    this.setMinimumSize(new Dimension(580,200));
 	    this.setLocationRelativeTo(null);
 	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);    
 	    
