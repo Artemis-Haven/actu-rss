@@ -40,6 +40,16 @@ public class News {
 	 * @param favorite
 	 *            renseigne si la news a ete classee en favori
 	 */
+	public News() {
+		this.title = "";
+		this.url = "";
+		this.author = "";
+		this.date = null;
+		this.contents = "";
+		this.read = false;
+		this.favorite = false;
+	}
+	
 	public News(String title, String url, String author, Calendar date,
 			String contents, boolean read, boolean favorite) {
 		this.title = title;
