@@ -72,3 +72,26 @@ Pour le mardi 12 nov.
   * Finir les tests unitaires de Feed, News et Category : Julian
 
 ----
+
+== Réunion du mardi 26 nov. ==
+
+  * Amélioration de l'interface :
+   * Ajout d'un bouton "Lus"
+   * Création du panneau des préférences
+   * Création du panel d'affichage du contenu de l'actualité
+   * Amélioration des actions entre les listes de Flux, de News, et les boutons de la Toolbar
+  * Création du Parser
+  * Correction de la fonction merge()
+  * Continue de tester le Modèle et les classes Feed, News et Category
+  * Contrôleur opérationnel
+  * Création du fichier de config
+
+=== Pour la prochaine fois ===
+
+  * Tester et corriger le ContentPanel pour l'affichage de la news
+  * Finir tous les tests unitaires du Modèle et de Feed, News et Category
+  * Intégrer le Parser, la Vue et la BdD ensembles
+  * Tout regrouper dans une seule branche pour la validation, une fois que l'intégration des différents morceaux fonctionnera.
+  * Finir le panneau des préférences
+
+----
