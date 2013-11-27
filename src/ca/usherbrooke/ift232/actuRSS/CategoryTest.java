@@ -40,7 +40,7 @@ public class CategoryTest extends TestCase  {
 		categoryExample3 = new Category(3,Politique);
 	}
 	
-	// Test des trois constructeurs et des accesseurs de type get indirectement
+	// Test des trois constructeurs et des accesseurs de type get
 	public void testConstructeurs() {
 		
 		// constructeur 1
@@ -72,6 +72,16 @@ public class CategoryTest extends TestCase  {
 		assertEquals(null,categoryExample3.getListFeed());
 		
 	}
+
+	// Test de override
+	/*public void testOverride() {
+		
+		String voulu = "Category [id=2 name=Sport]";
+		String testChaine = categoryExample2.toString();
+		
+		assertEquals(voulu,categoryExample2.getName());
+
+	}*/
 
 	
 	@After
