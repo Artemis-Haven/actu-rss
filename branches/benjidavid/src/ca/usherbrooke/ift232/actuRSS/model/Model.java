@@ -94,7 +94,7 @@ public class Model extends Observable{
 		dbManager.insertObjetToDB(feedManager.getOldListCategory());
 	}
 	
-	public void synchronize() {
+	public void synchronize() throws Exception {
 		
 		Document docFeed = null;
 		//Si la liste des catégories est vide, on la charge depuis la BD
@@ -108,20 +108,15 @@ public class Model extends Observable{
 			Category newCat = new Category();
 			
 			for(Feed feed : category.getListFeed()) {
-				try {
-					// On récupère les fichiers via leur url, 
-					// on les parse 
-					// et on les envoie dans le feedManager
-					//File f = new File(feed.getUrl());
-					docFeed = Model.obtainDocument(feed.getUrl());
-					if (docFeed != null) {
-						Feed newFeed = parser.parse(docFeed);
-						newCat.getListFeed().add(newFeed);
-					}
-				} catch (Exception e) {
-					// TODO: handle exception
-					System.out.println("Problème de connexion à internet.");
-				}
+				// On récupère les fichiers via leur url, 
+				// on les parse 
+				// et on les envoie dans le feedManager
+				//File f = new File(feed.getUrl());
+				docFeed = Model.obtainDocument(feed.getUrl());
+				if (docFeed != null) {
+					Feed newFeed = parser.parse(docFeed);
+					newCat.getListFeed().add(newFeed);
+				} else throw new Exception("Le document n'a pas �t� correctement pars�");
 			}
 			newList.add(newCat);
 		}
