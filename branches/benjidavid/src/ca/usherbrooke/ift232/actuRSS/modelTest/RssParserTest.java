@@ -1,29 +1,31 @@
 package ca.usherbrooke.ift232.actuRSS.modelTest;
 
-import static org.junit.Assert.*;
-import ca.usherbrooke.ift232.actuRSS.News;
-import ca.usherbrooke.ift232.actuRSS.model.RssParser;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 
 import java.io.File;
-import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
+import java.sql.Connection;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.apache.commons.io.FileUtils;
+//import org.jdom.input.SAXBuilder;
 import org.junit.Test;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
-//import org.jdom.input.SAXBuilder;
+
+import ca.usherbrooke.ift232.actuRSS.Feed;
+import ca.usherbrooke.ift232.actuRSS.News;
+import ca.usherbrooke.ift232.actuRSS.model.RssParser;
 
 public class RssParserTest {
 	
@@ -34,11 +36,18 @@ public class RssParserTest {
 	String StrSimpleTest = fileSimpleTest.toString();
 			
 	@Test
-	public void testParse() {
-		List<News> text = parser.parse("http://feeds2.feedburner.com/KorbensBlog-UpgradeYourMind");
-		//List<News> text = parser.parse("http://feeds.feedburner.com/abry");
-		assertNotNull(text);
-		for (News news : text)
+	public void testParse() throws MalformedURLException, IOException, ParserConfigurationException, SAXException {
+		
+		DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+		URL url = new URL("http://feeds2.feedburner.com/KorbensBlog-UpgradeYourMind");
+        Document doc = builder.parse(url.openStream());
+		Feed feed = parser.parse(doc);
+		//Feed feed = parser.parse("http://feeds2.feedburner.com/KorbensBlog-UpgradeYourMind");
+		//Feed text = parser.parse("http://feeds.feedburner.com/abry");
+		assertNotNull(feed);
+		System.out.println(feed.getTitle());
+		System.out.println(feed.getUrl());
+		for (News news : feed.getListNews())			
 			System.out.println(news);
 	}
 
@@ -52,7 +61,24 @@ public class RssParserTest {
 	 * getChildByName(Node node, String name)
 	 */
 	public void testGetChildByName() throws SAXException, IOException {
-		String nomFichier = "simpleTest.xml";
+		String nameFile = "simpleTest.xml";
+		File testFile = new File("");
+		
+		//Connection connection = DriverManager.getConnection("https://actu-rss.googlecode.com/svn");
+		URL url = new URL("https://actu-rss.googlecode.com/svn/branches/benjidavid/src/testFiles/" + nameFile);
+		FileUtils.copyURLToFile(url, testFile);
+		System.out.println(testFile);
+		/*BufferedInputStream in = new BufferedInputStream(url.openStream());
+		FileOutputStream fos = new FileOutputStream("test.xml", true);
+		byte buff[] = new byte[2048];
+		while ((in.read(buff)) != -1)
+				fos.write(buff);
+		while ((in.read(buff)) != -1)
+			fos.read(buff);
+		fos.close();*/
+		//FileInputStream out = new fileInputStream(url);
+		
+		//File file = new File(url);
 		//URL url = new URL(getDocumentBase(), nomFichier);
 		//try {
 			/*File fichierTest = new File();

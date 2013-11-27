@@ -33,52 +33,40 @@ public class RssParser {
      * Parser le fichier XML
      * @param feedurl URL du flux RSS
      */
-    public List<News> parse(String feedurl) {
+    public Feed parse(Document feedDoc) {
     	//String result = "";
-    	ArrayList<News> listNewsFeed = new ArrayList<News>();
-        try {
-        	//On créé le document à partir du fichier xml pointé par l'url
-            DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-            URL url = new URL(feedurl);
-            Document doc = builder.parse(url.openStream());
-            NodeList nodes = null;
-            Element element = null;
-            
-            /**
-             * Titre et date du flux
-             * En commentaire : on cherche (pour le moment) à renvoyer juste la liste de News
-             * 
-             * String nameFeed = "";
-        	 * String urlFeed = "";
-        	 * 
-        	 * nodes = doc.getElementsByTagName("title");
-             * Node node = doc.getDocumentElement();
-			 *
-			 * nameFeed = this.readNode(node, "channel|title");
-             * urlFeed = this.readNode(node, "channel|link");
-             * 
-             */
-        	
+    	
+    	String nameFeed = "";
+   	 	String urlFeed = "";
+   	 	ArrayList<News> listNewsFeed = new ArrayList<News>();
+   	 	
+    	//On créé le document à partir du fichier xml pointé par l'url
+        /*DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+        URL url = new URL(feedurl);
+        Document doc = builder.parse(url.openStream());*/
+        NodeList nodes = null;
+        Element element = null;
+        
+        /**
+         * Titre et date du flux
+         * En commentaire : on cherche (pour le moment) à renvoyer juste la liste de News
+         * 
+         */  
+    	 nodes = feedDoc.getElementsByTagName("title");
+         Node node = feedDoc.getDocumentElement();
+		 
+		 nameFeed = this.readNode(node, "channel|title");
+         urlFeed = this.readNode(node, "channel|link");
+        /**
+         * Elements du flux RSS
+         **/
+        nodes = feedDoc.getElementsByTagName("item");
+        for (int i = 0; i < nodes.getLength(); i++) {
+            element = (Element) nodes.item(i);
 
-            /**
-             * Elements du flux RSS
-             **/
-            nodes = doc.getElementsByTagName("item");
-            for (int i = 0; i < nodes.getLength(); i++) {
-                element = (Element) nodes.item(i);
-
-                listNewsFeed.add(new News(readNode(element, "title"), readNode(element, "link"), readNode(element, "author"), parsePubDate(readNode(element, "pubDate")), readNode(element, "description"), false, false));
-
-            } 
-            
-        } catch (SAXException ex) {
-            Logger.getLogger(RssParser.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(RssParser.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParserConfigurationException ex) {
-            Logger.getLogger(RssParser.class.getName()).log(Level.SEVERE, null, ex);
+            listNewsFeed.add(new News(readNode(element, "title"), readNode(element, "link"), readNode(element, "author"), parsePubDate(readNode(element, "pubDate")), readNode(element, "description"), false, false));
         }
-        return listNewsFeed;
+        return (new Feed(nameFeed, urlFeed, listNewsFeed));
     }
 
     /**

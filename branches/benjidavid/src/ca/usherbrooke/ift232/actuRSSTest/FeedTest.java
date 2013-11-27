@@ -1,4 +1,4 @@
-package ca.usherbrooke.ift232.actuRSS;
+package ca.usherbrooke.ift232.actuRSSTest;
 
 import static org.junit.Assert.*;
 
@@ -9,6 +9,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import ca.usherbrooke.ift232.actuRSS.Feed;
+import ca.usherbrooke.ift232.actuRSS.News;
 import junit.framework.TestCase;
 
 /**

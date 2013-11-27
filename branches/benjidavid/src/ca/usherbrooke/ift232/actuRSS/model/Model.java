@@ -1,14 +1,25 @@
 package ca.usherbrooke.ift232.actuRSS.model;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Observable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.text.html.parser.Parser;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
 
 import ca.usherbrooke.ift232.actuRSS.Category;
 import ca.usherbrooke.ift232.actuRSS.Feed;
@@ -85,6 +96,7 @@ public class Model extends Observable{
 	
 	public void synchronize() {
 		
+		Document docFeed = null;
 		//Si la liste des catégories est vide, on la charge depuis la BD
 		if(feedManager.getOldListCategory().isEmpty()) {
 			loadAllFromDB();
@@ -100,9 +112,12 @@ public class Model extends Observable{
 					// On récupère les fichiers via leur url, 
 					// on les parse 
 					// et on les envoie dans le feedManager
-					File f = new File(feed.getUrl());
-					//Feed newFeed = parser.parse(f);
-					//newCat.getListFeed().add(newFeed);
+					//File f = new File(feed.getUrl());
+					docFeed = Model.obtainDocument(feed.getUrl());
+					if (docFeed != null) {
+						Feed newFeed = parser.parse(docFeed);
+						newCat.getListFeed().add(newFeed);
+					}
 				} catch (Exception e) {
 					// TODO: handle exception
 					System.out.println("Problème de connexion à internet.");
@@ -132,6 +147,24 @@ public class Model extends Observable{
 		List<Category> oldListCategory = (List<Category>)feedManager.getOldListCategory();
 		setChanged();
 		notifyObservers(oldListCategory);	
+	}
+	
+	public static Document obtainDocument(String feedurl) {
+		Document doc = null;
+		try {
+			DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+			URL url = new URL(feedurl);
+            doc = builder.parse(url.openStream());
+		} catch (ParserConfigurationException ex) {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (MalformedURLException ex) {
+        	Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+        	Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SAXException ex) {
+        	Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        return doc;
 	}
 	
 	
