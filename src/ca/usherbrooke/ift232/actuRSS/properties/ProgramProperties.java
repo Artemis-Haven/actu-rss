@@ -19,8 +19,8 @@ public class ProgramProperties extends Properties {
 
 			// create and load default properties
 			Properties defaultProps = new Properties();
-			defaultProps.setProperty("NewsNumber", "20");
-			defaultProps.setProperty("AfficherBase", "Tout");
+			defaultProps.setProperty("News Number", "20");
+			defaultProps.setProperty("Default Display", "Not Read");
 			FileInputStream in;
 
 			try { 

@@ -107,7 +107,7 @@ public class News {
 	//methodes
 	@Override
 	public String toString() {
-	    return "News [title = " + title + ", contents = " + contents 
-	    		+ ", url = " + url + ", author = " + author + ", date = " + date + "]";
+	    return "News [title = " + title + ", read = " + read + "favori = " + favorite + " contents = " + contents 
+	    		+ ", url = " + url + ", author = " + author + "]";
 	}
 }
