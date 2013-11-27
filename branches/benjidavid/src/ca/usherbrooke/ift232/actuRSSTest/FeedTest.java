@@ -3,6 +3,7 @@ package ca.usherbrooke.ift232.actuRSSTest;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.junit.After;
@@ -23,67 +24,98 @@ import junit.framework.TestCase;
 
 public class FeedTest {
 
-	// Variables exemples
-	private int id=8;
+	
+	/*private int id=8;
 	private String title="New robot sent to Mars";
 	private String url="http://www.cnn.com/";
 	private List<News> listNews=null;
 	
-	// Feeds représentant les quatre différents constructeurs
+	
 	private Feed feed1;
 	private Feed feed2;
 	private Feed feed3;
 	private Feed feed4;
 	
-	// setUp avec les quatre differents constructeurs
-	@Before
+	
+	
 	public void setUp() throws Exception {
 		feed1 = new Feed();
 		feed2 = new Feed(title,url,listNews);
 		feed3 = new Feed(id,title,url,listNews);
 		feed4 = new Feed(id,title,url);
+	}*/
+	
+	private List<News> ListNews; 
+	
+	public void setUp() {
+		Calendar cal = Calendar.getInstance();
+		News news1 = new News("titre1", "url1", "auteur1", cal, "txt1", true, true);
+		News news2 = new News("titre2", "url2", "auteur2", cal, "txt2", false, false);
+		News news3 = new News("titre3", "url3", "auteur3", cal, "txt3", true, false);
+		ListNews = new ArrayList<News>();
+		ListNews.add(news1);
+		ListNews.add(news2);
+		ListNews.add(news3);
 	}
 	
-	
-	// Test des quatres constructeurs et des accesseurs de type get
-	public void testConstructeurs() {
+	@Test
+	public void testConstructors() {
+		Feed feed = new Feed();
+		assertNotNull(feed);
 		
-		// Constructeur 1
-		assertEquals(-1,feed1.getId());
+		feed = new Feed("titre", "url", ListNews);
+		assertNotNull(feed);
+		
+		feed = new Feed(20, "titre", "url", ListNews);
+		assertNotNull(feed);
+		
+		feed = new Feed(20, "titre", "url");
+		assertNotNull(feed);
+		}
+	
+	@Test
+	public void testGetters() {
+		Feed feed = new Feed(20, "titre", "url", ListNews);
+		assertEquals(feed.getId(), 20);
+		assertEquals(feed.getTitle(), "titre");
+		assertEquals(feed.getUrl(), "url");
+		assertEquals(feed.getListNews(), ListNews);
+	}
+	
+	@Test
+	public void testSetters() {
+		Feed feed = new Feed();
+		feed.setId(15);
+		feed.setTitle("TitreSetter");
+		feed.setUrl("UrlSetter");
+		feed.setListNews(ListNews);
+		
+		assertEquals(feed.getId(), 15);
+		assertEquals(feed.getTitle(), "TitreSetter");
+		assertEquals(feed.getUrl(), "UrlSetter");
+		assertEquals(feed.getListNews(), ListNews);
+	}
+		/*assertEquals(-1,feed1.getId());
 		assertEquals("",feed1.getTitle());
 		assertEquals("",feed1.getUrl());
 		assertEquals(new ArrayList<News>(),feed1.getListNews());
 		
-		// Constructeur 2
 		assertEquals(-1,feed2.getId());
 		assertEquals(title,feed2.getTitle());
 		assertEquals(url,feed2.getUrl());
 		assertEquals(listNews,feed2.getListNews());
 		
-		// Constructeur 3
 		assertEquals(id,feed3.getId());
 		assertEquals(title,feed3.getTitle());
 		assertEquals(url,feed3.getUrl());
 		assertEquals(listNews,feed3.getListNews());
 		
-		// Constructeur 4
 		assertEquals(id,feed4.getId());
 		assertEquals(title,feed4.getTitle());
 		assertEquals(url,feed4.getUrl());
-		assertEquals(new ArrayList<News>(),feed4.getListNews());
+		assertEquals(new ArrayList<News>(),feed4.getListNews());*/
 		
-	}
 	
-	// Test des accesseurs de type set
 	
-
-	@After
-	public void tearDown() throws Exception {
-	}
-
-	@Test
-	public void test() {
-		fail("Not yet implemented");
-	}
 
 }
