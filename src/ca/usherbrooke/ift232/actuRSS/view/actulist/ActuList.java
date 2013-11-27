@@ -12,87 +12,101 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import ca.usherbrooke.ift232.actuRSS.News;
+import ca.usherbrooke.ift232.actuRSS.properties.ProgramProperties;
 
 public class ActuList extends JList implements ListSelectionListener
-{
+{	
+	
 	public ActuList(List<News> news) {
 
-		super(buildListModelNews(news));
-		
-		
+		super(buildListModelNews(news,"Tous"));
+
+
 		this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		this.setSelectedIndex(0);
 		this.addListSelectionListener( this);
 		this.setVisibleRowCount(5);
-		
-		
+
+
 	}
 
 	public ActuList() 
 	{
-		
+
 		this(new ArrayList<News>());
 	}
-	
-	
+
+
 
 	public News getSelectedNew()
 	{
 		return (News) this.getSelectedValue();
-		
+
 	}
 
-	private static ListModel buildListModelNews(List<News> news) {
+	private static ListModel buildListModelNews(List<News> news, String state) {
 		final DefaultListModel listModelNews = new DefaultListModel();
-		fillNews(listModelNews, news);
+		fillNews(listModelNews, news,state);
 
 		return listModelNews;
 	}
 
-	public void changeNews(List<News> news)
+	public void changeNews(List<News> news,String state)
 	{
-		ListModel modelNews = buildListModelNews(news);
-		
+		ListModel modelNews = buildListModelNews(news,state);
+
 		this.setModel(modelNews);
 	}
-	
-	private static void fillNews(DefaultListModel listModel, List<News> news) {
+
+	private static void fillNews(DefaultListModel listModel, List<News> news,String state) {
 
 		System.out.println(news);
 		for (News element : news) 
 		{
-			listModel.addElement(element);
+			if(state.equals("Favoris")){
+				if(element.isFavorite())
+					listModel.addElement(element);
+			}else if(state.equals("Lu")){
+				if(element.isRead())
+					listModel.addElement(element);
+			}else if(state.equals("Non lu")){
+				if(!element.isRead())
+					listModel.addElement(element);
+			}else{
+				listModel.addElement(element);
+			}	
 		}
 
 	}
-	
+
+
 	// #region ActuSelectedEvent
 
-		private final EventListenerList listenerList = new EventListenerList();
+	private final EventListenerList listenerList = new EventListenerList();
 
-		public void addActuSelectedListener(
-				ActuSelectedListener actuSelectedListener) {
-			listenerList.add(ActuSelectedListener.class, actuSelectedListener);
+	public void addActuSelectedListener(
+			ActuSelectedListener actuSelectedListener) {
+		listenerList.add(ActuSelectedListener.class, actuSelectedListener);
+	}
+
+	public void removeActuSelectedListener(ActuSelectedListener l) {
+		listenerList.remove(ActuSelectedListener.class, l);
+	}
+
+	protected void fireActuSelectedEvent(ActuSelectedEvent event) {
+		for (ActuSelectedListener l : listenerList
+				.getListeners(ActuSelectedListener.class)) {
+			l.onActuSelected(event);
 		}
+	}
 
-		public void removeActuSelectedListener(ActuSelectedListener l) {
-			listenerList.remove(ActuSelectedListener.class, l);
-		}
+	@Override
+	public void valueChanged(ListSelectionEvent e) {
+		fireActuSelectedEvent(new ActuSelectedEvent(this, (News) this.getSelectedValue()));
 
-		protected void fireActuSelectedEvent(ActuSelectedEvent event) {
-			for (ActuSelectedListener l : listenerList
-					.getListeners(ActuSelectedListener.class)) {
-				l.onActuSelected(event);
-			}
-		}
+	}
 
-		@Override
-		public void valueChanged(ListSelectionEvent e) {
-			fireActuSelectedEvent(new ActuSelectedEvent(this, (News) this.getSelectedValue()));
-			
-		}
+	// #endregion
 
-		// #endregion
-		
 
 }
