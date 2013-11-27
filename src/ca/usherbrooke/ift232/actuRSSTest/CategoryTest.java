@@ -1,14 +1,6 @@
-package ca.usherbrooke.ift232.actuRSS;
+package ca.usherbrooke.ift232.actuRSSTest;
 
 import static org.junit.Assert.*;
-
-/**
- * Actu-RSS Couche : Model 
- * Date de creation : 2013-11-26
- * Description : Test de la classe Category
- * @author Julian Bironneau
- * @version 0.1
- */
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +10,9 @@ import junit.framework.TestCase;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import ca.usherbrooke.ift232.actuRSS.Category;
+import ca.usherbrooke.ift232.actuRSS.Feed;
 
 public class CategoryTest extends TestCase  {
 
