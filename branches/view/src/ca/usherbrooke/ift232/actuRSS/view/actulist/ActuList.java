@@ -64,17 +64,17 @@ public class ActuList extends JList implements ListSelectionListener
 		for (News element : news) 
 		{
 			
-			if(state.equals("Favoris")){
+			if(state.equals("Favorite")){
 				if(element.isFavorite()){
 					System.out.println(element);
 					listModel.addElement(element);
 				}
-			}else if(state.equals("Lu")){
+			}else if(state.equals("Read")){
 				if(element.isRead()){
 					listModel.addElement(element);
 					System.out.println(element);
 				}
-			}else if(state.equals("Non lu")){
+			}else if(state.equals("Not Read")){
 				if(element.isRead() == false){
 					listModel.addElement(element);
 					System.out.println(element);

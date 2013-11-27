@@ -19,12 +19,12 @@ public class VewChangeProperties extends ParamDialog {
 
 	
 	private JPanel content;
-	private JPanel controle;
+	private JPanel control;
 	private JButton okbutton;
 	private JButton cancel;
 	private JButton defaultbutton;
-	JPanel afficherBase;
-	JRadioButton tous,favoris,nonlu,lu;
+	JPanel desplay;
+	JRadioButton all,favorite,notRead,read;
 	JPanel newsNumber;
 	JSpinner spinNumber;
 	
@@ -40,43 +40,43 @@ public class VewChangeProperties extends ParamDialog {
 	public void initDialog() {
 		content = new JPanel();
 		
-		afficherBase = new JPanel();
-		afficherBase.setBorder(BorderFactory.createTitledBorder("Affichage par defaut"));
-		tous = new JRadioButton("Tout");
-		favoris = new JRadioButton("Favoris");
-		nonlu = new JRadioButton("Non lu");
-		lu = new JRadioButton("Lu");
-		if(Controller.afficherBase.matches("Tout"))
-			tous.setSelected(true);
-		else if(Controller.afficherBase.matches("Favoris"))
-			favoris.setSelected(true);
-		else if(Controller.afficherBase.matches("Non lu"))
-			nonlu.setSelected(true);
+		desplay = new JPanel();
+		desplay.setBorder(BorderFactory.createTitledBorder("Affichage par defaut"));
+		all = new JRadioButton("Tout");
+		favorite = new JRadioButton("Favoris");
+		notRead = new JRadioButton("Non lu");
+		read = new JRadioButton("Lu");
+		if(Controller.defaultDisplay.matches("All"))
+			all.setSelected(true);
+		else if(Controller.defaultDisplay.matches("Favorite"))
+			favorite.setSelected(true);
+		else if(Controller.defaultDisplay.matches("Not Read"))
+			notRead.setSelected(true);
 		else
-			lu.setSelected(true);
+			read.setSelected(true);
 		ButtonGroup gp = new ButtonGroup();
-		gp.add(tous);
-		gp.add(favoris);
-		gp.add(nonlu);
-		gp.add(lu);
-		afficherBase.add(tous);
-		afficherBase.add(favoris);
-		afficherBase.add(nonlu);
-		afficherBase.add(lu);
+		gp.add(all);
+		gp.add(favorite);
+		gp.add(notRead);
+		gp.add(read);
+		desplay.add(all);
+		desplay.add(favorite);
+		desplay.add(notRead);
+		desplay.add(read);
 		
 		newsNumber = new JPanel();
 		newsNumber.setBorder(BorderFactory.createTitledBorder("Nombre de news par flux RSS"));
 		spinNumber = new JSpinner();
 		newsNumber.setPreferredSize(new Dimension(300, 60));
 		spinNumber.setPreferredSize(new Dimension(100, 30));
-		spinNumber.setValue(Integer.parseInt(Controller.properties.getProperty("NewsNumber")));
+		spinNumber.setValue(Integer.parseInt(Controller.properties.getProperty("News Number")));
 		newsNumber.add(spinNumber);
 		
-		content.add(afficherBase);
+		content.add(desplay);
 		content.add(newsNumber);
 		
 
-		controle = new JPanel();
+		control = new JPanel();
 		
 		okbutton = new JButton("OK");
 		okbutton.addActionListener(new ActionListener() {
@@ -102,52 +102,52 @@ public class VewChangeProperties extends ParamDialog {
 			}
 		});
 
-		controle.add(okbutton);
-		controle.add(cancel);
-		controle.add(defaultbutton);
+		control.add(okbutton);
+		control.add(cancel);
+		control.add(defaultbutton);
 
 		this.getContentPane().add(content,BorderLayout.CENTER);
-		this.getContentPane().add(controle,BorderLayout.SOUTH);
+		this.getContentPane().add(control,BorderLayout.SOUTH);
 
 	}
 	
 	public void finishDialog(){
-		String newAfficher;
+		String newDisplay;
 		String newNumber;
 		
-		if(tous.isSelected())
-			newAfficher = "Tout";
-		else if(favoris.isSelected())
-			newAfficher = "Favoris";
-		else if(nonlu.isSelected())
-			newAfficher = "Non lu";
+		if(all.isSelected())
+			newDisplay = "All";
+		else if(favorite.isSelected())
+			newDisplay = "Favorite";
+		else if(notRead.isSelected())
+			newDisplay = "Not Read";
 		else
-			newAfficher = "Lu";
+			newDisplay = "Read";
 		
-		Controller.properties.setProperty("AfficherBase", newAfficher);
-		Controller.afficherBase  = newAfficher;
+		Controller.properties.setProperty("Default Display", newDisplay);
+		Controller.defaultDisplay  = newDisplay;
 		
 		newNumber = spinNumber.getValue().toString();
-		Controller.properties.setProperty("NewsNumber", newNumber);
+		Controller.properties.setProperty("News Number", newNumber);
 		Controller.properties.save();
 		super.closeDialog();
 	}
 	
 	public void closeDialog(){
 		super.closeDialog();
-		spinNumber.setValue(Integer.parseInt(Controller.properties.getProperty("NewsNumber")));
-		if(Controller.afficherBase.matches("Tout"))
-			tous.setSelected(true);
-		else if(Controller.afficherBase.matches("Favoris"))
-			favoris.setSelected(true);
-		else if(Controller.afficherBase.matches("Non lu"))
-			nonlu.setSelected(true);
+		spinNumber.setValue(Integer.parseInt(Controller.properties.getProperty("News Number")));
+		if(Controller.defaultDisplay.matches("All"))
+			all.setSelected(true);
+		else if(Controller.defaultDisplay.matches("Favorite"))
+			favorite.setSelected(true);
+		else if(Controller.defaultDisplay.matches("Not Read"))
+			notRead.setSelected(true);
 		else
-			lu.setSelected(true);
+			read.setSelected(true);
 	}
 
 	public void renewDialog(){
 		spinNumber.setValue(20);
-		tous.setSelected(true);
+		notRead.setSelected(true);
 	}
 }
