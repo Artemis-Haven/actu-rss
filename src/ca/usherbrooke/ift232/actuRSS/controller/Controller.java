@@ -28,7 +28,8 @@ public class Controller implements ActionListener{
 	private View view;	
 	private MainPanel mainPanel;
 	private Toolbar toolbar;
-
+	private TreePicker feedTreePicker;
+	private ActuList newsList;
 
 	public Controller(Model model, View view) {		
 		this.model = model;
@@ -36,8 +37,8 @@ public class Controller implements ActionListener{
 		this.mainPanel = view.getMainPanel();
 		this.toolbar = mainPanel.getToolbar();
 
-		final TreePicker feedTreePicker = mainPanel.getFeedTreePicker();
-		ActuList newsList = mainPanel.getNewsList();
+		feedTreePicker = mainPanel.getFeedTreePicker();
+		newsList = mainPanel.getNewsList();
 
 		model.addObserver(view);
 		model.notifyObserver();
@@ -50,8 +51,7 @@ public class Controller implements ActionListener{
 
 			@Override
 			public void onFeedSelected(FeedSelectedEvent event) 
-			{					
-
+			{		
 
 				List<News> news = new ArrayList<News>();					
 				for(Feed feed : feedTreePicker.getSelectedFeeds())
@@ -69,7 +69,9 @@ public class Controller implements ActionListener{
 
 				}	
 
-				mainPanel.getNewsList().changeNews(news);
+				toolbar.getFavBtn().setSelected(false);
+				toolbar.getReadBtn().setSelected(false);
+				newsList.changeNews(news);
 			}	
 		});			
 
@@ -83,23 +85,18 @@ public class Controller implements ActionListener{
 			public void onActuSelected(ActuSelectedEvent event) 
 			{
 
-			
+
 				/*Regarder si la source est lu, favori*/
 				News newsSelected = getSelectedNews();
 				if(newsSelected!=null){
-					if(newsSelected.isRead())
-					{
-						toolbar.getReadBtn().setSelected(true);
-					}
-					if(newsSelected.isRead()==false)
-					{
-						toolbar.getReadBtn().setSelected(false);
-					}
-					
+
+					toolbar.getReadBtn().setSelected(false);
+					newsSelected.setRead(true);
+
 					if(newsSelected.isFavorite())
 					{
 						toolbar.getFavBtn().setSelected(true);
-						
+
 					}
 					if(newsSelected.isFavorite()==false)
 					{
@@ -116,7 +113,7 @@ public class Controller implements ActionListener{
 
 	}
 
-	public News getSelectedNews() {return mainPanel.getNewsList().getSelectedNew();}	
+	public News getSelectedNews() {return newsList.getSelectedNew();}	
 
 
 
@@ -127,15 +124,83 @@ public class Controller implements ActionListener{
 		String action = arg0.getActionCommand();				
 
 		if (action.equals("Tout")) {			
-			System.out.println("tout");		
+			List<News> news = new ArrayList<News>();					
+			for(Feed feed : feedTreePicker.getSelectedFeeds())
+			{
+				if(feed == null)
+					continue;						
+
+				for(News actu : feed.getListNews())
+				{
+					if(actu == null)
+						continue;							
+					news.add(actu);
+				}					
+
+			}
+			toolbar.getFavBtn().setSelected(false);
+			toolbar.getReadBtn().setSelected(false);
+
+			newsList.changeNews(news);
+
+
+
+
 		}
+
 		if (action.equals("Non lus")) {			
-			System.out.println("Non lus");				
+
+			List<News> news = new ArrayList<News>();					
+			for(Feed feed : feedTreePicker.getSelectedFeeds())
+			{
+				if(feed == null)
+					continue;						
+
+				for(News actu : feed.getListNews())
+				{
+					if(actu == null)
+						continue;							
+
+					if(actu.isRead()==false)
+					{
+						news.add(actu);
+					}
+
+				}	
+
+
+			}
+			toolbar.getFavBtn().setSelected(false);
+			toolbar.getReadBtn().setSelected(false);
+			newsList.changeNews(news);
+
+
 		}
 		if (action.equals("Favoris")) {	
 
-			System.out.println("Favoris");
+			System.out.println("Favoris");	
+			List<News> news = new ArrayList<News>();					
+			for(Feed feed : feedTreePicker.getSelectedFeeds())
+			{
+				if(feed == null)
+					continue;						
 
+				for(News actu : feed.getListNews())
+				{
+					if(actu == null)
+						continue;							
+
+					if(actu.isFavorite())
+					{
+						news.add(actu);
+					}
+
+				}	
+
+			}
+			toolbar.getFavBtn().setSelected(false);
+			toolbar.getReadBtn().setSelected(false);
+			newsList.changeNews(news);
 		}
 
 		if (action.equals("Sync")) {			
