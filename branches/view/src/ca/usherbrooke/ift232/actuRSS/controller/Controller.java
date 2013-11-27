@@ -70,8 +70,11 @@ public class Controller implements ActionListener{
 				}	
 
 				toolbar.getFavBtn().setSelected(false);
-				toolbar.getReadBtn().setSelected(false);
+				toolbar.getReadBtn().setSelected(false);			
+				
 				newsList.changeNews(news);
+				toolbar.getFavBtn().setEnabled(false);
+				toolbar.getReadBtn().setEnabled(false);
 			}	
 		});			
 
@@ -85,6 +88,9 @@ public class Controller implements ActionListener{
 			public void onActuSelected(ActuSelectedEvent event) 
 			{
 
+
+				toolbar.getFavBtn().setEnabled(true);
+				toolbar.getReadBtn().setEnabled(true);
 
 				/*Regarder si la source est lu, favori*/
 				News newsSelected = getSelectedNews();
@@ -174,8 +180,40 @@ public class Controller implements ActionListener{
 			toolbar.getReadBtn().setSelected(false);
 			newsList.changeNews(news);
 
+		}
+		
+		if (action.equals("Lus")) {			
+
+			List<News> news = new ArrayList<News>();					
+			for(Feed feed : feedTreePicker.getSelectedFeeds())
+			{
+				if(feed == null)
+					continue;						
+
+				for(News actu : feed.getListNews())
+				{
+					if(actu == null)
+						continue;							
+
+					if(actu.isRead()==true)
+					{
+						news.add(actu);
+					}
+
+				}	
+
+
+			}
+			toolbar.getFavBtn().setSelected(false);
+			toolbar.getReadBtn().setSelected(false);
+			newsList.changeNews(news);
+
 
 		}
+		
+		
+		
+		
 		if (action.equals("Favoris")) {	
 
 			System.out.println("Favoris");	

@@ -35,13 +35,10 @@ public class Toolbar extends JPanel {
 	 */
 	private JToggleButton allNewsBtn;
 	private JToggleButton unreadNewsBtn;
-	public JToggleButton getAllNewsBtn() {
-		return allNewsBtn;
-	}
 
-	
-	
 	private JToggleButton favNewsBtn;
+	private JToggleButton readNewsBtn;
+	
 	private JButton syncBtn;
 	private JToggleButton readBtn;
 	private JToggleButton favBtn;
@@ -77,11 +74,14 @@ public class Toolbar extends JPanel {
 		
 		readBtn = buildToggleButton("/img/read.png");
 		readBtn.setActionCommand("Read");
+		readBtn.setEnabled(false);
 		
 		rightPanel.add(readBtn);
 		
 		favBtn = buildToggleButton("/img/favorite.png");
 		favBtn.setActionCommand("FavBtn");
+		favBtn.setEnabled(false);
+		
 		rightPanel.add(favBtn);
 		
 		menuBtn = new Menu();
@@ -102,6 +102,7 @@ public class Toolbar extends JPanel {
 		allNewsBtn = new JToggleButton("Tout", true);
 		unreadNewsBtn = new JToggleButton("Non lus");
 		favNewsBtn = new JToggleButton("Favoris");
+		readNewsBtn = new JToggleButton("Lus");
 		
 		allNewsBtn.setPreferredSize(new Dimension(100,30));
 		allNewsBtn.setMinimumSize(new Dimension(100,30));
@@ -112,19 +113,26 @@ public class Toolbar extends JPanel {
 		favNewsBtn.setPreferredSize(new Dimension(100,30));
 		favNewsBtn.setMinimumSize(new Dimension(100,30));
 		
+		readNewsBtn.setPreferredSize(new Dimension(100,30));
+		readNewsBtn.setMinimumSize(new Dimension(100,30));
+		
 		
 		btnGroup = new ButtonGroup();
 		btnGroup.add(allNewsBtn);
 		btnGroup.add(unreadNewsBtn);
 		btnGroup.add(favNewsBtn);
+		btnGroup.add(readNewsBtn);
 
 		allNewsBtn.setFocusPainted(false);
 		unreadNewsBtn.setFocusPainted(false);
 		favNewsBtn.setFocusPainted(false);
+		readNewsBtn.setFocusPainted(false);	
+		
 		
 		leftPanel.add(allNewsBtn, BorderLayout.WEST);
 		leftPanel.add(unreadNewsBtn, BorderLayout.WEST);
 		leftPanel.add(favNewsBtn, BorderLayout.WEST);
+		leftPanel.add(readNewsBtn, BorderLayout.WEST);
 	}
 
 	private JToggleButton buildToggleButton(String path) {
@@ -138,6 +146,7 @@ public class Toolbar extends JPanel {
 		allNewsBtn.addActionListener(e);
 		unreadNewsBtn.addActionListener(e);
 		favNewsBtn.addActionListener(e);
+		readNewsBtn.addActionListener(e);
 		
 		syncBtn.addActionListener(e);
 		
