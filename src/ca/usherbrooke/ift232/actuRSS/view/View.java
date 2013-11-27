@@ -61,7 +61,7 @@ public class View extends JFrame implements Observer {
 		// Définir les caractéristiques de la fenetre.
 		this.setTitle("MoustachuRSS");
 	    this.setSize(800, 500);
-	    this.setMinimumSize(new Dimension(580,200));
+	    this.setMinimumSize(new Dimension(680,200));
 	    this.setLocationRelativeTo(null);
 	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);    
 	    
