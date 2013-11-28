@@ -51,12 +51,12 @@ public class Menu extends JMenuBar{
 		//mnParametre.setBorder(new LineBorder(new Color(0, 0, 0), 1, false));
 		mnParametre.setHorizontalAlignment(SwingConstants.CENTER);
 		
-		paraPreferency = new JMenuItem("Pr�f�rences");
+		paraPreferency = new JMenuItem("Pr\u00E9f\u00E9rences");
 		paraPreferency.setActionCommand("Pref");
 		
 		mnParametre.add(paraPreferency);
 
-		paraSource = new JMenuItem("G�rer les sources");
+		paraSource = new JMenuItem("G\u00E9rer les sources");
 		paraSource.setActionCommand("GererSources");
 		mnParametre.add(paraSource);
 		
