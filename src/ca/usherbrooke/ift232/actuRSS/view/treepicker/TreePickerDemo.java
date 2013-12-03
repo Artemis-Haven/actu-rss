@@ -17,7 +17,8 @@ public class TreePickerDemo {
 	private JFrame frame;
 
 	/**
-	 * Launch the application.
+	 * main : lance l'application
+	 * @param args
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -33,14 +34,14 @@ public class TreePickerDemo {
 	}
 
 	/**
-	 * Create the application.
+	 * TreePickerDemo : Crée l'application
 	 */
 	public TreePickerDemo() {
 		initialize();
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * initialize : Initialize le contenu du paquet
 	 */
 	private void initialize() {
 		frame = new JFrame();
