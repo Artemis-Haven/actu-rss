@@ -38,8 +38,8 @@ public class FeedManager {
 				// (pas de news) sont identiques
 				for(News news : feed.getListNews()) {
 					
-					indexCategory = listCategory.indexOf(iterCategory);
-					indexFeed = listCategory.get(indexCategory).getListFeed().indexOf(iterFeed);
+					indexCategory = listCategory.indexOf(cat);
+					indexFeed = listCategory.get(indexCategory).getListFeed().indexOf(feed);
 					
 					if(!newList.get(indexCategory).getListFeed().get(indexFeed).getListNews().contains(news))
 					{
@@ -50,6 +50,7 @@ public class FeedManager {
 		}	      
 
 		oldListCategory.clear();
+		listCategory.clear();
 		this.oldListCategory = newList;
 	}
 	
