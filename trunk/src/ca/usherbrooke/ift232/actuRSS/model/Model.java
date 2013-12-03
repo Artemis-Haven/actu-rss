@@ -166,6 +166,14 @@ public class Model extends Observable{
     return doc;
     }
 
+	public DatabaseManager getDbManager() {
+		return dbManager;
+	}
+
+	public FeedManager getFeedManager() {
+		return feedManager;
+	}
+
 	
 	
 	
