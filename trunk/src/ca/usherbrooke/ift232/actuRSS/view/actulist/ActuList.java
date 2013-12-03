@@ -27,7 +27,7 @@ public class ActuList extends JList implements ListSelectionListener
 		this.addListSelectionListener( this);
 		this.setVisibleRowCount(5);
 
-
+		this.setCellRenderer(new ActuRenderer());
 	}
 
 	public ActuList() 
