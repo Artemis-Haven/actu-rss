@@ -15,9 +15,12 @@ import javax.swing.JSpinner;
 
 import ca.usherbrooke.ift232.actuRSS.controller.Controller;
 
-public class VewChangeProperties extends ParamDialog {
-
+public class ViewChangeProperties extends ParamDialog {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -977093876115135886L;
 	private JPanel content;
 	private JPanel control;
 	private JButton okbutton;
@@ -26,10 +29,9 @@ public class VewChangeProperties extends ParamDialog {
 	JPanel desplay;
 	JRadioButton all,favorite,notRead,read;
 	JPanel newsNumber;
-	JSpinner spinNumber;
+	JSpinner spinNumber;	
 	
-	
-	public VewChangeProperties(JFrame parent, String title, boolean modal) {
+	public ViewChangeProperties(JFrame parent, String title, boolean modal) {
 		super(parent, title, modal);
 		this.initDialog();
 	}
@@ -79,28 +81,17 @@ public class VewChangeProperties extends ParamDialog {
 		control = new JPanel();
 		
 		okbutton = new JButton("OK");
-		okbutton.addActionListener(new ActionListener() {
-			
-			public void actionPerformed(ActionEvent e) {
-				finishDialog();
-			}
-		});
+		okbutton.setActionCommand("OkPref");
+		
 		
 		cancel = new JButton("Annuler");
-		cancel.addActionListener(new ActionListener() {
-			
-			public void actionPerformed(ActionEvent e) {
-				closeDialog();
-			}
-		});
+		cancel.setActionCommand("AnnulerPref");
+		
 		
 		defaultbutton = new JButton("Reinitialiser");
-		defaultbutton.addActionListener(new ActionListener() {
-			
-			public void actionPerformed(ActionEvent e) {
-				renewDialog();
-			}
-		});
+		defaultbutton.setActionCommand("ReinitialiserPref");
+		
+		
 
 		control.add(okbutton);
 		control.add(cancel);
@@ -150,4 +141,13 @@ public class VewChangeProperties extends ParamDialog {
 		spinNumber.setValue(20);
 		notRead.setSelected(true);
 	}
+	
+	public void addListener(ActionListener e)
+	{
+		okbutton.addActionListener(e);
+		cancel.addActionListener(e);
+		defaultbutton.addActionListener(e);
+	}
+	
+	
 }
