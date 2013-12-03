@@ -15,6 +15,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 
+import org.xhtmlrenderer.simple.FSScrollPane;
+
 import ca.usherbrooke.ift232.actuRSS.Category;
 import ca.usherbrooke.ift232.actuRSS.Feed;
 import ca.usherbrooke.ift232.actuRSS.News;
@@ -117,13 +119,20 @@ public class MainPanel extends JPanel {
 		Feed f1 = new Feed(1, "title feed 1", "url", f1List);
 		Feed f2 = new Feed(2, "title feed 2", "url", f2List);
 
+		mac.setFeed(macGeneration);
 		macGeneration.getListNews().add(mac);
+		n1.setFeed(f1);
 		f1.getListNews().add(n1);
+		n2.setFeed(f1);
 		f1.getListNews().add(n2);
+		n3.setFeed(f1);
 		f1.getListNews().add(n3);
 		
+		n4.setFeed(f2);
 		f2.getListNews().add(n4);
+		n5.setFeed(f2);
 		f2.getListNews().add(n5);
+		n6.setFeed(f2);
 		f2.getListNews().add(n6);		
 		
 		ArrayList<Feed> feedList = new ArrayList<Feed>();
@@ -166,7 +175,10 @@ public class MainPanel extends JPanel {
 		//On ajoute le panel contenant feedTree et newsList à gauche
 		mainSplitPane.setLeftComponent(innerSplitPane);
 		//On ajoute le panel du contenu de la news à droite
-		mainSplitPane.setRightComponent(new JScrollPane(contentPanel));
+		FSScrollPane fsScrollPane = new FSScrollPane(contentPanel);
+		fsScrollPane.setHorizontalScrollBarPolicy(FSScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		fsScrollPane.setVerticalScrollBarPolicy(FSScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		mainSplitPane.setRightComponent(fsScrollPane);
 		this.add(mainSplitPane, BorderLayout.CENTER);		
 
 		/*TODO A mettre dans le controleur*/

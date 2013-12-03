@@ -52,17 +52,21 @@ public class RssParser {
 
             nameFeed = this.readNode(node, "channel|title");
             urlFeed = this.readNode(node, "channel|link");
+            
+            Feed feed = new Feed(nameFeed, urlFeed, listNewsFeed);
             /**
              * Elements du flux RSS
              **/
             nodes = feedDoc.getElementsByTagName("item");
             for (int i = 0; i < nodes.getLength(); i++) {
                     element = (Element) nodes.item(i);
-
-                    listNewsFeed.add(new News(readNode(element, "title"), readNode(element, "link"), readNode(element, "author"),
-                                    parsePubDate(readNode(element, "pubDate")), readNode(element, "description"), false, false));
+                    
+                    News n = new News(readNode(element, "title"), readNode(element, "link"), readNode(element, "author"),
+                            parsePubDate(readNode(element, "pubDate")), readNode(element, "description"), false, false);
+                    n.setFeed(feed);
+                    listNewsFeed.add(n);
             }
-            return (new Feed(nameFeed, urlFeed, listNewsFeed));
+            return (feed);
     }
 
     /**
