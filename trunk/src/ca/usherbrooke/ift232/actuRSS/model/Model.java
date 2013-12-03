@@ -38,7 +38,8 @@ public class Model extends Observable{
 		dbManager = new DatabaseManager(new Database("acturss.db"));
 		feedManager = new FeedManager();
 		
-		/*dbManager.createDB();
+		/*
+		dbManager.createDB();
 
 		News n1 = new News("titre1", "url1", "author1", new GregorianCalendar(), "contents1", false, false);
 		News n2 = new News("titre2", "url2", "author2", new GregorianCalendar(), "contents2", false, false);
@@ -105,7 +106,7 @@ public class Model extends Observable{
        
         // Pour chaque feed dans chaque catÃ©gorie :
         for(Category category : feedManager.getOldListCategory()) {
-                Category newCat = new Category();
+                Category newCat = new Category(category.getId(), category.getName());
                
                 for(Feed feed : category.getListFeed()) {
                         // On rÃ©cupÃ¨re les fichiers via leur url,
