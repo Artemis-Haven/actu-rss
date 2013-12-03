@@ -95,3 +95,25 @@ Pour le mardi 12 nov.
   * Finir le panneau des préférences
 
 ----
+
+== Réunion du mardi 3 déc. ==
+
+=== Travail fait ===
+  * Fusion du travail de tout le monde (branches vincentpoupi, view & benjidavid) dans le TRUNK.
+  * Ajout d'un attribut Feed dans les News (modifications minimes dans le Parser et le DbManager).
+  * Amélioration du ContentPanel, pas encore vraiment utilisable.
+
+=== Ordre du jour ===
+
+  * Switch de tout le monde sur le trunk : https://actu-rss.googlecode.com/svn/trunk
+  * Vérifier les tests unitaires après la fusion
+  * Intégrer l'affichage de la news sélectionnée avec la BdD
+  * Corriger la fonction merge() dans le FeedManager
+  * Tester et vérifier la fonction sync() dans le Model
+  * Commenter le code grâce à la Javadoc : pour chaque fonction, _clic-droit_ > _Source_ > _Generate Element Comment_. Bien remplir les @param, @throws et @return si nécessaire.
+  * Le gros morceau : intégrer le Parser, le Model, la BdD et la Vue ensemble pour afficher un vrai flux RSS. -> *nécessite* de vérifier sync(), merge() et le ContentPanel.
+
+=== Pour la prochaine fois ===
+
+
+----
