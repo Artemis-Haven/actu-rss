@@ -48,39 +48,51 @@ public class FeedManagerTest {
         
         ListNews.add(news11);
         ListNews.add(news12);
-        Feed feed1 = new Feed(0, "titreFeed1", "urlFeed1", ListNews);
+        Feed feed1 = new Feed(0, "titreFeed1", "urlFeed1", new ArrayList<News>(ListNews));
         ListNews.clear();
         
         ListNews.add(news21);
-        Feed feed2 = new Feed(1, "titreFeed2", "urlFeed2", ListNews);
+        Feed feed2 = new Feed(1, "titreFeed2", "urlFeed2", new ArrayList<News>(ListNews));
         ListNews.clear();
         
         ListNews.add(news31);
         ListNews.add(news32);
-        Feed feed3 = new Feed(1, "titreFeed3", "urlFeed3", ListNews);
+        Feed feed3 = new Feed(2, "titreFeed3", "urlFeed3", new ArrayList<News>(ListNews));
         ListNews.clear();
         
         ListFeed.add(feed1);
         ListFeed.add(feed2);
         ListFeed.add(feed3);
-        Category oldCategory = new Category(0, "oldCategory", ListFeed);
+        //Creation OldCategory 
+        Category oldCategory = new Category(0, "oldCategory", new ArrayList<Feed>(ListFeed));
         
-        ListNews.remove(news32);
-        ListNews.add(news22);
-        Category newCategory = new Category(1, "newCategory", ListFeed);
+        //ListFeed.remove(feed2);
+        //ListFeed.remove(feed3);
+        ListFeed.clear();
+        ListNews.add(news21);
+        ListNews.add(news22); 
+        feed2 = new Feed(1, "titreFeed2", "urlFeed2", new ArrayList<News>(ListNews));
+        ListNews.clear();
+        ListNews.add(news31);
+        feed3 = new Feed(2, "titreFeed3", "urlFeed3", new ArrayList<News>(ListNews));
+        ListFeed.add(feed1);
+        ListFeed.add(feed2);
+        ListFeed.add(feed3);
+        //creation NewCategory
+        Category newCategory = new Category(1, "newCategory", new ArrayList<Feed>(ListFeed));
         
         ArrayList<Category> listOldCat = new ArrayList<Category>();
         ArrayList<Category> listNewCat = new ArrayList<Category>();
         listOldCat.add(oldCategory);
         listNewCat.add(newCategory);
         
-        FeedManager feedManager = new FeedManager(listOldCat, listNewCat);
+        FeedManager feedManager = new FeedManager(listNewCat,listOldCat);
         
         feedManager.merge();
         
-        assertTrue(feedManager.getOldListCategory().isEmpty());
+        assertTrue(feedManager.getListCategory().isEmpty());
         
-        for (Feed listFeed : feedManager.getListCategory().get(0).getListFeed()) {
+        for (Feed listFeed : feedManager.getOldListCategory().get(0).getListFeed()) {
         	for (News news :  listFeed.getListNews())
         		mergedListNews.add(news);
         }
