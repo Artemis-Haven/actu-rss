@@ -154,11 +154,15 @@ public class DatabaseManager {
         date = DatabaseUtil.ConvertCalendarToString(cal);
         
         if (news.isRead())
-			read =1;
+			read = 1;
 		if (news.isFavorite())
 			favorite = 1;
-		try {
-            PreparedStatement prstmt = db.connection.prepareStatement("INSERT INTO News (URL, Title, Author, Date_News, Contents, Read, Favorite, ID_Feed) VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
+		try {		
+			
+            PreparedStatement prstmt = db.connection.prepareStatement
+            		("INSERT INTO News (URL, Title, Author, Date_News,"
+            				+ " Contents, Read, Favorite, ID_Feed) "
+            				+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
             prstmt.setString(1, news.getUrl());
             prstmt.setString(2, news.getTitle());
             prstmt.setString(3, news.getAuthor());
@@ -315,8 +319,9 @@ public class DatabaseManager {
 			Calendar date;
 			
 			
-			PreparedStatement prstmt = db.connection.prepareStatement("SELECT * FROM news WHERE URL=?");
-			prstmt.setString(1, feed.getUrl());
+			PreparedStatement prstmt = db.connection.prepareStatement
+					("SELECT * FROM News WHERE ID_Feed=?");
+			prstmt.setInt(1, feed.getId());
 			ResultSet resultat = prstmt.executeQuery();
 			
 			News news;
@@ -325,10 +330,9 @@ public class DatabaseManager {
 				read = (resultat.getInt("Read") == 1);
 				favorite = (resultat.getInt("Favorite") == 1);
 				date = DatabaseUtil.convertStringToCalendar(resultat.getString("Date_News"));
-				
-				
-				
-				news = new News(resultat.getString("Title"), resultat.getString("URL"), resultat.getString("Author"), date, resultat.getString("Contents"), read, favorite);
+				news = new News(resultat.getString("Title"), resultat.getString("URL"), 
+						resultat.getString("Author"), date, resultat.getString("Contents"), 
+						read, favorite);
 				news.setFeed(feed);
 				list.add(news);
 			}
