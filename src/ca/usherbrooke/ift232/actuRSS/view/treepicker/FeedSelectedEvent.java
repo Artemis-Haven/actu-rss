@@ -20,6 +20,10 @@ public class FeedSelectedEvent extends ChangeEvent
 		_selectedFeed = selectedSource;
 	}
 	
+	/**
+	 * getSelectedSource : Permet de récupérer le feed sélectionner
+	 * @return this._selectedFeed 
+	 */
 	public Feed getSelectedSource()
 	{
 		return this._selectedFeed;
