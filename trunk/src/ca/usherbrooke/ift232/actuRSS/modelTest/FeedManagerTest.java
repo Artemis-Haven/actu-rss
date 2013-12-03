@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import junit.framework.TestCase;
+
 import org.junit.Test;
 
 import ca.usherbrooke.ift232.actuRSS.Category;
@@ -13,38 +15,33 @@ import ca.usherbrooke.ift232.actuRSS.Feed;
 import ca.usherbrooke.ift232.actuRSS.News;
 import ca.usherbrooke.ift232.actuRSS.model.FeedManager;
 
-public class FeedManagerTest {
+public class FeedManagerTest extends TestCase {
 
+	private ArrayList<Category> listOldCat;
+	ArrayList<Category> listNewCat;
 	private List<Feed> ListFeed;
-    
+	private FeedManager feedManager;
+	private News news11;
+	private News news12;
+	private News news21;
+	private News news22;
+	private News news31;
+	private News news32;
+
     public void setUp() {
-            
-    }
-	
-    @Test
-    public void testConstructor() {
-            FeedManager feedManager = new FeedManager();
-            assertNotNull(feedManager);
-            //feedManager = new FeedManager(listCategory, oldListCategory)
-    }
-
-
-    @Test
-    public void testMerge() {
     	/*
     	 * Création de deux categories
     	 */
-    	ArrayList<News> mergedListNews = new ArrayList<News>();
     	List<News> ListNews = new ArrayList<News>();
         ListFeed = new ArrayList<Feed>();
     	Calendar cal = Calendar.getInstance();
         
-        News news11 = new News("titre11", "url11", "auteur11", cal, "txt11", true, true);
-        News news12 = new News("titre12", "url12", "auteur12", cal, "txt12", false, false);
-        News news21 = new News("titre21", "url21", "auteur21", cal, "txt21", false, false);
-        News news22 = new News("titre22", "url22", "auteur22", cal, "txt22", false, false);
-        News news31 = new News("titre31", "url31", "auteur31", cal, "txt31", false, false);
-        News news32 = new News("titre32", "url32", "auteur32", cal, "txt32", false, false);
+        news11 = new News("titre11", "url11", "auteur11", cal, "txt11", true, true);
+        news12 = new News("titre12", "url12", "auteur12", cal, "txt12", false, false);
+        news21 = new News("titre21", "url21", "auteur21", cal, "txt21", false, false);
+        news22 = new News("titre22", "url22", "auteur22", cal, "txt22", false, false);
+        news31 = new News("titre31", "url31", "auteur31", cal, "txt31", false, false);
+        news32 = new News("titre32", "url32", "auteur32", cal, "txt32", false, false);
         
         ListNews.add(news11);
         ListNews.add(news12);
@@ -81,13 +78,42 @@ public class FeedManagerTest {
         //creation NewCategory
         Category newCategory = new Category(1, "newCategory", new ArrayList<Feed>(ListFeed));
         
-        ArrayList<Category> listOldCat = new ArrayList<Category>();
-        ArrayList<Category> listNewCat = new ArrayList<Category>();
+        listOldCat = new ArrayList<Category>();
+        listNewCat = new ArrayList<Category>();
         listOldCat.add(oldCategory);
         listNewCat.add(newCategory);
         
-        FeedManager feedManager = new FeedManager(listNewCat,listOldCat);
-        
+        feedManager = new FeedManager(new ArrayList<Category>(listNewCat), new ArrayList<Category>(listOldCat));
+    }
+	
+    @Test
+    public void testConstructor() {
+            FeedManager feedManager = new FeedManager();
+            assertNotNull(feedManager);
+            feedManager = new FeedManager(new ArrayList<Category>(listNewCat), new ArrayList<Category>(listOldCat));
+            assertNotNull(feedManager);
+    }
+    
+    @Test
+    public void testGetters() {
+    	feedManager = new FeedManager(new ArrayList<Category>(listNewCat), new ArrayList<Category>(listOldCat));
+    	assertEquals(listNewCat, feedManager.getListCategory());
+    	assertEquals(listOldCat, feedManager.getOldListCategory());
+    }
+    
+    @Test
+    public void testSetters() {
+    	feedManager = new FeedManager(new ArrayList<Category>(listNewCat), new ArrayList<Category>(listOldCat));
+    	feedManager.setListCategory(listOldCat);
+    	feedManager.setOldListCategory(listNewCat);
+    	assertEquals(listNewCat, feedManager.getOldListCategory());
+    	assertEquals(listOldCat, feedManager.getListCategory());
+    }
+
+
+    @Test
+    public void testMerge() {
+    	ArrayList<News> mergedListNews = new ArrayList<News>();
         feedManager.merge();
         
         assertTrue(feedManager.getListCategory().isEmpty());
@@ -103,26 +129,6 @@ public class FeedManagerTest {
         assertTrue(mergedListNews.contains(news22));
         assertTrue(mergedListNews.contains(news31));
         assertTrue(mergedListNews.contains(news32));        
-    }
-
-    @Test
-    public void testGetListCategory() {
-            fail("Not yet implemented");
-    }
-
-    @Test
-    public void testGetOldListCategory() {
-            fail("Not yet implemented");
-    }
-
-    @Test
-    public void testSetListCategory() {
-            fail("Not yet implemented");
-    }
-
-    @Test
-    public void testSetOldListCategory() {
-            fail("Not yet implemented");
     }
 
 }
