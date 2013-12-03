@@ -10,6 +10,7 @@ import javax.swing.UIManager;
 
 import ca.usherbrooke.ift232.actuRSS.Category;
 import ca.usherbrooke.ift232.actuRSS.model.Model;
+import ca.usherbrooke.ift232.actuRSS.properties.ViewChangeProperties;
 
 /**
  * Actu-RSS
@@ -36,6 +37,8 @@ public class View extends JFrame implements Observer {
 	 *
 	 */
 	private MainPanel mainPanel;
+	private ViewChangeProperties preference;
+
 	//private Model model;
 	
 	/**
@@ -56,6 +59,7 @@ public class View extends JFrame implements Observer {
 		
 		// Initialisation des variables		
 		this.mainPanel = new MainPanel();
+		this.preference = new ViewChangeProperties(null, "Preference", true);
 		
 		
 		// Définir les caractéristiques de la fenetre.
@@ -73,9 +77,12 @@ public class View extends JFrame implements Observer {
 	public MainPanel getMainPanel() {return mainPanel;}
 
 	
+	public ViewChangeProperties getPreference() {return preference;}
+
 	public void addListener(ActionListener e)
 	{
 		this.mainPanel.addListener(e);
+		this.preference.addListener(e);
 	}
 	
 	

@@ -13,6 +13,12 @@ public class ProgramProperties extends Properties {
 
 	static private ProgramProperties instance__;
 
+	private ProgramProperties(Properties defaultProps){
+		super(defaultProps);
+	}
+	
+	
+	
 	static synchronized public ProgramProperties getInstance() {
 
 		if (instance__ == null) {
@@ -56,9 +62,7 @@ public class ProgramProperties extends Properties {
 		return instance__;
 	}
 
-	private ProgramProperties(Properties defaultProps){
-		super(defaultProps);
-	}
+	
 	
 	public void save(){
 
