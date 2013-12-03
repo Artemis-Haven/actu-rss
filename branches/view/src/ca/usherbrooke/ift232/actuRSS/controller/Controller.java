@@ -3,6 +3,7 @@ package ca.usherbrooke.ift232.actuRSS.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.swing.JDialog;
@@ -44,7 +45,7 @@ public class Controller implements ActionListener{
 		this.view = view;
 		this.mainPanel = view.getMainPanel();
 		this.toolbar = mainPanel.getToolbar();
-		this.pref = new VewChangeProperties(null, "Préference", true);
+		this.pref = new VewChangeProperties(null, "Prï¿½ference", true);
 		feedTreePicker = mainPanel.getFeedTreePicker();
 		newsList = mainPanel.getNewsList();
 		theDisplay = defaultDisplay;
@@ -94,8 +95,7 @@ public class Controller implements ActionListener{
 
 			public void onActuSelected(ActuSelectedEvent event) 
 			{
-
-
+				
 				toolbar.getFavBtn().setEnabled(true);
 				toolbar.getReadBtn().setEnabled(true);
 
@@ -105,20 +105,19 @@ public class Controller implements ActionListener{
 
 					toolbar.getReadBtn().setSelected(false);
 					newsSelected.setRead(true);
-
-					if(newsSelected.isFavorite())
-					{
-						toolbar.getFavBtn().setSelected(true);
-
-					}
-					if(newsSelected.isFavorite()==false)
-					{
-						toolbar.getFavBtn().setSelected(false);
-					}
+					if(newsSelected.isFavorite()){toolbar.getFavBtn().setSelected(true);}
+					if(newsSelected.isFavorite()==false){toolbar.getFavBtn().setSelected(false);}
 				}
-
-
-
+				
+				String title = newsSelected.getTitle();
+				//TODO envoyer un gregorian calandar 
+				//String date = "26 Nov 2013 Ã  23:36";
+				GregorianCalendar date = (GregorianCalendar) newsSelected.getDate();
+				//String feed = newsSelected.get;
+				String author = newsSelected.getAuthor();
+				String content = newsSelected.getContents();
+				mainPanel.getContentPanel().setContentPanel(title, date,/* feed,*/ author, content, "");
+				mainPanel.getContentPanel().display();
 
 			}
 
@@ -304,7 +303,7 @@ public class Controller implements ActionListener{
 		if (action.equals("About")) {			
 			//System.out.println("About");
 			JDialog Dev = new JDialog();
-			JOptionPane.showMessageDialog(Dev,"Developpés par plusieurs moustachus et quelques Zboubs", "Actu-RSS",new Integer(JOptionPane.INFORMATION_MESSAGE).intValue());
+			JOptionPane.showMessageDialog(Dev,"Developpï¿½s par plusieurs moustachus et quelques Zboubs", "Actu-RSS",new Integer(JOptionPane.INFORMATION_MESSAGE).intValue());
 		}
 
 	}

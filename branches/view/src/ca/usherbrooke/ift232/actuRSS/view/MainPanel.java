@@ -69,7 +69,8 @@ public class MainPanel extends JPanel {
 	private JSplitPane innerSplitPane;
 	private TreePicker feedTreePicker;
 	private ActuList newsList;
-	private JPanel contentPanel;
+	//private JPanel contentPanel;
+	private ContentPanel contentPanel;
 	private List<Category> categoryList;
 
 	/**
@@ -82,31 +83,18 @@ public class MainPanel extends JPanel {
 		this.setLayout(new BorderLayout(1, 2));
 		categoryList = new ArrayList<Category>();
 
-		List<Feed> sportSources = new ArrayList<Feed>();
+		//List<Feed> sportSources = new ArrayList<Feed>();
+		
+
+		String title = "Microsoft se paye l'iPad Air dans deux nouvelles vidéos [iGen]";
+		//TODO//String date = "26 Nov 2013 à 23:36";
+		String feed = "MacGeneration";
+		String author = "Florian Innocente";
+		String content = "<p><strong>À l'approche des fêtes de Noël, Microsoft remet le couvert dans ses comparatifs entre sa tablette et celle d'Apple</strong>. Cette fois ce sont les Surface 2 et iPad Air qui sont opposés, d'abord <a href=\"http://www.microsoft.com/surface/en-us/products/compare\">au fil d'une page</a> avec des arguments connus (port USB, présence de Flash et d'Office, etc). </p><br /> <br /> <figure><img src=\"http://img.staticigen.com/2013/11/macgpic-1385508685-3912987173708-sc-op.jpg\" class=\"centre\" alt=\"\" /><figcaption></figcaption></figure><br /> <br /> <p>Ensuite, la compétition se poursuit au travers de deux nouvelles vidéos. La première met l'accent sur le support rétractable intégré à la Surface qui permet de la tenir face à l'utilisateur. Voilà la Surface devenue un parfait compagnon pour la cuisine (c'est très sérieux) puisqu'il sera possible de lire plus facilement ses recettes et même de balayer les pages d'un geste de la main sans avoir à toucher l'écran de ses doigts sales.</p><br /> <br /> <p><iframe width=\"480\" height=\"270\" src=\"http://www.youtube.com/embed/XsknmA96Jv0\" frameborder=\"0\"></iframe></p><br /> <br /> <p>Quand on pense qu'Apple dans son dernier clip montre des utilisateurs d'iPad au sommet d'une éolienne, au milieu des vignes, en pleine intervention de pompiers ou sous les fonds marins, c'est vraiment faire bien peu de cas du <i>vrai</i> quotidien des utilisateurs de tablettes.</p><br /> <br /> <p><iframe width=\"480\" height=\"270\" src=\"http://www.youtube.com/embed/B8Le9wvoY00?list=PLHFlHpPjgk713fMv5O4s4Fv7k6yTkXwkV\" frameborder=\"0\"  ></iframe></p><br /> <br /> <p>La seconde vidéo en revanche insiste à nouveau sur une lacune de plus en plus criante de l'iPad et plus particulièrement de son iOS : l'absence de sessions utilisateurs. Pour distinguer par exemple le contenu applicatif et les réglages des parents de ceux de leurs enfants. Là-dessus on peut difficilement donner tort à Microsoft. </p><br /> <br /> <p><iframe width=\"480\" height=\"270\" src=\"http://www.youtube.com/embed/knSd7-i9u1c\" frameborder=\"0\"  ></iframe></p><br /><br /><a href=\"http://www.igen.fr/ipad/microsoft-se-paye-l-ipad-air-dans-deux-nouvelles-videos-109067#commentaires\">Voir les commentaires et réagir</a><br /><br /> <p style=\"font-size: 78%;\">2013 - <a href=\"http://www.igen.fr/ipad/microsoft-se-paye-l-ipad-air-dans-deux-nouvelles-videos-109067\"><strong>\"Microsoft se paye l'iPad Air dans deux nouvelles vidéos\"</strong></a> publié sur <a href=\"http://www.igen.fr\">iGeneration</a> par <strong>Florian Innocente</strong>.</p><img width='1' height='1' src='http://feed.macg.co/c/302/f/435189/s/3422e188/sc/23/mf.gif' border='0'/><br clear='all'/><div class='mf-viral'><table border='0'><tr><td valign='middle'><a href=\"http://share.feedsportal.com/share/twitter/?u=http%3A%2F%2Fwww.igen.fr%2Fipad%2Fmicrosoft-se-paye-l-ipad-air-dans-deux-nouvelles-videos-109067&amp;t=Microsoft+se+paye+l%27iPad+Air+dans+deux+nouvelles+vid%C3%A9os+%5BiGen%5D\" target=\"_blank\"><img src=\"http://res3.feedsportal.com/social/twitter.png\" border=\"0\" /></a> <a href=\"http://share.feedsportal.com/share/facebook/?u=http%3A%2F%2Fwww.igen.fr%2Fipad%2Fmicrosoft-se-paye-l-ipad-air-dans-deux-nouvelles-videos-109067&amp;t=Microsoft+se+paye+l%27iPad+Air+dans+deux+nouvelles+vid%C3%A9os+%5BiGen%5D\" target=\"_blank\"><img src=\"http://res3.feedsportal.com/social/facebook.png\" border=\"0\" /></a> <a href=\"http://share.feedsportal.com/share/linkedin/?u=http%3A%2F%2Fwww.igen.fr%2Fipad%2Fmicrosoft-se-paye-l-ipad-air-dans-deux-nouvelles-videos-109067&amp;t=Microsoft+se+paye+l%27iPad+Air+dans+deux+nouvelles+vid%C3%A9os+%5BiGen%5D\" target=\"_blank\"><img src=\"http://res3.feedsportal.com/social/linkedin.png\" border=\"0\" /></a> <a href=\"http://share.feedsportal.com/share/gplus/?u=http%3A%2F%2Fwww.igen.fr%2Fipad%2Fmicrosoft-se-paye-l-ipad-air-dans-deux-nouvelles-videos-109067&amp;t=Microsoft+se+paye+l%27iPad+Air+dans+deux+nouvelles+vid%C3%A9os+%5BiGen%5D\" target=\"_blank\"><img src=\"http://res3.feedsportal.com/social/googleplus.png\" border=\"0\" /></a> <a href=\"http://share.feedsportal.com/share/email/?u=http%3A%2F%2Fwww.igen.fr%2Fipad%2Fmicrosoft-se-paye-l-ipad-air-dans-deux-nouvelles-videos-109067&amp;t=Microsoft+se+paye+l%27iPad+Air+dans+deux+nouvelles+vid%C3%A9os+%5BiGen%5D\" target=\"_blank\"><img src=\"http://res3.feedsportal.com/social/email.png\" border=\"0\" /></a></td><td valign='middle'></td></tr></table></div><br/><br/><a href=\"http://da.feedsportal.com/r/180265059809/u/192/f/435189/c/302/s/3422e188/sc/23/rc/1/rc.htm\"><img src=\"http://da.feedsportal.com/r/180265059809/u/192/f/435189/c/302/s/3422e188/sc/23/rc/1/rc.img\" border=\"0\"/></a><br/><a href=\"http://da.feedsportal.com/r/180265059809/u/192/f/435189/c/302/s/3422e188/sc/23/rc/2/rc.htm\"><img src=\"http://da.feedsportal.com/r/180265059809/u/192/f/435189/c/302/s/3422e188/sc/23/rc/2/rc.img\" border=\"0\"/></a><br/><a href=\"http://da.feedsportal.com/r/180265059809/u/192/f/435189/c/302/s/3422e188/sc/23/rc/3/rc.htm\"><img src=\"http://da.feedsportal.com/r/180265059809/u/192/f/435189/c/302/s/3422e188/sc/23/rc/3/rc.img\" border=\"0\"/></a><br/><br/><a href=\"http://da.feedsportal.com/r/180265059809/u/192/f/435189/c/302/s/3422e188/a2.htm\"><img src=\"http://da.feedsportal.com/r/180265059809/u/192/f/435189/c/302/s/3422e188/a2.img\" border=\"0\"/></a><img width=\"1\" height=\"1\" src=\"http://pi.feedsportal.com/r/180265059809/u/192/f/435189/c/302/s/3422e188/a2t.img\" border=\"0\"/>";
+		GregorianCalendar date = new GregorianCalendar(2013,10,26,23,36);
 		
 		
-
-		
-		/*sportSources.add(new Feed(-1, "Sport1", "url", null));
-		sportSources.add(new Feed(-1, "Sport2", "url", null));
-		sportSources.add(new Feed(-1, "Sport3", "url", null));
-		sportSources.add(new Feed(-1, "Sport4", "url", null));
-		sportSources.add(new Feed(-1, "Sport5", "url", null));
-
-		Category sportCat = new Category(1, "Sport", sportSources);
-
-		List<Feed> financeSources = new ArrayList<Feed>();
-		financeSources.add(new Feed(-1, "finance1", "url", null));
-		financeSources.add(new Feed(-1, "finance2", "url", null));
-		financeSources.add(new Feed(-1, "finance3", "url", null));
-		financeSources.add(new Feed(-1, "finance4", "url", null));
-		financeSources.add(new Feed(-1, "finance5", "url", null));
-
-		Category financeCat = new Category(2, "Finance", financeSources);
-
-		categoryList.add(sportCat);
-		categoryList.add(financeCat);*/
-		//FIN DE LA ZONE A SUPPRIMER
+		News mac = new News(title,"url1",author,date,content,false,false);
 		
 		
 		News n1 = new News("titre1", "url1", "author1", new GregorianCalendar(), "contents1", false, false);
@@ -117,29 +105,39 @@ public class MainPanel extends JPanel {
 		News n5 = new News("titre5", "url5", "author5", new GregorianCalendar(), "contents5", false, false);
 		News n6 = new News("titre6", "url6", "author6", new GregorianCalendar(), "contents6", false, false);
 
+		ArrayList<News> macGenerationList = new ArrayList<News>();		
 		ArrayList<News> f1List = new ArrayList<News>();
-		ArrayList<News> f2List = new ArrayList<News>();
-		
+		ArrayList<News> f2List = new ArrayList<News>();		
 		ArrayList<News> f3List = new ArrayList<News>();
+		
 		f3List.add(n1);
 		f3List.add(n2);
 		
+		Feed macGeneration = new Feed(1,feed,"url",macGenerationList);
 		Feed f1 = new Feed(1, "title feed 1", "url", f1List);
 		Feed f2 = new Feed(2, "title feed 2", "url", f2List);
 
+		macGeneration.getListNews().add(mac);
 		f1.getListNews().add(n1);
 		f1.getListNews().add(n2);
 		f1.getListNews().add(n3);
+		
 		f2.getListNews().add(n4);
 		f2.getListNews().add(n5);
-		f2.getListNews().add(n6);
+		f2.getListNews().add(n6);		
 		
 		ArrayList<Feed> feedList = new ArrayList<Feed>();
+		ArrayList<Feed> informatiqueList = new ArrayList<Feed>();
 		
-		Category cat = new Category(1, "nom de la categorie", feedList);
+		
+		Category informatique = new Category(1, "informatique", informatiqueList);		
+		Category cat = new Category(2, "nom de la categorie", feedList);
+		
+		informatique.getListFeed().add(macGeneration);		
 		cat.getListFeed().add(f1);
 		cat.getListFeed().add(f2);		
 		
+		categoryList.add(informatique);
 		categoryList.add(cat);
 		
 
@@ -194,6 +192,19 @@ public class MainPanel extends JPanel {
 	public TreePicker getFeedTreePicker() {
 		return feedTreePicker;
 	}
+
+
+
+
+	public ContentPanel getContentPanel() {
+		return contentPanel;
+	}
+
+
+	public void setContentPanel(ContentPanel contentPanel) {
+		this.contentPanel = contentPanel;
+	}
+
 
 	public List<Category> getCategoryList() {return categoryList;}
 	public void setCategoryList(List<Category> categoryList) {
