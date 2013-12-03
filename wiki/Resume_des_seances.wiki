@@ -98,7 +98,7 @@ Pour le mardi 12 nov.
 
 == Réunion du mardi 3 déc. ==
 
-=== Travail fait ===
+=== Travail réalisé ===
   * Fusion du travail de tout le monde (branches vincentpoupi, view & benjidavid) dans le TRUNK.
   * Ajout d'un attribut Feed dans les News (modifications minimes dans le Parser et le DbManager).
   * Amélioration du ContentPanel, pas encore vraiment utilisable.
