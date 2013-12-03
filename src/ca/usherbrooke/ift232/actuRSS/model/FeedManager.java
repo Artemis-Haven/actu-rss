@@ -16,7 +16,7 @@ public class FeedManager {
 		this.listCategory = new ArrayList<Category>();
 		this.oldListCategory = new ArrayList<Category>();
 	}
-
+	
 	public FeedManager(ArrayList<Category> listCategory,
 			ArrayList<Category> oldListCategory) {
 		this.listCategory = new ArrayList<Category>(listCategory);
@@ -28,7 +28,7 @@ public class FeedManager {
 		int indexCategory;
 		int indexFeed;
 
-		Iterator iterCategory = newList.iterator();
+		Iterator iterCategory = listCategory.iterator();
 		while (iterCategory.hasNext()) {
 			Category cat = (Category) iterCategory.next();
 			Iterator iterFeed = cat.getListFeed().iterator();
@@ -52,7 +52,7 @@ public class FeedManager {
 		oldListCategory.clear();
 		this.oldListCategory = newList;
 	}
-
+	
 	public ArrayList<Category> getListCategory() {
 		return listCategory;
 	}
