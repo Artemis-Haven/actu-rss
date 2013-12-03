@@ -16,6 +16,11 @@ import ca.usherbrooke.ift232.actuRSS.Category;
 import ca.usherbrooke.ift232.actuRSS.Feed;
 
 public class TreePicker extends JTree {
+	
+	/**TreePicker : sert à sélectionner l'arbre de catégories souhaité
+	 * @param categories
+	 * @param multipleSelection
+	 */
 	public TreePicker(List<Category> categories,
 			boolean multipleSelection) {
 		super(generateHierarchy(categories));
@@ -67,7 +72,7 @@ public class TreePicker extends JTree {
 		return root;
 	}
 
-	/**
+	/**Permet le rafraichissement des feeds
 	 * 
 	 * @param categories
 	 */
@@ -111,6 +116,9 @@ public class TreePicker extends JTree {
 
 	private final EventListenerList listenerList = new EventListenerList();
 
+	/**Permet d'ajouter un feed à l'instance de suivi des feeds
+	 * @param feedSelectedListener
+	 */
 	public void addFeedSelectedListener(
 			FeedSelectedListener feedSelectedListener) {
 		listenerList.add(FeedSelectedListener.class, feedSelectedListener);
