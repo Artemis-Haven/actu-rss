@@ -2,6 +2,8 @@ package ca.usherbrooke.ift232.actuRSS.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -15,7 +17,7 @@ import ca.usherbrooke.ift232.actuRSS.News;
 import ca.usherbrooke.ift232.actuRSS.model.Model;
 import ca.usherbrooke.ift232.actuRSS.properties.ParamDialog;
 import ca.usherbrooke.ift232.actuRSS.properties.ProgramProperties;
-import ca.usherbrooke.ift232.actuRSS.properties.VewChangeProperties;
+import ca.usherbrooke.ift232.actuRSS.properties.ViewChangeProperties;
 import ca.usherbrooke.ift232.actuRSS.view.MainPanel;
 import ca.usherbrooke.ift232.actuRSS.view.Toolbar;
 import ca.usherbrooke.ift232.actuRSS.view.View;
@@ -34,7 +36,7 @@ public class Controller implements ActionListener{
 	private Toolbar toolbar;
 	private TreePicker feedTreePicker;
 	private ActuList newsList;
-	ParamDialog pref;
+	private ViewChangeProperties pref;
 	public static ProgramProperties properties = ProgramProperties.getInstance();
 	public static String defaultDisplay = properties.getProperty("Default Display");
 	public String theDisplay;
@@ -45,7 +47,7 @@ public class Controller implements ActionListener{
 		this.view = view;
 		this.mainPanel = view.getMainPanel();
 		this.toolbar = mainPanel.getToolbar();
-		this.pref = new VewChangeProperties(null, "Pr�ference", true);
+		this.pref = view.getPreference();
 		feedTreePicker = mainPanel.getFeedTreePicker();
 		newsList = mainPanel.getNewsList();
 		theDisplay = defaultDisplay;
@@ -53,6 +55,19 @@ public class Controller implements ActionListener{
 		model.addObserver(view);
 		model.notifyObserver();
 		view.addListener(this);
+		
+		
+		//---                     Evenement sur la croix du Jdialog	
+		
+		this.pref.addWindowListener(new WindowAdapter() 
+		{
+		  public void windowClosing(WindowEvent e)
+		  {
+		    pref.closeDialog();
+		  }
+		});
+		
+		
 
 		//---                     Evenement sur le treePicker
 
@@ -126,7 +141,7 @@ public class Controller implements ActionListener{
 	public void actionPerformed(ActionEvent arg0) {		
 
 		String action = arg0.getActionCommand();
-		System.out.println(action);
+		//System.out.println(action);
 		if (action.equals("Tout")) {			
 			//List<News> news = new ArrayList<News>();
 			theDisplay = "All";
@@ -201,34 +216,15 @@ public class Controller implements ActionListener{
 
 
 		if (action.equals("Favoris")) {	
-
-			//System.out.println("Favoris");	
-			//List<News> news = new ArrayList<News>();	
-			theDisplay = "Favorite";
-			/*for(Feed feed : feedTreePicker.getSelectedFeeds())
-			{
-				if(feed == null)
-					continue;						
-
-				for(News actu : feed.getListNews())
-				{
-					if(actu == null)
-						continue;							
-
-					if(actu.isFavorite())
-					{
-						news.add(actu);
-					}
-
-				}	
-
-			}*/
+			
+			theDisplay = "Favorite";			
 			toolbar.getFavBtn().setSelected(false);
 			toolbar.getReadBtn().setSelected(false);
 			newsList.changeNews(news,theDisplay);
 		}
 
 		if (action.equals("Sync")) {			
+
 			System.out.println("lolilol");	
 			//TODO ne fonctionne pas model.synchronize();
 		}
@@ -251,7 +247,7 @@ public class Controller implements ActionListener{
 
 		}
 		if (action.equals("FavBtn")) {			
-			//System.out.println("FavBtn");	
+		
 
 			News newsSelected = this.getSelectedNews();
 			if(newsSelected!=null){
@@ -270,16 +266,24 @@ public class Controller implements ActionListener{
 		if (action.equals("Pref")) {
 			pref.showDialog();
 		}
-		if (action.equals("GererSources")) {			
-			//System.out.println("GererSources");		
+		if (action.equals("GererSources")) {				
 		}
 		if (action.equals("Help")) {			
-			//System.out.println("Help");		
+				
 		}
 		if (action.equals("About")) {			
-			//System.out.println("About");
+			
 			JDialog Dev = new JDialog();
 			JOptionPane.showMessageDialog(Dev,"Developp�s par plusieurs moustachus et quelques Zboubs", "Actu-RSS",new Integer(JOptionPane.INFORMATION_MESSAGE).intValue());
+		}
+		if (action.equals("OkPref")) {			
+			pref.finishDialog();
+		}
+		if (action.equals("AnnulerPref")) {			
+			pref.closeDialog();	
+		}
+		if (action.equals("ReinitialiserPref")) {			
+			pref.renewDialog();
 		}
 
 	}
