@@ -31,9 +31,13 @@ public class FeedManagerTest {
 
     @Test
     public void testMerge() {
-    	Calendar cal = Calendar.getInstance();
-        List<News> ListNews = new ArrayList<News>();
+    	/*
+    	 * Création de deux categories
+    	 */
+    	ArrayList<News> mergedListNews = new ArrayList<News>();
+    	List<News> ListNews = new ArrayList<News>();
         ListFeed = new ArrayList<Feed>();
+    	Calendar cal = Calendar.getInstance();
         
         News news11 = new News("titre11", "url11", "auteur11", cal, "txt11", true, true);
         News news12 = new News("titre12", "url12", "auteur12", cal, "txt12", false, false);
@@ -64,6 +68,29 @@ public class FeedManagerTest {
         ListNews.remove(news32);
         ListNews.add(news22);
         Category newCategory = new Category(1, "newCategory", ListFeed);
+        
+        ArrayList<Category> listOldCat = new ArrayList<Category>();
+        ArrayList<Category> listNewCat = new ArrayList<Category>();
+        listOldCat.add(oldCategory);
+        listNewCat.add(newCategory);
+        
+        FeedManager feedManager = new FeedManager(listOldCat, listNewCat);
+        
+        feedManager.merge();
+        
+        assertTrue(feedManager.getOldListCategory().isEmpty());
+        
+        for (Feed listFeed : feedManager.getListCategory().get(0).getListFeed()) {
+        	for (News news :  listFeed.getListNews())
+        		mergedListNews.add(news);
+        }
+        
+        assertTrue(mergedListNews.contains(news11));
+        assertTrue(mergedListNews.contains(news12));
+        assertTrue(mergedListNews.contains(news21));
+        assertTrue(mergedListNews.contains(news22));
+        assertTrue(mergedListNews.contains(news31));
+        assertTrue(mergedListNews.contains(news32));        
     }
 
     @Test
