@@ -25,6 +25,7 @@ public class DatabaseManager {
 	public DatabaseManager(Database db) {
 		this.db = db;
 		connect();
+		createDB();
 	}
 	
 	
