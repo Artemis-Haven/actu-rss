@@ -1,8 +1,11 @@
 package ca.usherbrooke.ift232.actuRSS.model;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import ca.usherbrooke.ift232.actuRSS.Category;
+import ca.usherbrooke.ift232.actuRSS.Feed;
+import ca.usherbrooke.ift232.actuRSS.News;
 
 public class FeedManager {
 
@@ -22,12 +25,29 @@ public class FeedManager {
 
 	public void merge() {
 		ArrayList<Category> newList = new ArrayList<Category>(oldListCategory);
+		int indexCategory;
+		int indexFeed;
 
-		for (Category elt : listCategory) {
-			if (!newList.contains(elt)) {
-				newList.add(elt);
+		Iterator iterCategory = newList.iterator();
+		while (iterCategory.hasNext()) {
+			Category cat = (Category) iterCategory.next();
+			Iterator iterFeed = cat.getListFeed().iterator();
+			while (iterFeed.hasNext()) {
+				Feed feed = (Feed) iterFeed.next();
+				//On suppose que les deux listes de catégories et de flux 
+				// (pas de news) sont identiques
+				for(News news : feed.getListNews()) {
+					
+					indexCategory = listCategory.indexOf(iterCategory);
+					indexFeed = listCategory.get(indexCategory).getListFeed().indexOf(iterFeed);
+					
+					if(!newList.get(indexCategory).getListFeed().get(indexFeed).getListNews().contains(news))
+					{
+						newList.get(indexCategory).getListFeed().get(indexFeed).getListNews().add(news);
+					}
+				}
 			}
-		}
+		}	      
 
 		oldListCategory.clear();
 		this.oldListCategory = newList;

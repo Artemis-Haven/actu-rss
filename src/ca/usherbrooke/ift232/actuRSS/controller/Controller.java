@@ -127,7 +127,6 @@ public class Controller implements ActionListener{
 
 		String action = arg0.getActionCommand();
 		System.out.println(action);
-
 		if (action.equals("Tout")) {			
 			//List<News> news = new ArrayList<News>();
 			theDisplay = "All";
@@ -187,25 +186,10 @@ public class Controller implements ActionListener{
 
 			//List<News> news = new ArrayList<News>();
 			theDisplay = "Read";
-			/*for(Feed feed : feedTreePicker.getSelectedFeeds())
-			{
-				if(feed == null)
-					continue;						
-
-				for(News actu : feed.getListNews())
-				{
-					if(actu == null)
-						continue;							
-
-					if(actu.isRead()==true)
-					{
-						news.add(actu);
-					}
-
-				}	
+			
 
 
-			}*/
+			
 			toolbar.getFavBtn().setSelected(false);
 			toolbar.getReadBtn().setSelected(false);
 			newsList.changeNews(news,theDisplay);
@@ -245,7 +229,7 @@ public class Controller implements ActionListener{
 		}
 
 		if (action.equals("Sync")) {			
-			//System.out.println("Sync");	
+			System.out.println("lolilol");	
 			//TODO ne fonctionne pas model.synchronize();
 		}
 		if (action.equals("Read")) {			
