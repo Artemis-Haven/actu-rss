@@ -49,7 +49,7 @@ public class Controller implements ActionListener{
 		feedTreePicker = mainPanel.getFeedTreePicker();
 		newsList = mainPanel.getNewsList();
 		theDisplay = defaultDisplay;
-		
+
 		model.addObserver(view);
 		model.notifyObserver();
 		view.addListener(this);
@@ -78,7 +78,7 @@ public class Controller implements ActionListener{
 					System.out.println("Vous avez selectionne la source: " + feed );
 
 				}	
-				
+
 				toolbar.getFavBtn().setSelected(false);
 				toolbar.getReadBtn().setSelected(false);	
 
@@ -95,7 +95,7 @@ public class Controller implements ActionListener{
 
 			public void onActuSelected(ActuSelectedEvent event) 
 			{
-				
+
 				toolbar.getFavBtn().setEnabled(true);
 				toolbar.getReadBtn().setEnabled(true);
 
@@ -107,18 +107,10 @@ public class Controller implements ActionListener{
 					newsSelected.setRead(true);
 					if(newsSelected.isFavorite()){toolbar.getFavBtn().setSelected(true);}
 					if(newsSelected.isFavorite()==false){toolbar.getFavBtn().setSelected(false);}
-				}
-				
-				String title = newsSelected.getTitle();
-				//TODO envoyer un gregorian calandar 
-				//String date = "26 Nov 2013 à 23:36";
-				GregorianCalendar date = (GregorianCalendar) newsSelected.getDate();
-				//String feed = newsSelected.get;
-				String author = newsSelected.getAuthor();
-				String content = newsSelected.getContents();
-				mainPanel.getContentPanel().setContentPanel(newsSelected);
-				mainPanel.getContentPanel().display();
-
+					mainPanel.getContentPanel().setContentPanel(newsSelected);
+					mainPanel.getContentPanel().display();
+			
+				}	
 			}
 
 		});
