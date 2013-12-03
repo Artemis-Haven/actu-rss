@@ -112,6 +112,7 @@ Pour le mardi 12 nov.
   * Tester et vérifier la fonction sync() dans le Model
   * Commenter le code grâce à la Javadoc : pour chaque fonction, _clic-droit_ > _Source_ > _Generate Element Comment_. Bien remplir les @param, @throws et @return si nécessaire.
   * Le gros morceau : intégrer le Parser, le Model, la BdD et la Vue ensemble pour afficher un vrai flux RSS. -> *nécessite* de vérifier sync(), merge() et le ContentPanel.
+  * Améliorer le rendu des news dans la liste de news.
 
 === Pour la prochaine fois ===
 
