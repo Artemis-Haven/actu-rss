@@ -14,7 +14,8 @@ public class ActuListDemo {
 	private JFrame frame;
 
 	/**
-	 * Launch the application.
+	 * Lance l'application
+	 * @param args
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -29,19 +30,22 @@ public class ActuListDemo {
 		});
 	}
 
+	/**Permet de récupérer une frame
+	 * @return frame
+	 */
 	protected Window getFrame() {
 		return frame;
 	}
 
 	/**
-	 * Create the application.
+	 * Crée l'application
 	 */
 	public ActuListDemo() {
 		initialize();
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Initialise le contenu de la frame
 	 */
 	private void initialize() {
 		frame = new JFrame();
