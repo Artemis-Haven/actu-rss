@@ -21,6 +21,9 @@ public class Feed {
 	private List<News> listNews;
 
 	// constructeurs
+	/**
+	 * Permet de construire et initaliser un feed
+	 */
 	public Feed() {
 		this.id = -1;
 		this.title = "";
