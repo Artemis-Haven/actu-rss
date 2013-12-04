@@ -25,13 +25,16 @@ public class Category {
 	private List<Feed> listFeed;
 	
 	//constructeurs
+	/**
+	 * Category : constructeur
+	 */
 	public Category(){
 		this.id = -1;
 		this.name = "";
 		this.listFeed = new ArrayList<Feed>();
 	}
 	
-	/**
+	/**Constructeurs
 	 * @param name le nom de la categorie
 	 * @param url l'url de la categorie
 	 * @param listFeed la liste des flux de la categorie
