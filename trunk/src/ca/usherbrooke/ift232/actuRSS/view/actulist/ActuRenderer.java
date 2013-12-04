@@ -33,7 +33,8 @@ public class ActuRenderer extends JPanel implements ListCellRenderer<News>
 	
 	
 	/**
-	 * Create the panel.
+	 * Crée le panneau d'affichage
+	 * @param news
 	 */
 	public ActuRenderer(News news) {
 		setLayout(new FormLayout(
@@ -91,6 +92,9 @@ public class ActuRenderer extends JPanel implements ListCellRenderer<News>
 	}
 
 	
+	/**Permet de mettre en gras
+	 * @param bold
+	 */
 	public void setBold(boolean bold)
 	{
 		for(JLabel label : mayBeBoldLabels)
@@ -128,6 +132,10 @@ public class ActuRenderer extends JPanel implements ListCellRenderer<News>
 		return result;
 	}
 
+	/**Permet d'obtenir une chaîne date à partir d'une variable en format Calendar
+	 * @param cal
+	 * @return une date
+	 */
 	private String formatCalendar(Calendar cal)
 	{
 		Calendar actualTime = Calendar.getInstance();
