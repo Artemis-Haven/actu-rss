@@ -1,17 +1,23 @@
 package ca.usherbrooke.ift232.actuRSS.properties;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JSpinner;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 import ca.usherbrooke.ift232.actuRSS.controller.Controller;
 
@@ -29,7 +35,11 @@ public class ViewChangeProperties extends ParamDialog {
 	JPanel desplay;
 	JRadioButton all,favorite,notRead,read;
 	JPanel newsNumber;
-	JSpinner spinNumber;	
+	JSpinner spinNumber;
+	JPanel fileSearch;
+	JTextField path;
+	JButton openFile;
+	final JFileChooser chooseCSS = new JFileChooser("src/resources");
 	
 	public ViewChangeProperties(JFrame parent, String title, boolean modal) {
 		super(parent, title, modal);
@@ -73,9 +83,28 @@ public class ViewChangeProperties extends ParamDialog {
 		spinNumber.setPreferredSize(new Dimension(100, 30));
 		spinNumber.setValue(Integer.parseInt(Controller.properties.getProperty("News Number")));
 		newsNumber.add(spinNumber);
+		fileSearch = new JPanel();
+		fileSearch.setBorder(BorderFactory.createTitledBorder("Style CSS d'affichage"));
+		path = new JTextField(Controller.properties.getProperty("CSS Style"));
+		path.setPreferredSize(new Dimension(300,20));
+		path.setMaximumSize(new Dimension(300,20));
+		path.setMinimumSize(new Dimension(200,20));
+		openFile = new JButton("Charger");
+		openFile.addActionListener(new ActionListener() {
 		
+			public void actionPerformed(ActionEvent e) {
+				int returnVal =  chooseCSS.showOpenDialog(ViewChangeProperties.this);
+				if (returnVal == JFileChooser.APPROVE_OPTION) {
+		            File file = chooseCSS.getSelectedFile();
+		            path.setText(file.getPath());
+				}
+			}
+		});
+		fileSearch.add(path);
+		fileSearch.add(openFile);
 		content.add(desplay);
 		content.add(newsNumber);
+		content.add(fileSearch);
 		
 
 		control = new JPanel();
@@ -105,6 +134,7 @@ public class ViewChangeProperties extends ParamDialog {
 	public void finishDialog(){
 		String newDisplay;
 		String newNumber;
+		String newPath;
 		
 		if(all.isSelected())
 			newDisplay = "All";
@@ -119,7 +149,10 @@ public class ViewChangeProperties extends ParamDialog {
 		Controller.defaultDisplay  = newDisplay;
 		
 		newNumber = spinNumber.getValue().toString();
-		Controller.properties.setProperty("News Number", newNumber);
+		Controller.properties.setProperty("NewsNumber", newNumber);
+		newPath = path.getText();
+		System.out.println(newPath);
+		Controller.properties.setProperty("CSS Style", newPath);
 		Controller.properties.save();
 		super.closeDialog();
 	}
@@ -135,11 +168,13 @@ public class ViewChangeProperties extends ParamDialog {
 			notRead.setSelected(true);
 		else
 			read.setSelected(true);
+		path.setText(Controller.properties.getProperty("CSS Style"));
 	}
 
 	public void renewDialog(){
 		spinNumber.setValue(20);
 		notRead.setSelected(true);
+		path.setText("src/resources/default.css");
 	}
 	
 	public void addListener(ActionListener e)
