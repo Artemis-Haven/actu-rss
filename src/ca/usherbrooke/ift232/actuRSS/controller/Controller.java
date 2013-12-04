@@ -17,6 +17,7 @@ import ca.usherbrooke.ift232.actuRSS.Feed;
 import ca.usherbrooke.ift232.actuRSS.News;
 import ca.usherbrooke.ift232.actuRSS.model.FeedManager;
 import ca.usherbrooke.ift232.actuRSS.model.Model;
+import ca.usherbrooke.ift232.actuRSS.properties.DialogFeedManager;
 import ca.usherbrooke.ift232.actuRSS.properties.ParamDialog;
 import ca.usherbrooke.ift232.actuRSS.properties.ProgramProperties;
 import ca.usherbrooke.ift232.actuRSS.properties.ViewChangeProperties;
@@ -40,6 +41,7 @@ public class Controller implements ActionListener{
 	private ActuList newsList;
 	private FeedManager feedManager;
 	private ViewChangeProperties pref;
+	private DialogFeedManager gest;
 	public static ProgramProperties properties = ProgramProperties.getInstance();
 	public static String defaultDisplay = properties.getProperty("Default Display");
 	public String theDisplay;
@@ -51,13 +53,14 @@ public class Controller implements ActionListener{
 		this.mainPanel = view.getMainPanel();
 		this.toolbar = mainPanel.getToolbar();
 		this.pref = view.getPreference();
+		this.gest = view.getSourceManager();
 		this.feedManager = model.getFeedManager();
 		feedTreePicker = mainPanel.getFeedTreePicker();
 		newsList = mainPanel.getNewsList();
 		theDisplay = defaultDisplay;	
 		
 		
-		feedManager.setOldListCategory(mainPanel.getCategoryList());
+		feedManager.setOldListCategory((ArrayList<Category>) mainPanel.getCategoryList());
 		
 		ArrayList<Category> categoryListTest =  new ArrayList<Category>();
 		
@@ -359,7 +362,8 @@ public class Controller implements ActionListener{
 		if (action.equals("Pref")) {
 			pref.showDialog();
 		}
-		if (action.equals("GererSources")) {				
+		if (action.equals("GererSources")) {
+			gest.showDialog();
 		}
 		if (action.equals("Help")) {			
 				
@@ -378,6 +382,19 @@ public class Controller implements ActionListener{
 		if (action.equals("ReinitialiserPref")) {			
 			pref.renewDialog();
 		}
+		if (action.equals("AddSource")) {			
+			gest.addDialog();
+		}
+		if (action.equals("DeleteSource")) {			
+			
+		}
+		if (action.equals("EditSource")) {			
+			gest.editDialog();
+		}
+		if(action.equals("ExitSource")){
+			gest.closeDialog();
+		}
+		
 
 	}
 
