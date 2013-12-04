@@ -36,6 +36,13 @@ public class RssParserTest {
        
         private RssParser Parser = new RssParser();
        
+        /**
+         * Permet de tester la fonction parse
+         * @throws MalformedURLException
+         * @throws IOException
+         * @throws ParserConfigurationException
+         * @throws SAXException
+         */
         @Test
         /* Teste parse(Document feedDoc)
          *
@@ -80,6 +87,12 @@ public class RssParserTest {
                 */
         }
 
+        /**
+         * Permet de tester la fonction ReadNote de RssParser
+         * @throws ParserConfigurationException
+         * @throws IOException
+         * @throws SAXException
+         */
         @Test
         /* Teste readNode(Node toReadNode, String path)
          *
@@ -142,6 +155,12 @@ public class RssParserTest {
         assertEquals(testString, "http://www.example3.org/actu3");
         }
 
+        /**
+         * Permet de tester la fonction GetChildByName de RssParser
+         * @throws SAXException
+         * @throws IOException
+         * @throws ParserConfigurationException
+         */
         @Test
         /* Teste getChildByName(Node node, String name)
          *
@@ -173,6 +192,9 @@ public class RssParserTest {
         assertEquals(node.getTextContent(), "Ceci est ma seconde actualité");      
         }
 
+        /**
+         * Permet de tester la fonction ParsePubDate de RssParser
+         */
         @Test
         /*
          * test parsePubDate()
