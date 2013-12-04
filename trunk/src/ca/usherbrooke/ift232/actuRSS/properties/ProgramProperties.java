@@ -13,6 +13,10 @@ public class ProgramProperties extends Properties {
 
 	static private ProgramProperties instance__;
 
+	/**
+	 * Initialise les propriétés
+	 * @param defaultProps
+	 */
 	private ProgramProperties(Properties defaultProps){
 		super(defaultProps);
 	}
@@ -64,6 +68,9 @@ public class ProgramProperties extends Properties {
 
 	
 	
+	/**
+	 * Permet de sauvegarder le flux
+	 */
 	public void save(){
 
 		FileOutputStream out;
