@@ -51,6 +51,9 @@ public class CategoryTest extends TestCase  {
                 ListFeed.add(feed2);
         }
        
+        /**
+         * Permet de tester les constructeurs de Category
+         */
         public void testConstructors() {
                
                 Category category = new Category();
@@ -77,6 +80,9 @@ public class CategoryTest extends TestCase  {
         }
        
         // Test des accesseurs de type set
+        /**
+         * Permet de tester les getters de Category
+         */
         @Test
         public void testGetters() {
                 Category category = new Category(10, "categoryName", ListFeed);
@@ -93,6 +99,9 @@ public class CategoryTest extends TestCase  {
                 assertEquals(null,categoryExample3.getListFeed());*/
         }
        
+        /**
+         * Permet de tester les setters de Category
+         */
         @Test
         public void testSetters() {
                 Category category = new Category();
@@ -105,14 +114,6 @@ public class CategoryTest extends TestCase  {
                 assertEquals(category.getListFeed(), ListFeed);
         }
 
-        // Test de override
-        /*public void testOverride() {
-               
-                String voulu = "Category [id=2 name=Sport]";
-                String testChaine = categoryExample2.toString();
-               
-                assertEquals(voulu,categoryExample2.getName());
 
-        }*/
 
 }
