@@ -14,6 +14,9 @@ import ca.usherbrooke.ift232.actuRSS.News;
 
 public class NewsTest {
 
+        /**
+         * Permet de tester les constructeurs de News
+         */
         @Test
         public void testConstructors() {
                 News news = new News();
@@ -23,6 +26,9 @@ public class NewsTest {
                 assertNotNull(news);
         }
        
+        /**
+         * Permet de tester les getters de News
+         */
         @Test
         public void testGetters() {
                 News news = new News();
@@ -35,6 +41,9 @@ public class NewsTest {
                 assertEquals(news.isFavorite(), false);
         }
        
+        /**
+         * Permet de tester les setters de News
+         */
         @Test
         public void testSetters() {
                 News news = new News();
