@@ -2,6 +2,7 @@ package ca.usherbrooke.ift232.actuRSS.model;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import ca.usherbrooke.ift232.actuRSS.Category;
 import ca.usherbrooke.ift232.actuRSS.Feed;
@@ -16,7 +17,7 @@ public class FeedManager {
 		this.listCategory = new ArrayList<Category>();
 		this.oldListCategory = new ArrayList<Category>();
 	}
-	
+
 	public FeedManager(ArrayList<Category> listCategory,
 			ArrayList<Category> oldListCategory) {
 		this.listCategory = new ArrayList<Category>(listCategory);
@@ -27,33 +28,43 @@ public class FeedManager {
 		ArrayList<Category> newList = new ArrayList<Category>(oldListCategory);
 		int indexCategory;
 		int indexFeed;
+		Boolean contient = false;
+		
 
-		Iterator iterCategory = listCategory.iterator();
-		while (iterCategory.hasNext()) {
-			Category cat = (Category) iterCategory.next();
-			Iterator iterFeed = cat.getListFeed().iterator();
-			while (iterFeed.hasNext()) {
-				Feed feed = (Feed) iterFeed.next();
-				//On suppose que les deux listes de catégories et de flux 
-				// (pas de news) sont identiques
-				for(News news : feed.getListNews()) {
+		for(int category = 0; category<listCategory.size();category++)
+		{
+			List<Feed> listFeed = listCategory.get(category).getListFeed();
+			for(int feed = 0; feed<listFeed.size(); feed++)
+			{
+				List<News> listeNews = listFeed.get(feed).getListNews();
+				List<News> listeNewsTemp = newList.get(category).getListFeed().get(feed).getListNews();
+				for(int news = 0; news<listeNews.size(); news++) 
+				{
+					contient = false;
+					String titreNews = listeNews.get(news).getTitle();
 					
-					indexCategory = listCategory.indexOf(cat);
-					indexFeed = listCategory.get(indexCategory).getListFeed().indexOf(feed);
-					
-					if(!newList.get(indexCategory).getListFeed().get(indexFeed).getListNews().contains(news))
+					for(int newsTemp = 0; newsTemp < listeNewsTemp.size(); newsTemp++)
 					{
-						newList.get(indexCategory).getListFeed().get(indexFeed).getListNews().add(news);
+						String titreNewsTemmp = listeNewsTemp.get(newsTemp).getTitle();
+						
+						if (titreNews == titreNewsTemmp)
+						{
+							contient = true;
+						}
+					}
+					if(contient == false)
+					{
+						listeNewsTemp.add(listeNews.get(news));
 					}
 				}
 			}
-		}	      
+		}
 
-		oldListCategory.clear();
+		this.oldListCategory.clear();
 		listCategory.clear();
 		this.oldListCategory = newList;
 	}
-	
+
 	public ArrayList<Category> getListCategory() {
 		return listCategory;
 	}
