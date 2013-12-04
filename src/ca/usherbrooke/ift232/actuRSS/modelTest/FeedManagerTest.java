@@ -94,6 +94,9 @@ public class FeedManagerTest extends TestCase {
         feedManager = new FeedManager(new ArrayList<Category>(listNewCat), new ArrayList<Category>(listOldCat));
     }
 	
+    /**
+     * Permet de tester les constructeurs de FeedManager
+     */
     @Test
     public void testConstructor() {
             FeedManager feedManager = new FeedManager();
@@ -102,6 +105,9 @@ public class FeedManagerTest extends TestCase {
             assertNotNull(feedManager);
     }
     
+    /**
+     * Permet de tester les getters de FeedManager
+     */
     @Test
     public void testGetters() {
     	feedManager = new FeedManager(new ArrayList<Category>(listNewCat), new ArrayList<Category>(listOldCat));
@@ -109,6 +115,9 @@ public class FeedManagerTest extends TestCase {
     	assertEquals(listOldCat, feedManager.getOldListCategory());
     }
     
+    /**
+     * Permet de tester les setters de FeedManager
+     */
     @Test
     public void testSetters() {
     	feedManager = new FeedManager(new ArrayList<Category>(listNewCat), new ArrayList<Category>(listOldCat));
@@ -119,6 +128,9 @@ public class FeedManagerTest extends TestCase {
     }
 
 
+    /**
+     * Permet de tester la fonction Merge de FeedManager
+     */
     @Test
     public void testMerge() {
     	ArrayList<News> mergedListNews = new ArrayList<News>();
