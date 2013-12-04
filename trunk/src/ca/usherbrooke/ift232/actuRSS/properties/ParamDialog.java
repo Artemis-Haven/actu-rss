@@ -13,7 +13,7 @@ public abstract class ParamDialog extends JDialog {
 	 */
 	public ParamDialog(JFrame parent, String title, boolean modal){
 		super(parent, title, modal);
-		this.setSize(400, 300);
+		this.setSize(500, 400);
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);

@@ -6,11 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 
 import ca.usherbrooke.ift232.actuRSS.Category;
 import ca.usherbrooke.ift232.actuRSS.model.Model;
+import ca.usherbrooke.ift232.actuRSS.properties.DialogFeedManager;
 import ca.usherbrooke.ift232.actuRSS.properties.ViewChangeProperties;
 
 /**
@@ -39,6 +41,7 @@ public class View extends JFrame implements Observer {
 	 */
 	private MainPanel mainPanel;
 	private ViewChangeProperties preference;
+	private DialogFeedManager sourceManager;
 
 	//private Model model;
 	
@@ -61,6 +64,8 @@ public class View extends JFrame implements Observer {
 		// Initialisation des variables		
 		this.mainPanel = new MainPanel();
 		this.preference = new ViewChangeProperties(null, "Preference", true);
+		this.sourceManager = new DialogFeedManager(null, "Gestion des sources", true);
+		sourceManager.setCategories(mainPanel.getCategoryList());
 		
 		
 		// Définir les caractéristiques de la fenetre.
@@ -79,11 +84,14 @@ public class View extends JFrame implements Observer {
 
 	
 	public ViewChangeProperties getPreference() {return preference;}
+	
+	public DialogFeedManager getSourceManager(){ return sourceManager;}
 
 	public void addListener(ActionListener e)
 	{
 		this.mainPanel.addListener(e);
 		this.preference.addListener(e);
+		this.sourceManager.addListener(e);
 	}
 	
 	

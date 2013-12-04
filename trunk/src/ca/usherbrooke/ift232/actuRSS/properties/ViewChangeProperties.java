@@ -1,7 +1,6 @@
 package ca.usherbrooke.ift232.actuRSS.properties;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,11 +11,9 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JSpinner;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import ca.usherbrooke.ift232.actuRSS.controller.Controller;
@@ -94,12 +91,8 @@ public class ViewChangeProperties extends ParamDialog {
 		path.setMaximumSize(new Dimension(300,20));
 		path.setMinimumSize(new Dimension(200,20));
 		openFile = new JButton("Charger");
-		//openFile.setActionCommand("openFile");
-		openFile.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				setCSS();
-			}
-		});
+		openFile.setActionCommand("OpenFile");
+		
 		fileSearch.add(path);
 		fileSearch.add(openFile);
 		content.add(desplay);
@@ -191,6 +184,7 @@ public class ViewChangeProperties extends ParamDialog {
 		okbutton.addActionListener(e);
 		cancel.addActionListener(e);
 		defaultbutton.addActionListener(e);
+		openFile.addActionListener(e);
 		
 	}
 	
