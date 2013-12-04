@@ -17,6 +17,9 @@ import ca.usherbrooke.ift232.actuRSS.properties.ProgramProperties;
 public class ActuList extends JList implements ListSelectionListener
 {	
 	
+	/**Constructeur de la liste d'actualité
+	 * @param news
+	 */
 	public ActuList(List<News> news) {
 
 		super(buildListModelNews(news,"Tout"));
@@ -51,6 +54,10 @@ public class ActuList extends JList implements ListSelectionListener
 		return listModelNews;
 	}
 
+	/**Change l'état d'une news
+	 * @param news
+	 * @param state
+	 */
 	public void changeNews(List<News> news,String state)
 	{
 		ListModel modelNews = buildListModelNews(news,state);
@@ -58,6 +65,11 @@ public class ActuList extends JList implements ListSelectionListener
 		this.setModel(modelNews);
 	}
 
+	/**Permet d'initialiser les états de toutes les news de la liste
+	 * @param listModel
+	 * @param news
+	 * @param state
+	 */
 	private static void fillNews(DefaultListModel listModel, List<News> news,String state) {
 
 		listModel.clear();
@@ -92,11 +104,17 @@ public class ActuList extends JList implements ListSelectionListener
 
 	private final EventListenerList listenerList = new EventListenerList();
 
+	/**Permet d'ajouter une news à l'instance de suivi des news
+	 * @param actuSelectedListener
+	 */
 	public void addActuSelectedListener(
 			ActuSelectedListener actuSelectedListener) {
 		listenerList.add(ActuSelectedListener.class, actuSelectedListener);
 	}
 
+	/**Permet de supprimer une news à l'instance de suivi des news
+	 * @param l
+	 */
 	public void removeActuSelectedListener(ActuSelectedListener l) {
 		listenerList.remove(ActuSelectedListener.class, l);
 	}
