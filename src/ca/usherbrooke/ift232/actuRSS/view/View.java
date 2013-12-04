@@ -2,6 +2,7 @@ package ca.usherbrooke.ift232.actuRSS.view;
 
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -97,7 +98,7 @@ public class View extends JFrame implements Observer {
 	@Override
 	public void update(Observable arg0, Object arg1) {		
 		
-		List<Category> categoryList = (List<Category>)arg1;
+		ArrayList<Category> categoryList = (ArrayList<Category>)arg1;
 		
 		/* Refactorisation	*/	
 		this.getMainPanel().update(categoryList);		
