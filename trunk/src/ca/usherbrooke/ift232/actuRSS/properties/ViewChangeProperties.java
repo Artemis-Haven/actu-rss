@@ -90,14 +90,10 @@ public class ViewChangeProperties extends ParamDialog {
 		path.setMaximumSize(new Dimension(300,20));
 		path.setMinimumSize(new Dimension(200,20));
 		openFile = new JButton("Charger");
+		//openFile.setActionCommand("openFile");
 		openFile.addActionListener(new ActionListener() {
-		
 			public void actionPerformed(ActionEvent e) {
-				int returnVal =  chooseCSS.showOpenDialog(ViewChangeProperties.this);
-				if (returnVal == JFileChooser.APPROVE_OPTION) {
-		            File file = chooseCSS.getSelectedFile();
-		            path.setText(file.getPath());
-				}
+				setCSS();
 			}
 		});
 		fileSearch.add(path);
@@ -129,6 +125,15 @@ public class ViewChangeProperties extends ParamDialog {
 		this.getContentPane().add(content,BorderLayout.CENTER);
 		this.getContentPane().add(control,BorderLayout.SOUTH);
 
+	}
+	
+	
+	public void setCSS(){
+		int returnVal =  chooseCSS.showOpenDialog(ViewChangeProperties.this);
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = chooseCSS.getSelectedFile();
+            path.setText(file.getPath());
+		}
 	}
 	
 	public void finishDialog(){
@@ -182,6 +187,7 @@ public class ViewChangeProperties extends ParamDialog {
 		okbutton.addActionListener(e);
 		cancel.addActionListener(e);
 		defaultbutton.addActionListener(e);
+		
 	}
 	
 	
