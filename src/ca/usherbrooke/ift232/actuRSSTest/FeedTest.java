@@ -58,6 +58,9 @@ public class FeedTest {
                 ListNews.add(news3);
         }
        
+        /**
+         * Permet de tester les constructeurs de Feeds
+         */
         @Test
         public void testConstructors() {
                 Feed feed = new Feed();
@@ -73,6 +76,9 @@ public class FeedTest {
                 assertNotNull(feed);
                 }
        
+        /**
+         * Permet de tester les getters de Feeds
+         */
         @Test
         public void testGetters() {
                 Feed feed = new Feed(20, "titre", "url", ListNews);
@@ -82,6 +88,9 @@ public class FeedTest {
                 assertEquals(feed.getListNews(), ListNews);
         }
        
+        /**
+         * Permet de tester les setters de Feeds
+         */
         @Test
         public void testSetters() {
                 Feed feed = new Feed();
