@@ -97,7 +97,11 @@ public class Feed {
 
 	@Override
 	public String toString() {
-		return title;
+		String resultat = "\n    Feed [id=" + id + ", title=" + title + "]";
+		for(News n : this.getListNews()) {
+			resultat += "\n" + n;
+		}
+		return resultat;
 	}
 
 }
