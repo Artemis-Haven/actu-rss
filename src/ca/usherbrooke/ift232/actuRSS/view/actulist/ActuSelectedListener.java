@@ -5,5 +5,8 @@ import java.util.EventListener;
 
 public interface ActuSelectedListener extends EventListener
 {
+	/**onActuSelected
+	 * @param event
+	 */
 	public void onActuSelected(ActuSelectedEvent event);
 }
