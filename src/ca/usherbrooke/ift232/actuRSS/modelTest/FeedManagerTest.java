@@ -63,9 +63,17 @@ public class FeedManagerTest extends TestCase {
         //Creation OldCategory 
         Category oldCategory = new Category(0, "oldCategory", new ArrayList<Feed>(ListFeed));
         
-        //ListFeed.remove(feed2);
-        //ListFeed.remove(feed3);
         ListFeed.clear();
+        news11 = new News("titre11", "url11", "auteur11", cal, "txt11", true, true);
+        news12 = new News("titre12", "url12", "auteur12", cal, "txt12", false, false);
+        news21 = new News("titre21", "url21", "auteur21", cal, "txt21", false, false);
+        news22 = new News("titre22", "url22", "auteur22", cal, "txt22", false, false);
+        news31 = new News("titre31", "url31", "auteur31", cal, "txt31", false, false);
+        news32 = new News("titre32", "url32", "auteur32", cal, "txt32", false, false);
+        ListNews.add(news11);
+        ListNews.add(news12);
+        feed1 = new Feed(0, "titreFeed1", "urlFeed1", new ArrayList<News>(ListNews));
+        ListNews.clear();
         ListNews.add(news21);
         ListNews.add(news22); 
         feed2 = new Feed(1, "titreFeed2", "urlFeed2", new ArrayList<News>(ListNews));
@@ -123,6 +131,7 @@ public class FeedManagerTest extends TestCase {
         		mergedListNews.add(news);
         }
         
+        assertEquals(mergedListNews.size(), 6);
         assertTrue(mergedListNews.contains(news11));
         assertTrue(mergedListNews.contains(news12));
         assertTrue(mergedListNews.contains(news21));
