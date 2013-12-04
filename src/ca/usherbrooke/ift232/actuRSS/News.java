@@ -40,7 +40,7 @@ public class News {
 			this.feed = null;
 		}
 		
-		/**
+		/**News : permet d'initialiser les valeurs d'une news
 		 * @param title le titre de la news
 		 * @param url l'url de la news
 		 * @param author l'auteur de la news
