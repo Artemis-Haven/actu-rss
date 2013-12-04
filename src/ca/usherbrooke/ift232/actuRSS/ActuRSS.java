@@ -6,7 +6,7 @@ import ca.usherbrooke.ift232.actuRSS.view.View;
 
 public class ActuRSS {
 
-	/**
+	/**Permet de lancer l'application
 	 * @param args
 	 */
 	public static void main(String[] args) {
