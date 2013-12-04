@@ -55,9 +55,13 @@ public class ViewChangeProperties extends ParamDialog {
 		desplay = new JPanel();
 		desplay.setBorder(BorderFactory.createTitledBorder("Affichage par defaut"));
 		all = new JRadioButton("Tout");
+		all.setFocusable(false);
 		favorite = new JRadioButton("Favoris");
+		favorite.setFocusable(false);
 		notRead = new JRadioButton("Non lu");
+		notRead.setFocusable(false);
 		read = new JRadioButton("Lu");
+		read.setFocusable(false);
 		if(Controller.defaultDisplay.matches("All"))
 			all.setSelected(true);
 		else if(Controller.defaultDisplay.matches("Favorite"))
