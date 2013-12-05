@@ -11,6 +11,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JSpinner;
@@ -129,7 +130,11 @@ public class ViewChangeProperties extends ParamDialog {
 		int returnVal =  chooseCSS.showOpenDialog(ViewChangeProperties.this);
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = chooseCSS.getSelectedFile();
-            path.setText(file.getPath());
+            if(file.getPath().endsWith(".css"))
+            	path.setText(file.getPath());
+            else
+            	JOptionPane.showConfirmDialog(null, "Format fichier invalide", "Attention", JOptionPane.WARNING_MESSAGE);
+        	
 		}
 	}
 	
@@ -153,7 +158,6 @@ public class ViewChangeProperties extends ParamDialog {
 		newNumber = spinNumber.getValue().toString();
 		Controller.properties.setProperty("NewsNumber", newNumber);
 		newPath = path.getText();
-		System.out.println(newPath);
 		Controller.properties.setProperty("CSS Style", newPath);
 		Controller.properties.save();
 		super.closeDialog();

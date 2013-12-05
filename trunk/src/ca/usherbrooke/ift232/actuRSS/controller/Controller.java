@@ -377,7 +377,7 @@ public class Controller implements ActionListener{
 			JDialog Dev = new JDialog();
 			JOptionPane.showMessageDialog(Dev,"Developp�s par plusieurs moustachus et quelques Zboubs", "Actu-RSS",new Integer(JOptionPane.INFORMATION_MESSAGE).intValue());
 		}
-		if (action.equals("OkPref")) {			
+		if (action.equals("OkPref")) {
 			pref.finishDialog();
 		}
 		if (action.equals("AnnulerPref")) {			
@@ -385,6 +385,9 @@ public class Controller implements ActionListener{
 		}
 		if (action.equals("ReinitialiserPref")) {			
 			pref.renewDialog();
+		}
+		if(action.equals("OpenFile")){
+			pref.setCSS();
 		}
 		if (action.equals("AddSource")) {	
 			addFeed.listerCategories(feedManager.getListCategory());
