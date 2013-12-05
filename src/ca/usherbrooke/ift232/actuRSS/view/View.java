@@ -3,7 +3,6 @@ package ca.usherbrooke.ift232.actuRSS.view;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -11,7 +10,8 @@ import javax.swing.JFrame;
 import javax.swing.UIManager;
 
 import ca.usherbrooke.ift232.actuRSS.Category;
-import ca.usherbrooke.ift232.actuRSS.model.Model;
+import ca.usherbrooke.ift232.actuRSS.properties.DialogAddFeed;
+import ca.usherbrooke.ift232.actuRSS.properties.DialogEditFeed;
 import ca.usherbrooke.ift232.actuRSS.properties.DialogFeedManager;
 import ca.usherbrooke.ift232.actuRSS.properties.ViewChangeProperties;
 
@@ -42,6 +42,8 @@ public class View extends JFrame implements Observer {
 	private MainPanel mainPanel;
 	private ViewChangeProperties preference;
 	private DialogFeedManager sourceManager;
+	private DialogEditFeed editFeed;
+	private DialogAddFeed addFeed;
 
 	//private Model model;
 	
@@ -65,6 +67,8 @@ public class View extends JFrame implements Observer {
 		this.mainPanel = new MainPanel();
 		this.preference = new ViewChangeProperties(null, "Preference", true);
 		this.sourceManager = new DialogFeedManager(null, "Gestion des sources", true);
+		this.editFeed = new DialogEditFeed(null,"Modification d'un Flux",true);
+		this.addFeed = new DialogAddFeed(null,"Ajout d'un Flux",true);
 		sourceManager.setCategories(mainPanel.getCategoryList());
 		
 		
@@ -92,6 +96,8 @@ public class View extends JFrame implements Observer {
 		this.mainPanel.addListener(e);
 		this.preference.addListener(e);
 		this.sourceManager.addListener(e);
+		this.editFeed.addListener(e);
+		this.addFeed.addListener(e);
 	}
 	
 	
@@ -111,5 +117,13 @@ public class View extends JFrame implements Observer {
 		/* Refactorisation	*/	
 		this.getMainPanel().update(categoryList);		
 		
+	}
+
+	public DialogAddFeed getAddFeedDialog() {
+		return addFeed;
+	}
+	
+	public DialogEditFeed getEditFeedDialog(){
+		return editFeed;
 	}
 }
