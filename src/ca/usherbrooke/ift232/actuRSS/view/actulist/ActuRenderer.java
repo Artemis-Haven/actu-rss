@@ -33,7 +33,7 @@ public class ActuRenderer extends JPanel implements ListCellRenderer<News>
 	
 	
 	/**
-	 * Crée le panneau d'affichage
+	 * Crï¿½e le panneau d'affichage
 	 * @param news
 	 */
 	public ActuRenderer(News news) {
@@ -69,24 +69,26 @@ public class ActuRenderer extends JPanel implements ListCellRenderer<News>
 						FormFactory.RELATED_GAP_ROWSPEC,
 						FormFactory.DEFAULT_ROWSPEC,
 						FormFactory.RELATED_GAP_ROWSPEC,
-						FormFactory.DEFAULT_ROWSPEC, }));
+						FormFactory.DEFAULT_ROWSPEC,
+						FormFactory.RELATED_GAP_ROWSPEC,
+						FormFactory.DEFAULT_ROWSPEC,}));
 
 		lblTitle = new JLabel(news.getTitle());
-		add(lblTitle, "2, 2");
+		add(lblTitle, "2, 4");
 
 		lblDate = new JLabel(formatCalendar(news.getDate()));
-		add(lblDate, "28, 2");
+		add(lblDate, "2, 2");
 
 		lblContentQuickView = new JLabel(news.getContents().substring(
 				0,
 				(news.getContents().length() > 100) ? 100 : news.getContents()
 						.length()));
-		// On n'affiche que les 100 premiers caractères
+		// On n'affiche que les 100 premiers caractï¿½res
 
-		add(lblContentQuickView, "2, 4, 27, 1");
+		add(lblContentQuickView, "2, 6, 27, 1");
 
 		mayBeBoldLabels.add(lblTitle);
-		mayBeBoldLabels.add(lblDate);
+		//mayBeBoldLabels.add(lblDate);
 		mayBeBoldLabels.add(lblContentQuickView);
 		
 	}
@@ -124,7 +126,7 @@ public class ActuRenderer extends JPanel implements ListCellRenderer<News>
 		
 		if (isSelected)
 			result.setBackground(SELECTED_BACKGROUND);
-		else if (index %2 ==0)//Une cellule sur 2 est clair (lisibilité)
+		else if (index %2 ==0)//Une cellule sur 2 est clair (lisibilitï¿½)
 			result.setBackground(DARK_BACKGROUND);
 		else
 			result.setBackground(BRIGHT_BACKGROUND);
@@ -132,7 +134,7 @@ public class ActuRenderer extends JPanel implements ListCellRenderer<News>
 		return result;
 	}
 
-	/**Permet d'obtenir une chaîne date à partir d'une variable en format Calendar
+	/**Permet d'obtenir une chaï¿½ne date ï¿½ partir d'une variable en format Calendar
 	 * @param cal
 	 * @return une date
 	 */
