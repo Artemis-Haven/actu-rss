@@ -83,13 +83,13 @@ public class DialogEditFeed  extends JDialog {
 		control = new JPanel();
 
 		okbutton = new JButton("OK");
-		okbutton.setActionCommand("OkAddSource");
+		okbutton.setActionCommand("OkEditSource");
 
 		cancel = new JButton("Annuler");
-		cancel.setActionCommand("CancelAddSource");
+		cancel.setActionCommand("CancelEditSource");
 
 		defaultbutton = new JButton("Reinitialiser");
-		defaultbutton.setActionCommand("RenewAddSource");
+		defaultbutton.setActionCommand("RenewEditSource");
 		
 
 		control.add(okbutton);
@@ -108,13 +108,13 @@ public class DialogEditFeed  extends JDialog {
 	
 	public void finishedDialog(){
 		if(name.getText().equals("")){
-			JOptionPane.showMessageDialog(null, "Nom manquant", "Erreur", JOptionPane.INFORMATION_MESSAGE);	
+			JOptionPane.showMessageDialog(null, "Nom manquant", "Erreur", JOptionPane.WARNING_MESSAGE);	
 		}
 		else if(url.getText().equals("")){
-			JOptionPane.showMessageDialog(null, "URL manquant", "Erreur", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "URL manquant", "Erreur", JOptionPane.WARNING_MESSAGE);
 		}
 		else if(category.getSelectedIndex() == 0){
-			JOptionPane.showMessageDialog(null, "Categorie manquant", "Erreur", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Categorie manquant", "Erreur", JOptionPane.WARNING_MESSAGE);
 		}
 		else	
 			closeDialog();
@@ -125,8 +125,8 @@ public class DialogEditFeed  extends JDialog {
 	}
 	
 	public void renewDialog(){
-		name.setText(feed.getTitle());
-		url.setText(feed.getUrl());
+		name.setText("test");//feed.getTitle());
+		url.setText("test");//feed.getUrl());
 		category.setSelectedIndex(0);
 	}
 

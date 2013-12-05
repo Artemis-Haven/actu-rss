@@ -104,13 +104,13 @@ public class DialogAddFeed extends JDialog {
 	
 	public void finishedDialog(){
 		if(name.getText().equals("")){
-			JOptionPane.showMessageDialog(null, "Nom manquant", "Erreur", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Nom manquant", "Erreur", JOptionPane.WARNING_MESSAGE);
 		}
 		else if(url.getText().equals("")){
-			JOptionPane.showMessageDialog(null, "URL manquant", "Erreur", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "URL manquant", "Erreur", JOptionPane.WARNING_MESSAGE);
 		}
 		else if(category.getSelectedIndex() == 0){
-			JOptionPane.showMessageDialog(null, "Categorie manquant", "Erreur", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Categorie manquant", "Erreur", JOptionPane.WARNING_MESSAGE);
 		}else
 			closeDialog();
 	}
@@ -128,7 +128,11 @@ public class DialogAddFeed extends JDialog {
 
 	public void newCategorie(){
 	    String nom = JOptionPane.showInputDialog(null, "Nouvelle categorie :", "", JOptionPane.QUESTION_MESSAGE);
-		listeCategories.add(nom);
+	    if(name.getText().equals("")){
+			JOptionPane.showConfirmDialog(null, "Nom manquant", "Erreur", JOptionPane.WARNING_MESSAGE);
+			
+		}
+	    else listeCategories.add(nom);
 		
 	}
 	public void listerCategories(List<Category> categories) {

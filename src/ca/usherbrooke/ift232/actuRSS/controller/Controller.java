@@ -388,13 +388,13 @@ public class Controller implements ActionListener{
 		}
 		if (action.equals("AddSource")) {	
 			addFeed.listerCategories(feedManager.getListCategory());
-			System.out.println(feedManager.getListCategory());
 			addFeed.showDialog();
 		}
 		if (action.equals("DeleteSource")) {			
 			
 		}
-		if (action.equals("EditSource")) {			
+		if (action.equals("EditSource")) {
+			editFeed.listerCategories(feedManager.getListCategory());
 			editFeed.showDialog();
 		}
 		if(action.equals("ExitSource")){
@@ -416,6 +416,15 @@ public class Controller implements ActionListener{
 		}
 		if(action.equals("NewCatEditSource")){
 			editFeed.newCategorie();
+		}
+		if(action.equals("OkEditSource")){
+			editFeed.finishedDialog();
+		}
+		if(action.equals("CancelEditSource")){
+			editFeed.closeDialog();
+		}
+		if(action.equals("RenewEditSource")){
+			editFeed.renewDialog();
 		}
 		
 
