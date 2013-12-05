@@ -388,6 +388,7 @@ public class Controller implements ActionListener{
 		}
 		if (action.equals("AddSource")) {	
 			addFeed.listerCategories(feedManager.getListCategory());
+			System.out.println(feedManager.getListCategory());
 			addFeed.showDialog();
 		}
 		if (action.equals("DeleteSource")) {			
