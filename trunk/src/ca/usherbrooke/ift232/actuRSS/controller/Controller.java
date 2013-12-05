@@ -10,15 +10,15 @@ import java.util.List;
 
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
-import javax.swing.JToggleButton;
 
 import ca.usherbrooke.ift232.actuRSS.Category;
 import ca.usherbrooke.ift232.actuRSS.Feed;
 import ca.usherbrooke.ift232.actuRSS.News;
 import ca.usherbrooke.ift232.actuRSS.model.FeedManager;
 import ca.usherbrooke.ift232.actuRSS.model.Model;
+import ca.usherbrooke.ift232.actuRSS.properties.DialogAddFeed;
+import ca.usherbrooke.ift232.actuRSS.properties.DialogEditFeed;
 import ca.usherbrooke.ift232.actuRSS.properties.DialogFeedManager;
-import ca.usherbrooke.ift232.actuRSS.properties.ParamDialog;
 import ca.usherbrooke.ift232.actuRSS.properties.ProgramProperties;
 import ca.usherbrooke.ift232.actuRSS.properties.ViewChangeProperties;
 import ca.usherbrooke.ift232.actuRSS.view.MainPanel;
@@ -42,6 +42,8 @@ public class Controller implements ActionListener{
 	private FeedManager feedManager;
 	private ViewChangeProperties pref;
 	private DialogFeedManager gest;
+	private DialogAddFeed addFeed;
+	private DialogEditFeed editFeed;
 	public static ProgramProperties properties = ProgramProperties.getInstance();
 	public static String defaultDisplay = properties.getProperty("Default Display");
 	public String theDisplay;
@@ -54,6 +56,8 @@ public class Controller implements ActionListener{
 		this.toolbar = mainPanel.getToolbar();
 		this.pref = view.getPreference();
 		this.gest = view.getSourceManager();
+		this.addFeed = view.getAddFeedDialog();
+		this.editFeed = view.getEditFeedDialog();
 		this.feedManager = model.getFeedManager();
 		feedTreePicker = mainPanel.getFeedTreePicker();
 		newsList = mainPanel.getNewsList();
@@ -382,17 +386,35 @@ public class Controller implements ActionListener{
 		if (action.equals("ReinitialiserPref")) {			
 			pref.renewDialog();
 		}
-		if (action.equals("AddSource")) {			
-			gest.addDialog();
+		if (action.equals("AddSource")) {	
+			addFeed.listerCategories(feedManager.getListCategory());
+			addFeed.showDialog();
 		}
 		if (action.equals("DeleteSource")) {			
 			
 		}
 		if (action.equals("EditSource")) {			
-			gest.editDialog();
+			editFeed.showDialog();
 		}
 		if(action.equals("ExitSource")){
 			gest.closeDialog();
+		}
+		
+		if(action.equals("OkAddSource")){
+			addFeed.finishedDialog();
+		}
+		if(action.equals("CancelAddSource")){
+			addFeed.closeDialog();
+		}
+		if(action.equals("RenewAddSource")){
+			addFeed.renewDialog();
+		}
+		
+		if(action.equals("NewCatAddSource")){
+			addFeed.newCategorie();
+		}
+		if(action.equals("NewCatEditSource")){
+			editFeed.newCategorie();
 		}
 		
 

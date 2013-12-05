@@ -42,6 +42,7 @@ public class DialogEditFeed  extends JDialog {
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		listeCategories.add("Choisir une categorie");
+		initDialog();
 	}
 
 	public void initDialog() {
@@ -49,7 +50,7 @@ public class DialogEditFeed  extends JDialog {
 
 		namepanel = new JPanel();
 		namepanel.setBorder(BorderFactory.createTitledBorder("Nom du Flux"));
-		name = new JTextField(feed.getTitle());
+		name = new JTextField("test");//feed.getTitle());
 		name.setPreferredSize(new Dimension(300,20));
 		name.setMaximumSize(new Dimension(300,20));
 		name.setMinimumSize(new Dimension(200,20));
@@ -57,7 +58,7 @@ public class DialogEditFeed  extends JDialog {
 		
 		urlpanel = new JPanel();
 		urlpanel.setBorder(BorderFactory.createTitledBorder("URL du Flux"));
-		url = new JTextField(feed.getUrl());
+		url = new JTextField("test");//feed.getUrl());
 		url.setPreferredSize(new Dimension(300,20));
 		url.setMaximumSize(new Dimension(300,20));
 		url.setMinimumSize(new Dimension(200,20));
@@ -71,7 +72,7 @@ public class DialogEditFeed  extends JDialog {
 			category.addItem(s);
 		}
 		newCategory = new JButton("Nouvelle Categorie");
-		newCategory.setActionCommand("NewCatAddSource");
+		newCategory.setActionCommand("NewCatEditSource");
 		categorypanel.add(category);
 		categorypanel.add(newCategory);
 		
@@ -106,20 +107,20 @@ public class DialogEditFeed  extends JDialog {
 	}
 	
 	public void finishedDialog(){
-		boolean exitGood = true;
+		boolean exitAllowed = true;
 		if(name.getText().equals("")){
 			JOptionPane.showMessageDialog(null, "Nom manquant", "Erreur", JOptionPane.INFORMATION_MESSAGE);
-			exitGood = false;
+			exitAllowed = false;
 		}
 		if(url.getText().equals("")){
 			JOptionPane.showMessageDialog(null, "URL manquant", "Erreur", JOptionPane.INFORMATION_MESSAGE);
-			exitGood = false;
+			exitAllowed = false;
 		}
 		if(category.getSelectedIndex() == 0){
 			JOptionPane.showMessageDialog(null, "Categorie manquant", "Erreur", JOptionPane.INFORMATION_MESSAGE);
-			exitGood = false;
+			exitAllowed = false;
 		}
-			
+		if(exitAllowed)	
 			closeDialog();
 	}
 
@@ -137,6 +138,7 @@ public class DialogEditFeed  extends JDialog {
 	    String nom = JOptionPane.showInputDialog(null, "Nouvelle categorie :", "", JOptionPane.QUESTION_MESSAGE);
 		listeCategories.add(nom);
 	}
+	
 	public void listerCategories(List<Category> categories) {
 		for(Category c : categories){
 			listeCategories.add(c.getName());

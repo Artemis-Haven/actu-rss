@@ -136,7 +136,7 @@ public class DialogFeedManager extends ParamDialog {
 				control.add(delete,"10, 18");
 
 				update = new JButton("Modifier");
-				update.setEnabled(false);
+				//update.setEnabled(false);
 				update.setActionCommand("EditSource");
 				control.add(update,"10, 28");
 
@@ -153,30 +153,13 @@ public class DialogFeedManager extends ParamDialog {
 		super.showDialog();
 	}
 
-	public void addDialog(){
-		DialogAddFeed addDialog = new DialogAddFeed(null,"Ajout d'un Flux",true);
-		addDialog.listerCategories(categories);
-		addDialog.initDialog();
-		addDialog.showDialog();
-
-	}
-
 	public void finishedDialog(){
 		super.closeDialog();
 	}
-
-	public void deleteDialog(){
-		
-
-	}
 	
-	public void editDialog(){
-		DialogEditFeed editDialog = new DialogEditFeed(null,"Modification d'un Flux",true);
-		editDialog.listerCategories(categories);
-		editDialog.setFeed(categories.get(0).getListFeed().get(0));
-		editDialog.initDialog();
-		editDialog.showDialog();
-
+	public void setCategories(List<Category> list) {
+		categories = list;
+		tree.refreshFeeds(categories);
 		
 	}
 
@@ -186,14 +169,6 @@ public class DialogFeedManager extends ParamDialog {
 		delete.addActionListener(e);
 		update.addActionListener(e);
 		exit.addActionListener(e);
-		
-
-	}
-
-	public void setCategories(List<Category> list) {
-		categories = list;
-		tree.refreshFeeds(categories);
-		
 	}
 }
 

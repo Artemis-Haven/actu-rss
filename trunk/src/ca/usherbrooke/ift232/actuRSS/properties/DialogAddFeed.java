@@ -40,6 +40,7 @@ public class DialogAddFeed extends JDialog {
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		listeCategories.add("Choisir une categorie");
+		initDialog();
 	}
 
 	public void initDialog() {
@@ -117,11 +118,12 @@ public class DialogAddFeed extends JDialog {
 			JOptionPane.showMessageDialog(null, "Categorie manquant", "Erreur", JOptionPane.INFORMATION_MESSAGE);
 			exitGood = false;
 		}
-			
-			closeDialog();
+			if(exitGood)
+				closeDialog();
 	}
 
 	public void closeDialog(){
+		this.renewDialog();
 		this.dispose();
 	}
 	
