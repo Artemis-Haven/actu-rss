@@ -107,20 +107,16 @@ public class DialogEditFeed  extends JDialog {
 	}
 	
 	public void finishedDialog(){
-		boolean exitAllowed = true;
 		if(name.getText().equals("")){
-			JOptionPane.showMessageDialog(null, "Nom manquant", "Erreur", JOptionPane.INFORMATION_MESSAGE);
-			exitAllowed = false;
+			JOptionPane.showMessageDialog(null, "Nom manquant", "Erreur", JOptionPane.INFORMATION_MESSAGE);	
 		}
-		if(url.getText().equals("")){
+		else if(url.getText().equals("")){
 			JOptionPane.showMessageDialog(null, "URL manquant", "Erreur", JOptionPane.INFORMATION_MESSAGE);
-			exitAllowed = false;
 		}
-		if(category.getSelectedIndex() == 0){
+		else if(category.getSelectedIndex() == 0){
 			JOptionPane.showMessageDialog(null, "Categorie manquant", "Erreur", JOptionPane.INFORMATION_MESSAGE);
-			exitAllowed = false;
 		}
-		if(exitAllowed)	
+		else	
 			closeDialog();
 	}
 
@@ -142,6 +138,10 @@ public class DialogEditFeed  extends JDialog {
 	public void listerCategories(List<Category> categories) {
 		for(Category c : categories){
 			listeCategories.add(c.getName());
+		}
+		category.removeAll();
+		for(String s : listeCategories){
+			category.addItem(s);
 		}
 	}
 	
