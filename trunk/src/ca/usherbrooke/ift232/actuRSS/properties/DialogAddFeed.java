@@ -66,9 +66,7 @@ public class DialogAddFeed extends JDialog {
 		categorypanel.setBorder(BorderFactory.createTitledBorder("Categories"));
 		categorypanel.setPreferredSize(new Dimension(300, 70));
 		category = new JComboBox<String>();
-		for(String s : listeCategories){
-			category.addItem(s);
-		}
+		category.addItem(listeCategories.get(0));
 		newCategory = new JButton("Nouvelle Categorie");
 		newCategory.setActionCommand("NewCatAddSource");
 		categorypanel.add(category);
@@ -105,21 +103,16 @@ public class DialogAddFeed extends JDialog {
 	}
 	
 	public void finishedDialog(){
-		boolean exitGood = true;
 		if(name.getText().equals("")){
 			JOptionPane.showMessageDialog(null, "Nom manquant", "Erreur", JOptionPane.INFORMATION_MESSAGE);
-			exitGood = false;
 		}
-		if(url.getText().equals("")){
+		else if(url.getText().equals("")){
 			JOptionPane.showMessageDialog(null, "URL manquant", "Erreur", JOptionPane.INFORMATION_MESSAGE);
-			exitGood = false;
 		}
-		if(category.getSelectedIndex() == 0){
+		else if(category.getSelectedIndex() == 0){
 			JOptionPane.showMessageDialog(null, "Categorie manquant", "Erreur", JOptionPane.INFORMATION_MESSAGE);
-			exitGood = false;
-		}
-			if(exitGood)
-				closeDialog();
+		}else
+			closeDialog();
 	}
 
 	public void closeDialog(){
@@ -141,10 +134,10 @@ public class DialogAddFeed extends JDialog {
 	public void listerCategories(List<Category> categories) {
 		for(Category c : categories){
 			listeCategories.add(c.getName());
-			category.removeAll();
-			for(String s : listeCategories){
-				category.addItem(s);
-			}
+		}
+		category.removeAll();
+		for(String s : listeCategories){
+			category.addItem(s);
 		}
 	}
 	
