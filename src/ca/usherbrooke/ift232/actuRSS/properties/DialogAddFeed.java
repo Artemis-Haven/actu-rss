@@ -136,10 +136,15 @@ public class DialogAddFeed extends JDialog {
 	public void newCategorie(){
 	    String nom = JOptionPane.showInputDialog(null, "Nouvelle categorie :", "", JOptionPane.QUESTION_MESSAGE);
 		listeCategories.add(nom);
+		
 	}
 	public void listerCategories(List<Category> categories) {
 		for(Category c : categories){
 			listeCategories.add(c.getName());
+			category.removeAll();
+			for(String s : listeCategories){
+				category.addItem(s);
+			}
 		}
 	}
 	
