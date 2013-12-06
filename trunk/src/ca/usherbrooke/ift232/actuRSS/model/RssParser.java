@@ -78,7 +78,7 @@ public class RssParser {
      *            suite des noms des noeud sans espace séparé par des "|"
      * @return un string contenant la valeur du noeud voulu
      */
-    public String readNode(Node toReadNode, String path) {
+    public static String readNode(Node toReadNode, String path) {
 
             String[] paths = path.split("\\|");
             Node node = null;
@@ -107,7 +107,7 @@ public class RssParser {
      *            nom du noeud fils
      * @return le noeud fils
      */
-    public Node getChildByName(Node node, String name) {
+    public static Node getChildByName(Node node, String name) {
             if (node == null) {
                     return null;
             }
