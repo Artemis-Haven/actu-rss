@@ -178,7 +178,6 @@ public class Controller implements ActionListener{
 							continue;							
 						news.add(actu);
 					}	
-					//System.out.println("Vous avez selectionne la source: " + feed );
 
 				}	
 
@@ -229,56 +228,18 @@ public class Controller implements ActionListener{
 	public void actionPerformed(ActionEvent arg0) {		
 
 		String action = arg0.getActionCommand();
-		//System.out.println(action);
 		if (action.equals("Tout")) {			
-			//List<News> news = new ArrayList<News>();
 			theDisplay = "All";
-			/*for(Feed feed : feedTreePicker.getSelectedFeeds())
-			{
-				if(feed == null)
-					continue;						
-
-				for(News actu : feed.getListNews())
-				{
-					if(actu == null)
-						continue;							
-					news.add(actu);
-				}					
-
-			}*/
 			toolbar.getFavBtn().setSelected(false);
 			toolbar.getReadBtn().setSelected(false);
 
 			newsList.changeNews(news,theDisplay);
 
-
-
-
 		}
 
 		if (action.equals("Non lus")) {			
 
-			//List<News> news = new ArrayList<News>();
 			theDisplay = "Not Read";
-			/*for(Feed feed : feedTreePicker.getSelectedFeeds())
-			{
-				if(feed == null)
-					continue;						
-
-				for(News actu : feed.getListNews())
-				{
-					if(actu == null)
-						continue;							
-
-					if(actu.isRead()==false)
-					{
-						news.add(actu);
-					}
-
-				}	
-
-
-			}*/
 			toolbar.getFavBtn().setSelected(false);
 			toolbar.getReadBtn().setSelected(false);
 			newsList.changeNews(news,theDisplay);
@@ -287,11 +248,7 @@ public class Controller implements ActionListener{
 
 		if (action.equals("Lus")) {			
 
-			//List<News> news = new ArrayList<News>();
 			theDisplay = "Read";
-			
-
-
 			
 			toolbar.getFavBtn().setSelected(false);
 			toolbar.getReadBtn().setSelected(false);
@@ -323,13 +280,12 @@ public class Controller implements ActionListener{
 				e.printStackTrace();
 			}*/
 			
-			feedManager.merge();
+			//feedManager.merge();
 			model.notifyObserver();
 			
 			
 		}
-		if (action.equals("Read")) {			
-			//System.out.println("Read");	
+		if (action.equals("Read")) {				
 
 			News newsSelected = this.getSelectedNews();
 
@@ -375,7 +331,7 @@ public class Controller implements ActionListener{
 		if (action.equals("About")) {			
 			
 			JDialog Dev = new JDialog();
-			JOptionPane.showMessageDialog(Dev,"Developp�s par plusieurs moustachus et quelques Zboubs", "Actu-RSS",new Integer(JOptionPane.INFORMATION_MESSAGE).intValue());
+			JOptionPane.showMessageDialog(Dev,"Developpés par plusieurs moustachus et quelques Zboubs", "Actu-RSS",new Integer(JOptionPane.INFORMATION_MESSAGE).intValue());
 		}
 		if (action.equals("OkPref")) {
 			pref.finishDialog();
