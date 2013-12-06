@@ -65,10 +65,12 @@ public class Controller implements ActionListener {
 		newsList = mainPanel.getNewsList();
 		theDisplay = defaultDisplay;
 
-		feedManager.setOldListCategory((ArrayList<Category>) mainPanel
-				.getCategoryList());
-
-		ArrayList<Category> categoryListTest = new ArrayList<Category>();
+		//TODO virer le cast en ArrayList<Category>
+		//feedManager.setOldListCategory((ArrayList<Category>) mainPanel.getCategoryList());
+		this.model.loadAllFromDB();
+		this.mainPanel.setCategoryList(feedManager.getOldListCategory());
+		
+		/*ArrayList<Category> categoryListTest = new ArrayList<Category>();
 
 		News n1 = new News(
 				"Sosh : pas de hausse de la TVA ? [iGen]",
@@ -140,7 +142,7 @@ public class Controller implements ActionListener {
 
 		Feed macge = new Feed(1, "MacGeneration", "http://www.macg.co",
 				macGenerationList);
-		Feed macbidouille = new Feed(1, "MacBidouille",
+		Feed macbidouille = new Feed(2, "MacBidouille",
 				"http://www.macbidouille.com", macbidouilleList);
 		Feed korben = new Feed(3, "Korben", "http://www.korben.info",
 				korbenList);
@@ -183,7 +185,7 @@ public class Controller implements ActionListener {
 		web.getListFeed().add(pressecitron);
 
 		categoryListTest.add(mac);
-		categoryListTest.add(web);
+		categoryListTest.add(web);*/
 
 		// feedManager.setListCategory(categoryListTest);
 

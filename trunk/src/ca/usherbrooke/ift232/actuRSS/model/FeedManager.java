@@ -61,6 +61,9 @@ public class FeedManager {
 		this.oldListCategory.clear();
 		listCategory.clear();
 		this.oldListCategory = newList;
+		for(Category cat : oldListCategory)
+			System.out.println(cat);
+		System.out.println();
 	}
 	
 	public void addFeed(Feed feed, Category cat)

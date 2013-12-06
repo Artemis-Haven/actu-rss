@@ -79,7 +79,7 @@ public class Model extends Observable{
 		
 	}
 	
-	private void loadAllFromDB() {
+	public void loadAllFromDB() {
 		try {
 			feedManager.setOldListCategory(dbManager.getAllCategories());
 		} catch (SQLException e) {

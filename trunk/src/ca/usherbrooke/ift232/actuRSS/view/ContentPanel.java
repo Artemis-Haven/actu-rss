@@ -43,7 +43,8 @@ public class ContentPanel extends XHTMLPanel {
 			System.out.println("Impossible de trouver la feuille de style.");
 		}
 
-		String fullHTML = "<html><head><style type=\"text/css\">"
+		String fullHTML = ""
+				+ "<html><head><style type=\"text/css\">"
 				+ style
 				+ "</style></head><body><div class=\"header\"><div class=\"title\">"
 				+ title + "</div><div class=\"feedName\">" + feed

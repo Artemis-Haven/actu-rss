@@ -100,7 +100,7 @@ public class MainPanel extends JPanel {
 		News mac = new News(title,"url1",author,date,content,false,false);
 		*/
 		
-		News n1 = new News("Sosh : pas de hausse de la TVA ? [iGen]", "http://feed.macg.co/c/302/f/435189/s/34620909/sc/23/l/0L0Sigen0Bfr0Crumeurs0Csosh0Epas0Ede0Ehausse0Ede0Ela0Etva0E10A9158/story01.htm", "Christophe Laporte", new GregorianCalendar(), "Aux dernières nouvelles, Sosh ne répercuterait pas sur ses prix la hausse de la TVA qui doit intervenir le 1er janvier 2014. Il s’agit pour le moment d’un bruit de couloir, qui pourrait être confirmé dans la semaine. ", false, false);
+		/*News n1 = new News("Sosh : pas de hausse de la TVA ? [iGen]", "http://feed.macg.co/c/302/f/435189/s/34620909/sc/23/l/0L0Sigen0Bfr0Crumeurs0Csosh0Epas0Ede0Ehausse0Ede0Ela0Etva0E10A9158/story01.htm", "Christophe Laporte", new GregorianCalendar(), "Aux dernières nouvelles, Sosh ne répercuterait pas sur ses prix la hausse de la TVA qui doit intervenir le 1er janvier 2014. Il s’agit pour le moment d’un bruit de couloir, qui pourrait être confirmé dans la semaine. ", false, false);
 		News n2 = new News("Apple Store : des financements pour les entreprises", "http://feed.macg.co/c/302/f/435189/s/34628705/sc/23/l/0L0Smacg0Bco0C0Cmac0C20A130C120Capple0Estore0Edes0Efinancements0Epour0Eles0Eentreprises0E78495/story01.htm", "Christophe Laporte", new GregorianCalendar(), "Jusqu’à la fin de l’année, Apple propose deux formules pour permettre aux professionnels de louer ou acheter ses solutions à des conditions intéressantes.", false, false);
 		
 		News n3 = new News("Une alternative à Time Machine", "http://www.macbidouille.com/news/2013/12/03/une-alternative-a-time-machine", "lionel@macbidouille.com (Lionel)", new GregorianCalendar(), "Time Machine a eu l'indéniable intérêt de sensibiliser le plus grand nombre à la sauvegarde et inciter l'essentiel des utilisateurs de Mac à s'y mettre enfin. Toutefois, si le système d'Apple est très simple d'utilisation, il manque de souplesse pour une utilisation plus professionnelle des sauvegardes. Un logiciel, Qrecall, va bien plus loin que ce que propose Apple (Merci Roderich).", false, false);
@@ -119,7 +119,7 @@ public class MainPanel extends JPanel {
 		
 		
 		Feed macge = new Feed(1, "MacGeneration", "http://feed.macgeneration.com/megaflux", macGenerationList);
-		Feed macbidouille = new Feed(1, "MacBidouille", "http://feeds.macbidouille.com/macbidouille/", macbidouilleList);
+		Feed macbidouille = new Feed(2, "MacBidouille", "http://feeds.macbidouille.com/macbidouille/", macbidouilleList);
 		Feed korben = new Feed(3, "Korben", "http://www.korben.info/feed", korbenList);
 		Feed pressecitron = new Feed(4, "Presse-citron", "http://www.presse-citron.net/feed", pressecitronList);
 
@@ -157,7 +157,7 @@ public class MainPanel extends JPanel {
 		web.getListFeed().add(pressecitron);		
 		
 		categoryList.add(mac);
-		categoryList.add(web);
+		categoryList.add(web);*/
 		
 
 		this.setLayout(new BorderLayout());
@@ -181,8 +181,10 @@ public class MainPanel extends JPanel {
 
 		//On ajoute le panel (scrollable) des flux à gauche
 		innerSplitPane.setLeftComponent(new JScrollPane(feedTreePicker));
+		innerSplitPane.getLeftComponent().setMinimumSize(new Dimension(150, 0));
 		//On ajoute le panel (scrollable) des news au centre
 		innerSplitPane.setRightComponent(new JScrollPane(newsList));
+		innerSplitPane.getRightComponent().setMinimumSize(new Dimension(150, 0));
 		//On ajoute le panel contenant feedTree et newsList à gauche
 		mainSplitPane.setLeftComponent(innerSplitPane);
 		//On ajoute le panel du contenu de la news à droite
