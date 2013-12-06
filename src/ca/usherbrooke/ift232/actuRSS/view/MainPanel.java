@@ -123,10 +123,10 @@ public class MainPanel extends JPanel {
 		Feed korben = new Feed(3, "Korben", "http://www.korben.info/feed", korbenList);
 		Feed pressecitron = new Feed(4, "Presse-citron", "http://www.presse-citron.net/feed", pressecitronList);
 
-		//n1.setFeed(macge);
-		//macge.getListNews().add(n1);
-		//n2.setFeed(macge);
-		//macge.getListNews().add(n2);		
+		n1.setFeed(macge);
+		macge.getListNews().add(n1);
+		n2.setFeed(macge);
+		macge.getListNews().add(n2);		
 
 		n3.setFeed(macbidouille);
 		macbidouille.getListNews().add(n3);
@@ -151,7 +151,7 @@ public class MainPanel extends JPanel {
 		Category mac = new Category(1, "Actu Mac", macList);		
 		Category web = new Category(2, "Actu Web", webList);
 		
-		//mac.getListFeed().add(macge);		
+		mac.getListFeed().add(macge);		
 		mac.getListFeed().add(macbidouille);		
 		web.getListFeed().add(korben);
 		web.getListFeed().add(pressecitron);		
@@ -166,6 +166,7 @@ public class MainPanel extends JPanel {
 
 		// Création des éléments centraux de la fenetre
 		this.feedTreePicker = new TreePicker(categoryList, false);
+		
 		this.innerSplitPane = new JSplitPane();
 		this.newsList = new ActuList();
 		//this.newsList = new ActuList(f3List);

@@ -17,7 +17,7 @@ import ca.usherbrooke.ift232.actuRSS.Feed;
 
 public class TreePicker extends JTree {
 	
-	/**TreePicker : sert à sélectionner l'arbre de catégories souhaité
+	/**TreePicker : sert ï¿½ sï¿½lectionner l'arbre de catï¿½gories souhaitï¿½
 	 * @param categories
 	 * @param multipleSelection
 	 */
@@ -25,7 +25,7 @@ public class TreePicker extends JTree {
 			boolean multipleSelection) {
 		super(generateHierarchy(categories));
 		this.setRootVisible(false);
-
+		
 		// Multiple selection or not (Ternary operation ftw)
 		int selectModel = (multipleSelection) ? TreeSelectionModel.DISCONTIGUOUS_TREE_SELECTION
 				: TreeSelectionModel.DISCONTIGUOUS_TREE_SELECTION;
@@ -48,12 +48,12 @@ public class TreePicker extends JTree {
 	}
 
 	/**
-	 * Génère une hiérarchie (Catégorie => Source) à partir d'un dictionnaire.
+	 * Gï¿½nï¿½re une hiï¿½rarchie (Catï¿½gorie => Source) ï¿½ partir d'un dictionnaire.
 	 * 
 	 * @param categories
 	 *            Dictionnaire
 	 * 
-	 * @return Hiérarchie générée.
+	 * @return Hiï¿½rarchie gï¿½nï¿½rï¿½e.
 	 */
 	private static DefaultMutableTreeNode generateHierarchy(
 			List<Category> categories) {
@@ -88,12 +88,16 @@ public class TreePicker extends JTree {
 
 		this.setSelectionPaths(null);
 
+		for(int i = 0 ; i < this.getRowCount() ; i++) {
+			this.expandRow(i);
+		}
+
 	}
 
 	/**
-	 * Sert à obtenir la liste des sources sélectionnées
+	 * Sert ï¿½ obtenir la liste des sources sï¿½lectionnï¿½es
 	 * 
-	 * @return Liste des source sélectionnées
+	 * @return Liste des source sï¿½lectionnï¿½es
 	 */
 	public List<Feed> getSelectedFeeds() {
 		List<Feed> feedSelected = new ArrayList<Feed>();
@@ -116,7 +120,7 @@ public class TreePicker extends JTree {
 
 	private final EventListenerList listenerList = new EventListenerList();
 
-	/**Permet d'ajouter un feed à l'instance de suivi des feeds
+	/**Permet d'ajouter un feed ï¿½ l'instance de suivi des feeds
 	 * @param feedSelectedListener
 	 */
 	public void addFeedSelectedListener(

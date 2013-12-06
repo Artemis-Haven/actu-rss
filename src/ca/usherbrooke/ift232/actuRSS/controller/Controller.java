@@ -147,10 +147,10 @@ public class Controller implements ActionListener {
 		Feed pressecitron = new Feed(4, "Presse-citron",
 				"http://www.presse-citron.net", pressecitronList);
 
-		// n1.setFeed(macge);
-		// macge.getListNews().add(n1);
-		// n2.setFeed(macge);
-		// macge.getListNews().add(n2);
+		 n1.setFeed(macge);
+		 macge.getListNews().add(n1);
+		 n2.setFeed(macge);
+		 macge.getListNews().add(n2);
 
 		n3.setFeed(macbidouille);
 		macbidouille.getListNews().add(n3);
@@ -177,7 +177,7 @@ public class Controller implements ActionListener {
 		Category mac = new Category(1, "Actu Mac", macList);
 		Category web = new Category(2, "Actu Web", webList);
 
-		// mac.getListFeed().add(macge);
+		 mac.getListFeed().add(macge);
 		mac.getListFeed().add(macbidouille);
 		web.getListFeed().add(korben);
 		web.getListFeed().add(pressecitron);

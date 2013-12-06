@@ -38,7 +38,7 @@ public class DialogAddFeed extends JDialog {
 	JPanel urlpanel;
 	JPanel categorypanel;
 	JButton newCategory;
-	JComboBox<String> category;
+	JComboBox category;
 	JTextField name;
 	JTextField url;
 	String thename;
