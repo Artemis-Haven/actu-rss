@@ -34,6 +34,9 @@ public class DialogEditFeed  extends JDialog {
 	JComboBox<String> category;
 	JTextField name;
 	JTextField url;
+	String thename;
+	String theurl;
+	String thecategory;
 
 	public DialogEditFeed(JFrame parent, String title, boolean modal){
 		super(parent, title, modal);
@@ -116,8 +119,12 @@ public class DialogEditFeed  extends JDialog {
 		else if(category.getSelectedIndex() == 0){
 			JOptionPane.showMessageDialog(null, "Categorie manquant", "Erreur", JOptionPane.WARNING_MESSAGE);
 		}
-		else	
+		else{
+			thename = name.getText();
+			theurl = url.getText();
+			thecategory = (String) category.getSelectedItem();
 			closeDialog();
+		}
 	}
 
 	public void closeDialog(){
@@ -145,8 +152,23 @@ public class DialogEditFeed  extends JDialog {
 		}
 	}
 	
+	public String getName(){
+		return thename;
+	}
+	
+	public String getUrl(){
+		return theurl;
+	}
+	
+	public String getCategory(){
+		return thecategory;
+	} 
 	public void setFeed(Feed feed){
 		this.feed = feed;
+	}
+	
+	public Feed getFeed(){
+		return this.feed;
 	}
 	
 	public void addListener(ActionListener e)

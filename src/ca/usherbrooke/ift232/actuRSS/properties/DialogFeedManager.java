@@ -136,7 +136,7 @@ public class DialogFeedManager extends ParamDialog {
 				control.add(delete,"10, 18");
 
 				update = new JButton("Modifier");
-				//update.setEnabled(false);
+				update.setEnabled(false);
 				update.setActionCommand("EditSource");
 				control.add(update,"10, 28");
 
@@ -161,6 +161,19 @@ public class DialogFeedManager extends ParamDialog {
 		categories = list;
 		tree.refreshFeeds(categories);
 		
+	}
+	
+	public void putEditable(){
+		this.delete.setEnabled(true);
+		this.update.setEnabled(true);
+	}
+	
+	public void putNotEditable(){
+		this.delete.setEnabled(false);
+		this.update.setEnabled(false);
+	}
+	public TreePicker getManageTree(){
+		return tree;
 	}
 
 	public void addListener(ActionListener e)

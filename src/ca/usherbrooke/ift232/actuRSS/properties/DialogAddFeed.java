@@ -16,7 +16,16 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import ca.usherbrooke.ift232.actuRSS.Category;
-
+/**
+ * Classe manipulant l'interface graphique gérant l'ajout d'un feed
+ * 
+ * @author bastien
+ *
+ */
+/**
+ * @author bastien
+ *
+ */
 public class DialogAddFeed extends JDialog {
 
 	ArrayList<String> listeCategories = new ArrayList<String>();
@@ -32,6 +41,10 @@ public class DialogAddFeed extends JDialog {
 	JComboBox<String> category;
 	JTextField name;
 	JTextField url;
+	String thename;
+	String theurl;
+	String thecategory;
+	
 
 	public DialogAddFeed(JFrame parent, String title, boolean modal){
 		super(parent, title, modal);
@@ -43,6 +56,10 @@ public class DialogAddFeed extends JDialog {
 		initDialog();
 	}
 
+	/**
+	 * Initialise l'interface graphique
+	 * 
+	 */
 	public void initDialog() {
 		content = new JPanel();
 
@@ -98,6 +115,7 @@ public class DialogAddFeed extends JDialog {
 
 	}
 
+	
 	public void showDialog(){
 		this.setVisible(true);
 	}
@@ -111,8 +129,12 @@ public class DialogAddFeed extends JDialog {
 		}
 		else if(category.getSelectedIndex() == 0){
 			JOptionPane.showMessageDialog(null, "Categorie manquant", "Erreur", JOptionPane.WARNING_MESSAGE);
-		}else
+		}else{
+			thename = name.getText();
+			theurl = url.getText();
+			thecategory = (String) category.getSelectedItem();
 			closeDialog();
+		}
 	}
 
 	public void closeDialog(){
@@ -135,7 +157,14 @@ public class DialogAddFeed extends JDialog {
 	    else listeCategories.add(nom);
 		
 	}
+	
+	
+	/**
+	 * Construit la liste des noms des categories
+	 * @param categories
+	 */
 	public void listerCategories(List<Category> categories) {
+		listeCategories.clear();
 		for(Category c : categories){
 			listeCategories.add(c.getName());
 		}
@@ -143,6 +172,18 @@ public class DialogAddFeed extends JDialog {
 		for(String s : listeCategories){
 			category.addItem(s);
 		}
+	}
+	
+	public String getName(){
+		return thename;
+	}
+	
+	public String getUrl(){
+		return theurl;
+	}
+	
+	public String getCategory(){
+		return thecategory;
 	}
 	
 	public void addListener(ActionListener e)
