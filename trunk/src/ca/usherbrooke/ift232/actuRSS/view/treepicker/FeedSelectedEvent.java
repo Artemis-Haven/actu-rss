@@ -9,7 +9,7 @@ public class FeedSelectedEvent extends ChangeEvent
 
 	private Feed _selectedFeed;
 	
-	/**FeedSelectedEvent : permet de sélectionner un évènement particulier
+	/**FeedSelectedEvent : permet de sï¿½lectionner un ï¿½vï¿½nement particulier
 	 * @param objSource
 	 * @param selectedSource
 	 */
@@ -21,7 +21,7 @@ public class FeedSelectedEvent extends ChangeEvent
 	}
 	
 	/**
-	 * getSelectedSource : Permet de récupérer le feed sélectionner
+	 * getSelectedSource : Permet de rï¿½cupï¿½rer le feed sï¿½lectionner
 	 * @return this._selectedFeed 
 	 */
 	public Feed getSelectedSource()

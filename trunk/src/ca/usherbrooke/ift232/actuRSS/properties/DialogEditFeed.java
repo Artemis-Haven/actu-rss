@@ -17,11 +17,12 @@ import javax.swing.JTextField;
 
 import ca.usherbrooke.ift232.actuRSS.Category;
 import ca.usherbrooke.ift232.actuRSS.Feed;
+import ca.usherbrooke.ift232.actuRSS.News;
 
 public class DialogEditFeed  extends JDialog {
 
 	ArrayList<String> listeCategories = new ArrayList<String>();
-	Feed feed = null;
+	Feed feed = new Feed();
 	JPanel content;
 	JPanel control;
 	JButton okbutton;
@@ -53,7 +54,7 @@ public class DialogEditFeed  extends JDialog {
 
 		namepanel = new JPanel();
 		namepanel.setBorder(BorderFactory.createTitledBorder("Nom du Flux"));
-		name = new JTextField("test");//feed.getTitle());
+		name = new JTextField("");
 		name.setPreferredSize(new Dimension(300,20));
 		name.setMaximumSize(new Dimension(300,20));
 		name.setMinimumSize(new Dimension(200,20));
@@ -61,7 +62,7 @@ public class DialogEditFeed  extends JDialog {
 		
 		urlpanel = new JPanel();
 		urlpanel.setBorder(BorderFactory.createTitledBorder("URL du Flux"));
-		url = new JTextField("test");//feed.getUrl());
+		url = new JTextField("");
 		url.setPreferredSize(new Dimension(300,20));
 		url.setMaximumSize(new Dimension(300,20));
 		url.setMinimumSize(new Dimension(200,20));
@@ -71,9 +72,7 @@ public class DialogEditFeed  extends JDialog {
 		categorypanel.setBorder(BorderFactory.createTitledBorder("Categories"));
 		categorypanel.setPreferredSize(new Dimension(300, 60));
 		category = new JComboBox();
-		for(String s : listeCategories){
-			category.addItem(s);
-		}
+		category.addItem(listeCategories.get(0));
 		newCategory = new JButton("Nouvelle Categorie");
 		newCategory.setActionCommand("NewCatEditSource");
 		categorypanel.add(category);
@@ -106,6 +105,8 @@ public class DialogEditFeed  extends JDialog {
 	}
 
 	public void showDialog(){
+		name.setText(feed.getTitle());
+		url.setText(feed.getUrl());
 		this.setVisible(true);
 	}
 	
@@ -134,28 +135,39 @@ public class DialogEditFeed  extends JDialog {
 	}
 
 	public void closeDialog(){
+		renewDialog();
 		this.dispose();
 	}
 	
 	public void renewDialog(){
-		name.setText("test");//feed.getTitle());
-		url.setText("test");//feed.getUrl());
+		name.setText(feed.getTitle());
+		url.setText(feed.getUrl());
 		category.setSelectedIndex(0);
 	}
 
-	public void newCategorie(){
+	public String newCategorie(){
 	    String nom = JOptionPane.showInputDialog(null, "Nouvelle categorie :", "", JOptionPane.QUESTION_MESSAGE);
-		listeCategories.add(nom);
+	    if(name.getText().equals("")){
+			JOptionPane.showConfirmDialog(null, "Nom manquant", "Erreur", JOptionPane.WARNING_MESSAGE);
+		}
+	    else {
+	    	category.addItem(nom);
+	    	category.setSelectedItem(nom);
+	    }
+	    return nom;
 	}
 	
 	public void listerCategories(List<Category> categories) {
 		for(Category c : categories){
 			listeCategories.add(c.getName());
 		}
-		category.removeAll();
+		category.removeAllItems();
 		for(String s : listeCategories){
 			category.addItem(s);
+			System.out.println(s);
 		}
+		listeCategories.clear();
+		listeCategories.add("Choisir une categorie");
 	}
 	
 	public String getName(){
@@ -166,6 +178,10 @@ public class DialogEditFeed  extends JDialog {
 		return theurl;
 	}
 	
+	public int getId(){
+		return feed.getId();
+	}
+	
 	public String getCategory(){
 		return thecategory;
 	} 
@@ -173,6 +189,9 @@ public class DialogEditFeed  extends JDialog {
 		this.feed = feed;
 	}
 	
+	public List<News> getNews(){
+		return this.feed.getListNews();
+	}
 	public Feed getFeed(){
 		return this.feed;
 	}

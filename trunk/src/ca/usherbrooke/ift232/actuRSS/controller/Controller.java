@@ -216,9 +216,28 @@ public class Controller implements ActionListener{
 			}
 
 		});
+		
+		gest.getManageTree().addFeedSelectedListener(new FeedSelectedListener()
+		{
+
+			@Override
+			public void onFeedSelected(FeedSelectedEvent event) 
+			{		
+				for(Feed f : gest.getManageTree().getSelectedFeeds()){
+					
+					if(f == null){
+						continue;
+					}
+					else{
+						editFeed.setFeed(f);
+						gest.putEditable();
+						break;
+					}
+				}
+			}	
+		});			
 
 	}
-
 	public News getSelectedNews() {return newsList.getSelectedNew();}	
 
 
@@ -319,14 +338,17 @@ public class Controller implements ActionListener{
 		if (action.equals("GererSources")) {
 			gest.showDialog();
 		}
-		if (action.equals("Help")) {			
-				
+		if (action.equals("Help")) {
+			JDialog Dev = new JDialog();
+			JOptionPane.showMessageDialog(Dev,"Contactez nous!!!!", "Help",new Integer(JOptionPane.INFORMATION_MESSAGE).intValue());
 		}
 		if (action.equals("About")) {			
 			
 			JDialog Dev = new JDialog();
-			JOptionPane.showMessageDialog(Dev,"Developpés par plusieurs moustachus et quelques Zboubs", "Actu-RSS",new Integer(JOptionPane.INFORMATION_MESSAGE).intValue());
+			JOptionPane.showMessageDialog(Dev,"Developpés par plusieurs moustachus et quelques Zboubs", "About",new Integer(JOptionPane.INFORMATION_MESSAGE).intValue());
 		}
+		//Preference
+		
 		if (action.equals("OkPref")) {
 			pref.finishDialog();
 		}
@@ -339,21 +361,16 @@ public class Controller implements ActionListener{
 		if(action.equals("OpenFile")){
 			pref.setCSS();
 		}
+		
+		//Gestion source
+		
+		//Ajout source
 		if (action.equals("AddSource")) {	
 			addFeed.listerCategories(feedManager.getOldListCategory());
-			addFeed.showDialog();			
-		}
-		if (action.equals("DeleteSource")) {			
-			
-		}
-		if (action.equals("EditSource")) {
-			editFeed.listerCategories(feedManager.getOldListCategory());
-			editFeed.showDialog();
-		}
-		if(action.equals("ExitSource")){
-			gest.closeDialog();
+			addFeed.showDialog();
 		}
 		
+		//Valide l'ajout du flux et l'ajoute
 		if(action.equals("OkAddSource")){
 			if(addFeed.Valide()){
 				addFeed.finishedDialog();
@@ -361,30 +378,60 @@ public class Controller implements ActionListener{
 				String str = addFeed.getCategory();
 				Category cat = feedManager.getCategoryByName(str);
 				feedManager.addFeed(feed, cat);
-				
+				gest.getManageTree().refreshFeeds(feedManager.getOldListCategory());
 				//System.out.println(feedManager.getOldListCategory().toString());
 				
 				model.notifyObserver();
 			}
 		}
+		//Annule l'ajout
 		if(action.equals("CancelAddSource")){
 			addFeed.closeDialog();
 		}
+		//Remet a default les parametre de la source
+		
 		if(action.equals("RenewAddSource")){
 			addFeed.renewDialog();
 		}
-		
+		//Ajoute un categorie
 		if(action.equals("NewCatAddSource")){
-			addFeed.newCategorie();
+			String newCat = addFeed.newCategorie();
+			feedManager.getOldListCategory().add(new Category(-1, newCat,new ArrayList<Feed>()));
+			gest.getManageTree().refreshFeeds(feedManager.getOldListCategory());
+			
+			model.notifyObserver();
 		}
-		if(action.equals("NewCatEditSource")){
-			editFeed.newCategorie();
+		
+		// Supprime le flux
+		if (action.equals("DeleteSource")) {
+			/*String str = editFeed.getCategory();
+			Category oldcat = feedManager.getCategoryByName(str);
+			feedManager.removeFeed(editFeed.getFeed(),oldcat);
+			model.notifyObserver();*/
+			
+			
 		}
+		
+		// Edite le flux
+		
+		if (action.equals("EditSource")) {
+			editFeed.listerCategories(feedManager.getOldListCategory());
+			editFeed.showDialog();
+		}
+		
 		if(action.equals("OkEditSource")){
 			if(editFeed.Valide()){
 				editFeed.finishedDialog();
-			}
-			
+				Feed feed = new Feed(editFeed.getId(), editFeed.getName(), editFeed.getUrl(),editFeed.getNews());	
+				String str = editFeed.getCategory();
+				Category cat = feedManager.getCategoryByName(str);
+				Category oldcat = feedManager.getCategoryByName(str);
+				feedManager.removeFeed(editFeed.getFeed(),oldcat);
+				feedManager.addFeed(feed, cat);
+				gest.getManageTree().refreshFeeds(feedManager.getOldListCategory());
+				
+				model.notifyObserver();
+			}	
 		}
 		if(action.equals("CancelEditSource")){
 			editFeed.closeDialog();
@@ -392,6 +439,22 @@ public class Controller implements ActionListener{
 		if(action.equals("RenewEditSource")){
 			editFeed.renewDialog();
 		}
+		
+		if(action.equals("NewCatEditSource")){
+			String newCat = editFeed.newCategorie();
+			feedManager.getOldListCategory().add(new Category(-1, newCat,new ArrayList<Feed>()));
+			gest.getManageTree().refreshFeeds(feedManager.getOldListCategory());
+			
+			model.notifyObserver();
+		}
+		
+		// Sort de la fenetre de gestion
+		
+		if(action.equals("ExitSource")){
+			gest.closeDialog();
+		}
+		
+		
 		
 
 	}

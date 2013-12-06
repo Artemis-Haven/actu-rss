@@ -38,7 +38,6 @@ public class Model extends Observable{
 		dbManager = new DatabaseManager(new Database("acturss.db"));
 		feedManager = new FeedManager();
 		parser = new RssParser();
-		
 		/*
 		dbManager.createDB();
 
