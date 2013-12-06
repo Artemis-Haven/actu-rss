@@ -37,6 +37,7 @@ public class Model extends Observable{
 
 		dbManager = new DatabaseManager(new Database("acturss.db"));
 		feedManager = new FeedManager();
+		parser = new RssParser();
 		
 		/*
 		dbManager.createDB();
@@ -111,7 +112,8 @@ public class Model extends Observable{
                 for(Feed feed : category.getListFeed()) {
                         // On rÃ©cupÃ¨re les fichiers via leur url,
                         // on les parse
-                        // et on les envoie dans le feedManager
+            
+                	// et on les envoie dans le feedManager
                         //File f = new File(feed.getUrl());
                         docFeed = Model.obtainDocument(feed.getUrl());
                         if (docFeed != null) {

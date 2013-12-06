@@ -118,10 +118,10 @@ public class MainPanel extends JPanel {
 		ArrayList<News> pressecitronList = new ArrayList<News>();
 		
 		
-		Feed macge = new Feed(1, "MacGeneration", "http://www.macg.co", macGenerationList);
-		Feed macbidouille = new Feed(1, "MacBidouille", "http://www.macbidouille.com", macbidouilleList);
-		Feed korben = new Feed(3, "Korben", "http://www.korben.info", korbenList);
-		Feed pressecitron = new Feed(4, "Presse-citron", "http://www.presse-citron.net", pressecitronList);
+		Feed macge = new Feed(1, "MacGeneration", "http://feed.macgeneration.com/megaflux", macGenerationList);
+		Feed macbidouille = new Feed(1, "MacBidouille", "http://feeds.macbidouille.com/macbidouille/", macbidouilleList);
+		Feed korben = new Feed(3, "Korben", "http://www.korben.info/feed", korbenList);
+		Feed pressecitron = new Feed(4, "Presse-citron", "http://www.presse-citron.net/feed", pressecitronList);
 
 		//n1.setFeed(macge);
 		//macge.getListNews().add(n1);

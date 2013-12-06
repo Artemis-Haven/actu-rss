@@ -265,14 +265,14 @@ public class Controller implements ActionListener{
 		if (action.equals("Sync")) {			
 
 			System.out.println("lolilol");	
-			/*try {
-				//model.synchronize();
+			try {
+				model.synchronize();
 				
 				//feedManager.getOldListCategory();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}*/
+			}
 			
 			//feedManager.merge();
 			model.notifyObserver();

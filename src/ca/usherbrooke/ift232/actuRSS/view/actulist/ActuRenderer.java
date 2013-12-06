@@ -2,6 +2,7 @@ package ca.usherbrooke.ift232.actuRSS.view.actulist;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -20,7 +21,7 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
 
-public class ActuRenderer extends JPanel implements ListCellRenderer<News>
+public class ActuRenderer extends JPanel implements ListCellRenderer
 {
 
 	private static final Color SELECTED_BACKGROUND =new Color(146, 200, 230);
@@ -85,11 +86,11 @@ public class ActuRenderer extends JPanel implements ListCellRenderer<News>
 						.length()));
 		// On n'affiche que les 100 premiers caract�res
 
-		add(lblContentQuickView, "2, 6, 27, 1");
+		//add(lblContentQuickView, "2, 6, 27, 1");
 
 		mayBeBoldLabels.add(lblTitle);
-		//mayBeBoldLabels.add(lblDate);
-		mayBeBoldLabels.add(lblContentQuickView);
+		mayBeBoldLabels.add(lblDate);
+		//mayBeBoldLabels.add(lblContentQuickView);
 		
 	}
 
@@ -115,8 +116,8 @@ public class ActuRenderer extends JPanel implements ListCellRenderer<News>
 	}
 
 	@Override
-	public Component getListCellRendererComponent(JList<? extends News> list,
-			News value, int index, boolean isSelected, boolean cellHasFocus)
+	public Component getListCellRendererComponent(JList list,
+			Object value, int index, boolean isSelected, boolean cellHasFocus)
 	{
 		News news = (News) value;
 		

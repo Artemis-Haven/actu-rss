@@ -31,7 +31,7 @@ public class DialogEditFeed  extends JDialog {
 	JPanel urlpanel;
 	JPanel categorypanel;
 	JButton newCategory;
-	JComboBox<String> category;
+	JComboBox category;
 	JTextField name;
 	JTextField url;
 	String thename;
@@ -70,7 +70,7 @@ public class DialogEditFeed  extends JDialog {
 		categorypanel = new JPanel();
 		categorypanel.setBorder(BorderFactory.createTitledBorder("Categories"));
 		categorypanel.setPreferredSize(new Dimension(300, 60));
-		category = new JComboBox<String>();
+		category = new JComboBox();
 		for(String s : listeCategories){
 			category.addItem(s);
 		}
