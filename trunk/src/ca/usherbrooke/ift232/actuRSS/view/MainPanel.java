@@ -212,7 +212,12 @@ public class MainPanel extends JPanel {
 		//System.out.println("COUCOU SUCE MA BITE");
 		//System.out.println("COUCOU"+categoryList.toString());
 		this.setCategoryList(categoryList);
-		this.revalidate();
+		System.out.println("Ca devrait marcher connard"+this.categoryList);
+	
+		this.feedTreePicker.repaint();
+		//this.revalidate();
+		this.repaint();
+		
 	}
 	
 	public TreePicker getFeedTreePicker() {
@@ -234,7 +239,10 @@ public class MainPanel extends JPanel {
 
 	public ArrayList<Category> getCategoryList() {return categoryList;}
 	public void setCategoryList(ArrayList<Category> categoryList) {
+		/*this.categoryList.clear();
+		this.categoryList.addAll(categoryList)*/		
 		this.categoryList = categoryList;
+		//System.out.println("\n\n\n\n TEST TEST \n \n "+this.categoryList);
 	}
 
 	public ActuList getNewsList() {return newsList;}

@@ -17,7 +17,7 @@ import ca.usherbrooke.ift232.actuRSS.properties.ProgramProperties;
 public class ActuList extends JList implements ListSelectionListener
 {	
 	
-	/**Constructeur de la liste d'actualité
+	/**Constructeur de la liste d'actualitï¿½
 	 * @param news
 	 */
 	public ActuList(List<News> news) {
@@ -54,7 +54,7 @@ public class ActuList extends JList implements ListSelectionListener
 		return listModelNews;
 	}
 
-	/**Change l'état d'une news
+	/**Change l'ï¿½tat d'une news
 	 * @param news
 	 * @param state
 	 */
@@ -65,7 +65,7 @@ public class ActuList extends JList implements ListSelectionListener
 		this.setModel(modelNews);
 	}
 
-	/**Permet d'initialiser les états de toutes les news de la liste
+	/**Permet d'initialiser les ï¿½tats de toutes les news de la liste
 	 * @param listModel
 	 * @param news
 	 * @param state
@@ -78,22 +78,22 @@ public class ActuList extends JList implements ListSelectionListener
 			
 			if(state.equals("Favorite")){
 				if(element.isFavorite()){
-					System.out.println(element);
+					//System.out.println(element);
 					listModel.addElement(element);
 				}
 			}else if(state.equals("Read")){
 				if(element.isRead()){
 					listModel.addElement(element);
-					System.out.println(element);
+					//System.out.println(element);
 				}
 			}else if(state.equals("Not Read")){
 				if(element.isRead() == false){
 					listModel.addElement(element);
-					System.out.println(element);
+					//System.out.println(element);
 				}
 			}else{
 				listModel.addElement(element);
-				System.out.println(element);
+				//System.out.println(element);
 			}	
 		}
 
@@ -104,7 +104,7 @@ public class ActuList extends JList implements ListSelectionListener
 
 	private final EventListenerList listenerList = new EventListenerList();
 
-	/**Permet d'ajouter une news à l'instance de suivi des news
+	/**Permet d'ajouter une news ï¿½ l'instance de suivi des news
 	 * @param actuSelectedListener
 	 */
 	public void addActuSelectedListener(
@@ -112,7 +112,7 @@ public class ActuList extends JList implements ListSelectionListener
 		listenerList.add(ActuSelectedListener.class, actuSelectedListener);
 	}
 
-	/**Permet de supprimer une news à l'instance de suivi des news
+	/**Permet de supprimer une news ï¿½ l'instance de suivi des news
 	 * @param l
 	 */
 	public void removeActuSelectedListener(ActuSelectedListener l) {
