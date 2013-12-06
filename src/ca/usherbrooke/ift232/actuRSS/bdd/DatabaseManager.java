@@ -74,7 +74,7 @@ public class DatabaseManager {
 	 */
 	public void insertObjetToDB(ArrayList<Category> listCategory) {
 
-		/*for (int i = 0; i < listCategory.size(); i++) {
+		for (int i = 0; i < listCategory.size(); i++) {
 
 			for (int j = 0; j < listCategory.get(i).getListFeed().size(); j++) {
 
@@ -92,17 +92,12 @@ public class DatabaseManager {
 
 			insertCategory(listCategory.get(i));
 
-		}*/
-		
-		for(Category cat : listCategory) {
-			for(Feed f : cat.getListFeed()) {
-				for(News n : f.getListNews()) {
-					insertNews(n, f.getId());
-				}
-				insertFeed(f, cat.getId());
-			}
-			insertCategory(cat);
 		}
+		/*
+		 * for(Category cat : listCategory) { for(Feed f : cat.getListFeed()) {
+		 * for(News n : f.getListNews()) { insertNews(n, f.getId()); }
+		 * insertFeed(f, cat.getId()); } insertCategory(cat); }
+		 */
 
 	}
 
@@ -115,10 +110,19 @@ public class DatabaseManager {
 
 	public void insertCategory(Category category) {
 		try {
-			PreparedStatement prstmt = db.connection
-					.prepareStatement("INSERT INTO Category (Name) VALUES(?)");
-			prstmt.setString(1, category.getName());
+			PreparedStatement prstmt;
+			if (category.getId() < 0) {
+				prstmt = db.connection
+						.prepareStatement("INSERT INTO Category (Name) VALUES(?)");
+				prstmt.setString(1, category.getName());
+			} else {
+				prstmt = db.connection
+						.prepareStatement("INSERT INTO Category (ID, Name) VALUES(?, ?)");
+				prstmt.setLong(1, category.getId());
+				prstmt.setString(2, category.getName());
+			}
 			prstmt.execute();
+			prstmt.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -134,12 +138,23 @@ public class DatabaseManager {
 	 */
 	public void insertFeed(Feed feed, int ID_Category) {
 		try {
-			PreparedStatement prstmt = db.connection
-					.prepareStatement("INSERT INTO Feed (Title, URL, ID_Category) VALUES(?, ?, ?)");
-			prstmt.setString(1, feed.getTitle());
-			prstmt.setString(2, feed.getUrl());
-			prstmt.setInt(3, ID_Category);
+			PreparedStatement prstmt;
+			if(feed.getId() < 0) {
+				prstmt = db.connection
+						.prepareStatement("INSERT INTO Feed (Title, URL, ID_Category) VALUES(?, ?, ?)");
+				prstmt.setString(1, feed.getTitle());
+				prstmt.setString(2, feed.getUrl());
+				prstmt.setInt(3, ID_Category);
+			} else {
+				prstmt = db.connection
+						.prepareStatement("INSERT INTO Feed (ID, Title, URL, ID_Category) VALUES(?, ?, ?, ?)");
+				prstmt.setLong(1, feed.getId());
+				prstmt.setString(2, feed.getTitle());
+				prstmt.setString(3, feed.getUrl());
+				prstmt.setInt(4, ID_Category);
+			}
 			prstmt.execute();
+			prstmt.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -156,7 +171,6 @@ public class DatabaseManager {
 	public void insertNews(News news, int ID_Feed) {
 		int read = 0;
 		int favorite = 0;
-		System.out.println();
 		String date = "";
 		Calendar cal = news.getDate();
 		date = DatabaseUtil.ConvertCalendarToString(cal);
@@ -180,6 +194,7 @@ public class DatabaseManager {
 			prstmt.setInt(7, favorite);
 			prstmt.setInt(8, ID_Feed);
 			prstmt.execute();
+			prstmt.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -289,6 +304,8 @@ public class DatabaseManager {
 
 				list.add(feed);
 			}
+
+			prstmt.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -327,6 +344,8 @@ public class DatabaseManager {
 			news.setFeed(feed);
 			list.add(news);
 		}
+
+		prstmt.close();
 		return list;
 	}
 
@@ -373,6 +392,7 @@ public class DatabaseManager {
 						.prepareStatement("DELETE from Category where ID= ?");
 				prstmt.setInt(1, category.getId());
 				prstmt.execute();
+				prstmt.close();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -387,6 +407,7 @@ public class DatabaseManager {
 						.prepareStatement("DELETE from Feed where ID= ?");
 				prstmt.setInt(1, feed.getId());
 				prstmt.execute();
+				prstmt.close();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -400,6 +421,7 @@ public class DatabaseManager {
 					.prepareStatement("DELETE from News where URL= ?");
 			prstmt.setString(1, news.getUrl());
 			prstmt.execute();
+			prstmt.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
