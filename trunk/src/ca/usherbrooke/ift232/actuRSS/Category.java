@@ -73,10 +73,11 @@ public class Category {
 
 	@Override
 	public String toString() {
-		String resultat = "\n\nCategory [id=" + id + ", name=" + name + "]";
+		/*String resultat = "\n\nCategory [id=" + id + ", name=" + name + "]";
 		for(Feed f : this.getListFeed()) {
 			resultat +=  "\n" + f;
 		}
-		return resultat;
+		return resultat;*/
+		return this.getName();
 	}
 }

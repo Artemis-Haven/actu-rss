@@ -1,5 +1,6 @@
 package ca.usherbrooke.ift232.actuRSS.view.actulist;
 
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +32,7 @@ public class ActuList extends JList implements ListSelectionListener
 		this.setVisibleRowCount(5);
 
 		this.setCellRenderer(new ActuRenderer());
+
 	}
 
 	public ActuList() 
