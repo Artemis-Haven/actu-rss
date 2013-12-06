@@ -96,6 +96,7 @@ public class DialogAddFeed extends JDialog {
 		control = new JPanel();
 
 		okbutton = new JButton("OK");
+		okbutton.setEnabled(false);
 		okbutton.setActionCommand("OkAddSource");
 
 		cancel = new JButton("Annuler");
@@ -120,21 +121,28 @@ public class DialogAddFeed extends JDialog {
 		this.setVisible(true);
 	}
 	
-	public void finishedDialog(){
+	public void verifie(){
+		
+		boolean canNew = true;
+		
 		if(name.getText().equals("")){
-			JOptionPane.showMessageDialog(null, "Nom manquant", "Erreur", JOptionPane.WARNING_MESSAGE);
+			canNew = false;
 		}
 		else if(url.getText().equals("")){
-			JOptionPane.showMessageDialog(null, "URL manquant", "Erreur", JOptionPane.WARNING_MESSAGE);
+			canNew = false;
 		}
 		else if(category.getSelectedIndex() == 0){
-			JOptionPane.showMessageDialog(null, "Categorie manquant", "Erreur", JOptionPane.WARNING_MESSAGE);
-		}else{
+			canNew = false;
+		}
+		else
+			okbutton.setEnabled(true);
+	}
+	
+	public void finishedDialog(){
 			thename = name.getText();
 			theurl = url.getText();
 			thecategory = (String) category.getSelectedItem();
 			closeDialog();
-		}
 	}
 
 	public void closeDialog(){
@@ -164,14 +172,15 @@ public class DialogAddFeed extends JDialog {
 	 * @param categories
 	 */
 	public void listerCategories(List<Category> categories) {
-		listeCategories.clear();
 		for(Category c : categories){
 			listeCategories.add(c.getName());
 		}
-		category.removeAll();
+		category.removeAllItems();
 		for(String s : listeCategories){
 			category.addItem(s);
 		}
+		listeCategories.clear();
+		listeCategories.add("Nouvelle Categorie");
 	}
 	
 	public String getName(){
