@@ -32,7 +32,7 @@ public class DialogEditFeed  extends JDialog {
 	JPanel urlpanel;
 	JPanel categorypanel;
 	JButton newCategory;
-	JComboBox category;
+	JComboBox<String> category;
 	JTextField name;
 	JTextField url;
 	String thename;
@@ -59,7 +59,7 @@ public class DialogEditFeed  extends JDialog {
 		name.setMaximumSize(new Dimension(300,20));
 		name.setMinimumSize(new Dimension(200,20));
 		namepanel.add(name);
-		
+
 		urlpanel = new JPanel();
 		urlpanel.setBorder(BorderFactory.createTitledBorder("URL du Flux"));
 		url = new JTextField("");
@@ -67,7 +67,7 @@ public class DialogEditFeed  extends JDialog {
 		url.setMaximumSize(new Dimension(300,20));
 		url.setMinimumSize(new Dimension(200,20));
 		urlpanel.add(url);
-		
+
 		categorypanel = new JPanel();
 		categorypanel.setBorder(BorderFactory.createTitledBorder("Categories"));
 		categorypanel.setPreferredSize(new Dimension(300, 60));
@@ -77,11 +77,11 @@ public class DialogEditFeed  extends JDialog {
 		newCategory.setActionCommand("NewCatEditSource");
 		categorypanel.add(category);
 		categorypanel.add(newCategory);
-		
+
 		content.add(namepanel,BorderLayout.NORTH);
 		content.add(urlpanel,BorderLayout.WEST);
 		content.add(categorypanel,BorderLayout.EAST);
-		
+
 		control = new JPanel();
 
 		okbutton = new JButton("OK");
@@ -92,13 +92,13 @@ public class DialogEditFeed  extends JDialog {
 
 		defaultbutton = new JButton("Reinitialiser");
 		defaultbutton.setActionCommand("RenewEditSource");
-		
+
 
 		control.add(okbutton);
 		control.add(cancel);
 		control.add(defaultbutton);
-		
-		
+
+
 		this.getContentPane().add(content,BorderLayout.CENTER);
 		this.getContentPane().add(control,BorderLayout.SOUTH);
 
@@ -109,7 +109,7 @@ public class DialogEditFeed  extends JDialog {
 		url.setText(feed.getUrl());
 		this.setVisible(true);
 	}
-	
+
 	public boolean Valide(){
 		if(name.getText().equals("")){
 			JOptionPane.showMessageDialog(null, "Nom manquant", "Erreur", JOptionPane.WARNING_MESSAGE);
@@ -126,19 +126,19 @@ public class DialogEditFeed  extends JDialog {
 		else 
 			return true;
 	}
-	
+
 	public void finishedDialog(){
-			thename = name.getText();
-			theurl = url.getText();
-			thecategory = (String) category.getSelectedItem();
-			closeDialog();
+		thename = name.getText();
+		theurl = url.getText();
+		thecategory = (String) category.getSelectedItem();
+		closeDialog();
 	}
 
 	public void closeDialog(){
 		renewDialog();
 		this.dispose();
 	}
-	
+
 	public void renewDialog(){
 		name.setText(feed.getTitle());
 		url.setText(feed.getUrl());
@@ -146,17 +146,18 @@ public class DialogEditFeed  extends JDialog {
 	}
 
 	public String newCategorie(){
-	    String nom = JOptionPane.showInputDialog(null, "Nouvelle categorie :", "", JOptionPane.QUESTION_MESSAGE);
-	    if(name.getText().equals("")){
-			JOptionPane.showConfirmDialog(null, "Nom manquant", "Erreur", JOptionPane.WARNING_MESSAGE);
+		String nom = JOptionPane.showInputDialog(null, "Nouvelle categorie :", "", JOptionPane.QUESTION_MESSAGE);
+		while(nom != null && nom.equals("")){
+			JOptionPane.showMessageDialog(null, "Nom Categorie invalide", "Erreur", JOptionPane.WARNING_MESSAGE);
+			nom = JOptionPane.showInputDialog(null, "Nouvelle categorie :", "", JOptionPane.QUESTION_MESSAGE);
 		}
-	    else {
-	    	category.addItem(nom);
-	    	category.setSelectedItem(nom);
-	    }
-	    return nom;
+		if(nom != null){
+			category.addItem(nom);
+			category.setSelectedItem(nom);
+		}
+		return nom;
 	}
-	
+
 	public void listerCategories(List<Category> categories) {
 		for(Category c : categories){
 			listeCategories.add(c.getName());
@@ -169,33 +170,33 @@ public class DialogEditFeed  extends JDialog {
 		listeCategories.clear();
 		listeCategories.add("Choisir une categorie");
 	}
-	
+
 	public String getName(){
 		return thename;
 	}
-	
+
 	public String getUrl(){
 		return theurl;
 	}
-	
+
 	public int getId(){
 		return feed.getId();
 	}
-	
+
 	public String getCategory(){
 		return thecategory;
 	} 
 	public void setFeed(Feed feed){
 		this.feed = feed;
 	}
-	
+
 	public List<News> getNews(){
 		return this.feed.getListNews();
 	}
 	public Feed getFeed(){
 		return this.feed;
 	}
-	
+
 	public void addListener(ActionListener e)
 	{
 		okbutton.addActionListener(e);
