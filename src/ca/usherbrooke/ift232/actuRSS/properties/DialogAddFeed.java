@@ -96,7 +96,6 @@ public class DialogAddFeed extends JDialog {
 		control = new JPanel();
 
 		okbutton = new JButton("OK");
-		okbutton.setEnabled(false);
 		okbutton.setActionCommand("OkAddSource");
 
 		cancel = new JButton("Annuler");
@@ -121,27 +120,28 @@ public class DialogAddFeed extends JDialog {
 		this.setVisible(true);
 	}
 	
-	public void verifie(){
-		
-		boolean canNew = true;
-		
+	public boolean Valide(){
 		if(name.getText().equals("")){
-			canNew = false;
+			JOptionPane.showMessageDialog(null, "Nom manquant", "Erreur", JOptionPane.WARNING_MESSAGE);
+			return false;
 		}
 		else if(url.getText().equals("")){
-			canNew = false;
+			JOptionPane.showMessageDialog(null, "URL manquant", "Erreur", JOptionPane.WARNING_MESSAGE);
+			return false;
 		}
 		else if(category.getSelectedIndex() == 0){
-			canNew = false;
+			JOptionPane.showMessageDialog(null, "Categorie manquant", "Erreur", JOptionPane.WARNING_MESSAGE);
+			return false;
 		}
-		else
-			okbutton.setEnabled(true);
+		else 
+			return true;
 	}
 	
 	public void finishedDialog(){
 			thename = name.getText();
 			theurl = url.getText();
 			thecategory = (String) category.getSelectedItem();
+			System.out.println(thecategory);
 			closeDialog();
 	}
 
