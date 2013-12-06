@@ -214,9 +214,10 @@ public class MainPanel extends JPanel {
 		this.setCategoryList(categoryList);
 		System.out.println("Ca devrait marcher connard"+this.categoryList);
 	
-		this.feedTreePicker.repaint();
-		//this.revalidate();
-		this.repaint();
+		this.revalidate();
+		//this.repaint();
+		this.feedTreePicker.refreshFeeds(this.categoryList);
+		
 		
 	}
 	
