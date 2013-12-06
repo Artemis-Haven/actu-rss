@@ -150,6 +150,7 @@ public class DialogFeedManager extends ParamDialog {
 	}
 
 	public void showDialog(){
+		putNotEditable();
 		super.showDialog();
 	}
 
@@ -171,6 +172,10 @@ public class DialogFeedManager extends ParamDialog {
 	public void putNotEditable(){
 		this.delete.setEnabled(false);
 		this.update.setEnabled(false);
+	}
+	
+	public void setTree(TreePicker aTree){
+		tree = aTree;
 	}
 	public TreePicker getManageTree(){
 		return tree;

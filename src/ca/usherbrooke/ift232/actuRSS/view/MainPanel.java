@@ -212,7 +212,7 @@ public class MainPanel extends JPanel {
 		//System.out.println("COUCOU SUCE MA BITE");
 		//System.out.println("COUCOU"+categoryList.toString());
 		this.setCategoryList(categoryList);
-		System.out.println("Ca devrait marcher connard"+this.categoryList);
+		//System.out.println("Ca devrait marcher connard"+this.categoryList);
 	
 		this.revalidate();
 		//this.repaint();

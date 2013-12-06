@@ -141,7 +141,6 @@ public class DialogAddFeed extends JDialog {
 			thename = name.getText();
 			theurl = url.getText();
 			thecategory = (String) category.getSelectedItem();
-			System.out.println(thecategory);
 			closeDialog();
 	}
 
@@ -156,13 +155,16 @@ public class DialogAddFeed extends JDialog {
 		category.setSelectedIndex(0);
 	}
 
-	public void newCategorie(){
-	    String nom = JOptionPane.showInputDialog(null, "Nouvelle categorie :", "", JOptionPane.QUESTION_MESSAGE);
-	    if(name.getText().equals("")){
-			JOptionPane.showConfirmDialog(null, "Nom manquant", "Erreur", JOptionPane.WARNING_MESSAGE);
-			
-		}
-	    else listeCategories.add(nom);
+	public String newCategorie(){
+		 String nom = JOptionPane.showInputDialog(null, "Nouvelle categorie :", "", JOptionPane.QUESTION_MESSAGE);
+		    if(name.getText().equals("")){
+				JOptionPane.showConfirmDialog(null, "Nom manquant", "Erreur", JOptionPane.WARNING_MESSAGE);
+			}
+		    else {
+		    	category.addItem(nom);
+		    	category.setSelectedItem(nom);
+		    }
+		    return nom;
 		
 	}
 	

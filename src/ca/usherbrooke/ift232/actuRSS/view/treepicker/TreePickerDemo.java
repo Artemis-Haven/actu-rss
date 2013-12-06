@@ -34,7 +34,7 @@ public class TreePickerDemo {
 	}
 
 	/**
-	 * TreePickerDemo : Crée l'application
+	 * TreePickerDemo : Crï¿½e l'application
 	 */
 	public TreePickerDemo() {
 		initialize();
