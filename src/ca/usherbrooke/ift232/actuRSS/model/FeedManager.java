@@ -67,6 +67,7 @@ public class FeedManager {
 	{
 		//Ajouter le feed dans oldListCategory en supposant que la categorie est correct
 		this.getCategoryByName(cat.getName()).getListFeed().add(feed);
+		//System.out.println(oldListCategory.toString());
 		
 	}
 	
@@ -92,9 +93,13 @@ public class FeedManager {
 	
 	public Category getCategoryByName(String name)
 	{	
+		
+		//System.out.println(oldListCategory);
 		for(Category cat : this.oldListCategory)
 		{
-			if(cat.getName() == name)
+			
+			//System.out.println("Nom de la cat envoye : " + cat.getName());
+			if(cat.getName().equals(name))
 			{
 				return cat;
 			}

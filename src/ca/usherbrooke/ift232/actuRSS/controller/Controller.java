@@ -136,7 +136,7 @@ public class Controller implements ActionListener{
 			
 		
 		
-		feedManager.setListCategory(categoryListTest);
+		//feedManager.setListCategory(categoryListTest);
 		
 		
 
@@ -248,17 +248,11 @@ public class Controller implements ActionListener{
 
 		if (action.equals("Lus")) {			
 
-			theDisplay = "Read";
-			
+			theDisplay = "Read";			
 			toolbar.getFavBtn().setSelected(false);
 			toolbar.getReadBtn().setSelected(false);
 			newsList.changeNews(news,theDisplay);
-
-
 		}
-
-
-
 
 		if (action.equals("Favoris")) {	
 			
@@ -314,7 +308,7 @@ public class Controller implements ActionListener{
 				else 
 				{
 					newsSelected.setFavorite(true);
-					System.out.println(newsSelected.getTitle());
+					//System.out.println(newsSelected.getTitle());
 				}
 			}
 		}		
@@ -346,14 +340,14 @@ public class Controller implements ActionListener{
 			pref.setCSS();
 		}
 		if (action.equals("AddSource")) {	
-			addFeed.listerCategories(feedManager.getListCategory());
-			addFeed.showDialog();
+			addFeed.listerCategories(feedManager.getOldListCategory());
+			addFeed.showDialog();			
 		}
 		if (action.equals("DeleteSource")) {			
 			
 		}
 		if (action.equals("EditSource")) {
-			editFeed.listerCategories(feedManager.getListCategory());
+			editFeed.listerCategories(feedManager.getOldListCategory());
 			editFeed.showDialog();
 		}
 		if(action.equals("ExitSource")){
@@ -362,6 +356,14 @@ public class Controller implements ActionListener{
 		
 		if(action.equals("OkAddSource")){
 			addFeed.finishedDialog();
+			Feed feed = new Feed(-1, addFeed.getName(), addFeed.getUrl());	
+			String str = addFeed.getCategory();
+			Category cat = feedManager.getCategoryByName(str);
+			feedManager.addFeed(feed, cat);
+			
+			//System.out.println(feedManager.getOldListCategory().toString());
+			
+			model.notifyObserver();
 		}
 		if(action.equals("CancelAddSource")){
 			addFeed.closeDialog();

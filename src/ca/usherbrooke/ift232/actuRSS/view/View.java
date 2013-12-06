@@ -113,9 +113,13 @@ public class View extends JFrame implements Observer {
 	public void update(Observable arg0, Object arg1) {		
 		
 		ArrayList<Category> categoryList = (ArrayList<Category>)arg1;
+	
+		
 		
 		/* Refactorisation	*/	
-		this.getMainPanel().update(categoryList);		
+		this.getMainPanel().update(categoryList);
+		this.repaint();
+		
 		
 	}
 
