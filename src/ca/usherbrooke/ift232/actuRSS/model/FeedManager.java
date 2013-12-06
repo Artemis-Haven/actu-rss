@@ -26,8 +26,6 @@ public class FeedManager {
 
 	public void merge() {
 		ArrayList<Category> newList = new ArrayList<Category>(oldListCategory);
-		int indexCategory;
-		int indexFeed;
 		Boolean contient = false;
 		
 
@@ -64,21 +62,46 @@ public class FeedManager {
 		listCategory.clear();
 		this.oldListCategory = newList;
 	}
-
-	public ArrayList<Category> getListCategory() {
-		return listCategory;
+	
+	public void addFeed(Feed feed, Category cat)
+	{
+		//Ajouter le feed dans oldListCategory en supposant que la categorie est correct
+		this.getCategoryByName(cat.getName()).getListFeed().add(feed);
+		
+	}
+	
+	public void removeFeed(Feed feed, Category cat)
+	{
+		//Ajouter le feed dans oldListCategory en supposant que la categorie et le feed soient correct
+		this.getCategoryByName(cat.getName()).getListFeed().remove(feed);
 	}
 
-	public ArrayList<Category> getOldListCategory() {
-		return oldListCategory;
-	}
+	public ArrayList<Category> getListCategory() {return listCategory;}
 
-	public void setListCategory(ArrayList<Category> listCategory) {
+	public ArrayList<Category> getOldListCategory() {return oldListCategory;}
+
+	public void setListCategory(ArrayList<Category> listCategory) 
+	{
 		this.listCategory = listCategory;
 	}
 
-	public void setOldListCategory(ArrayList<Category> oldListCategory) {
+	public void setOldListCategory(ArrayList<Category> oldListCategory)
+	{
 		this.oldListCategory = oldListCategory;
 	}
+	
+	public Category getCategoryByName(String name)
+	{	
+		for(Category cat : this.oldListCategory)
+		{
+			if(cat.getName() == name)
+			{
+				return cat;
+			}
+		}		
+		//Si la categorie n'a pas été trouvé
+		return null;		
+	}
+	
 
 }
