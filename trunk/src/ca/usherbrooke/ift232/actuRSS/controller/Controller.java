@@ -355,15 +355,17 @@ public class Controller implements ActionListener{
 		}
 		
 		if(action.equals("OkAddSource")){
-			addFeed.finishedDialog();
-			Feed feed = new Feed(-1, addFeed.getName(), addFeed.getUrl());	
-			String str = addFeed.getCategory();
-			Category cat = feedManager.getCategoryByName(str);
-			feedManager.addFeed(feed, cat);
-			
-			//System.out.println(feedManager.getOldListCategory().toString());
-			
-			model.notifyObserver();
+			if(addFeed.Valide()){
+				addFeed.finishedDialog();
+				Feed feed = new Feed(-1, addFeed.getName(), addFeed.getUrl());	
+				String str = addFeed.getCategory();
+				Category cat = feedManager.getCategoryByName(str);
+				feedManager.addFeed(feed, cat);
+				
+				//System.out.println(feedManager.getOldListCategory().toString());
+				
+				model.notifyObserver();
+			}
 		}
 		if(action.equals("CancelAddSource")){
 			addFeed.closeDialog();
@@ -379,7 +381,10 @@ public class Controller implements ActionListener{
 			editFeed.newCategorie();
 		}
 		if(action.equals("OkEditSource")){
-			editFeed.finishedDialog();
+			if(editFeed.Valide()){
+				editFeed.finishedDialog();
+			}
+			
 		}
 		if(action.equals("CancelEditSource")){
 			editFeed.closeDialog();

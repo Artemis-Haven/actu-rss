@@ -109,22 +109,28 @@ public class DialogEditFeed  extends JDialog {
 		this.setVisible(true);
 	}
 	
-	public void finishedDialog(){
+	public boolean Valide(){
 		if(name.getText().equals("")){
-			JOptionPane.showMessageDialog(null, "Nom manquant", "Erreur", JOptionPane.WARNING_MESSAGE);	
+			JOptionPane.showMessageDialog(null, "Nom manquant", "Erreur", JOptionPane.WARNING_MESSAGE);
+			return false;
 		}
 		else if(url.getText().equals("")){
 			JOptionPane.showMessageDialog(null, "URL manquant", "Erreur", JOptionPane.WARNING_MESSAGE);
+			return false;
 		}
 		else if(category.getSelectedIndex() == 0){
 			JOptionPane.showMessageDialog(null, "Categorie manquant", "Erreur", JOptionPane.WARNING_MESSAGE);
+			return false;
 		}
-		else{
+		else 
+			return true;
+	}
+	
+	public void finishedDialog(){
 			thename = name.getText();
 			theurl = url.getText();
 			thecategory = (String) category.getSelectedItem();
 			closeDialog();
-		}
 	}
 
 	public void closeDialog(){
