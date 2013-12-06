@@ -38,7 +38,7 @@ public class DialogAddFeed extends JDialog {
 	JPanel urlpanel;
 	JPanel categorypanel;
 	JButton newCategory;
-	JComboBox category;
+	JComboBox<String> category;
 	JTextField name;
 	JTextField url;
 	String thename;
@@ -156,15 +156,16 @@ public class DialogAddFeed extends JDialog {
 	}
 
 	public String newCategorie(){
-		 String nom = JOptionPane.showInputDialog(null, "Nouvelle categorie :", "", JOptionPane.QUESTION_MESSAGE);
-		    if(name.getText().equals("")){
-				JOptionPane.showConfirmDialog(null, "Nom manquant", "Erreur", JOptionPane.WARNING_MESSAGE);
-			}
-		    else {
-		    	category.addItem(nom);
-		    	category.setSelectedItem(nom);
-		    }
-		    return nom;
+		String nom = JOptionPane.showInputDialog(null, "Nouvelle categorie :", "", JOptionPane.QUESTION_MESSAGE);
+		while(nom != null && nom.equals("")){
+			JOptionPane.showMessageDialog(null, "Nom Categorie invalide", "Erreur", JOptionPane.WARNING_MESSAGE);
+			nom = JOptionPane.showInputDialog(null, "Nouvelle categorie :", "", JOptionPane.QUESTION_MESSAGE);
+		}
+		if(nom != null){
+			category.addItem(nom);
+			category.setSelectedItem(nom);
+		}
+		return nom;
 		
 	}
 	
