@@ -1,4 +1,4 @@
-package ca.usherbrooke.ift232.actuRSS.bdd;
+package ca.usherbrooke.ift232.actuRSS.bddTest;
 
 import static org.junit.Assert.*;
 
@@ -16,6 +16,8 @@ import org.junit.Test;
 import ca.usherbrooke.ift232.actuRSS.Category;
 import ca.usherbrooke.ift232.actuRSS.Feed;
 import ca.usherbrooke.ift232.actuRSS.News;
+import ca.usherbrooke.ift232.actuRSS.bdd.Database;
+import ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager;
 
 public class DatabaseManagerAcceptanceTest {
 

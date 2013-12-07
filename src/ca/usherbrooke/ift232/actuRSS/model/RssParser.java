@@ -19,137 +19,145 @@ import org.w3c.dom.NodeList;
 import ca.usherbrooke.ift232.actuRSS.Feed;
 import ca.usherbrooke.ift232.actuRSS.News;
 
+/**
+ * <b>Classe RssParser. Classe statique pour parser les documents xml (soit les
+ * flux rss)</b>
+ * 
+ * <p>
+ * La méthode principale est la méthode parse. Les autres méthodes sont là pour
+ * l'assister. C'est donc celle-ci qui sera appelée dans les autres classes
+ * </p>
+ * 
+ * @see 
+ * @see RssParserTest
+ * @author BOAS David, FERRE Benjamin
+ */
 public class RssParser {
-    /**
-     * Parser le fichier XML
-     *
-     * @param feedurl
-     *            URL du flux RSS
-     */
-    public Feed parse(Document feedDoc) {
-            // String result = "";
+	/**
+	 * Transforme le flux RSS en objet Feed
+	 * 
+	 * @param feedDoc :
+	 *          Objet document correspondant au flux Rss. 
+	 * @return 
+	 * 			Objet Feed avec tout ces champs initialisée et sa liste de News
+	 *  
+	 */
+	public static Feed parse(Document feedDoc) {
 
-            String nameFeed = "";
-            String urlFeed = "";
-            ArrayList<News> listNewsFeed = new ArrayList<News>();
+		String nameFeed = "";
+		String urlFeed = "";
+		ArrayList<News> listNewsFeed = new ArrayList<News>();
 
-            // On créé le document à partir du fichier xml pointé par l'url
-            /*
-             * DocumentBuilder builder =
-             * DocumentBuilderFactory.newInstance().newDocumentBuilder(); URL url =
-             * new URL(feedurl); Document doc = builder.parse(url.openStream());
-             */
-            NodeList nodes = null;
-            Element element = null;
+		NodeList nodes = null;
+		Element element = null;
 
-            /**
-             * Titre et date du flux En commentaire : on cherche (pour le moment) à
-             * renvoyer juste la liste de News
-             *
-             */
-            nodes = feedDoc.getElementsByTagName("title");
-            Node node = feedDoc.getDocumentElement();
+		/**
+		 * Affectation Titre et date du flux 
+		 */
+		nodes = feedDoc.getElementsByTagName("title");
+		Node node = feedDoc.getDocumentElement();
 
-            nameFeed = this.readNode(node, "channel|title");
-            urlFeed = this.readNode(node, "channel|link");
-            
-            Feed feed = new Feed(nameFeed, urlFeed, listNewsFeed);
-            /**
-             * Elements du flux RSS
-             **/
-            nodes = feedDoc.getElementsByTagName("item");
-            for (int i = 0; i < nodes.getLength(); i++) {
-                    element = (Element) nodes.item(i);
-                    
-                    News n = new News(readNode(element, "title"), readNode(element, "link"), readNode(element, "author"),
-                            parsePubDate(readNode(element, "pubDate")), readNode(element, "description"), false, false);
-                    n.setFeed(feed);
-                    listNewsFeed.add(n);
-            }
-            return (feed);
-    }
+		nameFeed = readNode(node, "channel|title");
+		urlFeed = readNode(node, "channel|link");
 
-    /**
-     * Méthode permettant de retourner ce que contient d'un noeud
-     *
-     * @param toReadNode
-     *            le noeud principal
-     * @param path
-     *            suite des noms des noeud sans espace séparé par des "|"
-     * @return un string contenant la valeur du noeud voulu
-     */
-    public static String readNode(Node toReadNode, String path) {
+		Feed feed = new Feed(nameFeed, urlFeed, listNewsFeed);
+		/**
+		 * Affectation listNews du flux RSS
+		 */
+		nodes = feedDoc.getElementsByTagName("item");
+		for (int i = 0; i < nodes.getLength(); i++) {
+			element = (Element) nodes.item(i);
 
-            String[] paths = path.split("\\|");
-            Node node = null;
+			News n = new News(readNode(element, "title"), readNode(element,"link"), readNode(element, "author"),parsePubDate(readNode(element, "pubDate")),
+					readNode(element, "description"), false, false);
+			n.setFeed(feed);
+			listNewsFeed.add(n);
+		}
+		return (feed);
+	}
 
-            if (paths != null && paths.length > 0) {
-                    node = toReadNode;
+	/**
+	 * Retourne ce que contient un noeud
+	 * 
+	 * @param toReadNode :
+	 *            Le noeud à lire
+	 * @param path :
+	 *            Le nom de la balise du noeud que l'on veut lire. Pour lire des balises imbriquées, utiliser "|" pour les délimiter
+	 * @return Un String contenant la valeur du noeud voulu, chaine vide si le noeud ne peut être lu
+	 */
+	public static String readNode(Node toReadNode, String path) {
 
-                    for (int i = 0; i < paths.length; i++) {
-                            node = getChildByName(node, paths[i].trim());
-                    }
-            }
+		String[] paths = path.split("\\|");
+		Node node = null;
 
-            if (node != null) {
-                    return node.getTextContent();
-            } else {
-                    return "";
-            }
-    }
+		if (paths != null && paths.length > 0) {
+			node = toReadNode;
+			for (int i = 0; i < paths.length; i++) {
+				node = getChildByName(node, paths[i].trim());
+			}
+		}
 
-    /**
-     * renvoye le nom d'un noeud fils à partir de son nom
-     *
-     * @param node
-     *            noeud pricipal
-     * @param name
-     *            nom du noeud fils
-     * @return le noeud fils
-     */
-    public static Node getChildByName(Node node, String name) {
-            if (node == null) {
-                    return null;
-            }
-            NodeList listChild = node.getChildNodes();
+		if (node != null) {
+			return node.getTextContent();
+		} else {
+			return "";
+		}
+	}
 
-            if (listChild != null) {
-                    for (int i = 0; i < listChild.getLength(); i++) {
-                            Node child = listChild.item(i);
-                            if (child != null) {
-                                    if ((child.getNodeName() != null && (name.equals(child.getNodeName()))) || (child.getLocalName() != null && (name.equals(child.getLocalName())))) {
-                                            return child;
-                                    }
-                            }
-                    }
-            }
-            return null;
-    }
+	/**
+	 * Renvoye un des noeud fils
+	 * 
+	 * @param node
+	 *            noeud parent
+	 * @param name
+	 *            nom du noeud fils que l'on désire
+	 * @return Le noeud fils correspondant au paramètre name
+	 */
+	public static Node getChildByName(Node node, String name) {
+		if (node == null) {
+			return null;
+		}
+		NodeList listChild = node.getChildNodes();
 
-    /**
-     * Renvoie le champ pubDate du fichier xml sous la forme d'un objet Calendar
-     *
-     * @param pubDate
-     *            date en xml
-     * @return pubDate en Calendar
-     */
-    public Calendar parsePubDate(String pubDate) {
-            Calendar cal = Calendar.getInstance();
-            if (pubDate == "") {
-                    Date date = new Date();
-                    cal.setTime(date);
-                    return cal;
-            }
-            try {
-                    DateFormat formatter = new SimpleDateFormat(
-                                    "EEE, d MMM yyyy HH:mm:ss Z", Locale.ENGLISH);
-                    Date date = formatter.parse(pubDate);
-                    cal.setTime(date);
+		if (listChild != null) {
+			for (int i = 0; i < listChild.getLength(); i++) {
+				Node child = listChild.item(i);
+				if (child != null) {
+					if ((child.getNodeName() != null && (name.equals(child.getNodeName()))) || 
+							(child.getLocalName() != null && (name.equals(child.getLocalName())))) {
+						return child;
+					}
+				}
+			}
+		}
+		return null;
+	}
 
-            } catch (ParseException ex) {
-                    Logger.getLogger(RssParser.class.getName()).log(Level.WARNING, null, ex);
-            }
-            return cal;
-    }
+	/**
+	 * Renvoie le champ pubDate du fichier xml sous la forme d'un objet Calendar
+	 * 
+	 * @param pubDate
+	 *            : date contenu dans la balise pubDate du fichier xml
+	 * @return pubDate en Calendar
+	 */
+	public static Calendar parsePubDate(String pubDate) {
+		Calendar cal = Calendar.getInstance();
+		if (pubDate == "") {
+			Date date = new Date();
+			cal.setTime(date);
+			return cal;
+		}
+		try {
+			DateFormat formatter = new SimpleDateFormat(
+					"EEE, d MMM yyyy HH:mm:ss Z", Locale.ENGLISH);
+			Date date = formatter.parse(pubDate);
+			cal.setTime(date);
+
+		} catch (ParseException ex) {
+			Logger.getLogger(RssParser.class.getName()).log(Level.WARNING,
+					null, ex);
+		}
+		return cal;
+	}
 
 }
