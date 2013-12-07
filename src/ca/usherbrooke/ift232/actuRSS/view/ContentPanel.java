@@ -41,6 +41,7 @@ public class ContentPanel extends XHTMLPanel {
 			style = this.getStyleFromFile();
 		} catch (Exception e) {
 			System.out.println("Impossible de trouver la feuille de style.");
+			style = "src/resources/default.css";
 		}
 
 		String fullHTML = ""

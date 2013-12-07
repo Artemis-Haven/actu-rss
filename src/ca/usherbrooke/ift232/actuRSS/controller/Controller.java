@@ -385,6 +385,7 @@ public class Controller implements ActionListener {
 
 		if (action.equals("OkPref")) {
 			pref.finishDialog();
+			mainPanel.getContentPanel().display();
 		}
 		if (action.equals("AnnulerPref")) {
 			pref.closeDialog();
