@@ -113,11 +113,11 @@ public class DatabaseManager {
 			PreparedStatement prstmt;
 			if (category.getId() < 0) {
 				prstmt = db.connection
-						.prepareStatement("INSERT INTO Category (Name) VALUES(?)");
+						.prepareStatement("INSERT INTO Category (Name) VALUES (?)");
 				prstmt.setString(1, category.getName());
 			} else {
 				prstmt = db.connection
-						.prepareStatement("INSERT INTO Category (ID, Name) VALUES(?, ?)");
+						.prepareStatement("INSERT INTO Category (ID, Name) VALUES (?, ?)");
 				prstmt.setLong(1, category.getId());
 				prstmt.setString(2, category.getName());
 			}

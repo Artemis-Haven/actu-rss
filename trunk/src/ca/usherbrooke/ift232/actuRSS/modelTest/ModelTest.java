@@ -1,6 +1,9 @@
 package ca.usherbrooke.ift232.actuRSS.modelTest;
 
 import static org.junit.Assert.*;
+
+import java.net.MalformedURLException;
+
 import junit.framework.TestCase;
 
 import org.junit.Test;
@@ -11,6 +14,7 @@ import ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager;
 import ca.usherbrooke.ift232.actuRSS.model.FeedManager;
 import ca.usherbrooke.ift232.actuRSS.model.Model;
 import ca.usherbrooke.ift232.actuRSS.model.RssParser;
+import ca.usherbrooke.ift232.actuRSS.model.WrongURLException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -51,11 +55,16 @@ public class ModelTest extends TestCase {
 		Element element = null;
 		String str = "";
 		Feed feed = new Feed();
+		Document feedDoc = null;
 
 		String feedurl = URL_TEST1;
+		
+		try {
 		assertTrue(Model.obtainDocument(feedurl) instanceof Document);
-
-		Document feedDoc = Model.obtainDocument(feedurl);
+		feedDoc = Model.obtainDocument(feedurl);
+		} catch (MalformedURLException ex) {
+			ex.getMessage();
+		}
 
 		NodeList nodes = feedDoc.getElementsByTagName("item");
 		for (int i = 0; i < nodes.getLength(); i++) {

@@ -1,15 +1,17 @@
-package ca.usherbrooke.ift232.actuRSS.bdd;
+package ca.usherbrooke.ift232.actuRSS.bddTest;
 
 import static org.junit.Assert.*;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import java.util.Calendar;
 
 import ca.usherbrooke.ift232.actuRSS.Category;
 import ca.usherbrooke.ift232.actuRSS.Feed;
 import ca.usherbrooke.ift232.actuRSS.News;
+import ca.usherbrooke.ift232.actuRSS.bdd.Database;
+import ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager;
+import ca.usherbrooke.ift232.actuRSS.bdd.DatabaseUtil;
 
 import org.junit.After;
 import org.junit.AfterClass;

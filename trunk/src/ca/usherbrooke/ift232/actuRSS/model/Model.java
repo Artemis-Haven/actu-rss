@@ -26,6 +26,7 @@ import ca.usherbrooke.ift232.actuRSS.Feed;
 import ca.usherbrooke.ift232.actuRSS.News;
 import ca.usherbrooke.ift232.actuRSS.bdd.Database;
 import ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager;
+import ca.usherbrooke.ift232.actuRSS.model.WrongURLException;
 
 public class Model extends Observable{
 
@@ -114,11 +115,16 @@ public class Model extends Observable{
             
                 	// et on les envoie dans le feedManager
                         //File f = new File(feed.getUrl());
-                        docFeed = Model.obtainDocument(feed.getUrl());
-                        if (docFeed != null) {
-                                Feed newFeed = parser.parse(docFeed);
-                                newCat.getListFeed().add(newFeed);
-                        } else throw new Exception("Le document n'a pas été correctement parsé");
+                	try {
+                    docFeed = Model.obtainDocument(feed.getUrl());
+                	} catch (MalformedURLException ex) {
+                		ex.getMessage();
+                	}
+                	
+                    if (docFeed != null) {
+                            Feed newFeed = RssParser.parse(docFeed);
+                            newCat.getListFeed().add(newFeed);
+                    } else throw new Exception("Le document n'a pas été correctement parsé");
                 }
                 newList.add(newCat);
         }
@@ -149,22 +155,20 @@ public class Model extends Observable{
 		notifyObservers(oldListCategory);	
 	}
     
-    public static Document obtainDocument(String feedurl) {
-            Document doc = null;
-            try {
-                    DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-                    URL url = new URL(feedurl);
-        doc = builder.parse(url.openStream());
-            } catch (ParserConfigurationException ex) {
-        Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
-    } catch (MalformedURLException ex) {
+    public static Document obtainDocument(String feedurl) throws MalformedURLException {
+        Document doc = null;
+        try {
+            DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+            URL url = new URL(feedurl);
+            doc = builder.parse(url.openStream());
+        } catch (ParserConfigurationException ex) {
+        	Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+	    } catch (IOException ex) {
             Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
-    } catch (IOException ex) {
+	    } catch (SAXException ex) {
             Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
-    } catch (SAXException ex) {
-            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
-    }
-    return doc;
+	    }
+	    return doc;
     }
 
 	public DatabaseManager getDbManager() {

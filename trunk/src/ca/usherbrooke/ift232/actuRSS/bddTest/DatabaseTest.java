@@ -1,4 +1,4 @@
-package ca.usherbrooke.ift232.actuRSS.bdd;
+package ca.usherbrooke.ift232.actuRSS.bddTest;
 
 import static org.junit.Assert.*;
 

@@ -32,7 +32,7 @@ public class DialogEditFeed  extends JDialog {
 	JPanel urlpanel;
 	JPanel categorypanel;
 	JButton newCategory;
-	JComboBox category;
+	JComboBox<String> category;
 	JTextField name;
 	JTextField url;
 	String thename;
