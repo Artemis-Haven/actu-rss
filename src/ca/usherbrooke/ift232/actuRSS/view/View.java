@@ -68,9 +68,7 @@ public class View extends JFrame implements Observer {
 		this.preference = new ViewChangeProperties(null, "Préférence", true);
 		this.sourceManager = new DialogFeedManager(null, "Gestion des sources", true);
 		this.editFeed = new DialogEditFeed(null,"Modification d'un Flux",true);
-		this.addFeed = new DialogAddFeed(null,"Ajout d'un Flux",true);
-		sourceManager.setCategories(mainPanel.getCategoryList());
-		
+		this.addFeed = new DialogAddFeed(null,"Ajout d'un Flux",true);		
 		
 		// Définir les caractéristiques de la fenetre.
 		this.setTitle("heRmeSS");

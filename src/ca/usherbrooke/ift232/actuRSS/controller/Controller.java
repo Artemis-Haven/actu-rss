@@ -69,6 +69,7 @@ public class Controller implements ActionListener {
 		//feedManager.setOldListCategory((ArrayList<Category>) mainPanel.getCategoryList());
 		this.model.loadAllFromDB();
 		this.mainPanel.setCategoryList(feedManager.getOldListCategory());
+		gest.setCategories(feedManager.getOldListCategory());
 		
 		/*ArrayList<Category> categoryListTest = new ArrayList<Category>();
 
