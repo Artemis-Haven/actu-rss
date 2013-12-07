@@ -113,6 +113,14 @@ public class News {
 		this.feed = feed;
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		if(! (obj instanceof News))
+			return false;
+		News n = (News) obj;
+		return (this.getUrl() == n.getUrl());
+	}
+	
 	//methodes
 	@Override
 	public String toString() {
