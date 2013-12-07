@@ -27,7 +27,6 @@ public class FeedManager {
 	public void merge() {
 		ArrayList<Category> newList = new ArrayList<Category>(oldListCategory);
 		Boolean contient = false;
-		
 
 		for(int category = 0; category<listCategory.size();category++)
 		{
@@ -39,13 +38,13 @@ public class FeedManager {
 				for(int news = 0; news<listeNews.size(); news++) 
 				{
 					contient = false;
-					String titreNews = listeNews.get(news).getTitle();
+					String urlNews = listeNews.get(news).getUrl();
 					
 					for(int newsTemp = 0; newsTemp < listeNewsTemp.size(); newsTemp++)
 					{
-						String titreNewsTemmp = listeNewsTemp.get(newsTemp).getTitle();
+						String urlNewsTemmp = listeNewsTemp.get(newsTemp).getUrl();
 						
-						if (titreNews == titreNewsTemmp)
+						if (urlNews == urlNewsTemmp)
 						{
 							contient = true;
 						}
@@ -56,8 +55,9 @@ public class FeedManager {
 					}
 				}
 			}
+			
 		}
-
+		
 		this.oldListCategory.clear();
 		listCategory.clear();
 		this.oldListCategory = newList;
