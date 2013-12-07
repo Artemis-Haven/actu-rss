@@ -26,7 +26,6 @@ import ca.usherbrooke.ift232.actuRSS.Feed;
 import ca.usherbrooke.ift232.actuRSS.News;
 import ca.usherbrooke.ift232.actuRSS.bdd.Database;
 import ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager;
-import ca.usherbrooke.ift232.actuRSS.model.WrongURLException;
 
 public class Model extends Observable{
 
