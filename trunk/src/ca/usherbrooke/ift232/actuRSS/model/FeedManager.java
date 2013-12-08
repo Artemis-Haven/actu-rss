@@ -39,14 +39,15 @@ public class FeedManager {
 				{
 					contient = false;
 					String urlNews = listeNews.get(news).getUrl();
-					
+					String urlNewsTemmp="";
 					for(int newsTemp = 0; newsTemp < listeNewsTemp.size(); newsTemp++)
 					{
-						String urlNewsTemmp = listeNewsTemp.get(newsTemp).getUrl();
+						urlNewsTemmp = listeNewsTemp.get(newsTemp).getUrl();
 						
-						if (urlNews == urlNewsTemmp)
+						if (urlNews.equals(urlNewsTemmp))
 						{
 							contient = true;
+							break;
 						}
 					}
 					if(contient == false)

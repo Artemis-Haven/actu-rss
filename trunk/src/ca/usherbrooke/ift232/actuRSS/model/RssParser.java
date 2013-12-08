@@ -79,7 +79,7 @@ public class RssParser {
 			} 
 			link = urlLink.getProtocol() + "://" + urlLink.getAuthority();
 			News n = new News(readNode(element, "title"), link, readNode(element, "author"),parsePubDate(readNode(element, "pubDate")),
-					readNode(element, "description"), false, false);s*/
+					readNode(element, "description"), false, false);*/
 			News n = new News(readNode(element, "title"), readNode(element,"link"), readNode(element, "author"),parsePubDate(readNode(element, "pubDate")),
 					readNode(element, "description"), false, false);
 		

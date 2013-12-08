@@ -40,7 +40,7 @@ public class ContentPanel extends XHTMLPanel {
 		try {
 			style = this.getStyleFromFile();
 		} catch (Exception e) {
-			System.out.println("Impossible de trouver la feuille de style.");
+			//System.out.println("Impossible de trouver la feuille de style.");
 			style = "src/resources/default.css";
 		}
 
