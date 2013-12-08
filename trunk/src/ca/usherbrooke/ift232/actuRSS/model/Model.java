@@ -132,11 +132,42 @@ public class Model extends Observable{
         //et oldListCategory contient l'ancienne
        
         //On fusionne les deux listes
+        int i =0;
+        for (Category cat : feedManager.getOldListCategory())
+        	for (Feed feed : cat.getListFeed())
+        		for (News news : feed.getListNews()) {
+        			System.out.println("news("+i+") : " + news.getTitle());
+        			System.out.println("news("+i+") : " + news.getUrl());
+        			i++;
+        		}
+        i =0;
+        for (Category cat : feedManager.getListCategory())
+        	for (Feed feed : cat.getListFeed())
+        		for (News news : feed.getListNews()) {
+        			System.out.println("Newnews("+i+") : " + news.getTitle());
+        			System.out.println("Newnews("+i+") : " + news.getUrl());
+        			i++;
+        		}
         feedManager.merge();
-       
+
         //On
-        sendAllToDB();
-       
+        //sendAllToDB();
+        i =0;
+        for (Category cat : feedManager.getOldListCategory())
+        	for (Feed feed : cat.getListFeed())
+        		for (News news : feed.getListNews()) {
+        			System.out.println("news("+i+") : " + news.getTitle());
+        			System.out.println("news("+i+") : " + news.getUrl());
+        			i++;
+        		}
+        i =0;
+        for (Category cat : feedManager.getListCategory())
+        	for (Feed feed : cat.getListFeed())
+        		for (News news : feed.getListNews()) {
+        			System.out.println("Newnews("+i+") : " + news.getTitle());
+        			System.out.println("Newnews("+i+") : " + news.getUrl());
+        			i++;
+        		}
         //Notifier la vue
         this.notifyObserver();
        
