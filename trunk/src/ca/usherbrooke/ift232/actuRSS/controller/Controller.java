@@ -70,7 +70,7 @@ public class Controller implements ActionListener {
 		this.model.loadAllFromDB();
 		this.mainPanel.setCategoryList(feedManager.getOldListCategory());
 		gest.setCategories(feedManager.getOldListCategory());
-		
+
 		/*ArrayList<Category> categoryListTest = new ArrayList<Category>();
 
 		News n1 = new News(
@@ -411,6 +411,7 @@ public class Controller implements ActionListener {
 				addFeed.finishedDialog();
 				Feed feed = new Feed(-1, addFeed.getName(), addFeed.getUrl());
 				String str = addFeed.getCategory();
+				feed.setNameCategory(str);
 				Category cat = feedManager.getCategoryByName(str);
 				feedManager.addFeed(feed, cat);
 				gest.getManageTree().refreshFeeds(
@@ -444,12 +445,14 @@ public class Controller implements ActionListener {
 
 		// Supprime le flux
 		if (action.equals("DeleteSource")) {
-			/*
-			 * String str = editFeed.getCategory(); Category oldcat =
-			 * feedManager.getCategoryByName(str);
-			 * feedManager.removeFeed(editFeed.getFeed(),oldcat);
-			 * model.notifyObserver();
-			 */
+
+			Category oldcat =feedManager.getCategoryByName(editFeed.getFeed().getNameCategory());
+			feedManager.removeFeed(editFeed.getFeed(), oldcat);
+			gest.getManageTree().refreshFeeds(
+					feedManager.getOldListCategory());
+
+			model.notifyObserver();
+
 
 		}
 
@@ -466,8 +469,9 @@ public class Controller implements ActionListener {
 				Feed feed = new Feed(editFeed.getId(), editFeed.getName(),
 						editFeed.getUrl(), editFeed.getNews());
 				String str = editFeed.getCategory();
+				feed.setNameCategory(str);
 				Category cat = feedManager.getCategoryByName(str);
-				Category oldcat = feedManager.getCategoryByName(str);
+				Category oldcat =feedManager.getCategoryByName(editFeed.getFeed().getNameCategory());
 				feedManager.removeFeed(editFeed.getFeed(), oldcat);
 				feedManager.addFeed(feed, cat);
 				gest.getManageTree().refreshFeeds(
