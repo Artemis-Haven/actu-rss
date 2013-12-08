@@ -107,6 +107,7 @@ public class DialogEditFeed  extends JDialog {
 	public void showDialog(){
 		name.setText(feed.getTitle());
 		url.setText(feed.getUrl());
+		category.setSelectedItem(feed.getNameCategory());
 		this.setVisible(true);
 	}
 

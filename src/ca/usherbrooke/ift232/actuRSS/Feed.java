@@ -18,6 +18,7 @@ public class Feed {
 	private int id;
 	private String title;
 	private String url;
+	private String categoryName;
 	private List<News> listNews;
 
 	// constructeurs
@@ -95,6 +96,9 @@ public class Feed {
 		this.title = title;
 	}
 
+	public void setNameCategory(String nameCategory){
+		this.categoryName = nameCategory;
+	}
 	@Override
 	public String toString() {
 		/*String resultat = "\n    Feed [id=" + id + ", title=" + title + "]";
@@ -103,6 +107,10 @@ public class Feed {
 		}
 		return resultat;*/
 		return this.getTitle();
+	}
+
+	public String getNameCategory() {
+		return this.categoryName;
 	}
 
 }

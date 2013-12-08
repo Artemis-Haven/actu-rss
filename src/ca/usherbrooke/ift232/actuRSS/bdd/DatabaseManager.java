@@ -300,6 +300,7 @@ public class DatabaseManager {
 
 				feed = new Feed(result.getInt("ID"), result.getString("Title"),
 						result.getString("URL"));
+				feed.setNameCategory(category.getName());
 				listNews = getAllNewsFromFeed(feed);
 				feed.setListNews(listNews);
 
