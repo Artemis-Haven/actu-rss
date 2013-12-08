@@ -64,22 +64,22 @@ public class FeedManagerTest extends TestCase {
         Category oldCategory = new Category(0, "oldCategory", new ArrayList<Feed>(ListFeed));
         
         ListFeed.clear();
-        news11 = new News("titre11", "url11", "auteur11", cal, "txt11", true, true);
-        news12 = new News("titre12", "url12", "auteur12", cal, "txt12", false, false);
-        news21 = new News("titre21", "url21", "auteur21", cal, "txt21", false, false);
-        news22 = new News("titre22", "url22", "auteur22", cal, "txt22", false, false);
-        news31 = new News("titre31", "url31", "auteur31", cal, "txt31", false, false);
-        news32 = new News("titre32", "url32", "auteur32", cal, "txt32", false, false);
+        news11 = new News("title11", "url11", "author11", cal, "texte11", true, true);
+        news12 = new News("title12", "url12", "author12", cal, "texte12", false, false);
+        news21 = new News("title21", "url21", "author21", cal, "texte21", false, false);
+        news22 = new News("title22", "url22", "author22", cal, "texte22", false, false);
+        news31 = new News("title31", "url31", "author31", cal, "texte31", false, false);
+        news32 = new News("title32", "url32", "author32", cal, "texte32", false, false);
         ListNews.add(news11);
         ListNews.add(news12);
-        feed1 = new Feed(0, "titreFeed1", "urlFeed1", new ArrayList<News>(ListNews));
+        feed1 = new Feed(0, "titleFeed21", "urlFeed21", new ArrayList<News>(ListNews));
         ListNews.clear();
         ListNews.add(news21);
         ListNews.add(news22); 
-        feed2 = new Feed(1, "titreFeed2", "urlFeed2", new ArrayList<News>(ListNews));
+        feed2 = new Feed(1, "titleFeed22", "urlFeed22", new ArrayList<News>(ListNews));
         ListNews.clear();
         ListNews.add(news31);
-        feed3 = new Feed(2, "titreFeed3", "urlFeed3", new ArrayList<News>(ListNews));
+        feed3 = new Feed(2, "titleFeed23", "urlFeed23", new ArrayList<News>(ListNews));
         ListFeed.add(feed1);
         ListFeed.add(feed2);
         ListFeed.add(feed3);
@@ -136,6 +136,10 @@ public class FeedManagerTest extends TestCase {
     	ArrayList<News> mergedListNews = new ArrayList<News>();
         feedManager.merge();
         assertTrue(feedManager.getListCategory().isEmpty());
+        assertEquals(feedManager.getOldListCategory().get(0).getListFeed().size(), 3);
+        assertEquals(feedManager.getOldListCategory().get(0).getListFeed().get(0).getListNews().size(), 2);
+        assertEquals(feedManager.getOldListCategory().get(0).getListFeed().get(1).getListNews().size(), 2);
+        assertEquals(feedManager.getOldListCategory().get(0).getListFeed().get(2).getListNews().size(), 2);
         
         for (Feed listFeed : feedManager.getOldListCategory().get(0).getListFeed()) {
         	for (News news :  listFeed.getListNews()) 
@@ -157,6 +161,23 @@ public class FeedManagerTest extends TestCase {
         		mergedListNews.add(news);
         }
         assertEquals(mergedListNews.size(), 6);
+        assertEquals(feedManager.getOldListCategory().get(0).getListFeed().size(), 3);
+        assertEquals(feedManager.getOldListCategory().get(0).getListFeed().get(0).getListNews().size(), 2);
+        assertEquals(feedManager.getOldListCategory().get(0).getListFeed().get(1).getListNews().size(), 2);
+        assertEquals(feedManager.getOldListCategory().get(0).getListFeed().get(2).getListNews().size(), 2);
+        
+        mergedListNews.clear();
+        feedManager.setListCategory(listNewCat);
+        feedManager.merge();
+        for (Feed listFeed : feedManager.getOldListCategory().get(0).getListFeed()) {
+        	for (News news :  listFeed.getListNews()) 
+        		mergedListNews.add(news);
+        }
+        assertEquals(mergedListNews.size(), 6);
+        assertEquals(feedManager.getOldListCategory().get(0).getListFeed().size(), 3);
+        assertEquals(feedManager.getOldListCategory().get(0).getListFeed().get(0).getListNews().size(), 2);
+        assertEquals(feedManager.getOldListCategory().get(0).getListFeed().get(1).getListNews().size(), 2);
+        assertEquals(feedManager.getOldListCategory().get(0).getListFeed().get(2).getListNews().size(), 2);
     }
 
 }

@@ -61,6 +61,7 @@ public class RssParserTest {
                
                 assertEquals(feed.getListNews().get(0).getTitle(), "La démocratie, ce malentendu");
                 assertEquals(feed.getListNews().get(1).getTitle(), "Une petite partie de GoldenEye 007, ça vous branche ?");
+                System.out.println(feed.getListNews().get(1).getUrl());
                 assertEquals(feed.getListNews().get(2).getContents(), "<p>Si vous vous intéressez un peu à l'archéologie logicielle, vous connaissez surement les abandonwares. Il s'agit de logiciels qui ne sont plus vendus ou distribués que des passionnés mettent en ligne pour le plaisir. Ce sont surtout des jeux comme sur myabandonware ou abandonware-france. Mais pour ceux qui souhaiteraient aussi remettre la main sur d'anciens [&#8230;]</p><p>Cet article merveilleux et sans aucun égal intitulé : <a href=\"http://korben.info/logiciels-depoussierer.html\">Logiciels à dépoussiérer</a> ; a été publié sur <a href=\"http://korben.info\">Korben</a>, le seul site qui t'aime plus fort que tes parents.</p>");
                 assertEquals(feed.getListNews().get(5).getAuthor(), "");
                 assertEquals(feed.getListNews().get(29).getDate().get(Calendar.DAY_OF_WEEK), 2);

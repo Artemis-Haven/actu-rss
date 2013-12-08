@@ -1,6 +1,8 @@
 package ca.usherbrooke.ift232.actuRSS.model;
 
 import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -67,9 +69,22 @@ public class RssParser {
 		nodes = feedDoc.getElementsByTagName("item");
 		for (int i = 0; i < nodes.getLength(); i++) {
 			element = (Element) nodes.item(i);
-
+			/*String link = readNode(element,"link");
+			URL urlLink = null;
+			try {
+				urlLink = new URL(link);
+			} catch (MalformedURLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
+			link = urlLink.getProtocol() + "://" + urlLink.getAuthority();
+			News n = new News(readNode(element, "title"), link, readNode(element, "author"),parsePubDate(readNode(element, "pubDate")),
+					readNode(element, "description"), false, false);s*/
 			News n = new News(readNode(element, "title"), readNode(element,"link"), readNode(element, "author"),parsePubDate(readNode(element, "pubDate")),
 					readNode(element, "description"), false, false);
+		
+			
+			
 			n.setFeed(feed);
 			listNewsFeed.add(n);
 		}

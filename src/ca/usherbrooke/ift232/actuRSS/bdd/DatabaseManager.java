@@ -171,6 +171,7 @@ public class DatabaseManager {
 	public void insertNews(News news, int ID_Feed) {
 		int read = 0;
 		int favorite = 0;
+		System.out.println();
 		String date = "";
 		Calendar cal = news.getDate();
 		date = DatabaseUtil.ConvertCalendarToString(cal);
