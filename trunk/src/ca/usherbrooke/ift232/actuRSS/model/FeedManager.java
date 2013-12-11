@@ -37,24 +37,21 @@ public class FeedManager {
 
 	/**
 	 * Constructeur du FeedManager vide
+	 * Il s'agit d'un Singleton
 	 */
-	public FeedManager() {
+	private static FeedManager INSTANCE = null;
+	
+	private FeedManager() {
 		this.listCategory = new ArrayList<Category>();
 		this.oldListCategory = new ArrayList<Category>();
 	}
-
-	/**
-	 * Constructeur du FeedManager avec des listes de
-	 * catégories en paramètre
-	 * 
-	 * @param listCategory
-	 * @param oldListCategory
-	 */
-	public FeedManager(ArrayList<Category> listCategory,
-			ArrayList<Category> oldListCategory) {
-		this.listCategory = new ArrayList<Category>(listCategory);
-		this.oldListCategory = new ArrayList<Category>(oldListCategory);
+	
+	public static synchronized FeedManager getInstance() {
+		if (INSTANCE == null)
+			INSTANCE = new FeedManager();
+		return INSTANCE;
 	}
+
 
 	/**
 	 * La fonction merge() a pour but de réunir les anciennes news 

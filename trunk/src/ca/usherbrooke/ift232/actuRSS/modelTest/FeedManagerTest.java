@@ -91,7 +91,9 @@ public class FeedManagerTest extends TestCase {
         listOldCat.add(oldCategory);
         listNewCat.add(newCategory);
         
-        feedManager = new FeedManager(new ArrayList<Category>(listNewCat), new ArrayList<Category>(listOldCat));
+        feedManager = FeedManager.getInstance();
+        feedManager.setListCategory(new ArrayList<Category>(listNewCat));
+        feedManager.setOldListCategory(new ArrayList<Category>(listOldCat));
     }
 	
     /**
@@ -99,9 +101,7 @@ public class FeedManagerTest extends TestCase {
      */
     @Test
     public void testConstructor() {
-            FeedManager feedManager = new FeedManager();
-            assertNotNull(feedManager);
-            feedManager = new FeedManager(new ArrayList<Category>(listNewCat), new ArrayList<Category>(listOldCat));
+            FeedManager feedManager = FeedManager.getInstance();
             assertNotNull(feedManager);
     }
     
@@ -110,7 +110,6 @@ public class FeedManagerTest extends TestCase {
      */
     @Test
     public void testGetters() {
-    	feedManager = new FeedManager(new ArrayList<Category>(listNewCat), new ArrayList<Category>(listOldCat));
     	assertEquals(listNewCat, feedManager.getListCategory());
     	assertEquals(listOldCat, feedManager.getOldListCategory());
     }
@@ -120,11 +119,8 @@ public class FeedManagerTest extends TestCase {
      */
     @Test
     public void testSetters() {
-    	feedManager = new FeedManager(new ArrayList<Category>(listNewCat), new ArrayList<Category>(listOldCat));
-    	feedManager.setListCategory(listOldCat);
-    	feedManager.setOldListCategory(listNewCat);
-    	assertEquals(listNewCat, feedManager.getOldListCategory());
-    	assertEquals(listOldCat, feedManager.getListCategory());
+    	assertEquals(listOldCat, feedManager.getOldListCategory());
+    	assertEquals(listNewCat, feedManager.getListCategory());
     }
 
 
