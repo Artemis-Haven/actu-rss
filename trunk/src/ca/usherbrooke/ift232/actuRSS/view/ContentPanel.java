@@ -85,7 +85,7 @@ public class ContentPanel extends XHTMLPanel {
 		return everything;
 	}
 
-	public void setContentPanel(News news) {
+	public void setContentPanel(News news, String feedName) {
 		this.title = news.getTitle();
 		if (news.getDate() != null) {
 			DateFormat dateFormat = new SimpleDateFormat("'Le 'd MMM 'à' HH:mm", Locale.CANADA_FRENCH);
@@ -93,17 +93,10 @@ public class ContentPanel extends XHTMLPanel {
 		} else {
 			this.date = "";
 		}
-		if (news.getFeed() != null) {
-			this.feed = news.getFeed().getTitle();
-		} else {
-			this.feed = "";
-		}
+		this.feed = feedName;
 		this.author = news.getAuthor();
 		this.content = news.getContents();
 		this.style = "";
 	}
-
-
-
 
 }

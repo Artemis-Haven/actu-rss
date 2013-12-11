@@ -85,7 +85,6 @@ public class RssParser {
 		
 			
 			
-			n.setFeed(feed);
 			listNewsFeed.add(n);
 		}
 		return (feed);

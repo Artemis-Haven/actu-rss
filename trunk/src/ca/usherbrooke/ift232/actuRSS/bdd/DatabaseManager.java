@@ -3,12 +3,26 @@ package ca.usherbrooke.ift232.actuRSS.bdd;
 import ca.usherbrooke.ift232.actuRSS.Category;
 import ca.usherbrooke.ift232.actuRSS.Feed;
 import ca.usherbrooke.ift232.actuRSS.News;
-import ca.usherbrooke.ift232.actuRSS.model.*;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+ 
+/**
+ * Cette classe est un DAO, elle permet d'effectuer des
+ * requêtes dans la base de donnée. Principalement 2 cas
+ * d'utilisation : <br/> 
+ * (1) Certaines méthodes de cette
+ * classe prennent des objets (Feed, News ou Category) en 
+ * entrée et effectuent des requêtes en BdD, ou bien <br/>
+ * (2) Effectuent des requêtes en BdD et créent des objets.
+ * 
+ * @author Leucistic
+ *
+ */
 public class DatabaseManager {
 
 	/**
@@ -19,8 +33,7 @@ public class DatabaseManager {
 	/**
 	 * Constructeur
 	 * 
-	 * @param db
-	 *            : classe dataBase
+	 * @param db : La Database qui sera utilisée
 	 */
 	public DatabaseManager(Database db) {
 		this.db = db;
@@ -40,7 +53,7 @@ public class DatabaseManager {
 	}
 
 	/**
-	 * Cr�� les tables Feed, News et Category
+	 * Cr�� les tables vides Feed, News et Category dans la BdD
 	 */
 	public void createDB() {
 
@@ -69,8 +82,7 @@ public class DatabaseManager {
 	/**
 	 * Ins�re tout les objets du mod�le dans la base de donn�es
 	 * 
-	 * @param listCategory
-	 *            Liste � inserer dans la Base de donn�es
+	 * @param listCategory : Liste � inserer dans la Base de donn�es
 	 */
 	public void insertObjetToDB(ArrayList<Category> listCategory) {
 
@@ -93,19 +105,13 @@ public class DatabaseManager {
 			insertCategory(listCategory.get(i));
 
 		}
-		/*
-		 * for(Category cat : listCategory) { for(Feed f : cat.getListFeed()) {
-		 * for(News n : f.getListNews()) { insertNews(n, f.getId()); }
-		 * insertFeed(f, cat.getId()); } insertCategory(cat); }
-		 */
 
 	}
 
 	/**
 	 * Ins�re une cat�gorie dans la BDD
 	 * 
-	 * @param category
-	 *            Objet contenant la description de la cat�gorie � ins�rer
+	 * @param category : Objet contenant la description de la cat�gorie � ins�rer
 	 */
 
 	public void insertCategory(Category category) {
@@ -131,10 +137,8 @@ public class DatabaseManager {
 	/**
 	 * Ins�re un flux dans la BDD
 	 * 
-	 * @param feed
-	 *            Objet contenant la description du flux � ins�rer
-	 * @param ID_Category
-	 *            Identifiant de la cat�gorie correspondant au flux
+	 * @param feed : Objet contenant la description du flux � ins�rer
+	 * @param ID_Category : Identifiant de la cat�gorie correspondant au flux
 	 */
 	public void insertFeed(Feed feed, int ID_Category) {
 		try {
@@ -163,10 +167,8 @@ public class DatabaseManager {
 	/**
 	 * Ins�re une news dans la BDD
 	 * 
-	 * @param News
-	 *            Objet contenant la description de la news � ins�rer
-	 * @param ID_Feed
-	 *            Identifiant du flux correspondant � la news
+	 * @param News : Objet contenant la description de la news � ins�rer
+	 * @param ID_Feed : Identifiant du flux correspondant � la news
 	 */
 	public void insertNews(News news, int ID_Feed) {
 		int read = 0;
@@ -202,51 +204,9 @@ public class DatabaseManager {
 	}
 
 	/**
-	 * 
-	 * @param date
-	 *            Date � convertir
-	 * @return La date en chaine de caract�res
-	 */
-	/*
-	 * private String ConvertCalendarToString(Calendar date) { StringBuffer
-	 * dateToReturn = new StringBuffer();
-	 * 
-	 * 
-	 * dateToReturn.append(date.get(Calendar.YEAR)); dateToReturn.append("-");
-	 * String month = null; int mo = date.get(Calendar.MONTH) + 1; if(mo < 10) {
-	 * month = "0" + mo; } else { month = "" + mo; } dateToReturn.append(month);
-	 * 
-	 * dateToReturn.append("-");
-	 * 
-	 * String day = null; int dt = date.get(Calendar.DATE); if(dt < 10) { day =
-	 * "0" + dt; } else { day = "" + dt; } dateToReturn.append(" ");
-	 * 
-	 * dateToReturn.append(date.get(Calendar.HOUR_OF_DAY));
-	 * dateToReturn.append(":"); dateToReturn.append(date.get(Calendar.MINUTE));
-	 * dateToReturn.append(":"); dateToReturn.append(date.get(Calendar.SECOND));
-	 * 
-	 * return dateToReturn.toString(); }
-	 * 
-	 * public Calendar convertStringToCalendar(String date) { //YYYY-MM-DD
-	 * HH:MM:SS.SSS Calendar calendar = Calendar.getInstance();
-	 * 
-	 * int year = Integer.parseInt(date.substring(0, 3)); int month =
-	 * Integer.parseInt(date.substring(4, 5)); int day =
-	 * Integer.parseInt(date.substring(6, 7)); int hourOfDay =
-	 * Integer.parseInt(date.substring(9, 10)); int minute =
-	 * Integer.parseInt(date.substring(11, 12)); int second =
-	 * Integer.parseInt(date.substring(13, 14));
-	 * 
-	 * calendar.set(year, month, day, hourOfDay, minute, second);
-	 * 
-	 * return calendar; }
-	 */
-
-	/**
-	 * Conversion de la BDD en Objet
-	 */
-
-	/**
+	 * Récupérer tout le contenu de la BdD. On récupère
+	 * d'abord la liste des catégories, puis pour chaque catégorie on
+	 * appelle getAllFeedFromCategory.
 	 * 
 	 * @return Une liste contenant toutes les cat�gories
 	 */
@@ -278,10 +238,12 @@ public class DatabaseManager {
 	}
 
 	/**
+	 * Récupérer tout les flux de la BdD. On récupère
+	 * d'abord la liste des flux, puis pour chaque flux on
+	 * appelle getAllNewsFromFeed.
 	 * 
-	 * @param category
-	 *            : Objet Category
-	 * @return une liste de Feed
+	 * @param category : Objet Category
+	 * @return une liste de Feed appartenant à la catégorie en paramètre
 	 */
 	private ArrayList<Feed> getAllFeedFromCategory(Category category) {
 
@@ -317,9 +279,11 @@ public class DatabaseManager {
 	}
 
 	/**
-	 * @param feed
-	 *            Objet Feed
-	 * @return La liste de toutes les news correspondant � un flux
+	 * Récupérer la liste de toutes les news dans la BdD appartenant
+	 * au flux passé en paramètre
+	 * 
+	 * @param feed : Objet Feed
+	 * @return La liste de toutes les news correspondant au flux en paramètre
 	 */
 	private ArrayList<News> getAllNewsFromFeed(Feed feed) throws SQLException {
 		ArrayList<News> list = new ArrayList<News>();
@@ -343,7 +307,6 @@ public class DatabaseManager {
 			news = new News(resultat.getString("Title"),
 					resultat.getString("URL"), resultat.getString("Author"),
 					date, resultat.getString("Contents"), read, favorite);
-			news.setFeed(feed);
 			list.add(news);
 		}
 
@@ -351,42 +314,12 @@ public class DatabaseManager {
 		return list;
 	}
 
+	
 	/**
-	 * 
-	 * @return Une liste contenant tout les flux
+	 * Efface la catégorie de la BdD dont l'identifiant
+	 * est passé en paramètre
+	 * @param category : l'id de la catégorie à supprimer
 	 */
-	/*
-	 * public ArrayList<Feed> getAllFeeds() throws SQLException {
-	 * 
-	 * int id; String title; String url; List<News> listNews = new
-	 * ArrayList<News>(); int ID_category; Category category;
-	 * 
-	 * ResultSet resultat = db.getResultOf("SELECT * FROM feed;");
-	 * ArrayList<Feed> listFeed = new ArrayList<Feed>(); Feed feed; try { while
-	 * (resultat.next()) { id = resultat.getInt("ID"); title =
-	 * resultat.getString("Title"); url = resultat.getString("Url"); feed = new
-	 * Feed(id, title, url);
-	 * 
-	 * listNews = this.getAllNewsFromFeed(feed); feed.setListNews(listNews);
-	 * 
-	 * ID_category = resultat.getInt("ID_Category"); category =
-	 * GetCategory(ID_category); feed.setCategory(category); listFeed.add(feed);
-	 * } } catch (SQLException e) { // TODO Auto-generated catch block
-	 * e.printStackTrace(); } return listFeed; }
-	 */
-
-	/*
-	 * 
-	 * public void deleteCategory(int id) { String requete =
-	 * "DELETE from Category where ID="+ id +""; db.updateValue(requete); }
-	 * 
-	 * public void deleteNews(int id) { String requete =
-	 * "DELETE from News where ID="+ id +""; db.updateValue(requete); }
-	 * 
-	 * public void deleteFeed(int id) { String requete =
-	 * "DELETE from Feed where ID="+ id +""; db.updateValue(requete); }
-	 */
-
 	public void clearCategory(Category category) {
 		if (category.getListFeed().isEmpty()) {
 			try {
@@ -402,6 +335,11 @@ public class DatabaseManager {
 		}
 	}
 
+	/**
+	 * Efface le flux de la BdD dont l'identifiant
+	 * est passé en paramètre
+	 * @param feed : l'id du flux à supprimer
+	 */
 	public void clearFeed(Feed feed) {
 		if (feed.getListNews().isEmpty()) {
 			try {
@@ -417,6 +355,12 @@ public class DatabaseManager {
 		}
 	}
 
+	/**
+	 * Efface la news de la BdD dont l'url
+	 * est passé en paramètre
+	 * 
+	 * @param news : l'url de la news à supprimer
+	 */
 	public void clearNews(News news) {
 		try {
 			PreparedStatement prstmt = db.connection
@@ -431,21 +375,10 @@ public class DatabaseManager {
 
 	}
 
-	/*
-	 * public void returnCategory() {
-	 * 
-	 * String requete = "SELECT * FROM Category;"; ResultSet rs =
-	 * db.getResultOf(requete); try { while ( rs.next() ) { int id =
-	 * rs.getInt("ID"); String nom = rs.getString("Name"); System.out.println(
-	 * "ID = " + id ); System.out.println( "Nom = " + nom );
-	 * System.out.println(); } } catch (SQLException e) { // TODO Auto-generated
-	 * catch block e.printStackTrace(); } }
-	 */
-
 	/**
-	 * Supprime les donnees de la Bdd
+	 * Supprime toutes les données de la BdD sans supprimer
+	 * les tables
 	 * 
-	 * @author Vincent Chataignier
 	 */
 	public void clearDB() {
 		String requete = "DELETE FROM News;";
@@ -456,70 +389,31 @@ public class DatabaseManager {
 		db.updateValue(requete);
 	}
 
-	// Récupère toutes les news d'un feed
-	/*
-	 * public ArrayList<News> getAllNewsFromFeed(Feed feed) throws SQLException
-	 * {
-	 * 
-	 * PreparedStatement prstmt =
-	 * db.connection.prepareStatement("SELECT * FROM news WHERE feed=?");
-	 * prstmt.setInt(1, feed.getId()); ResultSet resultat =
-	 * prstmt.executeQuery(); ArrayList<News> list = new ArrayList<News>(); News
-	 * news; while (resultat.next()) { news = new News(resultat.getInt(1),
-	 * resultat.getString(2), resultat.getString(4), resultat.getDate(5),
-	 * resultat.getString(6), resultat.getString(3), resultat.getInt(8)==1,
-	 * resultat.getInt(9)==1); list.add(news); } return list; }
-	 */
 
-	/*
-	 * // Récupère toutes les news d'un feed public ArrayList<Feed>
-	 * getAllFeeds() throws SQLException { ResultSet resultat =
-	 * db.getResultOf("SELECT * FROM feed;"); ArrayList<Feed> list = new
-	 * ArrayList<Feed>(); Feed feed; while (resultat.next()) { feed = new
-	 * Feed(resultat.getString(2), resultat.getString(3), resultat.getInt(1));
-	 * list.add(feed); } return list; }
-	 * 
-	 * // Envoie la news X du feed Y public void addNewsFromFeed(News news, Feed
-	 * feed){ try { if(news.getId()==-1){ PreparedStatement prstmt =
-	 * db.connection
-	 * .prepareStatement("INSERT INTO news VALUES( null, ?, ?, ?, ?, ?, ?, ?, ? )"
-	 * ); prstmt.setString(1, news.getTitle()); prstmt.setString(2,
-	 * news.getUrl()); prstmt.setString(3, news.getAuthor());
-	 * prstmt.setString(4, news.getDate().toString()); prstmt.setString(5,
-	 * news.getContent()); prstmt.setInt(6, feed.getId()); prstmt.setInt(7,
-	 * news.isRead() ? 1 : 0); prstmt.setInt(8, news.isStarred() ? 1 : 0);
-	 * prstmt.execute(); } else { PreparedStatement prstmt =
-	 * db.connection.prepareStatement(
-	 * "UPDATE news SET title=? , url=? , author=? , date=? , content=? , feed=? , read=? , starred=? WHERE id=?"
-	 * ); prstmt.setString(1, news.getTitle()); prstmt.setString(2,
-	 * news.getUrl()); prstmt.setString(3, news.getAuthor());
-	 * prstmt.setString(4, news.getDate().toString()); prstmt.setString(5,
-	 * news.getContent()); prstmt.setInt(6, feed.getId()); prstmt.setInt(7,
-	 * news.isRead() ? 1 : 0); prstmt.setInt(8, news.isStarred() ? 1 : 0);
-	 * prstmt.setInt(9, news.getId()); prstmt.execute(); }
-	 * 
-	 * 
-	 * } catch (SQLException e) { e.printStackTrace(); } }
-	 * 
-	 * // Envoie un feed public void addFeed(Feed feed){ try { PreparedStatement
-	 * prstmt =
-	 * db.connection.prepareStatement("INSERT INTO feed VALUES(null, ?, ? )");
-	 * prstmt.setString(1, feed.getTitle()); prstmt.setString(2, feed.getUrl());
-	 * prstmt.execute(); } catch (SQLException e) { e.printStackTrace(); } }
+	/**
+	 * Lance la connexion à la BdD
 	 */
-
 	public void connect() {
 		db.connect();
 	}
 
+	/**
+	 * Termine la connexion avec la BdD
+	 */
 	public void disconnect() {
 		db.disconnect();
 	}
 
+	/**
+	 * Supprime toutes les news de la BdD
+	 */
 	public void emptyNews() {
 		db.updateValue("DELETE FROM news;");
 	}
 
+	/**
+	 * @return la base de donnée utilisée
+	 */
 	public Database getDb() {
 		return db;
 	}
