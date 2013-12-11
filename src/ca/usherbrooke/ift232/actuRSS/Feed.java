@@ -115,4 +115,15 @@ public class Feed {
 		return this.categoryName;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if(! (o instanceof Feed))
+			return false;
+		if (o == this)
+			return true;
+		Feed feed = (Feed) o;
+		return (this.getTitle().equals(feed.getTitle()) && this.getUrl().equals(feed.getUrl()) && this.getNameCategory() == feed.getNameCategory()
+				&& this.getListNews().equals(feed.getListNews()));
+	}
+
 }
