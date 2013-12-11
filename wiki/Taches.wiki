@@ -1,6 +1,21 @@
 #summary Taches
 
 
+=Nouvelle liste des tâches=
+
+  * Finir la Javadoc
+  * Vérifier la connexion internet
+  * Séparer la synchronisation dans un Thread séparer pour que le logiciel ne freeze pas pendant la recherche des flux
+  * Corriger le ContentPanel : certains caractères spéciaux ne passent pas et empêchent l'affichage de toute la news
+  * Supprimer le champ 
+  * Faire le rapport commun
+
+----
+
+----
+
+----
+
 =Liste des tâches=
 
   * ~~Finir les tests unitaires, commencer les tests unitaires du Model (je crois que David est dessus)~~
