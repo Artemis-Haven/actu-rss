@@ -82,7 +82,7 @@ public class Model extends Observable{
 	 * vers la BdD. On efface tout le contenu des tables avant de 
 	 * renvoyer la liste complete des News.
 	 */
-	private void sendAllToDB() {
+	public void sendAllToDB() {
 		//vider la BdD avec clearDB
 		dbManager.clearDB();
 		dbManager.insertObjetToDB(feedManager.getOldListCategory());
