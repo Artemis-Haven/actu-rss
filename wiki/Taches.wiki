@@ -4,10 +4,9 @@
 =Nouvelle liste des tâches=
 
   * Finir la Javadoc
-  * Vérifier la connexion internet
+  * Vérifier la connexion internet : fonction gotInternetConnection
   * Séparer la synchronisation dans un Thread séparer pour que le logiciel ne freeze pas pendant la recherche des flux
   * Corriger le ContentPanel : certains caractères spéciaux ne passent pas et empêchent l'affichage de toute la news
-  * Supprimer le champ 
   * Faire le rapport commun
 
 ----
