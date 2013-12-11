@@ -106,7 +106,7 @@ public class Model extends Observable{
 	 * 
 	 * @throws Exception
 	 */
-	public void synchronize() throws Exception {
+	public synchronized void  synchronize() throws Exception {
         
         Document docFeed = null;
         //Si la liste des catÃ©gories est vide, on la charge depuis la BD
