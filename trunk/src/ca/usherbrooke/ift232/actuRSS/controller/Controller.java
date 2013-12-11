@@ -284,6 +284,7 @@ public class Controller implements ActionListener {
 		}
 
 		// Valide l'ajout du flux et l'ajoute
+		boolean newFeed;
 		if (action.equals("OkAddSource")) {
 			if (addFeed.Valide()) {
 				addFeed.finishedDialog();
@@ -291,7 +292,12 @@ public class Controller implements ActionListener {
 				String str = addFeed.getCategory();
 				feed.setNameCategory(str);
 				Category cat = feedManager.getCategoryByName(str);
-				feedManager.addFeed(feed, cat);
+				newFeed = feedManager.addFeed(feed, cat);
+				if (newFeed == false) {
+					JDialog Dev = new JDialog();
+					JOptionPane.showMessageDialog(Dev, "Le flux Rss que vous essayer d'ajouter existe déjà !", "Help",
+							new Integer(JOptionPane.INFORMATION_MESSAGE).intValue());
+				}
 				gest.getManageTree().refreshFeeds(
 						feedManager.getOldListCategory());
 				// System.out.println(feedManager.getOldListCategory().toString());

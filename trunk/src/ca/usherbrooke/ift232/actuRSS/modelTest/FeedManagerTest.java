@@ -35,7 +35,7 @@ public class FeedManagerTest extends TestCase {
     	List<News> ListNews = new ArrayList<News>();
         ListFeed = new ArrayList<Feed>();
     	Calendar cal = Calendar.getInstance();
-        
+
         news11 = new News("titre11", "url11", "auteur11", cal, "txt11", true, true);
         news12 = new News("titre12", "url12", "auteur12", cal, "txt12", false, false);
         news21 = new News("titre21", "url21", "auteur21", cal, "txt21", false, false);
@@ -141,10 +141,12 @@ public class FeedManagerTest extends TestCase {
         assertEquals(feedManager.getOldListCategory().get(0).getListFeed().get(1).getListNews().size(), 2);
         assertEquals(feedManager.getOldListCategory().get(0).getListFeed().get(2).getListNews().size(), 2);
         
-        for (Feed listFeed : feedManager.getOldListCategory().get(0).getListFeed()) {
-        	for (News news :  listFeed.getListNews()) 
-        		mergedListNews.add(news);
-        }
+        for (Category cat : feedManager.getOldListCategory())
+        //for (Feed feed : feedManager.getOldListCategory().get(0).getListFeed()) {
+        	for (Feed feed : cat.getListFeed())
+        		for (News news :  feed.getListNews()) 
+        			mergedListNews.add(news);
+        
         
         assertEquals(mergedListNews.size(), 6);
         assertTrue(mergedListNews.contains(news11));

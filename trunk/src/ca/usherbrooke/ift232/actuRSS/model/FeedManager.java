@@ -88,6 +88,7 @@ public class FeedManager {
 					{
 						urlNewsTemmp = listeNewsTemp.get(newsTemp).getUrl();
 						
+						//if (urlNews.equals(urlNewsTemmp))
 						if (urlNews.equals(urlNewsTemmp))
 						{
 							contient = true;
@@ -113,10 +114,17 @@ public class FeedManager {
 	 * @param feed Le flux à ajouter
 	 * @param cat La catégorie dans laquelle on veut l'ajouter
 	 */
-	public void addFeed(Feed feed, Category cat)
+	public boolean addFeed(Feed feed, Category cat)
 	{
+		boolean NewFeed = true;
 		//Ajouter le feed dans oldListCategory en supposant que la categorie est correct
-		this.getCategoryByName(cat.getName()).getListFeed().add(feed);
+		for (Category category : oldListCategory)
+			for (Feed feedCat : category.getListFeed())
+				if (feed.getUrl().equals(feedCat.getUrl()))	
+					NewFeed = false;
+		if (NewFeed)
+			this.getCategoryByName(cat.getName()).getListFeed().add(feed);
+		return NewFeed;
 		//System.out.println(oldListCategory.toString());
 		
 	}
