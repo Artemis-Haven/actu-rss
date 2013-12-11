@@ -50,7 +50,7 @@ public class Controller implements ActionListener {
 	public String theDisplay;
 	List<News> news = new ArrayList<News>();
 
-	public Controller(Model model, View view) {
+	public Controller(final Model model, final View view) {
 		this.model = model;
 		this.view = view;
 		this.mainPanel = view.getMainPanel();
@@ -71,6 +71,15 @@ public class Controller implements ActionListener {
 		model.addObserver(view);
 		model.notifyObserver();
 		view.addListener(this);
+
+		// --- Evenement sur la croix de la fenetre principale
+		
+		this.view.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				model.sendAllToDB();
+				view.dispose();
+			}
+		});
 
 		// --- Evenement sur la croix du Jdialog
 		
