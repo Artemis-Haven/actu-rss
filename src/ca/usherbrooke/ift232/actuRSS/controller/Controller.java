@@ -15,6 +15,7 @@ import ca.usherbrooke.ift232.actuRSS.Feed;
 import ca.usherbrooke.ift232.actuRSS.News;
 import ca.usherbrooke.ift232.actuRSS.model.FeedManager;
 import ca.usherbrooke.ift232.actuRSS.model.Model;
+import ca.usherbrooke.ift232.actuRSS.model.SyncRunnable;
 import ca.usherbrooke.ift232.actuRSS.properties.DialogAddFeed;
 import ca.usherbrooke.ift232.actuRSS.properties.DialogEditFeed;
 import ca.usherbrooke.ift232.actuRSS.properties.DialogFeedManager;
@@ -211,7 +212,8 @@ public class Controller implements ActionListener {
 
 			System.out.println("lolilol");
 			try {
-				model.synchronize();
+				SyncRunnable.main();
+				//model.synchronize();
 
 				// feedManager.getOldListCategory();
 			} catch (Exception e) {
