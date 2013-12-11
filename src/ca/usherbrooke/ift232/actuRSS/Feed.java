@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Actu-RSS Couche : Model Date de creation : 2013-10-30 Description : Classe
+ * Actu-RSS Couche : Model 
+ * Date de creation : 2013-10-30 
+ * Description : Classe
  * Feed Un feed est determine par un nom, une url, une liste de news, une
  * categorie
  * 

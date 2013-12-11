@@ -26,7 +26,6 @@ public class News {
 	private String contents;
 	private boolean read;
 	private boolean favorite;
-	private Feed feed;
 
 	//constructeurs
 		public News(){
@@ -37,7 +36,6 @@ public class News {
 			this.contents = "";
 			this.read = false;
 			this.favorite = false;
-			this.feed = null;
 		}
 		
 		/**News : permet d'initialiser les valeurs d'une news
@@ -58,7 +56,6 @@ public class News {
 			this.contents = contents;
 			this.read = read;
 			this.favorite = favorite;
-			this.feed = null;
 		}
 		
 	//accesseurs
@@ -83,9 +80,6 @@ public class News {
 	public boolean isFavorite() {
 		return favorite;
 	}
-	public Feed getFeed() {
-		return feed;
-	}
 
 	
 	public void setTitle(String title) {
@@ -109,10 +103,7 @@ public class News {
 	public void setFavorite(boolean favorite) {
 		this.favorite = favorite;
 	}
-	public void setFeed(Feed feed) {
-		this.feed = feed;
-	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if(! (obj instanceof News))

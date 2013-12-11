@@ -9,7 +9,8 @@ import java.sql.Statement;
  
 /**
  * Cette classe fait l'interface avec la base de données.
- * @author Leucistic
+ * 
+ * @author Leucistic, membre du site OpenClassrooms
  *
  */
 public class Database {
@@ -113,7 +114,7 @@ public class Database {
     }
  
     /**
-     * Permet de modifier une entrée de la base de données.</br>
+     * Permet de modifier une entrée de la base de données.
      * @param requete La requete SQL de modification
      */
     public void updateValue (String requete)

@@ -2,8 +2,20 @@ package ca.usherbrooke.ift232.actuRSS.bdd;
 
 import java.util.Calendar;
 
+/**
+ * Cette classe contient des méthodes utilitaires pour
+ * faciliter la gestion des dates entre le Modele et la BdD
+ * 
+ * @author Vincent Chataignier, Matthieu Poupineau
+ */
 public class DatabaseUtil {
 
+        /**
+         * Tranforme un objet Calendar en chaine de caractères
+         * 
+         * @param date la date à transformer
+         * @return la date sous forme de chaine de caractères
+         */
         public static String ConvertCalendarToString(Calendar date) {
                
                 StringBuffer dateToReturn = new StringBuffer();
@@ -32,6 +44,14 @@ public class DatabaseUtil {
                 return dateToReturn.toString();
         }
        
+        /**
+         * Transforme un entier entre 0 et 99 en chaine de caractères
+         * et rajoute un zéro au début s'il est inférieur à 10.
+         * 
+         * @param value un entier positif et inférieur à 100
+         * @return une chaine de caractère contenant l'entier sous
+         * la forme de deux caractères
+         */
         private static String GetNormalForm(int value) {
                 String toReturn = null;
                 if(value < 10) {
@@ -43,6 +63,12 @@ public class DatabaseUtil {
                 return toReturn;
         }
 
+        /**
+         * Tranforme une chaine de caractères en objet Calendar
+         * 
+         * @param date la date sous forme de chaine de caractères
+         * @return la date sous forme d'objet Calendar
+         */
         public static Calendar convertStringToCalendar(String date)
         {
                 //YYYY-MM-DD HH:MM:SS.SSS

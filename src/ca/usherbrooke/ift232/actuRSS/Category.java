@@ -1,7 +1,5 @@
 package ca.usherbrooke.ift232.actuRSS;
 
-
-
 import java.util.ArrayList;
 import java.util.List;
 
