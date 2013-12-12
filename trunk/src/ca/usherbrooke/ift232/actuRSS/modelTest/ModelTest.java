@@ -14,6 +14,7 @@ import ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager;
 import ca.usherbrooke.ift232.actuRSS.model.FeedManager;
 import ca.usherbrooke.ift232.actuRSS.model.Model;
 import ca.usherbrooke.ift232.actuRSS.model.RssParser;
+import ca.usherbrooke.ift232.actuRSS.model.WrongURLException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -61,7 +62,7 @@ public class ModelTest extends TestCase {
 		try {
 		assertTrue(Model.obtainDocument(feedurl) instanceof Document);
 		feedDoc = Model.obtainDocument(feedurl);
-		} catch (MalformedURLException ex) {
+		} catch (WrongURLException ex) {
 			ex.getMessage();
 		}
 

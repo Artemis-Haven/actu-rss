@@ -16,6 +16,7 @@ import ca.usherbrooke.ift232.actuRSS.News;
 import ca.usherbrooke.ift232.actuRSS.model.FeedManager;
 import ca.usherbrooke.ift232.actuRSS.model.Model;
 import ca.usherbrooke.ift232.actuRSS.model.SyncRunnable;
+import ca.usherbrooke.ift232.actuRSS.model.WrongURLException;
 import ca.usherbrooke.ift232.actuRSS.properties.DialogAddFeed;
 import ca.usherbrooke.ift232.actuRSS.properties.DialogEditFeed;
 import ca.usherbrooke.ift232.actuRSS.properties.DialogFeedManager;
@@ -211,15 +212,11 @@ public class Controller implements ActionListener {
 		if (action.equals("Sync")) {
 
 			System.out.println("lolilol");
-			try {
-				SyncRunnable.main();
+			SyncRunnable.main();
 				//model.synchronize();
 
 				// feedManager.getOldListCategory();
-			} catch (Exception e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 
 			// feedManager.merge();
 			model.notifyObserver();
@@ -303,12 +300,19 @@ public class Controller implements ActionListener {
 				String str = addFeed.getCategory();
 				feed.setNameCategory(str);
 				Category cat = feedManager.getCategoryByName(str);
-				newFeed = feedManager.addFeed(feed, cat);
-				if (newFeed == false) {
+				try {
+					newFeed = feedManager.addFeed(feed, cat);
+					if (newFeed == false) {
+						JDialog Dev = new JDialog();
+						JOptionPane.showMessageDialog(Dev, "Le flux Rss que vous essayer d'ajouter existe déjà !", "Help",
+								new Integer(JOptionPane.INFORMATION_MESSAGE).intValue());
+					}
+				} catch (WrongURLException ex) {
 					JDialog Dev = new JDialog();
-					JOptionPane.showMessageDialog(Dev, "Le flux Rss que vous essayer d'ajouter existe déjà !", "Help",
-							new Integer(JOptionPane.INFORMATION_MESSAGE).intValue());
-				}
+        			JOptionPane.showMessageDialog(Dev, "L'adresse du flux " + feed.getTitle() + " semble être erroné", "Help",
+        					new Integer(JOptionPane.INFORMATION_MESSAGE).intValue());
+				}	
+				
 				gest.getManageTree().refreshFeeds(
 						feedManager.getOldListCategory());
 				// System.out.println(feedManager.getOldListCategory().toString());
@@ -368,7 +372,12 @@ public class Controller implements ActionListener {
 				Category cat = feedManager.getCategoryByName(str);
 				Category oldcat =feedManager.getCategoryByName(editFeed.getFeed().getNameCategory());
 				feedManager.removeFeed(editFeed.getFeed(), oldcat);
-				feedManager.addFeed(feed, cat);
+				// CREER METHODE MODIFYFEED
+				try {
+					newFeed = feedManager.addFeed(feed, cat);
+				} catch (Exception ex) {
+					
+				}
 				gest.getManageTree().refreshFeeds(
 						feedManager.getOldListCategory());
 
