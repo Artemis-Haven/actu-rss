@@ -113,19 +113,35 @@ public class FeedManager {
 	 */
 	public boolean addFeed(Feed feed, Category cat) throws WrongURLException 
 	{
-		Model.obtainDocument(feed.getUrl());
+		boolean newFeed = true;
 		
-		boolean NewFeed = true;
+		Model.obtainDocument(feed.getUrl());
 		//Ajouter le feed dans oldListCategory en supposant que la categorie est correct
 		for (Category category : oldListCategory)
 			for (Feed feedCat : category.getListFeed())
 				if (feed.getUrl().equals(feedCat.getUrl()))	
-					NewFeed = false;
-		if (NewFeed)
+					newFeed = false;
+		if (newFeed)
 			this.getCategoryByName(cat.getName()).getListFeed().add(feed);
-		return NewFeed;
+		return newFeed;
 		//System.out.println(oldListCategory.toString());
 		
+	}
+	
+	public boolean modifyFeed(Feed feed, Category cat) throws WrongURLException {
+		
+		boolean newFeed = true;
+		Model.obtainDocument(feed.getUrl());
+		
+		for (Category category : oldListCategory)
+			for (Feed feedCat : category.getListFeed())
+				if (feed.equals(feedCat))	{
+					newFeed = false;
+				}
+		if (newFeed) {
+			this.getCategoryByName(cat.getName()).getListFeed().add(feed);
+		}
+		return newFeed;
 	}
 
 	/**

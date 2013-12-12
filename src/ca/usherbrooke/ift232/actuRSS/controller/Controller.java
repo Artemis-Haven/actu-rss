@@ -370,14 +370,17 @@ public class Controller implements ActionListener {
 				String str = editFeed.getCategory();
 				feed.setNameCategory(str);
 				Category cat = feedManager.getCategoryByName(str);
-				Category oldcat =feedManager.getCategoryByName(editFeed.getFeed().getNameCategory());
-				feedManager.removeFeed(editFeed.getFeed(), oldcat);
+				Category oldcat = feedManager.getCategoryByName(editFeed.getFeed().getNameCategory());
 				// CREER METHODE MODIFYFEED
 				try {
-					newFeed = feedManager.addFeed(feed, cat);
-				} catch (Exception ex) {
-					
-				}
+					newFeed = feedManager.modifyFeed(feed, cat);
+					if (newFeed)
+						feedManager.removeFeed(editFeed.getFeed(), oldcat);
+				} catch (WrongURLException ex) {
+					JDialog Dev = new JDialog();
+        			JOptionPane.showMessageDialog(Dev, "La nouvelle adresse adresse du flux " + feed.getTitle() + " semble être erroné", "Help",
+        					new Integer(JOptionPane.INFORMATION_MESSAGE).intValue());
+				}	
 				gest.getManageTree().refreshFeeds(
 						feedManager.getOldListCategory());
 
