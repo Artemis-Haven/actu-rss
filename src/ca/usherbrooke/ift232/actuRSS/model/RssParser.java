@@ -70,7 +70,7 @@ public class RssParser {
 		for (int i = 0; i < nodes.getLength(); i++) {
 			element = (Element) nodes.item(i);
 			News n = new News(readNode(element, "title"), readNode(element,"link"), readNode(element, "author"),parsePubDate(readNode(element, "pubDate")),
-					readNode(element, "description"), false, false);
+					readNode(element, "description").replaceAll( "(href|src)=(\\'|\")([^\\'\"\\&<>\\s]+)(\\&)([^\\s\\'\"\\&<>]+)(\\'|\")", "$1=$2$3&amp;$5$6" ), false, false);
 		
 			
 			
