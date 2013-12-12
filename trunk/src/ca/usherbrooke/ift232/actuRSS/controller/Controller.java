@@ -79,7 +79,7 @@ public class Controller implements ActionListener {
 		this.view.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				model.sendAllToDB();
-				view.dispose();
+				System.exit(0);
 			}
 		});
 

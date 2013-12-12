@@ -10,6 +10,9 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
+import javax.swing.InputVerifier;
+import javax.swing.JComponent;
+
 import org.w3c.dom.Document;
 import org.xhtmlrenderer.resource.XMLResource;
 import org.xhtmlrenderer.simple.XHTMLPanel;
@@ -43,8 +46,8 @@ public class ContentPanel extends XHTMLPanel {
 			//System.out.println("Impossible de trouver la feuille de style.");
 			style = "src/resources/default.css";
 		}
-
-		String fullHTML = ""
+		
+		String fullHTML = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\"> "
 				+ "<html><head><style type=\"text/css\">"
 				+ style
 				+ "</style></head><body><div class=\"header\"><div class=\"title\">"
