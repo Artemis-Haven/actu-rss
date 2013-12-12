@@ -69,17 +69,6 @@ public class RssParser {
 		nodes = feedDoc.getElementsByTagName("item");
 		for (int i = 0; i < nodes.getLength(); i++) {
 			element = (Element) nodes.item(i);
-			/*String link = readNode(element,"link");
-			URL urlLink = null;
-			try {
-				urlLink = new URL(link);
-			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} 
-			link = urlLink.getProtocol() + "://" + urlLink.getAuthority();
-			News n = new News(readNode(element, "title"), link, readNode(element, "author"),parsePubDate(readNode(element, "pubDate")),
-					readNode(element, "description"), false, false);*/
 			News n = new News(readNode(element, "title"), readNode(element,"link"), readNode(element, "author"),parsePubDate(readNode(element, "pubDate")),
 					readNode(element, "description"), false, false);
 		
@@ -87,6 +76,10 @@ public class RssParser {
 			
 			listNewsFeed.add(n);
 		}
+		/*System.out.println(feed.getTitle());
+        System.out.println(feed.getUrl());
+        for (News news : feed.getListNews())            
+                System.out.println(news);*/
 		return (feed);
 	}
 

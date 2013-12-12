@@ -2,6 +2,7 @@ package ca.usherbrooke.ift232.actuRSS.model;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -13,12 +14,15 @@ import java.util.Observable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.text.html.parser.Parser;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
 import ca.usherbrooke.ift232.actuRSS.Category;
@@ -106,7 +110,7 @@ public class Model extends Observable{
 	 * 
 	 * @throws Exception
 	 */
-	public synchronized void  synchronize() throws Exception {
+	public synchronized void  synchronize() {
         
         Document docFeed = null;
         //Si la liste des catÃ©gories est vide, on la charge depuis la BD
@@ -114,8 +118,13 @@ public class Model extends Observable{
                 loadAllFromDB();
         }
         
-        if(!this.gotInternetConnection()) {
-        	return;
+        try {
+        	this.gotInternetConnection();
+        } catch (IOException ex) {
+        	JDialog Dev = new JDialog();
+			JOptionPane.showMessageDialog(Dev, "La connection Internet n'a pas pu être établie", "Help",
+					new Integer(JOptionPane.INFORMATION_MESSAGE).intValue());
+			return;
         }
         
         ArrayList<Category> newList = new ArrayList<Category>();
@@ -131,16 +140,17 @@ public class Model extends Observable{
                 	// et on les envoie dans le feedManager
                         //File f = new File(feed.getUrl());
                 	try {
-                    docFeed = Model.obtainDocument(feed.getUrl());
-                	} catch (MalformedURLException ex) {
-                		ex.getMessage();
+                		docFeed = Model.obtainDocument(feed.getUrl());
+                	} catch (WrongURLException ex) {
+                		JDialog Dev = new JDialog();
+            			JOptionPane.showMessageDialog(Dev, "L'adresse du flux " + feed.getTitle() + " semble être erroné", "Help",
+            					new Integer(JOptionPane.INFORMATION_MESSAGE).intValue());
+            			return;
                 	}
                 	
-                    if (docFeed != null) {
-                            Feed newFeed = RssParser.parse(docFeed);
-                            newFeed.setNameCategory(category.getName());
-                            newCat.getListFeed().add(newFeed);
-                    } else throw new Exception("Le document n'a pas été correctement parsé");
+                    Feed newFeed = RssParser.parse(docFeed);
+                    newFeed.setNameCategory(category.getName());
+                    newCat.getListFeed().add(newFeed);
                 }
                 newList.add(newCat);
         }
@@ -163,10 +173,12 @@ public class Model extends Observable{
 	 * 
 	 * @return true si l'on est connecté à internet, false sinon
 	 */
-	private boolean gotInternetConnection() {
-		// TODO Auto-generated method stub
-		return true;
+	private void gotInternetConnection() throws IOException {
+		URL url = new URL("http://www.google.fr");
+		HttpURLConnection urlConn = (HttpURLConnection)url.openConnection();
+		urlConn.connect();
 	}
+
 
 	/**
 	 * notifie la vue de la mise à jour de la liste de Category.
@@ -186,15 +198,15 @@ public class Model extends Observable{
      * @return le fichier récupéré à l'url demandée
      * @throws MalformedURLException L'url n'est pas valide
      */
-    public static Document obtainDocument(String feedurl) throws MalformedURLException {
-        Document doc = null;
-        try {
-            DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-            URL url = new URL(feedurl);
-            doc = builder.parse(url.openStream());
-	    } catch (Exception ex) {
-            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
-	    }
+    public static Document obtainDocument(String feedurl) throws WrongURLException {
+    	Document doc = null;
+    	try {	    
+		    DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+		    URL url = new URL(feedurl);
+		    doc = builder.parse(url.openStream());
+    	} catch (Exception ex) {
+    		throw new WrongURLException("");
+    	}
 	    return doc;
     }
 

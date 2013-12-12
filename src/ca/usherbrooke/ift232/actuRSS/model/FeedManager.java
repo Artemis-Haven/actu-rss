@@ -111,8 +111,10 @@ public class FeedManager {
 	 * @param feed Le flux à ajouter
 	 * @param cat La catégorie dans laquelle on veut l'ajouter
 	 */
-	public boolean addFeed(Feed feed, Category cat)
+	public boolean addFeed(Feed feed, Category cat) throws WrongURLException 
 	{
+		Model.obtainDocument(feed.getUrl());
+		
 		boolean NewFeed = true;
 		//Ajouter le feed dans oldListCategory en supposant que la categorie est correct
 		for (Category category : oldListCategory)
