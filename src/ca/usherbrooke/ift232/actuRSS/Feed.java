@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Actu-RSS Couche : Model 
- * Date de creation : 2013-10-30 
- * Description : Classe
+ * Actu-RSS Couche : Model Date de creation : 2013-10-30 Description : Classe
  * Feed Un feed est determine par un nom, une url, une liste de news, une
  * categorie
  * 
@@ -28,10 +26,7 @@ public class Feed {
 	 * Permet de construire et initaliser un feed
 	 */
 	public Feed() {
-		this.id = -1;
-		this.title = "";
-		this.url = "";
-		listNews = new ArrayList<News>();
+		this(-1, "", "", new ArrayList<News>());
 	}
 
 	/**
@@ -44,10 +39,7 @@ public class Feed {
 	 */
 
 	public Feed(String title, String url, List<News> entries) {
-		this.id = -1;
-		this.title = title;
-		this.url = url;
-		listNews = entries;
+		this(-1, title, url, entries);
 	}
 
 	public Feed(int id, String title, String url, List<News> entries) {
@@ -58,10 +50,7 @@ public class Feed {
 	}
 
 	public Feed(int id, String title, String url) {
-		this.id = id;
-		this.title = title;
-		this.url = url;
-		listNews = new ArrayList<News>();
+		this(id, title, url, new ArrayList<News>());
 	}
 
 	// accesseurs
@@ -98,16 +87,17 @@ public class Feed {
 		this.title = title;
 	}
 
-	public void setNameCategory(String nameCategory){
+	public void setNameCategory(String nameCategory) {
 		this.categoryName = nameCategory;
 	}
+
 	@Override
 	public String toString() {
-		/*String resultat = "\n    Feed [id=" + id + ", title=" + title + "]";
-		for(News n : this.getListNews()) {
-			resultat += "\n" + n;
-		}
-		return resultat;*/
+		/*
+		 * String resultat = "\n    Feed [id=" + id + ", title=" + title + "]";
+		 * for(News n : this.getListNews()) { resultat += "\n" + n; } return
+		 * resultat;
+		 */
 		return this.getTitle();
 	}
 
@@ -117,13 +107,15 @@ public class Feed {
 
 	@Override
 	public boolean equals(Object o) {
-		if(! (o instanceof Feed))
+		if (!(o instanceof Feed))
 			return false;
 		if (o == this)
 			return true;
 		Feed feed = (Feed) o;
-		return (this.getTitle().equals(feed.getTitle()) && this.getUrl().equals(feed.getUrl()) && this.getNameCategory() == feed.getNameCategory()
-				&& this.getListNews().equals(feed.getListNews()));
+		return (this.getTitle().equals(feed.getTitle())
+				&& this.getUrl().equals(feed.getUrl())
+				&& this.getNameCategory() == feed.getNameCategory() && this
+				.getListNews().equals(feed.getListNews()));
 	}
 
 }
