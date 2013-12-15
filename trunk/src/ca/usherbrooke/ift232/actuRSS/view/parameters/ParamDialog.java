@@ -1,4 +1,4 @@
-package ca.usherbrooke.ift232.actuRSS.view.properties;
+package ca.usherbrooke.ift232.actuRSS.view.parameters;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
