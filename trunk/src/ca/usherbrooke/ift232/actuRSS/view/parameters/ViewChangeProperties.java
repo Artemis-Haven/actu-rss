@@ -2,7 +2,6 @@ package ca.usherbrooke.ift232.actuRSS.view.parameters;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
@@ -18,6 +17,11 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 
 import ca.usherbrooke.ift232.actuRSS.controller.Controller;
+import ca.usherbrooke.ift232.actuRSS.view.Filter.AllFilter;
+import ca.usherbrooke.ift232.actuRSS.view.Filter.FavoriteFilter;
+import ca.usherbrooke.ift232.actuRSS.view.Filter.Filter;
+import ca.usherbrooke.ift232.actuRSS.view.Filter.NotReadFilter;
+import ca.usherbrooke.ift232.actuRSS.view.Filter.ReadFilter;
 
 public class ViewChangeProperties extends ParamDialog {
 	
@@ -60,11 +64,11 @@ public class ViewChangeProperties extends ParamDialog {
 		notRead.setFocusable(false);
 		read = new JRadioButton("Lu");
 		read.setFocusable(false);
-		if(Controller.defaultDisplay.matches("All"))
+		if(Controller.defaultDisplay instanceof AllFilter)
 			all.setSelected(true);
-		else if(Controller.defaultDisplay.matches("Favorite"))
+		else if(Controller.defaultDisplay instanceof FavoriteFilter)
 			favorite.setSelected(true);
-		else if(Controller.defaultDisplay.matches("Not Read"))
+		else if(Controller.defaultDisplay  instanceof NotReadFilter)
 			notRead.setSelected(true);
 		else
 			read.setSelected(true);
@@ -139,21 +143,22 @@ public class ViewChangeProperties extends ParamDialog {
 	}
 	
 	public void finishDialog(){
-		String newDisplay;
+		Filter newDisplay;
 		String newNumber;
 		String newPath;
 		
 		if(all.isSelected())
-			newDisplay = "All";
+			newDisplay = new AllFilter();
 		else if(favorite.isSelected())
-			newDisplay = "Favorite";
+			newDisplay = new FavoriteFilter();
 		else if(notRead.isSelected())
-			newDisplay = "Not Read";
+			newDisplay = new NotReadFilter();
 		else
-			newDisplay = "Read";
+			newDisplay = new ReadFilter();
 		
-		Controller.properties.setProperty("Default Display", newDisplay);
+		Controller.properties.setProperty("Default Display", newDisplay.getClass().getName());
 		Controller.defaultDisplay  = newDisplay;
+		
 		
 		newNumber = spinNumber.getValue().toString();
 		Controller.properties.setProperty("NewsNumber", newNumber);
@@ -166,11 +171,11 @@ public class ViewChangeProperties extends ParamDialog {
 	public void closeDialog(){
 		super.closeDialog();
 		spinNumber.setValue(Integer.parseInt(Controller.properties.getProperty("News Number")));
-		if(Controller.defaultDisplay.matches("All"))
+		if(Controller.defaultDisplay instanceof AllFilter)
 			all.setSelected(true);
-		else if(Controller.defaultDisplay.matches("Favorite"))
+		else if(Controller.defaultDisplay instanceof FavoriteFilter)
 			favorite.setSelected(true);
-		else if(Controller.defaultDisplay.matches("Not Read"))
+		else if(Controller.defaultDisplay instanceof NotReadFilter)
 			notRead.setSelected(true);
 		else
 			read.setSelected(true);

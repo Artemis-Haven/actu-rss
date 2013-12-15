@@ -20,6 +20,11 @@ import ca.usherbrooke.ift232.actuRSS.model.WrongURLException;
 import ca.usherbrooke.ift232.actuRSS.view.MainPanel;
 import ca.usherbrooke.ift232.actuRSS.view.Toolbar;
 import ca.usherbrooke.ift232.actuRSS.view.View;
+import ca.usherbrooke.ift232.actuRSS.view.Filter.AllFilter;
+import ca.usherbrooke.ift232.actuRSS.view.Filter.FavoriteFilter;
+import ca.usherbrooke.ift232.actuRSS.view.Filter.Filter;
+import ca.usherbrooke.ift232.actuRSS.view.Filter.NotReadFilter;
+import ca.usherbrooke.ift232.actuRSS.view.Filter.ReadFilter;
 import ca.usherbrooke.ift232.actuRSS.view.actulist.ActuList;
 import ca.usherbrooke.ift232.actuRSS.view.actulist.ActuSelectedEvent;
 import ca.usherbrooke.ift232.actuRSS.view.actulist.ActuSelectedListener;
@@ -47,12 +52,21 @@ public class Controller implements ActionListener {
 	private DialogEditFeed editFeed;
 	public static ProgramProperties properties = ProgramProperties
 			.getInstance();
-	public static String defaultDisplay = properties
-			.getProperty("Default Display");
-	public String theDisplay;
+	public static Filter defaultDisplay;
+	public Filter theDisplay;
 	List<News> news = new ArrayList<News>();
 
-	public Controller(final Model model, final View view) {
+	public Controller(final Model model, final View view) 
+	{
+		try
+		{
+			defaultDisplay = (Filter) Class.forName(properties.getProperty("Default Display")).newInstance();
+		} catch (Exception e1)
+		{
+			
+			e1.printStackTrace();
+		} 
+		
 		this.model = model;
 		this.view = view;
 		this.mainPanel = view.getMainPanel();
@@ -176,7 +190,7 @@ public class Controller implements ActionListener {
 
 		String action = arg0.getActionCommand();
 		if (action.equals("Tout")) {
-			theDisplay = "All";
+			theDisplay = new AllFilter();
 			toolbar.getFavBtn().setSelected(false);
 			toolbar.getReadBtn().setSelected(false);
 
@@ -186,7 +200,7 @@ public class Controller implements ActionListener {
 
 		if (action.equals("Non lus")) {
 
-			theDisplay = "Not Read";
+			theDisplay = new NotReadFilter();
 			toolbar.getFavBtn().setSelected(false);
 			toolbar.getReadBtn().setSelected(false);
 			newsList.changeNews(news, theDisplay);
@@ -195,7 +209,7 @@ public class Controller implements ActionListener {
 
 		if (action.equals("Lus")) {
 
-			theDisplay = "Read";
+			theDisplay = new ReadFilter();
 			toolbar.getFavBtn().setSelected(false);
 			toolbar.getReadBtn().setSelected(false);
 			newsList.changeNews(news, theDisplay);
@@ -203,7 +217,7 @@ public class Controller implements ActionListener {
 
 		if (action.equals("Favoris")) {
 
-			theDisplay = "Favorite";
+			theDisplay = new FavoriteFilter();
 			toolbar.getFavBtn().setSelected(false);
 			toolbar.getReadBtn().setSelected(false);
 			newsList.changeNews(news, theDisplay);

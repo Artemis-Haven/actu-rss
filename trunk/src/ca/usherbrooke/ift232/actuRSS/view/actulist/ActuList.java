@@ -1,6 +1,5 @@
 package ca.usherbrooke.ift232.actuRSS.view.actulist;
 
-import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,17 +12,21 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import ca.usherbrooke.ift232.actuRSS.News;
+import ca.usherbrooke.ift232.actuRSS.view.Filter.AllFilter;
+import ca.usherbrooke.ift232.actuRSS.view.Filter.Filter;
 import ca.usherbrooke.ift232.actuRSS.view.parameters.ProgramProperties;
 
 public class ActuList extends JList implements ListSelectionListener
 {	
+
+	private Filter _filtre;
 	
 	/**Constructeur de la liste d'actualit�
 	 * @param news
 	 */
 	public ActuList(List<News> news) {
 
-		super(buildListModelNews(news,"Tout"));
+		super(buildListModelNews(news, new AllFilter()));
 
 
 		this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -49,9 +52,9 @@ public class ActuList extends JList implements ListSelectionListener
 
 	}
 
-	private static ListModel buildListModelNews(List<News> news, String state) {
+	private static ListModel buildListModelNews(List<News> news, Filter filtre) {
 		final DefaultListModel listModelNews = new DefaultListModel();
-		fillNews(listModelNews, news,state);
+		fillNews(listModelNews, news, filtre);
 
 		return listModelNews;
 	}
@@ -60,9 +63,9 @@ public class ActuList extends JList implements ListSelectionListener
 	 * @param news
 	 * @param state
 	 */
-	public void changeNews(List<News> news,String state)
+	public void changeNews(List<News> news, Filter filter)
 	{
-		ListModel modelNews = buildListModelNews(news,state);
+		ListModel modelNews = buildListModelNews(news, filter);
 
 		this.setModel(modelNews);
 	}
@@ -72,10 +75,18 @@ public class ActuList extends JList implements ListSelectionListener
 	 * @param news
 	 * @param state
 	 */
-	private static void fillNews(DefaultListModel listModel, List<News> news,String state) {
+	private static void fillNews(DefaultListModel listModel, List<News> news,Filter filter) {
 
+		
+		
 		listModel.clear();
-		for (News element : news) 
+		
+		for(News element : filter.filtrer(news))
+		{
+			listModel.addElement(element);
+		}
+		
+		/*for (News element : news) 
 		{
 			
 			if(state.equals("Favorite")){
@@ -97,7 +108,7 @@ public class ActuList extends JList implements ListSelectionListener
 				listModel.addElement(element);
 				//System.out.println(element);
 			}	
-		}
+		}*/
 
 	}
 
