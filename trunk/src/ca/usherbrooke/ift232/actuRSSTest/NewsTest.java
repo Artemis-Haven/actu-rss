@@ -67,30 +67,13 @@ public class NewsTest {
         }
 
        
-        /*
-         * @Test
+        @Test
         public void testToString() {
-                String testString = "";
-                News news = new News();
-               
-                news.setTitle("titre");
-                news.setUrl("exempleUrl");
-                news.setAuthor("Gusman");
-                Calendar cal = Calendar.getInstance();
-                news.setDate(cal);
-                news.setContents("Plein plein plein de texte");
-                news.setRead(true);
-                news.setFavorite(true);
-               
-                testString = "News [title = " + news.getTitle() + ", contents = " + news.getContents()
-                                + ", url = " + news.getUrl() + ", author = " + news.getAuthor() + ", date = "
-                                + "(jour de la semaine : " + news.getDate().get(Calendar.DAY_OF_WEEK)+"), "+ news.getDate().get(Calendar.DAY_OF_MONTH) +"/"
-                                + news.getDate().get(Calendar.MONTH) + "/" + news.getDate().get(Calendar.YEAR) + " "
-                                + news.getDate().get(Calendar.HOUR_OF_DAY) + ":" + news.getDate().get(Calendar.MINUTE) +":"
-                                + news.getDate().get(Calendar.SECOND) + "]";
-                assertEquals(testString, news.toString());
-               
-        }*/
+        		News n = new News();
+        		n.setTitle("NEWS");
+        		assertEquals(n.toString(), "NEWS");
+
+        }
        
 }
 
