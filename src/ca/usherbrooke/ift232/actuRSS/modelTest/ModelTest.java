@@ -71,7 +71,6 @@ public class ModelTest extends TestCase implements Observer {
 	public void testSendAllToDB() {
 		Model model = new Model();
 		model.getDbManager().clearDB();
-		
 		//Créer des categories, flux et news
 		ArrayList<Category> categoryList = buildCategoryList();
 		
