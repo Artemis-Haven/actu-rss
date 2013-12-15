@@ -13,7 +13,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import ca.usherbrooke.ift232.actuRSS.News;
-import ca.usherbrooke.ift232.actuRSS.view.properties.ProgramProperties;
+import ca.usherbrooke.ift232.actuRSS.view.parameters.ProgramProperties;
 
 public class ActuList extends JList implements ListSelectionListener
 {	

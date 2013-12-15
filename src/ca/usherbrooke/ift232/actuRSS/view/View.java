@@ -10,10 +10,10 @@ import javax.swing.JFrame;
 import javax.swing.UIManager;
 
 import ca.usherbrooke.ift232.actuRSS.Category;
-import ca.usherbrooke.ift232.actuRSS.view.properties.DialogAddFeed;
-import ca.usherbrooke.ift232.actuRSS.view.properties.DialogEditFeed;
-import ca.usherbrooke.ift232.actuRSS.view.properties.DialogFeedManager;
-import ca.usherbrooke.ift232.actuRSS.view.properties.ViewChangeProperties;
+import ca.usherbrooke.ift232.actuRSS.view.parameters.DialogAddFeed;
+import ca.usherbrooke.ift232.actuRSS.view.parameters.DialogEditFeed;
+import ca.usherbrooke.ift232.actuRSS.view.parameters.DialogFeedManager;
+import ca.usherbrooke.ift232.actuRSS.view.parameters.ViewChangeProperties;
 
 /**
  * Actu-RSS
