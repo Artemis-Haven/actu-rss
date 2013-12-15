@@ -5,16 +5,20 @@ import java.awt.Component;
 import java.awt.ComponentOrientation;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.AbstractAction;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
 import ca.usherbrooke.ift232.actuRSS.controller.Controller;
+import ca.usherbrooke.ift232.actuRSS.view.Filter.AllFilter;
+import ca.usherbrooke.ift232.actuRSS.view.Filter.FavoriteFilter;
+import ca.usherbrooke.ift232.actuRSS.view.Filter.NotReadFilter;
 
 /**
  * Actu-RSS
@@ -100,17 +104,18 @@ public class Toolbar extends JPanel {
 		this.add(rightPanel, BorderLayout.EAST);
 	}
 
-	private void buildButtonGroup() {
+	private void buildButtonGroup() 
+	{
 		allNewsBtn = new JToggleButton("Tout");
 		unreadNewsBtn = new JToggleButton("Non lus");
 		favNewsBtn = new JToggleButton("Favoris");
 		readNewsBtn = new JToggleButton("Lus");
 		
-		if(Controller.defaultDisplay.equals("All"))
+		if(Controller.defaultDisplay instanceof AllFilter)
 			allNewsBtn.setSelected(true);
-		else if(Controller.defaultDisplay.equals("Not Read"))
+		else if(Controller.defaultDisplay instanceof NotReadFilter)
 			unreadNewsBtn.setSelected(true);
-		else if(Controller.defaultDisplay.equals("Favorite"))
+		else if(Controller.defaultDisplay instanceof FavoriteFilter)
 			favNewsBtn.setSelected(true);
 		else
 			readNewsBtn.setSelected(true);
@@ -146,12 +151,25 @@ public class Toolbar extends JPanel {
 		leftPanel.add(readNewsBtn, BorderLayout.WEST);
 	}
 
+	class ToutAction extends AbstractAction {
+	    public ToutAction(String text, ImageIcon icon,
+	                      String desc, Integer mnemonic) {
+	        super(text, icon);
+	        putValue(SHORT_DESCRIPTION, desc);
+	        putValue(MNEMONIC_KEY, mnemonic);
+	    }
+	    public void actionPerformed(ActionEvent e) {
+	        System.out.println("Action for first button/menu item");
+	    }
+	   }
+	
 	private JToggleButton buildToggleButton(String path) {
 		JToggleButton btn = new JToggleButton(new ImageIcon(getClass().getResource(path)));
 		btn.setBorderPainted(false);
 		btn.setFocusPainted(false);
 		return btn;
 	}
+	
 	public void addListener(ActionListener e)
 	{
 		allNewsBtn.addActionListener(e);
