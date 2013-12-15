@@ -23,13 +23,16 @@ public class DatabaseManagerTest {
 
 	private static Database db;
 	private static DatabaseManager dbManager;
+	//private static DatabaseManager dbManagerFake;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		db = new Database("DBRSS");
 		dbManager = new DatabaseManager(db);
 		dbManager.connect();
-
+		//db = new Database("FAKEDB");
+		//dbManagerFake = new DatabaseManager(db);
+		//dbManagerFake.connect();
 	}
 
 	@AfterClass
@@ -157,7 +160,12 @@ public class DatabaseManagerTest {
 
 	@Test
 	public void testInsertCategory() {
-
+		ArrayList<Category> listCategory = new ArrayList<Category>();
+		ArrayList<Category> listCategoryExpected = new ArrayList<Category>();
+		
+		
+		dbManager.clearDB();
+		
 		ArrayList<Feed> list = new ArrayList<Feed>();
 		Feed feed = new Feed(0, "titre de mon feed", "url de mon feed");
 		list.add(feed);
@@ -169,13 +177,13 @@ public class DatabaseManagerTest {
 		dbManager.insertCategory(category2);
 		dbManager.insertCategory(category3);
 
-		ArrayList<Category> listCategoryExpected = new ArrayList<Category>();
+		listCategoryExpected = new ArrayList<Category>();
 		listCategoryExpected.add(category1);
 		listCategoryExpected.add(category2);
 		listCategoryExpected.add(category3);
 
 		try {
-			ArrayList<Category> listCategory = dbManager.getAllCategories();
+			listCategory  = dbManager.getAllCategories();
 			for(int i=0;i<listCategory.size();i++)
 			{
 				assertEquals(listCategoryExpected.get(i).getId(), listCategory.get(i).getId());
@@ -189,6 +197,55 @@ public class DatabaseManagerTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		dbManager.clearDB();
+		
+		// Test pour un indice < 0 **************************************/
+		category1.setId(-1);
+		category2.setId(-1);
+		category3.setId(-1);
+		dbManager.insertCategory(category1);
+		dbManager.insertCategory(category2);
+		dbManager.insertCategory(category3);
+		
+		listCategoryExpected.clear();
+		listCategoryExpected.add(category1);
+		listCategoryExpected.add(category2);
+		listCategoryExpected.add(category3);
+		try {
+			listCategory = dbManager.getAllCategories();
+			for(int i=0;i<listCategory.size();i++)
+			{
+				assertEquals(listCategoryExpected.get(i).getName(), listCategory.get(i).getName());
+			}
+
+		}
+		catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		dbManager.clearDB();
+		// Test pour une entrée dans une fausse BDD *********************/
+		
+		/*
+		listCategoryExpected.clear();
+		listCategoryExpected.add(category1);
+		Boolean insert = true;
+		try {
+			dbManagerFake.insertCategory(category1);
+			listCategory = dbManager.getAllCategories();
+			for(int i=0;i<listCategory.size();i++)
+			{
+				assertEquals(listCategoryExpected.get(i).getName(), listCategory.get(i).getName());
+			}
+
+		}
+		catch (SQLException e) {
+			insert = false;
+			e.printStackTrace();
+		}
+		assertFalse(insert);*/
+		
 	}
 
 	@Test
@@ -213,6 +270,38 @@ public class DatabaseManagerTest {
 
 
 
+		try {
+			ArrayList<Category> listCategory = dbManager.getAllCategories();
+			for(int i=0;i<listCategory.get(0).getListFeed().size();i++)
+			{
+				assertEquals(listFeedExpected.get(i).getTitle(), listCategory.get(0).getListFeed().get(i).getTitle());
+				assertEquals(listFeedExpected.get(i).getUrl(), listCategory.get(0).getListFeed().get(i).getUrl());
+			}
+
+		}
+		catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		dbManager.clearDB();
+		
+		// Test pour un indice < 0 **************************************/
+		feed1.setId(-1);
+		feed2.setId(-2);
+		feed3.setId(-3);
+		
+		dbManager.insertCategory(category1);
+		
+		dbManager.insertFeed(feed1, 1);
+		dbManager.insertFeed(feed2, 1);
+		dbManager.insertFeed(feed3, 1);
+		
+		listFeedExpected.clear();
+		listFeedExpected.add(feed1);
+		listFeedExpected.add(feed2);
+		listFeedExpected.add(feed3);
+		
 		try {
 			ArrayList<Category> listCategory = dbManager.getAllCategories();
 			for(int i=0;i<listCategory.get(0).getListFeed().size();i++)
@@ -264,6 +353,10 @@ public class DatabaseManagerTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		dbManager.clearDB();
+		// Test pour un indice < 0 **************************************/
+		
 	}
 
 	@Test
