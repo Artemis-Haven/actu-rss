@@ -1,4 +1,4 @@
-package ca.usherbrooke.ift232.actuRSS.properties;
+package ca.usherbrooke.ift232.actuRSS.view.properties;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -14,7 +14,7 @@ public class ProgramProperties extends Properties {
 	static private ProgramProperties instance__;
 
 	/**
-	 * Initialise les propriétés
+	 * Initialise les propriï¿½tï¿½s
 	 * @param defaultProps
 	 */
 	private ProgramProperties(Properties defaultProps){
