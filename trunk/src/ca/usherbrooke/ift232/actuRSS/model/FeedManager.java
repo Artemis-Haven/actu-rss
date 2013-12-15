@@ -181,10 +181,8 @@ public class FeedManager {
 	 */
 	public Category getCategoryByName(String name)
 	{	
-		//System.out.println(oldListCategory);
 		for(Category cat : this.oldListCategory)
 		{
-			//System.out.println("Nom de la cat envoye : " + cat.getName());
 			if(cat.getName().equals(name))
 			{
 				return cat;

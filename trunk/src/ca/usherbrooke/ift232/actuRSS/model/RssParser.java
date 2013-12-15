@@ -1,8 +1,5 @@
 package ca.usherbrooke.ift232.actuRSS.model;
 
-import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -20,6 +17,7 @@ import org.w3c.dom.NodeList;
 
 import ca.usherbrooke.ift232.actuRSS.Feed;
 import ca.usherbrooke.ift232.actuRSS.News;
+import ca.usherbrooke.ift232.actuRSS.modelTest.RssParserTest;
 
 /**
  * <b>Classe RssParser. Classe statique pour parser les documents xml (soit les
@@ -30,7 +28,7 @@ import ca.usherbrooke.ift232.actuRSS.News;
  * l'assister. C'est donc celle-ci qui sera appelée dans les autres classes
  * </p>
  * 
- * @see 
+ * @see
  * @see RssParserTest
  * @author BOAS David, FERRE Benjamin
  */
@@ -38,11 +36,10 @@ public class RssParser {
 	/**
 	 * Transforme le flux RSS en objet Feed
 	 * 
-	 * @param feedDoc :
-	 *          Objet document correspondant au flux Rss. 
-	 * @return 
-	 * 			Objet Feed avec tout ces champs initialisée et sa liste de News
-	 *  
+	 * @param feedDoc
+	 *            : Objet document correspondant au flux Rss.
+	 * @return Objet Feed avec tout ces champs initialisée et sa liste de News
+	 * 
 	 */
 	public static Feed parse(Document feedDoc) {
 
@@ -54,7 +51,7 @@ public class RssParser {
 		Element element = null;
 
 		/**
-		 * Affectation Titre et date du flux 
+		 * Affectation Titre et date du flux
 		 */
 		nodes = feedDoc.getElementsByTagName("title");
 		Node node = feedDoc.getDocumentElement();
@@ -69,28 +66,32 @@ public class RssParser {
 		nodes = feedDoc.getElementsByTagName("item");
 		for (int i = 0; i < nodes.getLength(); i++) {
 			element = (Element) nodes.item(i);
-			News n = new News(readNode(element, "title"), readNode(element,"link"), readNode(element, "author"),parsePubDate(readNode(element, "pubDate")),
-					readNode(element, "description").replaceAll( "(href|src)=(\\'|\")([^\\'\"\\&<>\\s]+)(\\&)([^\\s\\'\"\\&<>]+)(\\'|\")", "$1=$2$3&amp;$5$6" ), false, false);
-		
-			
-			
+			News n = new News(
+					readNode(element, "title"),
+					readNode(element, "link"),
+					readNode(element, "author"),
+					parsePubDate(readNode(element, "pubDate")),
+					readNode(element, "description")
+							.replaceAll(
+									"(href|src)=(\\'|\")([^\\'\"\\&<>\\s]+)(\\&)([^\\s\\'\"\\&<>]+)(\\'|\")",
+									"$1=$2$3&amp;$5$6"), false, false);
+
 			listNewsFeed.add(n);
 		}
-		/*System.out.println(feed.getTitle());
-        System.out.println(feed.getUrl());
-        for (News news : feed.getListNews())            
-                System.out.println(news);*/
+
 		return (feed);
 	}
 
 	/**
 	 * Retourne ce que contient un noeud
 	 * 
-	 * @param toReadNode :
-	 *            Le noeud à lire
-	 * @param path :
-	 *            Le nom de la balise du noeud que l'on veut lire. Pour lire des balises imbriquées, utiliser "|" pour les délimiter
-	 * @return Un String contenant la valeur du noeud voulu, chaine vide si le noeud ne peut être lu
+	 * @param toReadNode
+	 *            : Le noeud à lire
+	 * @param path
+	 *            : Le nom de la balise du noeud que l'on veut lire. Pour lire
+	 *            des balises imbriquées, utiliser "|" pour les délimiter
+	 * @return Un String contenant la valeur du noeud voulu, chaine vide si le
+	 *         noeud ne peut être lu
 	 */
 	public static String readNode(Node toReadNode, String path) {
 
@@ -130,8 +131,10 @@ public class RssParser {
 			for (int i = 0; i < listChild.getLength(); i++) {
 				Node child = listChild.item(i);
 				if (child != null) {
-					if ((child.getNodeName() != null && (name.equals(child.getNodeName()))) || 
-							(child.getLocalName() != null && (name.equals(child.getLocalName())))) {
+					if ((child.getNodeName() != null && (name.equals(child
+							.getNodeName())))
+							|| (child.getLocalName() != null && (name
+									.equals(child.getLocalName())))) {
 						return child;
 					}
 				}
