@@ -25,7 +25,7 @@ import junit.framework.TestCase;
 public class FeedTest {
 
        
-        /*private int id=8;
+        private int id=8;
         private String title="New robot sent to Mars";
         private String url="http://www.cnn.com/";
         private List<News> listNews=null;
@@ -36,14 +36,7 @@ public class FeedTest {
         private Feed feed3;
         private Feed feed4;
        
-       
-       
-        public void setUp() throws Exception {
-                feed1 = new Feed();
-                feed2 = new Feed(title,url,listNews);
-                feed3 = new Feed(id,title,url,listNews);
-                feed4 = new Feed(id,title,url);
-        }*/
+  
        
         private List<News> ListNews;
        
@@ -56,6 +49,11 @@ public class FeedTest {
                 ListNews.add(news1);
                 ListNews.add(news2);
                 ListNews.add(news3);
+                
+                feed1 = new Feed();
+                feed2 = new Feed(title,url,listNews);
+                feed3 = new Feed(id,title,url,listNews);
+                feed4 = new Feed(id,title,url);
         }
        
         /**
@@ -98,31 +96,23 @@ public class FeedTest {
                 feed.setTitle("TitreSetter");
                 feed.setUrl("UrlSetter");
                 feed.setListNews(ListNews);
+                feed.setNameCategory("Sport");
                
                 assertEquals(feed.getId(), 15);
                 assertEquals(feed.getTitle(), "TitreSetter");
                 assertEquals(feed.getUrl(), "UrlSetter");
                 assertEquals(feed.getListNews(), ListNews);
+                assertEquals(feed.getNameCategory(), "Sport");
+
         }
-                /*assertEquals(-1,feed1.getId());
-                assertEquals("",feed1.getTitle());
-                assertEquals("",feed1.getUrl());
-                assertEquals(new ArrayList<News>(),feed1.getListNews());
-               
-                assertEquals(-1,feed2.getId());
-                assertEquals(title,feed2.getTitle());
-                assertEquals(url,feed2.getUrl());
-                assertEquals(listNews,feed2.getListNews());
-               
-                assertEquals(id,feed3.getId());
-                assertEquals(title,feed3.getTitle());
-                assertEquals(url,feed3.getUrl());
-                assertEquals(listNews,feed3.getListNews());
-               
-                assertEquals(id,feed4.getId());
-                assertEquals(title,feed4.getTitle());
-                assertEquals(url,feed4.getUrl());
-                assertEquals(new ArrayList<News>(),feed4.getListNews());*/
+        
+        @Test
+        public void testToString() {
+        	Feed feed = new Feed();
+        	feed.setTitle("FLUX");
+        	assertEquals("FLUX", feed.toString());
+        	
+        }
                
        
        

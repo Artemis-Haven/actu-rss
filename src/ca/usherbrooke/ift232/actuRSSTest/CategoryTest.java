@@ -113,7 +113,14 @@ public class CategoryTest extends TestCase  {
                 assertEquals(category.getName(), "NameSetters");
                 assertEquals(category.getListFeed(), ListFeed);
         }
-
+        
+        
+        @Test
+        public void testToString() {
+        	Category cat = new Category();
+        	cat.setName("CATEGORY");
+        	assertEquals("CATEGORY", cat.toString());
+        }
 
 
 }
