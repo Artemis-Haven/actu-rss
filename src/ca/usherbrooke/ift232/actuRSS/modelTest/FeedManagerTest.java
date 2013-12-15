@@ -1,7 +1,5 @@
 package ca.usherbrooke.ift232.actuRSS.modelTest;
 
-import static org.junit.Assert.*;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -14,9 +12,11 @@ import ca.usherbrooke.ift232.actuRSS.Category;
 import ca.usherbrooke.ift232.actuRSS.Feed;
 import ca.usherbrooke.ift232.actuRSS.News;
 import ca.usherbrooke.ift232.actuRSS.model.FeedManager;
+import ca.usherbrooke.ift232.actuRSS.model.WrongURLException;
 
 public class FeedManagerTest extends TestCase {
 
+	private String URLValid = "http://feeds2.feedburner.com/Pressecitron";
 	private ArrayList<Category> listOldCat;
 	ArrayList<Category> listNewCat;
 	private List<Feed> ListFeed;
@@ -27,12 +27,13 @@ public class FeedManagerTest extends TestCase {
 	private News news22;
 	private News news31;
 	private News news32;
+	private Feed feed1;
 
     public void setUp() {
     	/*
     	 * Création de deux categories
     	 */
-    	List<News> ListNews = new ArrayList<News>();
+    	List<News> listNews = new ArrayList<News>();
         ListFeed = new ArrayList<Feed>();
     	Calendar cal = Calendar.getInstance();
 
@@ -43,19 +44,19 @@ public class FeedManagerTest extends TestCase {
         news31 = new News("titre31", "url31", "auteur31", cal, "txt31", false, false);
         news32 = new News("titre32", "url32", "auteur32", cal, "txt32", false, false);
         
-        ListNews.add(news11);
-        ListNews.add(news12);
-        Feed feed1 = new Feed(0, "titreFeed1", "urlFeed1", new ArrayList<News>(ListNews));
-        ListNews.clear();
+        listNews.add(news11);
+        listNews.add(news12);
+        Feed feed1 = new Feed(0, "titreFeed1", "urlFeed1", new ArrayList<News>(listNews));
+        listNews.clear();
         
-        ListNews.add(news21);
-        Feed feed2 = new Feed(1, "titreFeed2", "urlFeed2", new ArrayList<News>(ListNews));
-        ListNews.clear();
+        listNews.add(news21);
+        Feed feed2 = new Feed(1, "titreFeed2", "urlFeed2", new ArrayList<News>(listNews));
+        listNews.clear();
         
-        ListNews.add(news31);
-        ListNews.add(news32);
-        Feed feed3 = new Feed(2, "titreFeed3", "urlFeed3", new ArrayList<News>(ListNews));
-        ListNews.clear();
+        listNews.add(news31);
+        listNews.add(news32);
+        Feed feed3 = new Feed(2, "titreFeed3", "urlFeed3", new ArrayList<News>(listNews));
+        listNews.clear();
         
         ListFeed.add(feed1);
         ListFeed.add(feed2);
@@ -70,16 +71,16 @@ public class FeedManagerTest extends TestCase {
         news22 = new News("title22", "url22", "author22", cal, "texte22", false, false);
         news31 = new News("title31", "url31", "author31", cal, "texte31", false, false);
         news32 = new News("title32", "url32", "author32", cal, "texte32", false, false);
-        ListNews.add(news11);
-        ListNews.add(news12);
-        feed1 = new Feed(0, "titleFeed21", "urlFeed21", new ArrayList<News>(ListNews));
-        ListNews.clear();
-        ListNews.add(news21);
-        ListNews.add(news22); 
-        feed2 = new Feed(1, "titleFeed22", "urlFeed22", new ArrayList<News>(ListNews));
-        ListNews.clear();
-        ListNews.add(news31);
-        feed3 = new Feed(2, "titleFeed23", "urlFeed23", new ArrayList<News>(ListNews));
+        listNews.add(news11);
+        listNews.add(news12);
+        feed1 = new Feed(0, "titleFeed21", "urlFeed21", new ArrayList<News>(listNews));
+        listNews.clear();
+        listNews.add(news21);
+        listNews.add(news22); 
+        feed2 = new Feed(1, "titleFeed22", "urlFeed22", new ArrayList<News>(listNews));
+        listNews.clear();
+        listNews.add(news31);
+        feed3 = new Feed(2, "titleFeed23", "urlFeed23", new ArrayList<News>(listNews));
         ListFeed.add(feed1);
         ListFeed.add(feed2);
         ListFeed.add(feed3);
@@ -121,8 +122,59 @@ public class FeedManagerTest extends TestCase {
     public void testSetters() {
     	assertEquals(listOldCat, feedManager.getOldListCategory());
     	assertEquals(listNewCat, feedManager.getListCategory());
+    	assertEquals(listOldCat.get(0), feedManager.getCategoryByName("oldCategory"));
+    	assertEquals(null, feedManager.getCategoryByName("falseNameCategory"));
     }
 
+    @Test
+    public void testAddFeed() {
+    	Feed feed1 = new Feed(-1, "newFeed1", URLValid);
+    	Feed feed2 = new Feed(-1, "newFeed2", URLValid);
+    	Feed feed3 = new Feed(-1, "newFeed3", "URLInvalid");
+    	
+    	try {
+			assertTrue(feedManager.addFeed(feed1, listOldCat.get(0)));
+			assertFalse(feedManager.addFeed(feed2, listOldCat.get(0)));
+			feedManager.addFeed(feed3, listOldCat.get(0));
+			fail();
+		} catch (WrongURLException e) {
+		}
+    }
+    
+    @Test 
+    public void testModifyFeed() {
+    	Feed feed1 = new Feed(-1, "newFeed1", URLValid);
+    	Feed feed2 = new Feed(-1, "newFeed3", "URLInvalid");
+    	String anotherURLValid = "http://www.korben.info/feed";
+    	try {
+			assertTrue(feedManager.modifyFeed(feed1, listOldCat.get(0)));
+			assertFalse(feedManager.modifyFeed(feed1, listOldCat.get(0)));
+			feed1 = new Feed(0, "newFeed1", URLValid);
+			assertFalse(feedManager.modifyFeed(feed1, listOldCat.get(0)));
+			feed1 = new Feed(-1, "newFeedTitle", URLValid);
+			assertTrue(feedManager.modifyFeed(feed1, listOldCat.get(0)));
+			feed1 = new Feed(-1, "newFeed1", anotherURLValid);
+			assertTrue(feedManager.modifyFeed(feed1, listOldCat.get(0)));
+			List<News> listNews = new ArrayList<News>();
+			listNews.add(news11);
+			feed1 = new Feed(-1, "newFeed1", URLValid, listNews);
+			assertTrue(feedManager.modifyFeed(feed1, listOldCat.get(0)));
+			feedManager.addFeed(feed2, listOldCat.get(0));
+			fail();
+		} catch (WrongURLException e) {
+		}
+    }
+    
+    @Test 
+    public void testRemoveFeed() {
+    	Feed feedUnknown = new Feed(-1, "unknownFeed", "randomURL");
+    	feedManager.removeFeed(feed1, listOldCat.get(0));
+    	assertEquals(listOldCat.get(0).getListFeed().size(), 3);
+    	feedManager.removeFeed(feedUnknown, listOldCat.get(0));
+    	assertEquals(listOldCat.get(0).getListFeed().size(), 3);
+    }
+    
+    
 
     /**
      * Permet de tester la fonction Merge de FeedManager
