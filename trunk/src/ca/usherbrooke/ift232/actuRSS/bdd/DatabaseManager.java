@@ -404,18 +404,4 @@ public class DatabaseManager {
 		db.disconnect();
 	}
 
-	/**
-	 * Supprime toutes les news de la BdD
-	 */
-	public void emptyNews() {
-		db.updateValue("DELETE FROM news;");
-	}
-
-	/**
-	 * @return la base de donnée utilisée
-	 */
-	public Database getDb() {
-		return db;
-	}
-
 }
