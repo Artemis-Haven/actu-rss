@@ -1,4 +1,4 @@
-package ca.usherbrooke.ift232.actuRSS.properties;
+package ca.usherbrooke.ift232.actuRSS.view.properties;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 public abstract class ParamDialog extends JDialog {
 
 	/**
-	 * Permet d'initialiser les paramètres du Dialog
+	 * Permet d'initialiser les paramï¿½tres du Dialog
 	 * @param parent
 	 * @param title
 	 * @param modal

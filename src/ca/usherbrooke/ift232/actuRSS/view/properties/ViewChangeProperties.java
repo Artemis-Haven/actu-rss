@@ -1,4 +1,4 @@
-package ca.usherbrooke.ift232.actuRSS.properties;
+package ca.usherbrooke.ift232.actuRSS.view.properties;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
