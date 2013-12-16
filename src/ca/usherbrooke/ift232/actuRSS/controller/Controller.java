@@ -50,8 +50,7 @@ public class Controller implements ActionListener {
 	private DialogFeedManager gest;
 	private DialogAddFeed addFeed;
 	private DialogEditFeed editFeed;
-	public static ProgramProperties properties = ProgramProperties
-			.getInstance();
+	public static ProgramProperties properties =  ProgramProperties.getInstance();
 	public static Filter defaultDisplay;
 	public Filter theDisplay;
 	List<News> news = new ArrayList<News>();

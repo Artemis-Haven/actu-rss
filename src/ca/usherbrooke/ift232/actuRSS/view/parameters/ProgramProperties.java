@@ -6,6 +6,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
 
+import ca.usherbrooke.ift232.actuRSS.view.Filter.NotReadFilter;
+
 public class ProgramProperties extends Properties {
 
 	final static public String DEFAULT_FILE_NAME = "default.properties";
@@ -30,7 +32,7 @@ public class ProgramProperties extends Properties {
 			// create and load default properties
 			Properties defaultProps = new Properties();
 			defaultProps.setProperty("News Number", "20");
-			defaultProps.setProperty("Default Display", "Not Read");
+			defaultProps.setProperty("Default Display", NotReadFilter.class.getName());
 			defaultProps.setProperty("CSS Style", "src/resources/default.css");
 			FileInputStream in;
 
