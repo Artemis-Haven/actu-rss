@@ -12,21 +12,22 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import ca.usherbrooke.ift232.actuRSS.News;
-import ca.usherbrooke.ift232.actuRSS.view.Filter.AllFilter;
-import ca.usherbrooke.ift232.actuRSS.view.Filter.Filter;
-import ca.usherbrooke.ift232.actuRSS.view.parameters.ProgramProperties;
+import ca.usherbrooke.ift232.actuRSS.view.filter.AllFilter;
+import ca.usherbrooke.ift232.actuRSS.view.filter.Filter;
+import ca.usherbrooke.ift232.actuRSS.view.sorter.DefaultSorter;
+import ca.usherbrooke.ift232.actuRSS.view.sorter.Sorter;
 
 public class ActuList extends JList implements ListSelectionListener
 {	
 
-	private Filter _filtre;
+	private Sorter _sorter;
 	
 	/**Constructeur de la liste d'actualit�
 	 * @param news
 	 */
 	public ActuList(List<News> news) {
 
-		super(buildListModelNews(news, new AllFilter()));
+		super(buildListModelNews(news, new AllFilter(), new DefaultSorter()));
 
 
 		this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -52,9 +53,9 @@ public class ActuList extends JList implements ListSelectionListener
 
 	}
 
-	private static ListModel buildListModelNews(List<News> news, Filter filtre) {
+	private static ListModel buildListModelNews(List<News> news, Filter filtre, Sorter sorter) {
 		final DefaultListModel listModelNews = new DefaultListModel();
-		fillNews(listModelNews, news, filtre);
+		fillNews(listModelNews, news, filtre, sorter);
 
 		return listModelNews;
 	}
@@ -63,9 +64,9 @@ public class ActuList extends JList implements ListSelectionListener
 	 * @param news
 	 * @param state
 	 */
-	public void changeNews(List<News> news, Filter filter)
+	public void changeNews(List<News> news, Filter filter, Sorter sorter)
 	{
-		ListModel modelNews = buildListModelNews(news, filter);
+		ListModel modelNews = buildListModelNews(news, filter, sorter);
 
 		this.setModel(modelNews);
 	}
@@ -75,16 +76,21 @@ public class ActuList extends JList implements ListSelectionListener
 	 * @param news
 	 * @param state
 	 */
-	private static void fillNews(DefaultListModel listModel, List<News> news,Filter filter) {
+	private static void fillNews(DefaultListModel listModel, List<News> news,Filter filter, Sorter sorter) {
 
 		
 		
 		listModel.clear();
 		
-		for(News element : filter.filtrer(news))
+		ArrayList<News> newNewsList = new ArrayList<News>(filter.filtrer(news));
+		
+		
+		
+		for(News element : sorter.sort(newNewsList))
 		{
 			listModel.addElement(element);
 		}
+		
 		
 		/*for (News element : news) 
 		{

@@ -6,7 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-import ca.usherbrooke.ift232.actuRSS.view.Filter.NotReadFilter;
+import ca.usherbrooke.ift232.actuRSS.view.filter.NotReadFilter;
 
 public class ProgramProperties extends Properties {
 

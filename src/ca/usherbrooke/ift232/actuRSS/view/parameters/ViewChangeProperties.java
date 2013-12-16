@@ -17,11 +17,11 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 
 import ca.usherbrooke.ift232.actuRSS.controller.Controller;
-import ca.usherbrooke.ift232.actuRSS.view.Filter.AllFilter;
-import ca.usherbrooke.ift232.actuRSS.view.Filter.FavoriteFilter;
-import ca.usherbrooke.ift232.actuRSS.view.Filter.Filter;
-import ca.usherbrooke.ift232.actuRSS.view.Filter.NotReadFilter;
-import ca.usherbrooke.ift232.actuRSS.view.Filter.ReadFilter;
+import ca.usherbrooke.ift232.actuRSS.view.filter.AllFilter;
+import ca.usherbrooke.ift232.actuRSS.view.filter.FavoriteFilter;
+import ca.usherbrooke.ift232.actuRSS.view.filter.Filter;
+import ca.usherbrooke.ift232.actuRSS.view.filter.NotReadFilter;
+import ca.usherbrooke.ift232.actuRSS.view.filter.ReadFilter;
 
 public class ViewChangeProperties extends ParamDialog {
 	

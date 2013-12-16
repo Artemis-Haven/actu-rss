@@ -1,4 +1,4 @@
-package ca.usherbrooke.ift232.actuRSS.view.Filter;
+package ca.usherbrooke.ift232.actuRSS.view.filter;
 
 import java.util.ArrayList;
 import java.util.List;

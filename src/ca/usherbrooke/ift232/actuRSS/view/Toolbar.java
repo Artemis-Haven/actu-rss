@@ -16,9 +16,9 @@ import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
 import ca.usherbrooke.ift232.actuRSS.controller.Controller;
-import ca.usherbrooke.ift232.actuRSS.view.Filter.AllFilter;
-import ca.usherbrooke.ift232.actuRSS.view.Filter.FavoriteFilter;
-import ca.usherbrooke.ift232.actuRSS.view.Filter.NotReadFilter;
+import ca.usherbrooke.ift232.actuRSS.view.filter.AllFilter;
+import ca.usherbrooke.ift232.actuRSS.view.filter.FavoriteFilter;
+import ca.usherbrooke.ift232.actuRSS.view.filter.NotReadFilter;
 
 /**
  * Actu-RSS
