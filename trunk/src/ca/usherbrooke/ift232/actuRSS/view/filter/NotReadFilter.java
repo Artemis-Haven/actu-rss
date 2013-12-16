@@ -1,11 +1,11 @@
-package ca.usherbrooke.ift232.actuRSS.view.Filter;
+package ca.usherbrooke.ift232.actuRSS.view.filter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import ca.usherbrooke.ift232.actuRSS.News;
 
-public class FavoriteFilter extends Filter
+public class NotReadFilter extends Filter
 {
 
 	@Override
@@ -14,7 +14,7 @@ public class FavoriteFilter extends Filter
 		List<News> filteredNews = new ArrayList<News>();
 		for (News element : news) 
 		{
-			if(element.isFavorite())
+			if(!element.isRead())
 				filteredNews.add(element);
 			
 		}

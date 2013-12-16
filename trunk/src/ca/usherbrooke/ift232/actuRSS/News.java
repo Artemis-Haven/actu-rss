@@ -11,7 +11,7 @@ import java.util.Calendar;
  * @author David Boas
  * @version 0.4
  */
-public class News {
+public class News implements Comparable<News> {
 
 	// variables de classe
 	private String title;
@@ -125,5 +125,12 @@ public class News {
 	@Override
 	public String toString() {
 		return "\n        News [title = " + title + "]";
+	}
+
+	@Override
+	public int compareTo(News o)
+	{
+		
+		return this.date.compareTo(o.date);
 	}
 }

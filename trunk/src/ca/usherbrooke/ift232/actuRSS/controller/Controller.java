@@ -20,15 +20,22 @@ import ca.usherbrooke.ift232.actuRSS.model.WrongURLException;
 import ca.usherbrooke.ift232.actuRSS.view.MainPanel;
 import ca.usherbrooke.ift232.actuRSS.view.Toolbar;
 import ca.usherbrooke.ift232.actuRSS.view.View;
-import ca.usherbrooke.ift232.actuRSS.view.Filter.*;
 import ca.usherbrooke.ift232.actuRSS.view.actulist.ActuList;
 import ca.usherbrooke.ift232.actuRSS.view.actulist.ActuSelectedEvent;
 import ca.usherbrooke.ift232.actuRSS.view.actulist.ActuSelectedListener;
+import ca.usherbrooke.ift232.actuRSS.view.filter.AllFilter;
+import ca.usherbrooke.ift232.actuRSS.view.filter.FavoriteFilter;
+import ca.usherbrooke.ift232.actuRSS.view.filter.Filter;
+import ca.usherbrooke.ift232.actuRSS.view.filter.NotReadFilter;
+import ca.usherbrooke.ift232.actuRSS.view.filter.ReadFilter;
 import ca.usherbrooke.ift232.actuRSS.view.parameters.DialogAddFeed;
 import ca.usherbrooke.ift232.actuRSS.view.parameters.DialogEditFeed;
 import ca.usherbrooke.ift232.actuRSS.view.parameters.DialogFeedManager;
 import ca.usherbrooke.ift232.actuRSS.view.parameters.ProgramProperties;
 import ca.usherbrooke.ift232.actuRSS.view.parameters.ViewChangeProperties;
+import ca.usherbrooke.ift232.actuRSS.view.sorter.AlphabeticalSorter;
+import ca.usherbrooke.ift232.actuRSS.view.sorter.DefaultSorter;
+import ca.usherbrooke.ift232.actuRSS.view.sorter.Sorter;
 import ca.usherbrooke.ift232.actuRSS.view.treepicker.FeedSelectedEvent;
 import ca.usherbrooke.ift232.actuRSS.view.treepicker.FeedSelectedListener;
 import ca.usherbrooke.ift232.actuRSS.view.treepicker.TreePicker;
@@ -46,16 +53,22 @@ public class Controller implements ActionListener {
 	private DialogFeedManager gest;
 	private DialogAddFeed addFeed;
 	private DialogEditFeed editFeed;
-	public static ProgramProperties properties =  ProgramProperties.getInstance();
+	public static ProgramProperties properties = ProgramProperties
+			.getInstance();
+	
 	public static Filter defaultDisplay;
 	public Filter theDisplay;
+	
+	public static Sorter defaultSorter = new DefaultSorter(); //TODO Fichier properties pareil que defaultDisplay
+	public Sorter actualSorter;
+	
 	List<News> news = new ArrayList<News>();
 
 	public Controller(final Model model, final View view) 
 	{
 		try
 		{
-			defaultDisplay = (Filter) Class.forName(properties.getProperty("Default Display")).newInstance();
+			defaultDisplay = new AllFilter();
 		} catch (Exception e1)
 		{
 			
@@ -75,6 +88,8 @@ public class Controller implements ActionListener {
 		newsList = mainPanel.getNewsList();
 		theDisplay = defaultDisplay;
 
+		actualSorter = defaultSorter;
+		
 		this.model.loadAllFromDB();
 		this.mainPanel.setCategoryList(feedManager.getOldListCategory());
 		gest.setCategories(feedManager.getOldListCategory());
@@ -123,7 +138,7 @@ public class Controller implements ActionListener {
 				toolbar.getFavBtn().setSelected(false);
 				toolbar.getReadBtn().setSelected(false);
 
-				newsList.changeNews(news, theDisplay);
+				newsList.changeNews(news, theDisplay, actualSorter);
 			}
 		});
 
@@ -189,7 +204,7 @@ public class Controller implements ActionListener {
 			toolbar.getFavBtn().setSelected(false);
 			toolbar.getReadBtn().setSelected(false);
 
-			newsList.changeNews(news, theDisplay);
+			newsList.changeNews(news, theDisplay, actualSorter);
 
 		}
 
@@ -198,7 +213,7 @@ public class Controller implements ActionListener {
 			theDisplay = new NotReadFilter();
 			toolbar.getFavBtn().setSelected(false);
 			toolbar.getReadBtn().setSelected(false);
-			newsList.changeNews(news, theDisplay);
+			newsList.changeNews(news, theDisplay, actualSorter);
 
 		}
 
@@ -207,7 +222,7 @@ public class Controller implements ActionListener {
 			theDisplay = new ReadFilter();
 			toolbar.getFavBtn().setSelected(false);
 			toolbar.getReadBtn().setSelected(false);
-			newsList.changeNews(news, theDisplay);
+			newsList.changeNews(news, theDisplay, actualSorter);
 		}
 
 		if (action.equals("Favoris")) {
@@ -215,7 +230,7 @@ public class Controller implements ActionListener {
 			theDisplay = new FavoriteFilter();
 			toolbar.getFavBtn().setSelected(false);
 			toolbar.getReadBtn().setSelected(false);
-			newsList.changeNews(news, theDisplay);
+			newsList.changeNews(news, theDisplay, actualSorter);
 		}
 
 		if (action.equals("Sync")) {
@@ -272,8 +287,7 @@ public class Controller implements ActionListener {
 
 			JDialog Dev = new JDialog();
 			JOptionPane.showMessageDialog(Dev,
-					"Developpés par : \nYann SEREE\nDavid BOAS\nJulian BIRONNEAU\nVincent CHATAIGNIER\nGauthier CIBERT-VOLPE\nBenjamin FERRE\nBastien MEUNIER\nRémi PATRIZIO\nMatthieu POUPINEAU\n© ActuRSS dream team"
-					,
+					"Developpés par plusieurs moustachus et quelques Zboubs",
 					"About",
 					new Integer(JOptionPane.INFORMATION_MESSAGE).intValue());
 		}
