@@ -20,11 +20,7 @@ import ca.usherbrooke.ift232.actuRSS.model.WrongURLException;
 import ca.usherbrooke.ift232.actuRSS.view.MainPanel;
 import ca.usherbrooke.ift232.actuRSS.view.Toolbar;
 import ca.usherbrooke.ift232.actuRSS.view.View;
-import ca.usherbrooke.ift232.actuRSS.view.Filter.AllFilter;
-import ca.usherbrooke.ift232.actuRSS.view.Filter.FavoriteFilter;
-import ca.usherbrooke.ift232.actuRSS.view.Filter.Filter;
-import ca.usherbrooke.ift232.actuRSS.view.Filter.NotReadFilter;
-import ca.usherbrooke.ift232.actuRSS.view.Filter.ReadFilter;
+import ca.usherbrooke.ift232.actuRSS.view.Filter.*;
 import ca.usherbrooke.ift232.actuRSS.view.actulist.ActuList;
 import ca.usherbrooke.ift232.actuRSS.view.actulist.ActuSelectedEvent;
 import ca.usherbrooke.ift232.actuRSS.view.actulist.ActuSelectedListener;
@@ -276,7 +272,8 @@ public class Controller implements ActionListener {
 
 			JDialog Dev = new JDialog();
 			JOptionPane.showMessageDialog(Dev,
-					"Developpés par plusieurs moustachus et quelques Zboubs",
+					"Developpés par : \nYann SEREE\nDavid BOAS\nJulian BIRONNEAU\nVincent CHATAIGNIER\nGauthier CIBERT-VOLPE\nBenjamin FERRE\nBastien MEUNIER\nRémi PATRIZIO\nMatthieu POUPINEAU\n© ActuRSS dream team"
+					,
 					"About",
 					new Integer(JOptionPane.INFORMATION_MESSAGE).intValue());
 		}
