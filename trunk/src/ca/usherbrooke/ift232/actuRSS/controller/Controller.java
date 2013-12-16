@@ -287,7 +287,8 @@ public class Controller implements ActionListener {
 
 			JDialog Dev = new JDialog();
 			JOptionPane.showMessageDialog(Dev,
-					"Developpés par plusieurs moustachus et quelques Zboubs",
+					"Developpés par : \nYann SEREE\nDavid BOAS\nJulian BIRONNEAU\nVincent CHATAIGNIER\nGauthier CIBERT-VOLPE\nBenjamin FERRE\nBastien MEUNIER\nRémi PATRIZIO\nMatthieu POUPINEAU\n© ActuRSS dream team"
+					,		
 					"About",
 					new Integer(JOptionPane.INFORMATION_MESSAGE).intValue());
 		}
