@@ -19,7 +19,8 @@ public class ChronoSorter implements Sorter
 	public List<News> sort(List<News> news)
 	{
 		ArrayList<News> newNews = new ArrayList<News>(news);
-		Collections.sort(newNews, this);	
+		Collections.sort(newNews, this);
+		Collections.reverse(newNews); 
 		return newNews;
 	}
 
