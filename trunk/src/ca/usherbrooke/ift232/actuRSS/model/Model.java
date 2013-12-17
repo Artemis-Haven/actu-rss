@@ -172,14 +172,14 @@ public class Model extends Observable{
 
 	/**
 	 * notifie la vue de la mise à jour de la liste de Category.
-	 * Cette méthode est appelée à la fin de le chaque synchronisation
+	 * Cette méthode est appelée lorsqu'il a un changement dans la classe modele
 	 */
 	public void notifyObserver()
 	{
 		List<Category> oldListCategory = (List<Category>)feedManager.getOldListCategory();
 		setChanged();
 		
-		//Mettre a jour la liste de cat�gorie
+		//Mettre a jour la liste de categorie
 		notifyObservers(oldListCategory);	
 	}
     
