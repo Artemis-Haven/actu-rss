@@ -22,6 +22,10 @@ import ca.usherbrooke.ift232.actuRSS.view.filter.FavoriteFilter;
 import ca.usherbrooke.ift232.actuRSS.view.filter.Filter;
 import ca.usherbrooke.ift232.actuRSS.view.filter.NotReadFilter;
 import ca.usherbrooke.ift232.actuRSS.view.filter.ReadFilter;
+import ca.usherbrooke.ift232.actuRSS.view.sorter.AlphabeticalSorter;
+import ca.usherbrooke.ift232.actuRSS.view.sorter.ChronoSorter;
+import ca.usherbrooke.ift232.actuRSS.view.sorter.DefaultSorter;
+import ca.usherbrooke.ift232.actuRSS.view.sorter.Sorter;
 
 public class ViewChangeProperties extends ParamDialog {
 	
@@ -35,6 +39,8 @@ public class ViewChangeProperties extends ParamDialog {
 	private JButton cancel;
 	private JButton defaultbutton;
 	JPanel desplay;
+	JPanel sorter;
+	JRadioButton chrono,alpha,defaultb;
 	JRadioButton all,favorite,notRead,read;
 	JPanel newsNumber;
 	JSpinner spinNumber;
@@ -49,6 +55,22 @@ public class ViewChangeProperties extends ParamDialog {
 	}
 
 	public void showDialog(){
+		spinNumber.setValue(Integer.parseInt(Controller.properties.getProperty("News Number")));
+		if(Controller.defaultDisplay instanceof AllFilter)
+			all.setSelected(true);
+		else if(Controller.defaultDisplay instanceof FavoriteFilter)
+			favorite.setSelected(true);
+		else if(Controller.defaultDisplay  instanceof NotReadFilter)
+			notRead.setSelected(true);
+		else
+			read.setSelected(true);
+		if(Controller.defaultSorter instanceof ChronoSorter)
+			chrono.setSelected(true);
+		else if(Controller.defaultSorter  instanceof AlphabeticalSorter)
+			alpha.setSelected(true);
+		else
+			defaultb.setSelected(true);
+		path.setText(Controller.properties.getProperty("CSS Style"));
 		super.showDialog();
 	}
 	public void initDialog() {
@@ -82,6 +104,29 @@ public class ViewChangeProperties extends ParamDialog {
 		desplay.add(notRead);
 		desplay.add(read);
 		
+		sorter = new JPanel();
+		sorter.setBorder(BorderFactory.createTitledBorder("Affichage par defaut"));
+		defaultb = new JRadioButton("Default");
+		defaultb.setFocusable(false);
+		chrono = new JRadioButton("Chronologique");
+		chrono.setFocusable(false);
+		alpha = new JRadioButton("Alphabetique");
+		alpha.setFocusable(false);
+		if(Controller.defaultSorter instanceof ChronoSorter)
+			chrono.setSelected(true);
+		else if(Controller.defaultSorter  instanceof AlphabeticalSorter)
+			alpha.setSelected(true);
+		else
+			defaultb.setSelected(true);
+		ButtonGroup gp2 = new ButtonGroup();
+		gp2.add(defaultb);
+		gp2.add(chrono);
+		gp2.add(alpha);
+		sorter.add(defaultb);
+		sorter.add(chrono);
+		sorter.add(alpha);
+		
+		
 		newsNumber = new JPanel();
 		newsNumber.setBorder(BorderFactory.createTitledBorder("Nombre de news par flux RSS"));
 		spinNumber = new JSpinner();
@@ -101,6 +146,7 @@ public class ViewChangeProperties extends ParamDialog {
 		fileSearch.add(path);
 		fileSearch.add(openFile);
 		content.add(desplay);
+		content.add(sorter);
 		content.add(newsNumber);
 		content.add(fileSearch);
 		
@@ -146,6 +192,7 @@ public class ViewChangeProperties extends ParamDialog {
 		Filter newDisplay;
 		String newNumber;
 		String newPath;
+		Sorter newSorter;
 		
 		if(all.isSelected())
 			newDisplay = new AllFilter();
@@ -156,9 +203,17 @@ public class ViewChangeProperties extends ParamDialog {
 		else
 			newDisplay = new ReadFilter();
 		
+		if(chrono.isSelected())
+			newSorter = new ChronoSorter();
+		else if(alpha.isSelected())
+			newSorter = new AlphabeticalSorter();
+		else
+			newSorter = new DefaultSorter();
 		Controller.properties.setProperty("Default Display", newDisplay.getClass().getName());
 		Controller.defaultDisplay  = newDisplay;
-		
+		Controller.properties.setProperty("Default Sorter", newSorter.getClass().getName());
+		Controller.actualSorter = newSorter;
+		Controller.defaultSorter = newSorter;
 		
 		newNumber = spinNumber.getValue().toString();
 		Controller.properties.setProperty("NewsNumber", newNumber);
@@ -185,6 +240,7 @@ public class ViewChangeProperties extends ParamDialog {
 	public void renewDialog(){
 		spinNumber.setValue(20);
 		notRead.setSelected(true);
+		defaultb.setSelected(true);
 		path.setText("src/resources/default.css");
 	}
 	

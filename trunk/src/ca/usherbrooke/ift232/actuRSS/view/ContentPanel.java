@@ -6,12 +6,7 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.Locale;
-
-import javax.swing.InputVerifier;
-import javax.swing.JComponent;
 
 import org.w3c.dom.Document;
 import org.xhtmlrenderer.resource.XMLResource;
@@ -40,12 +35,13 @@ public class ContentPanel extends XHTMLPanel {
 	}
 	
 	public void display() {
-		try {
-			style = this.getStyleFromFile();
-		} catch (Exception e) {
-			//System.out.println("Impossible de trouver la feuille de style.");
-			style = "src/resources/default.css";
-		}
+		
+			try {
+				style = this.getStyleFromFile();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+				style = "src/resources/default.css";
+			}
 		
 		String fullHTML = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\"> "
 				+ "<html><head><style type=\"text/css\">"

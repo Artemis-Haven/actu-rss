@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 import ca.usherbrooke.ift232.actuRSS.view.filter.NotReadFilter;
+import ca.usherbrooke.ift232.actuRSS.view.sorter.DefaultSorter;
 
 public class ProgramProperties extends Properties {
 
@@ -16,14 +17,17 @@ public class ProgramProperties extends Properties {
 	static private ProgramProperties instance__;
 
 	/**
-	 * Initialise les propri�t�s
+	 * Initialise les propriétés
 	 * @param defaultProps
 	 */
 	private ProgramProperties(Properties defaultProps){
 		super(defaultProps);
 	}
 	
-	
+	/**
+	 * Récupère l'instance de ProgrammProperties ou la crée avec les valeurs de défault si elle n'existe pas 
+	 * @return INSTANCE : l'instance de classe ProgrammProperties
+	 */
 	
 	static synchronized public ProgramProperties getInstance() {
 
@@ -33,6 +37,7 @@ public class ProgramProperties extends Properties {
 			Properties defaultProps = new Properties();
 			defaultProps.setProperty("News Number", "20");
 			defaultProps.setProperty("Default Display", NotReadFilter.class.getName());
+			defaultProps.setProperty("Default Sorter", DefaultSorter.class.getName());
 			defaultProps.setProperty("CSS Style", "src/resources/default.css");
 			FileInputStream in;
 

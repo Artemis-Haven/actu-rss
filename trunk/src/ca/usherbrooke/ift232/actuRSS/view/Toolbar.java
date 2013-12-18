@@ -16,9 +16,6 @@ import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
 import ca.usherbrooke.ift232.actuRSS.controller.Controller;
-import ca.usherbrooke.ift232.actuRSS.view.filter.AllFilter;
-import ca.usherbrooke.ift232.actuRSS.view.filter.FavoriteFilter;
-import ca.usherbrooke.ift232.actuRSS.view.filter.NotReadFilter;
 
 /**
  * Actu-RSS
@@ -111,11 +108,11 @@ public class Toolbar extends JPanel {
 		favNewsBtn = new JToggleButton("Favoris");
 		readNewsBtn = new JToggleButton("Lus");
 		
-		if(Controller.defaultDisplay instanceof AllFilter)
+		if(Controller.properties.getProperty("Default Display").contains("AllFilter"))
 			allNewsBtn.setSelected(true);
-		else if(Controller.defaultDisplay instanceof NotReadFilter)
+		else if(Controller.properties.getProperty("Default Display").contains("NotReadFilter"))
 			unreadNewsBtn.setSelected(true);
-		else if(Controller.defaultDisplay instanceof FavoriteFilter)
+		else if(Controller.properties.getProperty("Default Display").contains("FavoriteFilter"))
 			favNewsBtn.setSelected(true);
 		else
 			readNewsBtn.setSelected(true);

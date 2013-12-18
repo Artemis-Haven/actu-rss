@@ -20,6 +20,7 @@ import ca.usherbrooke.ift232.actuRSS.Category;
 import ca.usherbrooke.ift232.actuRSS.Feed;
 import ca.usherbrooke.ift232.actuRSS.bdd.Database;
 import ca.usherbrooke.ift232.actuRSS.bdd.DatabaseManager;
+import ca.usherbrooke.ift232.actuRSS.view.parameters.ProgramProperties;
 
 /**
  * C'est la classe principale du Model, comme son nom l'indique.
@@ -46,6 +47,8 @@ public class Model extends Observable{
 	 * Permet de transformer les fichiers RSS en objets Feed
 	 */
 	RssParser parser;
+	
+	
 	
 	/**
 	 * Constructeur du Model
