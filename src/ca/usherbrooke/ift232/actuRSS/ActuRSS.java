@@ -3,6 +3,7 @@ package ca.usherbrooke.ift232.actuRSS;
 import ca.usherbrooke.ift232.actuRSS.controller.Controller;
 import ca.usherbrooke.ift232.actuRSS.model.Model;
 import ca.usherbrooke.ift232.actuRSS.view.View;
+import ca.usherbrooke.ift232.actuRSS.view.parameters.ProgramProperties;
 
 /**
  * Actu-RSS est un logiciel d'aggrégation de flux RSS.

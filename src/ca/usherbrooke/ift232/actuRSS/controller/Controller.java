@@ -7,6 +7,7 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.Action;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
@@ -33,15 +34,13 @@ import ca.usherbrooke.ift232.actuRSS.view.parameters.DialogEditFeed;
 import ca.usherbrooke.ift232.actuRSS.view.parameters.DialogFeedManager;
 import ca.usherbrooke.ift232.actuRSS.view.parameters.ProgramProperties;
 import ca.usherbrooke.ift232.actuRSS.view.parameters.ViewChangeProperties;
-import ca.usherbrooke.ift232.actuRSS.view.sorter.AlphabeticalSorter;
-import ca.usherbrooke.ift232.actuRSS.view.sorter.DefaultSorter;
 import ca.usherbrooke.ift232.actuRSS.view.sorter.Sorter;
 import ca.usherbrooke.ift232.actuRSS.view.treepicker.FeedSelectedEvent;
 import ca.usherbrooke.ift232.actuRSS.view.treepicker.FeedSelectedListener;
 import ca.usherbrooke.ift232.actuRSS.view.treepicker.TreePicker;
 
 public class Controller implements ActionListener {
-
+	
 	private Model model;
 	private MainPanel mainPanel;
 	private View view;
@@ -53,14 +52,13 @@ public class Controller implements ActionListener {
 	private DialogFeedManager gest;
 	private DialogAddFeed addFeed;
 	private DialogEditFeed editFeed;
-	public static ProgramProperties properties = ProgramProperties
-			.getInstance();
+	public static ProgramProperties properties = ProgramProperties.getInstance();
 	
 	public static Filter defaultDisplay;
 	public Filter theDisplay;
 	
-	public static Sorter defaultSorter = new DefaultSorter(); //TODO Fichier properties pareil que defaultDisplay
-	public Sorter actualSorter;
+	public static Sorter defaultSorter; //TODO Fichier properties pareil que defaultDisplay
+	public static Sorter actualSorter;
 	
 	List<News> news = new ArrayList<News>();
 
@@ -68,7 +66,9 @@ public class Controller implements ActionListener {
 	{
 		try
 		{
-			defaultDisplay = new AllFilter();
+			defaultDisplay  = (Filter) Class.forName(properties.getProperty("Default Display")).newInstance();
+			defaultSorter = (Sorter) Class.forName(properties.getProperty("Default Sorter")).newInstance();
+			actualSorter = defaultSorter;
 		} catch (Exception e1)
 		{
 			
@@ -188,6 +188,7 @@ public class Controller implements ActionListener {
 						}
 					}
 				});
+		System.out.println(theDisplay.getClass().getName());
 
 	}
 
@@ -297,6 +298,7 @@ public class Controller implements ActionListener {
 		if (action.equals("OkPref")) {
 			pref.finishDialog();
 			mainPanel.getContentPanel().display();
+			newsList.changeNews(news, theDisplay, actualSorter);
 		}
 		if (action.equals("AnnulerPref")) {
 			pref.closeDialog();
