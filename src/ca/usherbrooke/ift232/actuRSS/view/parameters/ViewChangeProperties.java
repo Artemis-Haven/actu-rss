@@ -216,7 +216,7 @@ public class ViewChangeProperties extends ParamDialog {
 		Controller.defaultSorter = newSorter;
 		
 		newNumber = spinNumber.getValue().toString();
-		Controller.properties.setProperty("NewsNumber", newNumber);
+		Controller.properties.setProperty("News Number", newNumber);
 		newPath = path.getText();
 		Controller.properties.setProperty("CSS Style", newPath);
 		Controller.properties.save();

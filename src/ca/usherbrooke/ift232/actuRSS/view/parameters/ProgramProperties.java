@@ -11,65 +11,42 @@ import ca.usherbrooke.ift232.actuRSS.view.sorter.DefaultSorter;
 
 public class ProgramProperties extends Properties {
 
-	final static public String DEFAULT_FILE_NAME = "default.properties";
 	final static public String USER_FILE_NAME = "user.properties";
 
 	static private ProgramProperties instance__;
 
 	/**
 	 * Initialise les propriétés
-	 * @param defaultProps
+	 * 	 @param defaultProps
 	 */
-	private ProgramProperties(Properties defaultProps){
-		super(defaultProps);
+	private ProgramProperties(){
+		super(new Properties());
+		this.setProperty("News Number", "20");
+		this.setProperty("Default Display", NotReadFilter.class.getName());
+		this.setProperty("Default Sorter", DefaultSorter.class.getName());
+		this.setProperty("CSS Style", "src/resources/default.css");
+		FileInputStream in;
+		try { 
+
+			in = new FileInputStream(USER_FILE_NAME);
+			this.load(in);
+			in.close();
+
+		} catch (FileNotFoundException e2) {
+		} catch (IOException e3) {
+		}
+		this.save();
+
 	}
 	
 	/**
 	 * Récupère l'instance de ProgrammProperties ou la crée avec les valeurs de défault si elle n'existe pas 
-	 * @return INSTANCE : l'instance de classe ProgrammProperties
+	 * @return intance_ : l'instance de classe ProgrammProperties
 	 */
-	
 	static synchronized public ProgramProperties getInstance() {
 
-		if (instance__ == null) {
-
-			// create and load default properties
-			Properties defaultProps = new Properties();
-			defaultProps.setProperty("News Number", "20");
-			defaultProps.setProperty("Default Display", NotReadFilter.class.getName());
-			defaultProps.setProperty("Default Sorter", DefaultSorter.class.getName());
-			defaultProps.setProperty("CSS Style", "src/resources/default.css");
-			FileInputStream in;
-
-			try { 
-
-				in = new FileInputStream(DEFAULT_FILE_NAME);
-				defaultProps.load(in);
-				in.close();
-
-			} catch (FileNotFoundException e2) {
-			} catch (IOException e3) {
-			}
-			// create program properties with default
-			ProgramProperties applicationProps; 
-
-			applicationProps = new ProgramProperties(defaultProps);
-
-			try { 
-
-				// now load properties from last invocation
-				in = new FileInputStream(USER_FILE_NAME);
-				applicationProps.load(in);
-				in.close(); 
-
-			} catch (FileNotFoundException e) {
-			} catch (IOException e1) {
-			}
-
-			instance__ = applicationProps;
-
-		} // end if
-
+		if (instance__ == null)
+			instance__ = new ProgramProperties();
 		return instance__;
 	}
 
@@ -83,7 +60,6 @@ public class ProgramProperties extends Properties {
 		FileOutputStream out;
 
 		try {
-
 			out = new FileOutputStream(USER_FILE_NAME);
 			this.store(out,"");
 			out.close();
