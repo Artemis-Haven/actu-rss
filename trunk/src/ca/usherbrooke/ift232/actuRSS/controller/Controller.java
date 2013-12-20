@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.Action;
@@ -14,6 +15,7 @@ import javax.swing.JOptionPane;
 import ca.usherbrooke.ift232.actuRSS.Category;
 import ca.usherbrooke.ift232.actuRSS.Feed;
 import ca.usherbrooke.ift232.actuRSS.News;
+import ca.usherbrooke.ift232.actuRSS.controller.command.ActionFavButton;
 import ca.usherbrooke.ift232.actuRSS.model.FeedManager;
 import ca.usherbrooke.ift232.actuRSS.model.Model;
 import ca.usherbrooke.ift232.actuRSS.model.SyncRunnable;
@@ -41,8 +43,9 @@ import ca.usherbrooke.ift232.actuRSS.view.treepicker.FeedSelectedListener;
 import ca.usherbrooke.ift232.actuRSS.view.treepicker.TreePicker;
 
 public class Controller implements ActionListener {
-	
-	private Model model;
+
+	private HashMap action;
+	private Model model;	
 	private MainPanel mainPanel;
 	private View view;
 	private Toolbar toolbar;
@@ -54,18 +57,23 @@ public class Controller implements ActionListener {
 	private DialogAddFeed addFeed;
 	private DialogEditFeed editFeed;
 	public static ProgramProperties properties = ProgramProperties.getInstance();
-	
+
 	public static Filter defaultDisplay;
 	public Filter theDisplay;
-	
+
 	public static Sorter defaultSorter; //TODO Fichier properties pareil que defaultDisplay
 	public static Sorter actualSorter;
-	
+
 	List<News> news = new ArrayList<News>();
 	private Category deletecat = null;
 
-	public Controller(final Model model, final View view) 
+	public Controller() 
 	{
+
+		model = new Model();
+		action = new HashMap();
+		view  = new View(action); 			
+		
 		try
 		{
 			defaultDisplay  = (Filter) Class.forName(properties.getProperty("Default Display")).newInstance();
@@ -73,9 +81,10 @@ public class Controller implements ActionListener {
 			actualSorter = defaultSorter;
 		} catch (Exception e1)
 		{
-			
+
 			e1.printStackTrace();
 		} 
+		
 		
 		this.model = model;
 		this.view = view;
@@ -91,17 +100,36 @@ public class Controller implements ActionListener {
 		theDisplay = defaultDisplay;
 
 		actualSorter = defaultSorter;
-		
+
 		this.model.loadAllFromDB();
 		this.mainPanel.setCategoryList(feedManager.getOldListCategory());
 		gest.setCategories(feedManager.getOldListCategory());
 
 		model.addObserver(view);
 		model.notifyObserver();
-		view.addListener(this);
-
-		// --- Evenement sur la croix de la fenetre principale
 		
+		createEvenement();
+		createAction();
+		
+		view.addListener(this);		
+		
+	
+		view.setVisible(true);		
+
+
+
+	}
+
+	public void createAction() {
+		
+		action.put("ActionFavButton",new ActionFavButton(this));
+		view.setAction(action);
+		
+	}
+
+	public void createEvenement() 
+	{		
+		// --- Evenement sur la croix de la fenetre principale		
 		this.view.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				model.sendAllToDB();
@@ -110,7 +138,6 @@ public class Controller implements ActionListener {
 		});
 
 		// --- Evenement sur la croix du Jdialog
-		
 		this.pref.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				pref.closeDialog();
@@ -118,7 +145,6 @@ public class Controller implements ActionListener {
 		});
 
 		// --- Evenement sur le treePicker
-
 		feedTreePicker.addFeedSelectedListener(new FeedSelectedListener() {
 
 			@Override
@@ -146,12 +172,11 @@ public class Controller implements ActionListener {
 			@Override
 			public void onCategorySelected(CategorySelectedEvent event) {
 				// TODO Auto-generated method stub
-				
+
 			}
 		});
 
 		// --- Evenement sur l'ActuList
-
 		newsList.addActuSelectedListener(new ActuSelectedListener() {
 
 			public void onActuSelected(ActuSelectedEvent event) {
@@ -201,9 +226,11 @@ public class Controller implements ActionListener {
 					public void onCategorySelected(CategorySelectedEvent event) {
 						deletecat  = event.getSelectedSource();
 						gest.putDeleteCategoryEditable(true);
-						
+
 					}
 				});
+
+
 
 	}
 
@@ -215,6 +242,8 @@ public class Controller implements ActionListener {
 	public void actionPerformed(ActionEvent arg0) {
 
 		String action = arg0.getActionCommand();
+
+
 		if (action.equals("Tout")) {
 			theDisplay = new AllFilter();
 			toolbar.getFavBtn().setSelected(false);
@@ -253,10 +282,10 @@ public class Controller implements ActionListener {
 
 			System.out.println("lolilol");
 			SyncRunnable.main();
-				//model.synchronize();
+			//model.synchronize();
 
-				// feedManager.getOldListCategory();
-				// TODO Auto-generated catch block
+			// feedManager.getOldListCategory();
+			// TODO Auto-generated catch block
 
 			// feedManager.merge();
 			model.notifyObserver();
@@ -275,7 +304,7 @@ public class Controller implements ActionListener {
 			}
 
 		}
-		if (action.equals("FavBtn")) {
+		/*if (action.equals("FavBtn")) {
 
 			News newsSelected = this.getSelectedNews();
 			if (newsSelected != null) {
@@ -286,7 +315,7 @@ public class Controller implements ActionListener {
 					// System.out.println(newsSelected.getTitle());
 				}
 			}
-		}
+		}*/
 
 		if (action.equals("Pref")) {
 			pref.showDialog();
@@ -351,10 +380,10 @@ public class Controller implements ActionListener {
 					}
 				} catch (WrongURLException ex) {
 					JDialog Dev = new JDialog();
-        			JOptionPane.showMessageDialog(Dev, "L'adresse du flux " + feed.getTitle() + " semble être erroné", "Help",
-        					new Integer(JOptionPane.INFORMATION_MESSAGE).intValue());
+					JOptionPane.showMessageDialog(Dev, "L'adresse du flux " + feed.getTitle() + " semble être erroné", "Help",
+							new Integer(JOptionPane.INFORMATION_MESSAGE).intValue());
 				}	
-				
+
 				gest.getManageTree().refreshFeeds(
 						feedManager.getOldListCategory());
 				// System.out.println(feedManager.getOldListCategory().toString());
@@ -420,8 +449,8 @@ public class Controller implements ActionListener {
 						feedManager.removeFeed(editFeed.getFeed(), oldcat);
 				} catch (WrongURLException ex) {
 					JDialog Dev = new JDialog();
-        			JOptionPane.showMessageDialog(Dev, "La nouvelle adresse adresse du flux " + feed.getTitle() + " semble être erroné", "Help",
-        					new Integer(JOptionPane.INFORMATION_MESSAGE).intValue());
+					JOptionPane.showMessageDialog(Dev, "La nouvelle adresse adresse du flux " + feed.getTitle() + " semble être erroné", "Help",
+							new Integer(JOptionPane.INFORMATION_MESSAGE).intValue());
 				}	
 				gest.getManageTree().refreshFeeds(
 						feedManager.getOldListCategory());
@@ -457,7 +486,7 @@ public class Controller implements ActionListener {
 				gest.putDeleteCategoryEditable(false);
 			}
 			model.notifyObserver();
-						
+
 		}
 
 		if (action.equals("ExitSource")) {

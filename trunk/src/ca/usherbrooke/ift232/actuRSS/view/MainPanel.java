@@ -67,6 +67,7 @@ public class MainPanel extends JPanel {
 	private Toolbar toolbar;
 
 	//public TreeAndList treeandlist;
+	private HashMap action;
 	private JSplitPane mainSplitPane;
 	private JSplitPane innerSplitPane;
 	private TreePicker feedTreePicker;
@@ -79,14 +80,16 @@ public class MainPanel extends JPanel {
 	 * Constructeur
 	 * 
 	 */
-	public MainPanel()
+	public MainPanel(HashMap action)
 	{
+		
+		action = this.action;
 		// TODO TEMPORAIRE ! A SUPPRIMER BIENTOT
 		this.setLayout(new BorderLayout(1, 2));
 		categoryList = new ArrayList<Category>();
 
 		this.setLayout(new BorderLayout());
-		this.toolbar = new Toolbar();
+		this.toolbar = new Toolbar(action);
 		this.add(toolbar, BorderLayout.PAGE_START);
 
 		// Création des éléments centraux de la fenetre
@@ -122,6 +125,15 @@ public class MainPanel extends JPanel {
 		/*TODO A mettre dans le controleur*/
 
 				
+	}
+
+	public HashMap getAction() {
+		return action;
+	}
+
+	public void setAction(HashMap action) {
+		this.action = action;
+		this.toolbar.setAction(action);
 	}
 
 	public void addListener(ActionListener e){

@@ -7,6 +7,7 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 
 import javax.swing.AbstractAction;
 import javax.swing.ButtonGroup;
@@ -16,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
 import ca.usherbrooke.ift232.actuRSS.controller.Controller;
+import ca.usherbrooke.ift232.actuRSS.controller.command.ActionFavButton;
 
 /**
  * Actu-RSS
@@ -36,6 +38,7 @@ public class Toolbar extends JPanel {
 	 * @param Description d'une variable
 	 *
 	 */
+	
 	private JToggleButton allNewsBtn;
 	private JToggleButton unreadNewsBtn;
 
@@ -49,13 +52,15 @@ public class Toolbar extends JPanel {
 	private Menu menuBtn;
 	private JPanel leftPanel;
 	private JPanel rightPanel;
+	private HashMap action;
 
 	/**
 	 * Constructeur
 	 * 
 	 */
-	public Toolbar(){
+	public Toolbar(HashMap action){
 
+		this.action = action;
 		this.setLayout(new BorderLayout());
 		
 		leftPanel = new JPanel();
@@ -81,8 +86,10 @@ public class Toolbar extends JPanel {
 		
 		rightPanel.add(readBtn);
 		
+		
+		//TODO voir pourquoi l image ne s affiche plus pourtant l evenement marche
 		favBtn = buildToggleButton("/resources/favorite.png");
-		favBtn.setActionCommand("FavBtn");
+		//favBtn.setActionCommand("FavBtn");
 		favBtn.setEnabled(false);
 		
 		rightPanel.add(favBtn);
@@ -99,6 +106,14 @@ public class Toolbar extends JPanel {
 
 		this.add(leftPanel, BorderLayout.WEST);
 		this.add(rightPanel, BorderLayout.EAST);
+	}
+
+	public HashMap getAction() {
+		return action;
+	}
+
+	public void setAction(HashMap action) {
+		this.action = action;
 	}
 
 	private void buildButtonGroup() 
@@ -169,6 +184,10 @@ public class Toolbar extends JPanel {
 	
 	public void addListener(ActionListener e)
 	{
+		
+		favBtn.setAction((ActionFavButton)action.get("ActionFavButton"));
+		//favBtn.addActionListener(e);	
+		
 		allNewsBtn.addActionListener(e);
 		unreadNewsBtn.addActionListener(e);
 		favNewsBtn.addActionListener(e);
@@ -177,7 +196,7 @@ public class Toolbar extends JPanel {
 		syncBtn.addActionListener(e);
 		
 		readBtn.addActionListener(e);
-		favBtn.addActionListener(e);			
+				
 		
 		menuBtn.addListener(e);	
 		
