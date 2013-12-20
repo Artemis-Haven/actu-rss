@@ -42,6 +42,9 @@ public class TreePicker extends JTree {
 				if (obj instanceof Feed)
 					fireFeedSelectedEvent(new FeedSelectedEvent(this,
 							(Feed) obj));
+				else if(obj instanceof Category)
+					fireCategorySelectedEvent(new CategorySelectedEvent(this,
+							(Category) obj));
 			}
 
 		});
@@ -136,6 +139,12 @@ public class TreePicker extends JTree {
 		for (FeedSelectedListener l : listenerList
 				.getListeners(FeedSelectedListener.class)) {
 			l.onFeedSelected(event);
+		}
+	}
+	protected void fireCategorySelectedEvent(CategorySelectedEvent event) {
+		for (FeedSelectedListener l : listenerList
+				.getListeners(FeedSelectedListener.class)) {
+			l.onCategorySelected(event);
 		}
 	}
 

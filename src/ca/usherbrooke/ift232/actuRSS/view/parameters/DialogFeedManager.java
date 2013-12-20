@@ -29,6 +29,7 @@ public class DialogFeedManager extends ParamDialog {
 	private JButton add;
 	private JButton delete;
 	private JButton update;
+	private JButton deleteCategorie;
 	private JButton exit;
 	private JScrollPane treebar;
 	List<Category> categories = new ArrayList<Category>();
@@ -139,6 +140,11 @@ public class DialogFeedManager extends ParamDialog {
 				update.setEnabled(false);
 				update.setActionCommand("EditSource");
 				control.add(update,"10, 28");
+				
+				deleteCategorie = new JButton("Supprimer Categorie");
+				deleteCategorie.setEnabled(false);
+				deleteCategorie.setActionCommand("DeleteCategorie");
+				control.add(deleteCategorie, "10, 38");
 
 				exit = new JButton("Fermer");
 				exit.setActionCommand("ExitSource");
@@ -169,6 +175,10 @@ public class DialogFeedManager extends ParamDialog {
 		this.update.setEnabled(true);
 	}
 	
+	public void putDeleteCategoryEditable(boolean editable){
+		this.deleteCategorie.setEnabled(editable);
+	}
+	
 	public void putNotEditable(){
 		this.delete.setEnabled(false);
 		this.update.setEnabled(false);
@@ -187,6 +197,7 @@ public class DialogFeedManager extends ParamDialog {
 		delete.addActionListener(e);
 		update.addActionListener(e);
 		exit.addActionListener(e);
+		deleteCategorie.addActionListener(e);
 	}
 }
 

@@ -191,6 +191,12 @@ public class FeedManager {
 		//Si la categorie n'a pas été trouvé
 		return null;		
 	}
+
+	public void removeCategory(Category deletecat) {
+		for(Feed f : deletecat.getListFeed())
+			removeFeed(f, deletecat);
+		oldListCategory.remove(deletecat);
+	}
 	
 
 }
