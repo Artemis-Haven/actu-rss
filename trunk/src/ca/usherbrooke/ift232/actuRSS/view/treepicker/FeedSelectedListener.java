@@ -8,4 +8,6 @@ public interface FeedSelectedListener extends EventListener
 	 * @param event
 	 */
 	public void onFeedSelected(FeedSelectedEvent event);
+
+	public void onCategorySelected(CategorySelectedEvent event);
 }

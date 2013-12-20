@@ -107,6 +107,12 @@ public class TreePickerDemo {
 				//financeSources.clear();
 				//tree.refreshFeeds(cats);
 			}
+
+			@Override
+			public void onCategorySelected(CategorySelectedEvent event) {
+				// TODO Auto-generated method stub
+				
+			}
 			
 		});
 		

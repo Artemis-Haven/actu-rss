@@ -35,6 +35,7 @@ import ca.usherbrooke.ift232.actuRSS.view.parameters.DialogFeedManager;
 import ca.usherbrooke.ift232.actuRSS.view.parameters.ProgramProperties;
 import ca.usherbrooke.ift232.actuRSS.view.parameters.ViewChangeProperties;
 import ca.usherbrooke.ift232.actuRSS.view.sorter.Sorter;
+import ca.usherbrooke.ift232.actuRSS.view.treepicker.CategorySelectedEvent;
 import ca.usherbrooke.ift232.actuRSS.view.treepicker.FeedSelectedEvent;
 import ca.usherbrooke.ift232.actuRSS.view.treepicker.FeedSelectedListener;
 import ca.usherbrooke.ift232.actuRSS.view.treepicker.TreePicker;
@@ -61,6 +62,7 @@ public class Controller implements ActionListener {
 	public static Sorter actualSorter;
 	
 	List<News> news = new ArrayList<News>();
+	private Category deletecat = null;
 
 	public Controller(final Model model, final View view) 
 	{
@@ -140,6 +142,12 @@ public class Controller implements ActionListener {
 
 				newsList.changeNews(news, theDisplay, actualSorter);
 			}
+
+			@Override
+			public void onCategorySelected(CategorySelectedEvent event) {
+				// TODO Auto-generated method stub
+				
+			}
 		});
 
 		// --- Evenement sur l'ActuList
@@ -183,12 +191,19 @@ public class Controller implements ActionListener {
 							} else {
 								editFeed.setFeed(f);
 								gest.putEditable();
+								gest.putDeleteCategoryEditable(false);
 								break;
 							}
 						}
 					}
+
+					@Override
+					public void onCategorySelected(CategorySelectedEvent event) {
+						deletecat  = event.getSelectedSource();
+						gest.putDeleteCategoryEditable(true);
+						
+					}
 				});
-		System.out.println(theDisplay.getClass().getName());
 
 	}
 
@@ -434,6 +449,16 @@ public class Controller implements ActionListener {
 		}
 
 		// Sort de la fenetre de gestion
+		if (action.equals("DeleteCategorie")){
+			if(deletecat != null){
+				feedManager.removeCategory(deletecat);
+				gest.getManageTree().refreshFeeds(
+						feedManager.getOldListCategory());
+				gest.putDeleteCategoryEditable(false);
+			}
+			model.notifyObserver();
+						
+		}
 
 		if (action.equals("ExitSource")) {
 			gest.closeDialog();
