@@ -24,11 +24,11 @@ public class ActionRead extends AbstractAction {
 	
 	public void actionPerformed(ActionEvent e) {
 		
-	//	ReadFilter theDisplay = new ReadFilter();
+	/*//	ReadFilter theDisplay = new ReadFilter();
 		toolbar.getFavBtn().setSelected(false);
 		toolbar.getReadBtn().setSelected(false);
 		//TODO newsList.changeNews(news, theDisplay);
-		
+		*/
 		
 	}
 

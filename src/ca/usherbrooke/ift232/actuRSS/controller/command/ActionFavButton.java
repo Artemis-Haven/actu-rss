@@ -4,11 +4,30 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
 
+import ca.usherbrooke.ift232.actuRSS.News;
+import ca.usherbrooke.ift232.actuRSS.controller.Controller;
+
 public class ActionFavButton extends AbstractAction {
 
-	@Override
+	private Controller controller;
+	
+	public ActionFavButton(Controller controllerHoock) 
+	{
+		this.controller = controllerHoock;
+	}
+	
+	
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		
+		News newsSelected = controller.getSelectedNews();
+		if (newsSelected != null) {
+			if (newsSelected.isFavorite()) {
+				newsSelected.setFavorite(false);
+			} else {
+				newsSelected.setFavorite(true);
+				// System.out.println(newsSelected.getTitle());
+			}
+		}
 		
 	}
 

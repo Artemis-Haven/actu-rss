@@ -3,6 +3,7 @@ package ca.usherbrooke.ift232.actuRSS.view;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -44,6 +45,7 @@ public class View extends JFrame implements Observer {
 	private DialogFeedManager sourceManager;
 	private DialogEditFeed editFeed;
 	private DialogAddFeed addFeed;
+	private HashMap action;
 
 	//private Model model;
 	
@@ -52,9 +54,10 @@ public class View extends JFrame implements Observer {
 	 * @param model : 
 	 * 
 	 */
-	public View() {
+	public View(HashMap action) {
 		// Utiliser le look and feel de l'OS utilisé
 	    //si possible.
+		action = action;
 		try {
         UIManager.setLookAndFeel(
             UIManager.getSystemLookAndFeelClassName());
@@ -64,7 +67,7 @@ public class View extends JFrame implements Observer {
 		}
 		
 		// Initialisation des variables		
-		this.mainPanel = new MainPanel();
+		this.mainPanel = new MainPanel(action);
 		this.preference = new ViewChangeProperties(null, "Préférence", true);
 		this.sourceManager = new DialogFeedManager(null, "Gestion des sources", true);
 		this.editFeed = new DialogEditFeed(null,"Modification d'un Flux",true);
@@ -126,5 +129,14 @@ public class View extends JFrame implements Observer {
 	
 	public DialogEditFeed getEditFeedDialog(){
 		return editFeed;
+	}
+
+	public HashMap getAction() {return action;}
+
+	
+	public void setAction(HashMap action) 
+	{
+		this.action = action;
+		this.mainPanel.setAction(action);
 	}
 }

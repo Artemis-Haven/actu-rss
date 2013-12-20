@@ -39,12 +39,11 @@ public class ActuRSS {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		System.out.println("heRmeSS");
-		Model model = new Model();
-		View view  = new View();
-		Controller controller = new Controller(model,view);
+		System.out.println("Actu-RSS");
+		/*Model model = new Model();
+		View view  = new View();*/
+		Controller controller = new Controller();		
 		
-		view.setVisible(true);
 	}
 
 }
