@@ -108,18 +108,17 @@ public class View extends JFrame implements Observer {
 	 * @param Object
 	 */
 	@Override
+	
 	public void update(Observable arg0, Object arg1) {		
 		
-		ArrayList<Category> categoryList = (ArrayList<Category>)arg1;
-	
+		ArrayList<Category> categoryList = (ArrayList<Category>)arg1;		
 		
-		
-		/* Refactorisation	*/	
+		/* Refactorisation : la méthode update du mainPanel est appelée	*/	
 		this.getMainPanel().update(categoryList);
-		this.repaint();
-		
-		
+		this.repaint();		
 	}
+	
+	
 
 	public DialogAddFeed getAddFeedDialog() {
 		return addFeed;
