@@ -12,7 +12,10 @@ import org.junit.Test;
 
 import ca.usherbrooke.ift232.actuRSS.News;
 import ca.usherbrooke.ift232.actuRSS.bdd.DatabaseUtil;
-
+/**
+ * Classe de test de DatabaseUtil.java
+ * @author Vincent Chataignier, Matthieu Poupineau
+ */
 public class DatabaseUtilTest {
 
         @BeforeClass

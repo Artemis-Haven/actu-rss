@@ -20,7 +20,7 @@ import java.sql.SQLException;
  * entrée et effectuent des requêtes en BdD, ou bien <br/>
  * (2) Effectuent des requêtes en BdD et créent des objets.
  * 
- * @author Leucistic
+ * @author Vincent Chataignier, Matthieu Poupineau
  *
  */
 public class DatabaseManager {

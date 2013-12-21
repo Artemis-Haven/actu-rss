@@ -10,7 +10,7 @@ import java.sql.Statement;
 /**
  * Cette classe fait l'interface avec la base de données.
  * 
- * @author Leucistic, membre du site OpenClassrooms
+ * @author Vincent Chataignier, Matthieu Poupineau
  *
  */
 public class Database {
