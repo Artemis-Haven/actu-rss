@@ -19,6 +19,8 @@ import javax.swing.JToggleButton;
 import ca.usherbrooke.ift232.actuRSS.controller.Controller;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionAll;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionFavButton;
+import ca.usherbrooke.ift232.actuRSS.controller.command.ActionFavorite;
+import ca.usherbrooke.ift232.actuRSS.controller.command.ActionRead;
 
 
 
@@ -194,11 +196,14 @@ public class Toolbar extends JPanel {
 		//allNewsBtn.addActionListener(e);
 		allNewsBtn.addActionListener((ActionAll)action.get("ActionAll"));
 		unreadNewsBtn.addActionListener(e);
-		favNewsBtn.addActionListener(e);
-		readNewsBtn.addActionListener(e);
+		favNewsBtn.addActionListener((ActionFavorite)action.get("ActionFavorite"));
+		
+		readNewsBtn.addActionListener((ActionRead)action.get("ActionRead"));
 
 		syncBtn.addActionListener(e);
-
+		
+		
+		
 		readBtn.addActionListener(e);
 
 
