@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 import ca.usherbrooke.ift232.actuRSS.Category;
 import ca.usherbrooke.ift232.actuRSS.Feed;
 import ca.usherbrooke.ift232.actuRSS.News;
+import ca.usherbrooke.ift232.actuRSS.controller.command.ActionAll;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionFavButton;
 import ca.usherbrooke.ift232.actuRSS.model.FeedManager;
 import ca.usherbrooke.ift232.actuRSS.model.Model;
@@ -123,6 +124,7 @@ public class Controller implements ActionListener {
 	public void createAction() {
 		
 		action.put("ActionFavButton",new ActionFavButton(this));
+		action.put("ActionAll",new ActionAll(theDisplay, toolbar, newsList, news, actualSorter));
 		view.setAction(action);
 		
 	}
@@ -244,14 +246,14 @@ public class Controller implements ActionListener {
 		String action = arg0.getActionCommand();
 
 
-		if (action.equals("Tout")) {
+		/*if (action.equals("Tout")) {
 			theDisplay = new AllFilter();
 			toolbar.getFavBtn().setSelected(false);
 			toolbar.getReadBtn().setSelected(false);
 
 			newsList.changeNews(news, theDisplay, actualSorter);
 
-		}
+		}*/
 
 		if (action.equals("Non lus")) {
 

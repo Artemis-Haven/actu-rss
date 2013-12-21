@@ -11,9 +11,9 @@ public class ActionFavButton extends AbstractAction {
 
 	private Controller controller;
 	
-	public ActionFavButton(Controller controllerHoock) 
+	public ActionFavButton(Controller controllerHook) 
 	{
-		this.controller = controllerHoock;
+		this.controller = controllerHook;
 	}
 	
 	
