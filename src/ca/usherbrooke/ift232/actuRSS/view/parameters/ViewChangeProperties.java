@@ -19,6 +19,8 @@ import javax.swing.JTextField;
 
 import ca.usherbrooke.ift232.actuRSS.controller.Controller;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionCancelPref;
+import ca.usherbrooke.ift232.actuRSS.controller.command.ActionOkPref;
+import ca.usherbrooke.ift232.actuRSS.controller.command.ActionResetPref;
 import ca.usherbrooke.ift232.actuRSS.view.filter.AllFilter;
 import ca.usherbrooke.ift232.actuRSS.view.filter.FavoriteFilter;
 import ca.usherbrooke.ift232.actuRSS.view.filter.Filter;
@@ -260,9 +262,9 @@ public class ViewChangeProperties extends ParamDialog {
 	
 	public void addListener(ActionListener e)
 	{
-		okbutton.addActionListener(e);
+		okbutton.addActionListener((ActionOkPref)action.get("ActionOkPref"));
 		cancel.addActionListener((ActionCancelPref)action.get("ActionCancelPref"));
-		defaultbutton.addActionListener(e);
+		defaultbutton.addActionListener((ActionResetPref)action.get("ActionResetPref"));
 		openFile.addActionListener(e);
 		
 	}
