@@ -16,6 +16,7 @@ import ca.usherbrooke.ift232.actuRSS.Category;
 import ca.usherbrooke.ift232.actuRSS.Feed;
 import ca.usherbrooke.ift232.actuRSS.News;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionAbout;
+import ca.usherbrooke.ift232.actuRSS.controller.command.ActionAddSource;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionAll;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionCancelPref;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionFavButton;
@@ -23,7 +24,9 @@ import ca.usherbrooke.ift232.actuRSS.controller.command.ActionFavorite;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionHelp;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionManageSources;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionNotRead;
+import ca.usherbrooke.ift232.actuRSS.controller.command.ActionOkAddSource;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionOkPref;
+import ca.usherbrooke.ift232.actuRSS.controller.command.ActionOpenFile;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionPref;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionRead;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionReadButton;
@@ -142,6 +145,11 @@ public class Controller implements ActionListener {
 		action.put("ActionHelp", new ActionHelp());
 		action.put("ActionAbout", new ActionAbout());
 		action.put("ActionCancelPref", new ActionCancelPref(pref));
+
+		action.put("ActionOpenFile", new ActionOpenFile(pref));
+		action.put("ActionAddSource", new ActionAddSource(feedManager, addFeed));
+		action.put("ActionOkAddSource", new ActionOkAddSource(addFeed, feedManager, newFeed, gest, model));
+
 		
 		action.put("ActionOkPref", new ActionOkPref(pref, mainPanel, newsList, theDisplay, news, actualSorter));
 		action.put("ActionResetPref", new ActionResetPref(pref));
@@ -149,6 +157,7 @@ public class Controller implements ActionListener {
 		//TODO AJOUTER EDIT SOURCE et du coup aussi dans la bonne fucking classe
 		
 		
+
 		view.setAction(action);
 		
 	}
@@ -368,21 +377,27 @@ public class Controller implements ActionListener {
 		/*if (action.equals("ReinitialiserPref")) {
 			pref.renewDialog();
 		}*/
-		if (action.equals("OpenFile")) {
+		/*if (action.equals("OpenFile")) {
 			pref.setCSS();
-		}
+		}*/
 
 		// Gestion source
 
 		// Ajout source
-		if (action.equals("AddSource")) {
+		/*if (action.equals("AddSource")) {
 			addFeed.listerCategories(feedManager.getOldListCategory());
 			addFeed.showDialog();
-		}
+		}*/
 
 		// Valide l'ajout du flux et l'ajoute
 
+
+		
+		/*if (action.equals("OkAddSource")) {
+=======
+
 		if (action.equals("OkAddSource")) {
+
 			if (addFeed.Valide()) {
 				addFeed.finishedDialog();
 				Feed feed = new Feed(-1, addFeed.getName(), addFeed.getUrl());
@@ -408,7 +423,7 @@ public class Controller implements ActionListener {
 
 				model.notifyObserver();
 			}
-		}
+		}*/
 		// Annule l'ajout
 		if (action.equals("CancelAddSource")) {
 			addFeed.closeDialog();
@@ -451,6 +466,7 @@ public class Controller implements ActionListener {
 			editFeed.showDialog();
 		}
 
+		
 		if (action.equals("OkEditSource")) {
 			if (editFeed.Valide()) {
 				editFeed.finishedDialog();

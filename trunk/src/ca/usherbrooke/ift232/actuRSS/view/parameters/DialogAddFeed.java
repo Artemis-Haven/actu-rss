@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -16,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import ca.usherbrooke.ift232.actuRSS.Category;
+import ca.usherbrooke.ift232.actuRSS.controller.command.ActionOkAddSource;
 /**
  * Classe manipulant l'interface graphique gérant l'ajout d'un feed
  * 
@@ -44,8 +46,8 @@ public class DialogAddFeed extends JDialog {
 	String thename;
 	String theurl;
 	String thecategory;
+	private HashMap action;
 	
-
 	public DialogAddFeed(JFrame parent, String title, boolean modal){
 		super(parent, title, modal);
 		this.setSize(500, 300);
@@ -200,9 +202,18 @@ public class DialogAddFeed extends JDialog {
 	
 	public void addListener(ActionListener e)
 	{
-		okbutton.addActionListener(e);
+		okbutton.addActionListener((ActionOkAddSource)action.get("ActionOkAddSource"));
 		cancel.addActionListener(e);
 		defaultbutton.addActionListener(e);	
 		newCategory.addActionListener(e);
+	}
+	
+
+	public HashMap getAction() {
+		return action;
+	}
+
+	public void setAction(HashMap action) {
+		this.action = action;
 	}
 }

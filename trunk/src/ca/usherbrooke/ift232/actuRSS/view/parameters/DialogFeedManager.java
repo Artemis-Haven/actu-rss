@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -14,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import ca.usherbrooke.ift232.actuRSS.Category;
+import ca.usherbrooke.ift232.actuRSS.controller.command.ActionAddSource;
 import ca.usherbrooke.ift232.actuRSS.view.treepicker.TreePicker;
 
 import com.jgoodies.forms.factories.FormFactory;
@@ -32,6 +34,8 @@ public class DialogFeedManager extends ParamDialog {
 	private JButton deleteCategorie;
 	private JButton exit;
 	private JScrollPane treebar;
+	private HashMap action;
+	
 	List<Category> categories = new ArrayList<Category>();
 
 	public DialogFeedManager(JFrame parent, String title, boolean modal) {
@@ -154,6 +158,15 @@ public class DialogFeedManager extends ParamDialog {
 				this.getContentPane().add(control,BorderLayout.EAST);
 
 	}
+	
+	public HashMap getAction() {
+		return action;
+	}
+
+	public void setAction(HashMap action) {
+		this.action = action;
+	}
+
 
 	public void showDialog(){
 		putNotEditable();
@@ -193,7 +206,7 @@ public class DialogFeedManager extends ParamDialog {
 
 	public void addListener(ActionListener e)
 	{
-		add.addActionListener(e);
+		add.addActionListener((ActionAddSource)action.get("ActionAddSource"));
 		delete.addActionListener(e);
 		update.addActionListener(e);
 		exit.addActionListener(e);
