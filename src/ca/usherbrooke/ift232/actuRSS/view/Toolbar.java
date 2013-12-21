@@ -20,7 +20,11 @@ import ca.usherbrooke.ift232.actuRSS.controller.Controller;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionAll;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionFavButton;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionFavorite;
+import ca.usherbrooke.ift232.actuRSS.controller.command.ActionNotRead;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionRead;
+import ca.usherbrooke.ift232.actuRSS.controller.command.ActionReadButton;
+import ca.usherbrooke.ift232.actuRSS.controller.command.ActionSync;
+
 
 
 
@@ -99,7 +103,7 @@ public class Toolbar extends JPanel {
 
 		rightPanel.add(favBtn);
 
-		menuBtn = new Menu();
+		menuBtn = new Menu(action);
 		menuBtn.setMaximumSize(new Dimension(24, 24));
 		menuBtn.setRequestFocusEnabled(false);
 		menuBtn.setOpaque(false);
@@ -119,6 +123,7 @@ public class Toolbar extends JPanel {
 
 	public void setAction(HashMap action) {
 		this.action = action;
+		menuBtn.setAction(action);
 	}
 
 	private void buildButtonGroup() 
@@ -195,16 +200,17 @@ public class Toolbar extends JPanel {
 		favBtn.addActionListener((ActionFavButton)action.get("ActionFavButton"));		
 		//allNewsBtn.addActionListener(e);
 		allNewsBtn.addActionListener((ActionAll)action.get("ActionAll"));
-		unreadNewsBtn.addActionListener(e);
+		
+		unreadNewsBtn.addActionListener((ActionNotRead)action.get("ActionNotRead"));
 		favNewsBtn.addActionListener((ActionFavorite)action.get("ActionFavorite"));
 		
 		readNewsBtn.addActionListener((ActionRead)action.get("ActionRead"));
 
-		syncBtn.addActionListener(e);
+		syncBtn.addActionListener((ActionSync)action.get("ActionSync"));
 		
 		
 		
-		readBtn.addActionListener(e);
+		readBtn.addActionListener((ActionReadButton)action.get("ActionReadButton"));
 
 
 		menuBtn.addListener(e);	
