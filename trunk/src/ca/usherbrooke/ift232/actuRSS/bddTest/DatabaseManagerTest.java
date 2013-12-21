@@ -18,7 +18,10 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
+/**
+ * Classe de test de DatabaseManager.java
+ * @author Vincent Chataignier, Matthieu Poupineau
+ */
 public class DatabaseManagerTest {
 
 	private static Database db;

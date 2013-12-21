@@ -5,7 +5,10 @@ import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
+/**
+ * Classe de test de Database.java
+ * @author Vincent Chataignier, Matthieu Poupineau
+ */
 public class DatabaseTest {
 
 	@Before
