@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -18,26 +19,28 @@ import javax.swing.JTextField;
 import ca.usherbrooke.ift232.actuRSS.Category;
 import ca.usherbrooke.ift232.actuRSS.Feed;
 import ca.usherbrooke.ift232.actuRSS.News;
+import ca.usherbrooke.ift232.actuRSS.controller.command.ActionOkEditSource;
 
 public class DialogEditFeed  extends JDialog {
 
 	ArrayList<String> listeCategories = new ArrayList<String>();
-	Feed feed = new Feed();
-	JPanel content;
-	JPanel control;
-	JButton okbutton;
-	JButton cancel;
-	JButton defaultbutton;
-	JPanel namepanel;
-	JPanel urlpanel;
-	JPanel categorypanel;
-	JButton newCategory;
-	JComboBox category;
-	JTextField name;
-	JTextField url;
-	String thename;
-	String theurl;
-	String thecategory;
+	private Feed feed = new Feed();
+	private JPanel content;
+	private JPanel control;
+	private JButton okbutton;
+	private JButton cancel;
+	private JButton defaultbutton;
+	private JPanel namepanel;
+	private JPanel urlpanel;
+	private JPanel categorypanel;
+	private JButton newCategory;
+	private JComboBox category;
+	private JTextField name;
+	private JTextField url;
+	private String thename;
+	private String theurl;
+	private String thecategory;
+	private HashMap action;
 
 	public DialogEditFeed(JFrame parent, String title, boolean modal){
 		super(parent, title, modal);
@@ -198,9 +201,17 @@ public class DialogEditFeed  extends JDialog {
 		return this.feed;
 	}
 
+	public HashMap getAction() {
+		return action;
+	}
+
+	public void setAction(HashMap action) {
+		this.action = action;
+	}
+
 	public void addListener(ActionListener e)
 	{
-		okbutton.addActionListener(e);
+		okbutton.addActionListener((ActionOkEditSource)action.get("ActionOkEditSource"));
 		cancel.addActionListener(e);
 		defaultbutton.addActionListener(e);	
 		newCategory.addActionListener(e);

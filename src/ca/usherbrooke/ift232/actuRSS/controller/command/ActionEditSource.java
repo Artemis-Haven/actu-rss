@@ -8,7 +8,8 @@ public class ActionEditSource extends AbstractAction {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		/*editFeed.listerCategories(feedManager.getOldListCategory());
+		editFeed.showDialog();*/
 		
 	}
 

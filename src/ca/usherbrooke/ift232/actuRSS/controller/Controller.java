@@ -24,7 +24,11 @@ import ca.usherbrooke.ift232.actuRSS.controller.command.ActionFavorite;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionHelp;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionManageSources;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionNotRead;
+
+import ca.usherbrooke.ift232.actuRSS.controller.command.ActionOkEditSource;
+
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionOkAddSource;
+
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionOkPref;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionOpenFile;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionPref;
@@ -155,7 +159,8 @@ public class Controller implements ActionListener {
 		action.put("ActionResetPref", new ActionResetPref(pref));
 		
 		//TODO AJOUTER EDIT SOURCE et du coup aussi dans la bonne fucking classe
-		
+	
+		action.put("ActionOkEditSource", new ActionOkEditSource(editFeed,feedManager,newFeed, gest, model));
 		
 
 		view.setAction(action);
