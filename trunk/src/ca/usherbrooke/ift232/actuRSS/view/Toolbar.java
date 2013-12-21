@@ -17,7 +17,10 @@ import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
 import ca.usherbrooke.ift232.actuRSS.controller.Controller;
+import ca.usherbrooke.ift232.actuRSS.controller.command.ActionAll;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionFavButton;
+
+
 
 /**
  * Actu-RSS
@@ -30,7 +33,7 @@ import ca.usherbrooke.ift232.actuRSS.controller.command.ActionFavButton;
  * @author R�mi Patrizio, Bastien Meunier, Yann Ser�e
  * @version 0.1
  */
- 
+
 public class Toolbar extends JPanel {
 
 	/**
@@ -38,13 +41,13 @@ public class Toolbar extends JPanel {
 	 * @param Description d'une variable
 	 *
 	 */
-	
+
 	private JToggleButton allNewsBtn;
 	private JToggleButton unreadNewsBtn;
 
 	private JToggleButton favNewsBtn;
 	private JToggleButton readNewsBtn;
-	
+
 	private JButton syncBtn;
 	private JToggleButton readBtn;
 	private JToggleButton favBtn;
@@ -62,9 +65,9 @@ public class Toolbar extends JPanel {
 
 		this.action = action;
 		this.setLayout(new BorderLayout());
-		
+
 		leftPanel = new JPanel();
-		
+
 		syncBtn = new JButton(new ImageIcon(getClass().getResource("/resources/sync.png")));
 		syncBtn.setActionCommand("Sync");
 		syncBtn.setBorderPainted(false);
@@ -72,28 +75,28 @@ public class Toolbar extends JPanel {
 		leftPanel.add(syncBtn);
 
 		buildButtonGroup();
-		
+
 		rightPanel = new JPanel();
 		rightPanel.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		rightPanel.setOpaque(false);
 		rightPanel.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		rightPanel.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		rightPanel.setSize(new Dimension(24, 24));
-		
+
 		readBtn = buildToggleButton("/resources/read.png");
 		readBtn.setActionCommand("Read");
 		readBtn.setEnabled(false);
-		
+
 		rightPanel.add(readBtn);
-		
-		
+
+
 		//TODO voir pourquoi l image ne s affiche plus pourtant l evenement marche
 		favBtn = buildToggleButton("/resources/favorite.png");
 		//favBtn.setActionCommand("FavBtn");
 		favBtn.setEnabled(false);
-		
+
 		rightPanel.add(favBtn);
-		
+
 		menuBtn = new Menu();
 		menuBtn.setMaximumSize(new Dimension(24, 24));
 		menuBtn.setRequestFocusEnabled(false);
@@ -122,7 +125,7 @@ public class Toolbar extends JPanel {
 		unreadNewsBtn = new JToggleButton("Non lus");
 		favNewsBtn = new JToggleButton("Favoris");
 		readNewsBtn = new JToggleButton("Lus");
-		
+
 		if(Controller.properties.getProperty("Default Display").contains("AllFilter"))
 			allNewsBtn.setSelected(true);
 		else if(Controller.properties.getProperty("Default Display").contains("NotReadFilter"))
@@ -131,20 +134,20 @@ public class Toolbar extends JPanel {
 			favNewsBtn.setSelected(true);
 		else
 			readNewsBtn.setSelected(true);
-				
+
 		allNewsBtn.setPreferredSize(new Dimension(100,30));
 		allNewsBtn.setMinimumSize(new Dimension(100,30));
-		
+
 		unreadNewsBtn.setPreferredSize(new Dimension(100,30));
 		unreadNewsBtn.setMinimumSize(new Dimension(100,30));
-		
+
 		favNewsBtn.setPreferredSize(new Dimension(100,30));
 		favNewsBtn.setMinimumSize(new Dimension(100,30));
-		
+
 		readNewsBtn.setPreferredSize(new Dimension(100,30));
 		readNewsBtn.setMinimumSize(new Dimension(100,30));
-		
-		
+
+
 		btnGroup = new ButtonGroup();
 		btnGroup.add(allNewsBtn);
 		btnGroup.add(unreadNewsBtn);
@@ -155,8 +158,8 @@ public class Toolbar extends JPanel {
 		unreadNewsBtn.setFocusPainted(false);
 		favNewsBtn.setFocusPainted(false);
 		readNewsBtn.setFocusPainted(false);	
-		
-		
+
+
 		leftPanel.add(allNewsBtn, BorderLayout.WEST);
 		leftPanel.add(unreadNewsBtn, BorderLayout.WEST);
 		leftPanel.add(favNewsBtn, BorderLayout.WEST);
@@ -164,44 +167,45 @@ public class Toolbar extends JPanel {
 	}
 
 	class ToutAction extends AbstractAction {
-	    public ToutAction(String text, ImageIcon icon,
-	                      String desc, Integer mnemonic) {
-	        super(text, icon);
-	        putValue(SHORT_DESCRIPTION, desc);
-	        putValue(MNEMONIC_KEY, mnemonic);
-	    }
-	    public void actionPerformed(ActionEvent e) {
-	        System.out.println("Action for first button/menu item");
-	    }
-	   }
-	
+		public ToutAction(String text, ImageIcon icon,
+				String desc, Integer mnemonic) {
+			super(text, icon);
+			putValue(SHORT_DESCRIPTION, desc);
+			putValue(MNEMONIC_KEY, mnemonic);
+		}
+		public void actionPerformed(ActionEvent e) {
+			System.out.println("Action for first button/menu item");
+		}
+	}
+
 	private JToggleButton buildToggleButton(String path) {
 		JToggleButton btn = new JToggleButton(new ImageIcon(getClass().getResource(path)));
 		btn.setBorderPainted(false);
 		btn.setFocusPainted(false);
 		return btn;
 	}
-	
+
 	public void addListener(ActionListener e)
 	{
-		
+
 		//favBtn.setAction((ActionFavButton)action.get("ActionFavButton"));
 		//favBtn.addActionListener(e);	
-		favBtn.addActionListener((ActionFavButton)action.get("ActionFavButton"));
-		allNewsBtn.addActionListener(e);
+		favBtn.addActionListener((ActionFavButton)action.get("ActionFavButton"));		
+		//allNewsBtn.addActionListener(e);
+		allNewsBtn.addActionListener((ActionAll)action.get("ActionAll"));
 		unreadNewsBtn.addActionListener(e);
 		favNewsBtn.addActionListener(e);
 		readNewsBtn.addActionListener(e);
-		
+
 		syncBtn.addActionListener(e);
-		
+
 		readBtn.addActionListener(e);
-				
-		
+
+
 		menuBtn.addListener(e);	
-		
+
 	}
-	
+
 	public JToggleButton getUnreadNewsBtn() {return unreadNewsBtn;}
 	public JToggleButton getFavNewsBtn() {return favNewsBtn;}
 	public JButton getSyncBtn() {return syncBtn;}
