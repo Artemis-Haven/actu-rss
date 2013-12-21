@@ -1,13 +1,13 @@
 package ca.usherbrooke.ift232.actuRSS.view;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.HashMap;
 
 import javax.swing.ImageIcon;
 import javax.swing.JMenu;
@@ -15,19 +15,24 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.SwingConstants;
-import javax.swing.border.LineBorder;
+
+import ca.usherbrooke.ift232.actuRSS.controller.command.ActionPref;
 
 public class Menu extends JMenuBar{
 	
-	JMenuBar menuBar;
-	JMenu mnParametre;
-	JMenuItem paraPreferency;
-	JMenuItem paraSource;
-	JMenuItem paraAbout;
-	JMenuItem paraHelp;
+	private JMenuBar menuBar;
+	private JMenu mnParametre;
+	private JMenuItem paraPreferency;
+	private JMenuItem paraSource;
+	private JMenuItem paraAbout;
+	private JMenuItem paraHelp;
+	private HashMap action;
 	
-	public Menu(){
+	
+
+	public Menu(HashMap action){
 		
+		this.action = action;
 		setRequestFocusEnabled(false);
 		setOpaque(false);
 		setMaximumSize(new Dimension(24, 24));
@@ -68,6 +73,14 @@ public class Menu extends JMenuBar{
 		mnParametre.add(paraAbout);
 	}
 	
+	public HashMap getAction() {
+		return action;
+	}
+
+	public void setAction(HashMap action) {
+		this.action = action;
+	}
+	
 	private static void addPopup(Component component, final JPopupMenu popup) {
 		component.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
@@ -88,7 +101,7 @@ public class Menu extends JMenuBar{
 	
 	public void addListener(ActionListener e)
 	{		
-		paraPreferency.addActionListener(e);
+		paraPreferency.addActionListener((ActionPref)action.get("ActionPref"));
 		paraSource.addActionListener(e);
 		paraAbout.addActionListener(e);		
 		paraHelp.addActionListener(e);		
