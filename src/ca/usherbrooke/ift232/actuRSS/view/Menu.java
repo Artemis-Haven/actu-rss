@@ -18,6 +18,7 @@ import javax.swing.SwingConstants;
 
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionAbout;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionHelp;
+import ca.usherbrooke.ift232.actuRSS.controller.command.ActionManageSources;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionPref;
 
 public class Menu extends JMenuBar{
@@ -104,7 +105,7 @@ public class Menu extends JMenuBar{
 	public void addListener(ActionListener e)
 	{		
 		paraPreferency.addActionListener((ActionPref)action.get("ActionPref"));
-		paraSource.addActionListener(e);
+		paraSource.addActionListener((ActionManageSources)action.get("ActionManageSources"));
 		paraAbout.addActionListener((ActionAbout)action.get("ActionAbout"));		
 		paraHelp.addActionListener((ActionHelp)action.get("ActionHelp"));		
 
