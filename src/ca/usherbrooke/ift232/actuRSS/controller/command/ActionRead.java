@@ -1,39 +1,42 @@
 package ca.usherbrooke.ift232.actuRSS.controller.command;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.beans.PropertyChangeListener;
+import java.util.List;
 
 import javax.swing.AbstractAction;
-import javax.swing.Action;
 
+import ca.usherbrooke.ift232.actuRSS.News;
 import ca.usherbrooke.ift232.actuRSS.view.Toolbar;
 import ca.usherbrooke.ift232.actuRSS.view.actulist.ActuList;
+import ca.usherbrooke.ift232.actuRSS.view.filter.Filter;
+import ca.usherbrooke.ift232.actuRSS.view.filter.ReadFilter;
+import ca.usherbrooke.ift232.actuRSS.view.sorter.Sorter;
 
 public class ActionRead extends AbstractAction {
 
 	private Toolbar toolbar; 
 	private ActuList newsList;
+	private Filter theDisplay;
+	private List<News> news;
+	private Sorter actualSorter;
 	
-	public ActionRead(Toolbar toolbarHook, ActuList newsListHoock)
+	public ActionRead(Filter theDisplayHook, Toolbar toolbarHook, ActuList newsListHook,List<News> newsHook, Sorter actualSorterHook)
 	{
-		this.toolbar =  toolbarHook;
-		this.newsList = newsListHoock;
+		this.theDisplay = theDisplayHook;
+		this.toolbar = toolbarHook;
+		this.newsList = newsListHook;
+		this.news = newsHook;
+		this.actualSorter = actualSorterHook;		
 	}
 	
 	
 	public void actionPerformed(ActionEvent e) {
 		
-	/*//	ReadFilter theDisplay = new ReadFilter();
+	    theDisplay = new ReadFilter();
 		toolbar.getFavBtn().setSelected(false);
 		toolbar.getReadBtn().setSelected(false);
-		//TODO newsList.changeNews(news, theDisplay);
-		*/
+		newsList.changeNews(news, theDisplay, actualSorter);
 		
-	}
-
-	
-
-	
+	}	
 
 }

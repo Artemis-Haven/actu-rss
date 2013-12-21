@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.swing.Action;
+import javax.swing.AbstractAction;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
@@ -17,6 +17,8 @@ import ca.usherbrooke.ift232.actuRSS.Feed;
 import ca.usherbrooke.ift232.actuRSS.News;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionAll;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionFavButton;
+import ca.usherbrooke.ift232.actuRSS.controller.command.ActionFavorite;
+import ca.usherbrooke.ift232.actuRSS.controller.command.ActionRead;
 import ca.usherbrooke.ift232.actuRSS.model.FeedManager;
 import ca.usherbrooke.ift232.actuRSS.model.Model;
 import ca.usherbrooke.ift232.actuRSS.model.SyncRunnable;
@@ -27,8 +29,6 @@ import ca.usherbrooke.ift232.actuRSS.view.View;
 import ca.usherbrooke.ift232.actuRSS.view.actulist.ActuList;
 import ca.usherbrooke.ift232.actuRSS.view.actulist.ActuSelectedEvent;
 import ca.usherbrooke.ift232.actuRSS.view.actulist.ActuSelectedListener;
-import ca.usherbrooke.ift232.actuRSS.view.filter.AllFilter;
-import ca.usherbrooke.ift232.actuRSS.view.filter.FavoriteFilter;
 import ca.usherbrooke.ift232.actuRSS.view.filter.Filter;
 import ca.usherbrooke.ift232.actuRSS.view.filter.NotReadFilter;
 import ca.usherbrooke.ift232.actuRSS.view.filter.ReadFilter;
@@ -45,7 +45,7 @@ import ca.usherbrooke.ift232.actuRSS.view.treepicker.TreePicker;
 
 public class Controller implements ActionListener {
 
-	private HashMap action;
+	private HashMap<String, AbstractAction> action;
 	private Model model;	
 	private MainPanel mainPanel;
 	private View view;
@@ -82,10 +82,8 @@ public class Controller implements ActionListener {
 			actualSorter = defaultSorter;
 		} catch (Exception e1)
 		{
-
 			e1.printStackTrace();
-		} 
-		
+		} 		
 		
 		this.model = model;
 		this.view = view;
@@ -110,11 +108,8 @@ public class Controller implements ActionListener {
 		model.notifyObserver();
 		
 		createEvenement();
-		createAction();
-		
+		createAction();		
 		view.addListener(this);		
-		
-	
 		view.setVisible(true);		
 
 
@@ -125,6 +120,8 @@ public class Controller implements ActionListener {
 		
 		action.put("ActionFavButton",new ActionFavButton(this));
 		action.put("ActionAll",new ActionAll(theDisplay, toolbar, newsList, news, actualSorter));
+		action.put("ActionFavorite",new ActionFavorite(theDisplay, toolbar, newsList, news, actualSorter));
+		action.put("ActionRead",new ActionRead(theDisplay, toolbar, newsList, news, actualSorter));
 		view.setAction(action);
 		
 	}
@@ -264,21 +261,21 @@ public class Controller implements ActionListener {
 
 		}
 
-		if (action.equals("Lus")) {
+		/*if (action.equals("Lus")) {
 
 			theDisplay = new ReadFilter();
 			toolbar.getFavBtn().setSelected(false);
 			toolbar.getReadBtn().setSelected(false);
 			newsList.changeNews(news, theDisplay, actualSorter);
-		}
+		}*/
 
-		if (action.equals("Favoris")) {
+		/*if (action.equals("Favoris")) {
 
 			theDisplay = new FavoriteFilter();
 			toolbar.getFavBtn().setSelected(false);
 			toolbar.getReadBtn().setSelected(false);
 			newsList.changeNews(news, theDisplay, actualSorter);
-		}
+		}*/
 
 		if (action.equals("Sync")) {
 
