@@ -57,7 +57,7 @@ public class View extends JFrame implements Observer {
 	public View(HashMap action) {
 		// Utiliser le look and feel de l'OS utilisé
 	    //si possible.
-		action = action;
+		this.action = action;
 		try {
         UIManager.setLookAndFeel(
             UIManager.getSystemLookAndFeelClassName());
@@ -139,5 +139,7 @@ public class View extends JFrame implements Observer {
 		this.action = action;
 		this.mainPanel.setAction(action);
 		this.preference.setAction(action);
+		this.addFeed.setAction(action);
+		this.sourceManager.setAction(action);
 	}
 }
