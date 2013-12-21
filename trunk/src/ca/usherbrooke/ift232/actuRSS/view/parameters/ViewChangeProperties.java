@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.HashMap;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -17,6 +18,7 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 
 import ca.usherbrooke.ift232.actuRSS.controller.Controller;
+import ca.usherbrooke.ift232.actuRSS.controller.command.ActionCancelPref;
 import ca.usherbrooke.ift232.actuRSS.view.filter.AllFilter;
 import ca.usherbrooke.ift232.actuRSS.view.filter.FavoriteFilter;
 import ca.usherbrooke.ift232.actuRSS.view.filter.Filter;
@@ -47,6 +49,8 @@ public class ViewChangeProperties extends ParamDialog {
 	JPanel fileSearch;
 	JTextField path;
 	JButton openFile;
+	private HashMap action;
+
 	final JFileChooser chooseCSS = new JFileChooser("src/resources");
 	
 	public ViewChangeProperties(JFrame parent, String title, boolean modal) {
@@ -66,13 +70,23 @@ public class ViewChangeProperties extends ParamDialog {
 			read.setSelected(true);
 		if(Controller.defaultSorter instanceof ChronoSorter)
 			chrono.setSelected(true);
-		else if(Controller.defaultSorter  instanceof AlphabeticalSorter)
+		else if(Controller.defaultSorter instanceof AlphabeticalSorter)
 			alpha.setSelected(true);
 		else
 			defaultb.setSelected(true);
 		path.setText(Controller.properties.getProperty("CSS Style"));
 		super.showDialog();
 	}
+	
+	public HashMap getAction() {
+		return action;
+	}
+
+	public void setAction(HashMap action) {
+		this.action = action;
+	}
+	
+	
 	public void initDialog() {
 		content = new JPanel();
 		
@@ -247,7 +261,7 @@ public class ViewChangeProperties extends ParamDialog {
 	public void addListener(ActionListener e)
 	{
 		okbutton.addActionListener(e);
-		cancel.addActionListener(e);
+		cancel.addActionListener((ActionCancelPref)action.get("ActionCancelPref"));
 		defaultbutton.addActionListener(e);
 		openFile.addActionListener(e);
 		

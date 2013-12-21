@@ -15,9 +15,12 @@ import javax.swing.JOptionPane;
 import ca.usherbrooke.ift232.actuRSS.Category;
 import ca.usherbrooke.ift232.actuRSS.Feed;
 import ca.usherbrooke.ift232.actuRSS.News;
+import ca.usherbrooke.ift232.actuRSS.controller.command.ActionAbout;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionAll;
+import ca.usherbrooke.ift232.actuRSS.controller.command.ActionCancelPref;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionFavButton;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionFavorite;
+import ca.usherbrooke.ift232.actuRSS.controller.command.ActionHelp;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionNotRead;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionPref;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionRead;
@@ -127,6 +130,9 @@ public class Controller implements ActionListener {
 
 		action.put("ActionFavorite",new ActionFavorite(theDisplay, toolbar, newsList, news, actualSorter));
 		action.put("ActionRead",new ActionRead(theDisplay, toolbar, newsList, news, actualSorter));
+		action.put("ActionHelp", new ActionHelp());
+		action.put("ActionAbout", new ActionAbout());
+		action.put("ActionCancelPref", new ActionCancelPref(pref));
 
 		view.setAction(action);
 		
@@ -320,12 +326,12 @@ public class Controller implements ActionListener {
 		if (action.equals("GererSources")) {
 			gest.showDialog();
 		}
-		if (action.equals("Help")) {
+		/*if (action.equals("Help")) {
 			JDialog Dev = new JDialog();
-			JOptionPane.showMessageDialog(Dev, "Contactez nous!!!!", "Help",
+			JOptionPane.showMessageDialog(Dev, "Si un problème survient lors de l'utilisation de ce logiciel, contacter la ActuRss Team!", "Help",
 					new Integer(JOptionPane.INFORMATION_MESSAGE).intValue());
-		}
-		if (action.equals("About")) {
+		}*/
+		/*if (action.equals("About")) {
 
 			JDialog Dev = new JDialog();
 			JOptionPane.showMessageDialog(Dev,
@@ -333,7 +339,7 @@ public class Controller implements ActionListener {
 					,		
 					"About",
 					new Integer(JOptionPane.INFORMATION_MESSAGE).intValue());
-		}
+		}*/
 		// Preference
 
 		if (action.equals("OkPref")) {
@@ -341,9 +347,9 @@ public class Controller implements ActionListener {
 			mainPanel.getContentPanel().display();
 			newsList.changeNews(news, theDisplay, actualSorter);
 		}
-		if (action.equals("AnnulerPref")) {
+		/*if (action.equals("AnnulerPref")) {
 			pref.closeDialog();
-		}
+		}*/
 		if (action.equals("ReinitialiserPref")) {
 			pref.renewDialog();
 		}
