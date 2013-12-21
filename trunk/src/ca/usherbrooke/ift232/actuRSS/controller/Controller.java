@@ -23,9 +23,11 @@ import ca.usherbrooke.ift232.actuRSS.controller.command.ActionFavorite;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionHelp;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionManageSources;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionNotRead;
+import ca.usherbrooke.ift232.actuRSS.controller.command.ActionOkPref;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionPref;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionRead;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionReadButton;
+import ca.usherbrooke.ift232.actuRSS.controller.command.ActionResetPref;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionSync;
 import ca.usherbrooke.ift232.actuRSS.model.FeedManager;
 import ca.usherbrooke.ift232.actuRSS.model.Model;
@@ -62,6 +64,7 @@ public class Controller implements ActionListener {
 	private DialogFeedManager gest;
 	private DialogAddFeed addFeed;
 	private DialogEditFeed editFeed;
+	private boolean newFeed;
 	public static ProgramProperties properties = ProgramProperties.getInstance();
 
 	public static Filter defaultDisplay;
@@ -78,7 +81,9 @@ public class Controller implements ActionListener {
 
 		model = new Model();
 		action = new HashMap();
-		view  = new View(action); 			
+		view  = new View(action); 	
+		
+		newFeed = false;
 		
 		try
 		{
@@ -137,6 +142,13 @@ public class Controller implements ActionListener {
 		action.put("ActionHelp", new ActionHelp());
 		action.put("ActionAbout", new ActionAbout());
 		action.put("ActionCancelPref", new ActionCancelPref(pref));
+		
+		action.put("ActionOkPref", new ActionOkPref(pref, mainPanel, newsList, theDisplay, news, actualSorter));
+		action.put("ActionResetPref", new ActionResetPref(pref));
+		
+		//TODO AJOUTER EDIT SOURCE et du coup aussi dans la bonne fucking classe
+		
+		
 		view.setAction(action);
 		
 	}
@@ -345,17 +357,17 @@ public class Controller implements ActionListener {
 		}*/
 		// Preference
 
-		if (action.equals("OkPref")) {
+		/*if (action.equals("OkPref")) {
 			pref.finishDialog();
 			mainPanel.getContentPanel().display();
 			newsList.changeNews(news, theDisplay, actualSorter);
-		}
+		}*/
 		/*if (action.equals("AnnulerPref")) {
 			pref.closeDialog();
 		}*/
-		if (action.equals("ReinitialiserPref")) {
+		/*if (action.equals("ReinitialiserPref")) {
 			pref.renewDialog();
-		}
+		}*/
 		if (action.equals("OpenFile")) {
 			pref.setCSS();
 		}
@@ -369,7 +381,7 @@ public class Controller implements ActionListener {
 		}
 
 		// Valide l'ajout du flux et l'ajoute
-		boolean newFeed;
+
 		if (action.equals("OkAddSource")) {
 			if (addFeed.Valide()) {
 				addFeed.finishedDialog();
