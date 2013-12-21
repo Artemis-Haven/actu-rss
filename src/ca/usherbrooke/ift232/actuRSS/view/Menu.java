@@ -16,6 +16,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.SwingConstants;
 
+import ca.usherbrooke.ift232.actuRSS.controller.command.ActionAbout;
+import ca.usherbrooke.ift232.actuRSS.controller.command.ActionHelp;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionPref;
 
 public class Menu extends JMenuBar{
@@ -103,8 +105,8 @@ public class Menu extends JMenuBar{
 	{		
 		paraPreferency.addActionListener((ActionPref)action.get("ActionPref"));
 		paraSource.addActionListener(e);
-		paraAbout.addActionListener(e);		
-		paraHelp.addActionListener(e);		
+		paraAbout.addActionListener((ActionAbout)action.get("ActionAbout"));		
+		paraHelp.addActionListener((ActionHelp)action.get("ActionHelp"));		
 
 	}
 	

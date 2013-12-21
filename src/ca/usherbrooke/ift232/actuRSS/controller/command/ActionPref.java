@@ -11,8 +11,8 @@ public class ActionPref extends AbstractAction {
 
 	private ViewChangeProperties pref;
 	
-	public ActionPref(ViewChangeProperties pref ) {
-		this.pref = pref;
+	public ActionPref(ViewChangeProperties prefHook ) {
+		this.pref = prefHook;
 	}
 	
 	@Override

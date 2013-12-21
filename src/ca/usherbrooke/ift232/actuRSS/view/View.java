@@ -138,5 +138,6 @@ public class View extends JFrame implements Observer {
 	{
 		this.action = action;
 		this.mainPanel.setAction(action);
+		this.preference.setAction(action);
 	}
 }
