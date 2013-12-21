@@ -185,9 +185,9 @@ public class Toolbar extends JPanel {
 	public void addListener(ActionListener e)
 	{
 		
-		favBtn.setAction((ActionFavButton)action.get("ActionFavButton"));
+		//favBtn.setAction((ActionFavButton)action.get("ActionFavButton"));
 		//favBtn.addActionListener(e);	
-		
+		favBtn.addActionListener((ActionFavButton)action.get("ActionFavButton"));
 		allNewsBtn.addActionListener(e);
 		unreadNewsBtn.addActionListener(e);
 		favNewsBtn.addActionListener(e);
