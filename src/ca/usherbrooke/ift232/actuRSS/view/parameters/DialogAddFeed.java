@@ -17,7 +17,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import ca.usherbrooke.ift232.actuRSS.Category;
+import ca.usherbrooke.ift232.actuRSS.controller.command.ActionCancelAddSource;
+import ca.usherbrooke.ift232.actuRSS.controller.command.ActionNewCatAddSource;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionOkAddSource;
+import ca.usherbrooke.ift232.actuRSS.controller.command.ActionRenewAddSource;
 /**
  * Classe manipulant l'interface graphique gérant l'ajout d'un feed
  * 
@@ -48,8 +51,9 @@ public class DialogAddFeed extends JDialog {
 	String thecategory;
 	private HashMap action;
 	
-	public DialogAddFeed(JFrame parent, String title, boolean modal){
+	public DialogAddFeed(JFrame parent, String title, boolean modal, HashMap action){
 		super(parent, title, modal);
+		this.action = action;
 		this.setSize(500, 300);
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
@@ -203,9 +207,9 @@ public class DialogAddFeed extends JDialog {
 	public void addListener(ActionListener e)
 	{
 		okbutton.addActionListener((ActionOkAddSource)action.get("ActionOkAddSource"));
-		cancel.addActionListener(e);
-		defaultbutton.addActionListener(e);	
-		newCategory.addActionListener(e);
+		cancel.addActionListener((ActionCancelAddSource)action.get("ActionCancelAddSource"));
+		defaultbutton.addActionListener((ActionRenewAddSource)action.get("ActionRenewAddSource"));	
+		newCategory.addActionListener((ActionNewCatAddSource)action.get("ActionNewCatAddSource"));
 	}
 	
 

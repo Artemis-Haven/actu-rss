@@ -4,12 +4,19 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
 
+import ca.usherbrooke.ift232.actuRSS.view.parameters.DialogFeedManager;
+
 public class ActionExitSource extends AbstractAction {
 
+	private DialogFeedManager gest;
+	
+	public ActionExitSource(DialogFeedManager gestHook) {
+		this.gest = gestHook;
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
+		gest.closeDialog();
 	}
 
 }

@@ -17,7 +17,9 @@ import javax.swing.JScrollPane;
 import ca.usherbrooke.ift232.actuRSS.Category;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionAddSource;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionDeleteCategorie;
+import ca.usherbrooke.ift232.actuRSS.controller.command.ActionDeleteSource;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionEditSource;
+import ca.usherbrooke.ift232.actuRSS.controller.command.ActionExitSource;
 import ca.usherbrooke.ift232.actuRSS.view.treepicker.TreePicker;
 
 import com.jgoodies.forms.factories.FormFactory;
@@ -40,8 +42,9 @@ public class DialogFeedManager extends ParamDialog {
 	
 	List<Category> categories = new ArrayList<Category>();
 
-	public DialogFeedManager(JFrame parent, String title, boolean modal) {
+	public DialogFeedManager(JFrame parent, String title, boolean modal, HashMap action) {
 		super(parent, title, modal);
+		this.action = action;
 		this.initDialog();
 	}
 
@@ -199,19 +202,19 @@ public class DialogFeedManager extends ParamDialog {
 		this.update.setEnabled(false);
 	}
 	
-	public void setTree(TreePicker aTree){
+	public void setTree(TreePicker aTree) {
 		tree = aTree;
 	}
-	public TreePicker getManageTree(){
+	public TreePicker getManageTree() {
 		return tree;
 	}
 
 	public void addListener(ActionListener e)
 	{
 		add.addActionListener((ActionAddSource)action.get("ActionAddSource"));
-		delete.addActionListener(e);
+		delete.addActionListener((ActionDeleteSource)action.get("ActionDeleteSource"));
 		update.addActionListener((ActionEditSource)action.get("ActionEditSource"));
-		exit.addActionListener(e);
+		exit.addActionListener((ActionExitSource)action.get("ActionExitSource"));
 		deleteCategorie.addActionListener((ActionDeleteCategorie)action.get("ActionDeleteCategorie"));
 	}
 }
