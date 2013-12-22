@@ -136,9 +136,8 @@ public class MainPanel extends JPanel {
 		this.toolbar.setAction(action);
 	}
 
-	public void addListener(ActionListener e){
-		toolbar.addListener(e);		
-
+	public void addListener(){
+		toolbar.addListener();		
 	}
 
 	public void update(ArrayList<Category> categoryList)

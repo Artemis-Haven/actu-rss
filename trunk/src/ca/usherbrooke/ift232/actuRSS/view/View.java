@@ -92,13 +92,13 @@ public class View extends JFrame implements Observer {
 	
 	public DialogFeedManager getSourceManager(){ return sourceManager;}
 
-	public void addListener(ActionListener e)
+	public void addListener()
 	{
-		this.mainPanel.addListener(e);
-		this.preference.addListener(e);
-		this.sourceManager.addListener(e);
-		this.editFeed.addListener(e);
-		this.addFeed.addListener(e);
+		this.mainPanel.addListener();
+		this.preference.addListener();
+		this.sourceManager.addListener();
+		this.editFeed.addListener();
+		this.addFeed.addListener();
 	}
 	
 	

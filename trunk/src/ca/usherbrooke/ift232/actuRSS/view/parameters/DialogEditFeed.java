@@ -213,7 +213,7 @@ public class DialogEditFeed  extends JDialog {
 		this.action = action;
 	}
 
-	public void addListener(ActionListener e)
+	public void addListener()
 	{
 		okbutton.addActionListener((ActionOkEditSource)action.get("ActionOkEditSource"));
 		cancel.addActionListener((ActionCancelEditSource)action.get("ActionCancelEditSource"));

@@ -204,7 +204,7 @@ public class DialogAddFeed extends JDialog {
 		return thecategory;
 	}
 	
-	public void addListener(ActionListener e)
+	public void addListener()
 	{
 		okbutton.addActionListener((ActionOkAddSource)action.get("ActionOkAddSource"));
 		cancel.addActionListener((ActionCancelAddSource)action.get("ActionCancelAddSource"));

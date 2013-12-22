@@ -192,7 +192,7 @@ public class Toolbar extends JPanel {
 		return btn;
 	}
 
-	public void addListener(ActionListener e)
+	public void addListener()
 	{
 
 		//favBtn.setAction((ActionFavButton)action.get("ActionFavButton"));
@@ -213,7 +213,7 @@ public class Toolbar extends JPanel {
 		readBtn.addActionListener((ActionReadButton)action.get("ActionReadButton"));
 
 
-		menuBtn.addListener(e);	
+		menuBtn.addListener();	
 
 	}
 

@@ -209,7 +209,7 @@ public class DialogFeedManager extends ParamDialog {
 		return tree;
 	}
 
-	public void addListener(ActionListener e)
+	public void addListener()
 	{
 		add.addActionListener((ActionAddSource)action.get("ActionAddSource"));
 		delete.addActionListener((ActionDeleteSource)action.get("ActionDeleteSource"));
