@@ -16,6 +16,8 @@ import javax.swing.JScrollPane;
 
 import ca.usherbrooke.ift232.actuRSS.Category;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionAddSource;
+import ca.usherbrooke.ift232.actuRSS.controller.command.ActionDeleteCategorie;
+import ca.usherbrooke.ift232.actuRSS.controller.command.ActionEditSource;
 import ca.usherbrooke.ift232.actuRSS.view.treepicker.TreePicker;
 
 import com.jgoodies.forms.factories.FormFactory;
@@ -208,9 +210,9 @@ public class DialogFeedManager extends ParamDialog {
 	{
 		add.addActionListener((ActionAddSource)action.get("ActionAddSource"));
 		delete.addActionListener(e);
-		update.addActionListener(e);
+		update.addActionListener((ActionEditSource)action.get("ActionEditSource"));
 		exit.addActionListener(e);
-		deleteCategorie.addActionListener(e);
+		deleteCategorie.addActionListener((ActionDeleteCategorie)action.get("ActionDeleteCategorie"));
 	}
 }
 

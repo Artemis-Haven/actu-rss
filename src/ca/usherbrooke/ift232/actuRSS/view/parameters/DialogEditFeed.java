@@ -20,6 +20,7 @@ import ca.usherbrooke.ift232.actuRSS.Category;
 import ca.usherbrooke.ift232.actuRSS.Feed;
 import ca.usherbrooke.ift232.actuRSS.News;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionOkEditSource;
+import ca.usherbrooke.ift232.actuRSS.controller.command.ActionRenewEditSource;
 
 public class DialogEditFeed  extends JDialog {
 
@@ -213,7 +214,7 @@ public class DialogEditFeed  extends JDialog {
 	{
 		okbutton.addActionListener((ActionOkEditSource)action.get("ActionOkEditSource"));
 		cancel.addActionListener(e);
-		defaultbutton.addActionListener(e);	
+		defaultbutton.addActionListener((ActionRenewEditSource)action.get("ActionRenewEditSource"));	
 		newCategory.addActionListener(e);
 	}
 }

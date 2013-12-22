@@ -9,8 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.AbstractAction;
-import javax.swing.JDialog;
-import javax.swing.JOptionPane;
 
 import ca.usherbrooke.ift232.actuRSS.Category;
 import ca.usherbrooke.ift232.actuRSS.Feed;
@@ -19,26 +17,25 @@ import ca.usherbrooke.ift232.actuRSS.controller.command.ActionAbout;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionAddSource;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionAll;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionCancelPref;
+import ca.usherbrooke.ift232.actuRSS.controller.command.ActionDeleteCategorie;
+import ca.usherbrooke.ift232.actuRSS.controller.command.ActionEditSource;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionFavButton;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionFavorite;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionHelp;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionManageSources;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionNotRead;
-
-import ca.usherbrooke.ift232.actuRSS.controller.command.ActionOkEditSource;
-
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionOkAddSource;
-
+import ca.usherbrooke.ift232.actuRSS.controller.command.ActionOkEditSource;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionOkPref;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionOpenFile;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionPref;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionRead;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionReadButton;
+import ca.usherbrooke.ift232.actuRSS.controller.command.ActionRenewEditSource;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionResetPref;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionSync;
 import ca.usherbrooke.ift232.actuRSS.model.FeedManager;
 import ca.usherbrooke.ift232.actuRSS.model.Model;
-import ca.usherbrooke.ift232.actuRSS.model.WrongURLException;
 import ca.usherbrooke.ift232.actuRSS.view.MainPanel;
 import ca.usherbrooke.ift232.actuRSS.view.Toolbar;
 import ca.usherbrooke.ift232.actuRSS.view.View;
@@ -160,8 +157,12 @@ public class Controller implements ActionListener {
 		
 		//TODO AJOUTER EDIT SOURCE et du coup aussi dans la bonne fucking classe
 	
+		action.put("ActionEditSource", new ActionEditSource(editFeed, feedManager));
 		action.put("ActionOkEditSource", new ActionOkEditSource(editFeed,feedManager,newFeed, gest, model));
+		action.put("ActionRenewEditSource", new ActionRenewEditSource(editFeed));
 		
+		action.put("ActionDeleteCategorie", new ActionDeleteCategorie(deletecat, feedManager, gest, model));
+	
 
 		view.setAction(action);
 		
@@ -466,13 +467,13 @@ public class Controller implements ActionListener {
 
 		// Edite le flux
 
-		if (action.equals("EditSource")) {
+		/*if (action.equals("EditSource")) {
 			editFeed.listerCategories(feedManager.getOldListCategory());
 			editFeed.showDialog();
-		}
+		}*/
 
 		
-		if (action.equals("OkEditSource")) {
+		/*if (action.equals("OkEditSource")) {
 			if (editFeed.Valide()) {
 				editFeed.finishedDialog();
 				Feed feed = new Feed(editFeed.getId(), editFeed.getName(),
@@ -496,13 +497,13 @@ public class Controller implements ActionListener {
 
 				model.notifyObserver();
 			}
-		}
+		}*/
 		if (action.equals("CancelEditSource")) {
 			editFeed.closeDialog();
 		}
-		if (action.equals("RenewEditSource")) {
+		/*if (action.equals("RenewEditSource")) {
 			editFeed.renewDialog();
-		}
+		}*/
 
 		if (action.equals("NewCatEditSource")) {
 			String newCat = editFeed.newCategorie();
