@@ -262,7 +262,7 @@ public class ViewChangeProperties extends ParamDialog {
 		path.setText("src/resources/default.css");
 	}
 	
-	public void addListener(ActionListener e)
+	public void addListener()
 	{
 		okbutton.addActionListener((ActionOkPref)action.get("ActionOkPref"));
 		cancel.addActionListener((ActionCancelPref)action.get("ActionCancelPref"));

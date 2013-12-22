@@ -67,7 +67,7 @@ import ca.usherbrooke.ift232.actuRSS.view.treepicker.FeedSelectedEvent;
 import ca.usherbrooke.ift232.actuRSS.view.treepicker.FeedSelectedListener;
 import ca.usherbrooke.ift232.actuRSS.view.treepicker.TreePicker;
 
-public class Controller implements ActionListener {
+public class Controller  {
 
 	private HashMap<String, AbstractAction> action;
 	private Model model;	
@@ -134,7 +134,7 @@ public class Controller implements ActionListener {
 		
 		createEvenement();
 		createAction();		
-		view.addListener(this);		
+		view.addListener();		
 		view.setVisible(true);		
 
 
@@ -181,11 +181,19 @@ public class Controller implements ActionListener {
 		action.put("ActionOkEditSource", new ActionOkEditSource(editFeed,feedManager,newFeed, gest, model));
 		action.put("ActionRenewEditSource", new ActionRenewEditSource(editFeed));
 		
-		action.put("ActionDeleteCategorie", new ActionDeleteCategorie(deletecat, feedManager, gest, model));
+		action.put("ActionDeleteCategorie", new ActionDeleteCategorie(this, feedManager, gest, model));
 	
 
 		view.setAction(action);
 		
+	}
+
+	public Category getDeletecat() {
+		return deletecat;
+	}
+
+	public void setDeletecat(Category deletecat) {
+		this.deletecat = deletecat;
 	}
 
 	public void createEvenement() 
@@ -287,7 +295,6 @@ public class Controller implements ActionListener {
 					public void onCategorySelected(CategorySelectedEvent event) {
 						deletecat  = event.getSelectedSource();
 						gest.putDeleteCategoryEditable(true);
-
 					}
 				});
 
@@ -297,262 +304,6 @@ public class Controller implements ActionListener {
 
 	public News getSelectedNews() {
 		return newsList.getSelectedNew();
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
-
-		String action = arg0.getActionCommand();
-
-
-		/*if (action.equals("Tout")) {
-			theDisplay = new AllFilter();
-			toolbar.getFavBtn().setSelected(false);
-			toolbar.getReadBtn().setSelected(false);
-
-			newsList.changeNews(news, theDisplay, actualSorter);
-
-		}*/
-
-		/*if (action.equals("Non lus")) {
-
-			theDisplay = new NotReadFilter();
-			toolbar.getFavBtn().setSelected(false);
-			toolbar.getReadBtn().setSelected(false);
-			newsList.changeNews(news, theDisplay, actualSorter);
-
-		}*/
-
-		/*if (action.equals("Lus")) {
-
-			theDisplay = new ReadFilter();
-			toolbar.getFavBtn().setSelected(false);
-			toolbar.getReadBtn().setSelected(false);
-			newsList.changeNews(news, theDisplay, actualSorter);
-		}*/
-
-		/*if (action.equals("Favoris")) {
-
-			theDisplay = new FavoriteFilter();
-			toolbar.getFavBtn().setSelected(false);
-			toolbar.getReadBtn().setSelected(false);
-			newsList.changeNews(news, theDisplay, actualSorter);
-		}*/
-
-		/*if (action.equals("Sync")) {
-			SyncRunnable.main();
-			model.notifyObserver();
-
-		}*/
-		/*if (action.equals("Read")) {
-
-			News newsSelected = this.getSelectedNews();
-
-			if (newsSelected != null) {
-				if (newsSelected.isRead()) {
-					newsSelected.setRead(false);
-				} else {
-					newsSelected.setRead(true);
-				}
-			}
-
-		}*/
-		/*if (action.equals("FavBtn")) {
-
-			News newsSelected = this.getSelectedNews();
-			if (newsSelected != null) {
-				if (newsSelected.isFavorite()) {
-					newsSelected.setFavorite(false);
-				} else {
-					newsSelected.setFavorite(true);
-					// System.out.println(newsSelected.getTitle());
-				}
-			}
-		}*/
-
-		/*if (action.equals("Pref")) {
-			pref.showDialog();
-		}*/
-		/*if (action.equals("GererSources")) {
-			gest.showDialog();
-		}*/
-		/*if (action.equals("Help")) {
-			JDialog Dev = new JDialog();
-			JOptionPane.showMessageDialog(Dev, "Si un problème survient lors de l'utilisation de ce logiciel, contacter la ActuRss Team!", "Help",
-					new Integer(JOptionPane.INFORMATION_MESSAGE).intValue());
-		}*/
-		/*if (action.equals("About")) {
-
-			JDialog Dev = new JDialog();
-			JOptionPane.showMessageDialog(Dev,
-					"Developpés par : \nYann SEREE\nDavid BOAS\nJulian BIRONNEAU\nVincent CHATAIGNIER\nGauthier CIBERT-VOLPE\nBenjamin FERRE\nBastien MEUNIER\nRémi PATRIZIO\nMatthieu POUPINEAU\n© ActuRSS dream team"
-					,		
-					"About",
-					new Integer(JOptionPane.INFORMATION_MESSAGE).intValue());
-		}*/
-		// Preference
-
-		/*if (action.equals("OkPref")) {
-			pref.finishDialog();
-			mainPanel.getContentPanel().display();
-			newsList.changeNews(news, theDisplay, actualSorter);
-		}*/
-		/*if (action.equals("AnnulerPref")) {
-			pref.closeDialog();
-		}*/
-		/*if (action.equals("ReinitialiserPref")) {
-			pref.renewDialog();
-		}*/
-		/*if (action.equals("OpenFile")) {
-			pref.setCSS();
-		}*/
-
-		// Gestion source
-
-		// Ajout source
-		/*if (action.equals("AddSource")) {
-			addFeed.listerCategories(feedManager.getOldListCategory());
-			addFeed.showDialog();
-		}*/
-
-		// Valide l'ajout du flux et l'ajoute
-
-
-		
-		/*if (action.equals("OkAddSource")) {
-=======
-
-		if (action.equals("OkAddSource")) {
-
-			if (addFeed.Valide()) {
-				addFeed.finishedDialog();
-				Feed feed = new Feed(-1, addFeed.getName(), addFeed.getUrl());
-				String str = addFeed.getCategory();
-				feed.setNameCategory(str);
-				Category cat = feedManager.getCategoryByName(str);
-				try {
-					newFeed = feedManager.addFeed(feed, cat);
-					if (newFeed == false) {
-						JDialog Dev = new JDialog();
-						JOptionPane.showMessageDialog(Dev, "Le flux Rss que vous essayer d'ajouter existe déjà !", "Help",
-								new Integer(JOptionPane.INFORMATION_MESSAGE).intValue());
-					}
-				} catch (WrongURLException ex) {
-					JDialog Dev = new JDialog();
-					JOptionPane.showMessageDialog(Dev, "L'adresse du flux " + feed.getTitle() + " semble être erroné", "Help",
-							new Integer(JOptionPane.INFORMATION_MESSAGE).intValue());
-				}	
-
-				gest.getManageTree().refreshFeeds(
-						feedManager.getOldListCategory());
-				// System.out.println(feedManager.getOldListCategory().toString());
-
-				model.notifyObserver();
-			}
-		}*/
-		// Annule l'ajout
-		/*if (action.equals("CancelAddSource")) {
-			addFeed.closeDialog();
-		}*/
-		// Remet a default les parametre de la source
-
-		/*if (action.equals("RenewAddSource")) {
-			addFeed.renewDialog();
-		}*/
-		// Ajoute un categorie
-		/*if (action.equals("NewCatAddSource")) {
-			String newCat = addFeed.newCategorie();
-			if (newCat != null && !newCat.equals("")) {
-				feedManager.getOldListCategory().add(
-						new Category(-1, newCat, new ArrayList<Feed>()));
-				gest.getManageTree().refreshFeeds(
-						feedManager.getOldListCategory());
-
-				model.notifyObserver();
-			}
-		}*/
-
-		// Supprime le flux
-		/*if (action.equals("DeleteSource")) {
-
-			Category oldcat =feedManager.getCategoryByName(editFeed.getFeed().getNameCategory());
-			feedManager.removeFeed(editFeed.getFeed(), oldcat);
-			gest.getManageTree().refreshFeeds(
-					feedManager.getOldListCategory());
-
-			model.notifyObserver();
-
-
-		}*/
-
-		// Edite le flux
-
-		/*if (action.equals("EditSource")) {
-			editFeed.listerCategories(feedManager.getOldListCategory());
-			editFeed.showDialog();
-		}*/
-
-		
-		/*if (action.equals("OkEditSource")) {
-			if (editFeed.Valide()) {
-				editFeed.finishedDialog();
-				Feed feed = new Feed(editFeed.getId(), editFeed.getName(),
-						editFeed.getUrl(), editFeed.getNews());
-				String str = editFeed.getCategory();
-				feed.setNameCategory(str);
-				Category cat = feedManager.getCategoryByName(str);
-				Category oldcat = feedManager.getCategoryByName(editFeed.getFeed().getNameCategory());
-				// CREER METHODE MODIFYFEED
-				try {
-					newFeed = feedManager.modifyFeed(feed, cat);
-					if (newFeed)
-						feedManager.removeFeed(editFeed.getFeed(), oldcat);
-				} catch (WrongURLException ex) {
-					JDialog Dev = new JDialog();
-					JOptionPane.showMessageDialog(Dev, "La nouvelle adresse adresse du flux " + feed.getTitle() + " semble être erroné", "Help",
-							new Integer(JOptionPane.INFORMATION_MESSAGE).intValue());
-				}	
-				gest.getManageTree().refreshFeeds(
-						feedManager.getOldListCategory());
-
-				model.notifyObserver();
-			}
-		}*/
-		/*if (action.equals("CancelEditSource")) {
-			editFeed.closeDialog();
-		}*/
-		/*if (action.equals("RenewEditSource")) {
-			editFeed.renewDialog();
-		}*/
-
-		/*if (action.equals("NewCatEditSource")) {
-			String newCat = editFeed.newCategorie();
-			if (newCat != null && !newCat.equals("")) {
-				feedManager.getOldListCategory().add(
-						new Category(-1, newCat, new ArrayList<Feed>()));
-				gest.getManageTree().refreshFeeds(
-						feedManager.getOldListCategory());
-
-				model.notifyObserver();
-			}
-		}*/
-
-		// Sort de la fenetre de gestion
-		/*if (action.equals("DeleteCategorie")){
-			if(deletecat != null){
-				feedManager.removeCategory(deletecat);
-				gest.getManageTree().refreshFeeds(
-						feedManager.getOldListCategory());
-				gest.putDeleteCategoryEditable(false);
-			}
-			model.notifyObserver();
-
-		}*/
-
-		/*if (action.equals("ExitSource")) {
-			gest.closeDialog();
-		}*/
-
 	}
 
 }

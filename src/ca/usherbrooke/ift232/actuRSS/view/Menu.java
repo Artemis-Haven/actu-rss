@@ -102,7 +102,7 @@ public class Menu extends JMenuBar{
 		});
 	}
 	
-	public void addListener(ActionListener e)
+	public void addListener()
 	{		
 		paraPreferency.addActionListener((ActionPref)action.get("ActionPref"));
 		paraSource.addActionListener((ActionManageSources)action.get("ActionManageSources"));
