@@ -56,8 +56,9 @@ public class ViewChangeProperties extends ParamDialog {
 
 	final JFileChooser chooseCSS = new JFileChooser("src/resources");
 	
-	public ViewChangeProperties(JFrame parent, String title, boolean modal) {
+	public ViewChangeProperties(JFrame parent, String title, boolean modal, HashMap action) {
 		super(parent, title, modal);
+		this.action = action;
 		this.initDialog();
 	}
 

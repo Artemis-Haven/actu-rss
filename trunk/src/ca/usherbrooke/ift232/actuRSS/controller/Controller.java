@@ -16,13 +16,22 @@ import ca.usherbrooke.ift232.actuRSS.News;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionAbout;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionAddSource;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionAll;
+import ca.usherbrooke.ift232.actuRSS.controller.command.ActionCancelAddSource;
+import ca.usherbrooke.ift232.actuRSS.controller.command.ActionCancelEditSource;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionCancelPref;
+
+import ca.usherbrooke.ift232.actuRSS.controller.command.ActionDeleteSource;
+import ca.usherbrooke.ift232.actuRSS.controller.command.ActionExitSource;
+
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionDeleteCategorie;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionEditSource;
+
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionFavButton;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionFavorite;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionHelp;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionManageSources;
+import ca.usherbrooke.ift232.actuRSS.controller.command.ActionNewCatAddSource;
+import ca.usherbrooke.ift232.actuRSS.controller.command.ActionNewCatEditSource;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionNotRead;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionOkAddSource;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionOkEditSource;
@@ -31,7 +40,11 @@ import ca.usherbrooke.ift232.actuRSS.controller.command.ActionOpenFile;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionPref;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionRead;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionReadButton;
+
+import ca.usherbrooke.ift232.actuRSS.controller.command.ActionRenewAddSource;
+
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionRenewEditSource;
+
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionResetPref;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionSync;
 import ca.usherbrooke.ift232.actuRSS.model.FeedManager;
@@ -154,6 +167,13 @@ public class Controller implements ActionListener {
 		
 		action.put("ActionOkPref", new ActionOkPref(pref, mainPanel, newsList, theDisplay, news, actualSorter));
 		action.put("ActionResetPref", new ActionResetPref(pref));
+		action.put("ActionCancelAddSource", new ActionCancelAddSource(addFeed));
+		action.put("ActionRenewAddSource", new ActionRenewAddSource(addFeed));
+		action.put("ActionNewCatAddSource", new ActionNewCatAddSource(addFeed, feedManager, gest, model));
+		action.put("ActionDeleteSource", new ActionDeleteSource(feedManager, editFeed, gest, model));
+		action.put("ActionCancelEditSource", new ActionCancelEditSource(editFeed));
+		action.put("ActionNewCatEditSource", new ActionNewCatEditSource(editFeed, feedManager, gest, model));
+		action.put("ActionExitSource", new ActionExitSource(gest));
 		
 		//TODO AJOUTER EDIT SOURCE et du coup aussi dans la bonne fucking classe
 	
@@ -431,16 +451,16 @@ public class Controller implements ActionListener {
 			}
 		}*/
 		// Annule l'ajout
-		if (action.equals("CancelAddSource")) {
+		/*if (action.equals("CancelAddSource")) {
 			addFeed.closeDialog();
-		}
+		}*/
 		// Remet a default les parametre de la source
 
-		if (action.equals("RenewAddSource")) {
+		/*if (action.equals("RenewAddSource")) {
 			addFeed.renewDialog();
-		}
+		}*/
 		// Ajoute un categorie
-		if (action.equals("NewCatAddSource")) {
+		/*if (action.equals("NewCatAddSource")) {
 			String newCat = addFeed.newCategorie();
 			if (newCat != null && !newCat.equals("")) {
 				feedManager.getOldListCategory().add(
@@ -450,10 +470,10 @@ public class Controller implements ActionListener {
 
 				model.notifyObserver();
 			}
-		}
+		}*/
 
 		// Supprime le flux
-		if (action.equals("DeleteSource")) {
+		/*if (action.equals("DeleteSource")) {
 
 			Category oldcat =feedManager.getCategoryByName(editFeed.getFeed().getNameCategory());
 			feedManager.removeFeed(editFeed.getFeed(), oldcat);
@@ -463,7 +483,7 @@ public class Controller implements ActionListener {
 			model.notifyObserver();
 
 
-		}
+		}*/
 
 		// Edite le flux
 
@@ -498,14 +518,14 @@ public class Controller implements ActionListener {
 				model.notifyObserver();
 			}
 		}*/
-		if (action.equals("CancelEditSource")) {
+		/*if (action.equals("CancelEditSource")) {
 			editFeed.closeDialog();
-		}
+		}*/
 		/*if (action.equals("RenewEditSource")) {
 			editFeed.renewDialog();
 		}*/
 
-		if (action.equals("NewCatEditSource")) {
+		/*if (action.equals("NewCatEditSource")) {
 			String newCat = editFeed.newCategorie();
 			if (newCat != null && !newCat.equals("")) {
 				feedManager.getOldListCategory().add(
@@ -515,10 +535,10 @@ public class Controller implements ActionListener {
 
 				model.notifyObserver();
 			}
-		}
+		}*/
 
 		// Sort de la fenetre de gestion
-		if (action.equals("DeleteCategorie")){
+		/*if (action.equals("DeleteCategorie")){
 			if(deletecat != null){
 				feedManager.removeCategory(deletecat);
 				gest.getManageTree().refreshFeeds(
@@ -527,11 +547,11 @@ public class Controller implements ActionListener {
 			}
 			model.notifyObserver();
 
-		}
+		}*/
 
-		if (action.equals("ExitSource")) {
+		/*if (action.equals("ExitSource")) {
 			gest.closeDialog();
-		}
+		}*/
 
 	}
 

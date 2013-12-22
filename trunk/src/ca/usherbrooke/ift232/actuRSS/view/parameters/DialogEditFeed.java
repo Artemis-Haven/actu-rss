@@ -19,6 +19,8 @@ import javax.swing.JTextField;
 import ca.usherbrooke.ift232.actuRSS.Category;
 import ca.usherbrooke.ift232.actuRSS.Feed;
 import ca.usherbrooke.ift232.actuRSS.News;
+import ca.usherbrooke.ift232.actuRSS.controller.command.ActionCancelEditSource;
+import ca.usherbrooke.ift232.actuRSS.controller.command.ActionNewCatEditSource;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionOkEditSource;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionRenewEditSource;
 
@@ -43,8 +45,9 @@ public class DialogEditFeed  extends JDialog {
 	private String thecategory;
 	private HashMap action;
 
-	public DialogEditFeed(JFrame parent, String title, boolean modal){
+	public DialogEditFeed(JFrame parent, String title, boolean modal, HashMap action){
 		super(parent, title, modal);
+		this.action = action;
 		this.setSize(500, 300);
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
@@ -213,9 +216,9 @@ public class DialogEditFeed  extends JDialog {
 	public void addListener(ActionListener e)
 	{
 		okbutton.addActionListener((ActionOkEditSource)action.get("ActionOkEditSource"));
-		cancel.addActionListener(e);
+		cancel.addActionListener((ActionCancelEditSource)action.get("ActionCancelEditSource"));
 		defaultbutton.addActionListener((ActionRenewEditSource)action.get("ActionRenewEditSource"));	
-		newCategory.addActionListener(e);
+		newCategory.addActionListener((ActionNewCatEditSource)action.get("NewCatEditSource"));
 	}
 }
 
