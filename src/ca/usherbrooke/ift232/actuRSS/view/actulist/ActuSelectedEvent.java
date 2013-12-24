@@ -10,7 +10,7 @@ public class ActuSelectedEvent extends ChangeEvent
 
 	private News _selectedActu;
 	
-	/**Permet de sélectionner une actualité
+	/**Permet de selectionner une actualite
 	 * @param objSource
 	 * @param selectedActu
 	 */
@@ -21,7 +21,7 @@ public class ActuSelectedEvent extends ChangeEvent
 		_selectedActu = selectedActu;
 	}
 	
-	/**Permet d'obtenir l'actu séléctionné
+	/**Permet d'obtenir l'actu selectionnee
 	 * @return this._selectedActu
 	 */
 	public News getSelectedActu()
