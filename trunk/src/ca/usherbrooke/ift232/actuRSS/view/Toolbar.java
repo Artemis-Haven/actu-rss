@@ -64,7 +64,8 @@ public class Toolbar extends JPanel {
 	private HashMap action;
 
 	/**
-	 * Constructeur
+	 * Constructeur : il ajoute tous les boutons
+	 * et les configure
 	 * 
 	 */
 	public Toolbar(HashMap action){
@@ -117,6 +118,9 @@ public class Toolbar extends JPanel {
 		this.add(rightPanel, BorderLayout.EAST);
 	}
 
+	/**
+	 * @return la liste des actions
+	 */
 	public HashMap getAction() {
 		return action;
 	}
@@ -126,6 +130,10 @@ public class Toolbar extends JPanel {
 		menuBtn.setAction(action);
 	}
 
+	/**
+	 * Construit les 4 boutons du choix du filtre :
+	 * "Tout", "Non lus", "Favoris" ou "Lus"
+	 */
 	private void buildButtonGroup() 
 	{
 		allNewsBtn = new JToggleButton("Tout");
@@ -185,6 +193,13 @@ public class Toolbar extends JPanel {
 		}
 	}
 
+	/**
+	 * Construit un toggleButton avec l'image dont
+	 * le chemin est en parametre
+	 * 
+	 * @param path le chemin vers l'image du bouton
+	 * @return un ToggleButton
+	 */
 	private JToggleButton buildToggleButton(String path) {
 		JToggleButton btn = new JToggleButton(new ImageIcon(getClass().getResource(path)));
 		btn.setBorderPainted(false);

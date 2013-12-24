@@ -155,23 +155,36 @@ public class MainPanel extends JPanel {
 		
 	}
 	
+	/**
+	 * @return feedTreePicker
+	 */
 	public TreePicker getFeedTreePicker() {
 		return feedTreePicker;
 	}
 
+	/**
+	 * @return le contentPanel
+	 */
 	public ContentPanel getContentPanel() {
 		return contentPanel;
 	}
 
+	/**
+	 * Définit le contentPanel
+	 * 
+	 * @param contentPanel
+	 */
 	public void setContentPanel(ContentPanel contentPanel) {
 		this.contentPanel = contentPanel;
 	}
 
 
+	/**
+	 * @return la liste des catégories qui sont affichées dans le FeedTreePicker
+	 */
 	public ArrayList<Category> getCategoryList() {return categoryList;}
 	public void setCategoryList(ArrayList<Category> categoryList) {
 		this.categoryList = categoryList;
-		//System.out.println("\n\n\n\n TEST TEST \n \n "+this.categoryList);
 	}
 
 	public ActuList getNewsList() {return newsList;}

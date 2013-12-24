@@ -21,6 +21,12 @@ import ca.usherbrooke.ift232.actuRSS.controller.command.ActionHelp;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionManageSources;
 import ca.usherbrooke.ift232.actuRSS.controller.command.ActionPref;
 
+/**
+ * C'est la classe qui définit le menu déroulant 
+ * lorsque l'on clique sur la roue crantée
+ * à droite de la Toolbar
+ *
+ */
 public class Menu extends JMenuBar{
 	
 	private JMenuBar menuBar;
@@ -33,6 +39,11 @@ public class Menu extends JMenuBar{
 	
 	
 
+	/**
+	 * Constructeur : il configure le menu et
+	 * définit les éléments qui le composent
+	 * @param action
+	 */
 	public Menu(HashMap action){
 		
 		this.action = action;
