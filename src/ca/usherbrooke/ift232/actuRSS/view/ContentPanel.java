@@ -16,6 +16,14 @@ import org.xml.sax.InputSource;
 import ca.usherbrooke.ift232.actuRSS.News;
 import ca.usherbrooke.ift232.actuRSS.controller.Controller;
 
+/**
+ * Cette classe est le panel de droite de l'application.
+ * C'est lui qui affiche le contenu de la news.
+ * Il reçoit ce contenu sous forme de HTML.
+ * 
+ * @author Rémi Patrizio
+ *
+ */
 public class ContentPanel extends XHTMLPanel {
 
 	String title;
@@ -25,6 +33,9 @@ public class ContentPanel extends XHTMLPanel {
 	String content;
 	String style;
 
+	/**
+	 * Définit les valeurs par défaut des différents champs
+	 */
 	public ContentPanel() {
 		this.title = "";
 		this.date = "";
@@ -34,6 +45,11 @@ public class ContentPanel extends XHTMLPanel {
 		this.style = "";
 	}
 	
+	/**
+	 * Prend tous les champs du contentPanel, construit
+	 * la page HTML au complet et l'envoie au panel
+	 * pour y être affiché
+	 */
 	public void display() {
 		
 			try {
@@ -64,6 +80,13 @@ public class ContentPanel extends XHTMLPanel {
 
 	}
 
+	/**
+	 * Récupère le style CSS contenu dans le fichier
+	 * dont le nom est dans le fichier de config
+	 * 
+	 * @return chaine de caractere contenant le style CSS
+	 * @throws IOException
+	 */
 	public String getStyleFromFile() throws IOException {
 		BufferedReader br = new BufferedReader(new FileReader(
 				Controller.properties.getProperty("CSS Style")));
@@ -84,6 +107,13 @@ public class ContentPanel extends XHTMLPanel {
 		return everything;
 	}
 
+	/**
+	 * Remplit les champs du contentPanel avec les valeurs
+	 * d'une news passée en paramètre
+	 * 
+	 * @param news
+	 * @param feedName
+	 */
 	public void setContentPanel(News news, String feedName) {
 		this.title = news.getTitle();
 		if (news.getDate() != null) {

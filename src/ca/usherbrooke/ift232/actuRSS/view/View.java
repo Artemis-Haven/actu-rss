@@ -36,8 +36,6 @@ public class View extends JFrame implements Observer {
 	 * 
 	 * @param mainPanel : Panel principal qui contient tous
 	 * les autres sous-panels.
-	 * @param model : C'est un lien vers le Modele de 
-	 * l'application
 	 *
 	 */
 	private MainPanel mainPanel;
@@ -50,8 +48,8 @@ public class View extends JFrame implements Observer {
 	//private Model model;
 	
 	/**
-	 * Constructeur
-	 * @param model : 
+	 * Constructeur : il crée les différents panels et dialogs
+	 * et configure la fenêtre
 	 * 
 	 */
 	public View(HashMap action) {
@@ -74,7 +72,7 @@ public class View extends JFrame implements Observer {
 		this.addFeed = new DialogAddFeed(null,"Ajout d'un Flux",true,action);		
 		
 		// Définir les caractéristiques de la fenetre.
-		this.setTitle("heRmeSS");
+		this.setTitle("ActuRSS");
 	    this.setSize(800, 500);
 	    this.setMinimumSize(new Dimension(680,200));
 	    this.setLocationRelativeTo(null);
@@ -85,13 +83,25 @@ public class View extends JFrame implements Observer {
 	    
 	}
 
+	/**
+	 * @return le mainPanel
+	 */
 	public MainPanel getMainPanel() {return mainPanel;}
 
 	
+	/**
+	 * @return le panneay des préférences
+	 */
 	public ViewChangeProperties getPreference() {return preference;}
 	
+	/**
+	 * @return sourceManager
+	 */
 	public DialogFeedManager getSourceManager(){ return sourceManager;}
 
+	/**
+	 * Ajout les listeners sur les différents composants de la fenêtre
+	 */
 	public void addListener()
 	{
 		this.mainPanel.addListener();
