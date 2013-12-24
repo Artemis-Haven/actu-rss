@@ -82,9 +82,7 @@ public class MainPanel extends JPanel {
 	 */
 	public MainPanel(HashMap action)
 	{
-		
 		action = this.action;
-		// TODO TEMPORAIRE ! A SUPPRIMER BIENTOT
 		this.setLayout(new BorderLayout(1, 2));
 		categoryList = new ArrayList<Category>();
 
@@ -103,9 +101,7 @@ public class MainPanel extends JPanel {
 
 		// Dimensions des deux listes de gauche
 		feedTreePicker.setMinimumSize(new Dimension(80,50));
-		//feedTreePicker.setPreferredSize(new Dimension(100,50));
 		newsList.setMinimumSize(new Dimension(150,50));
-		//newsList.setPreferredSize(new Dimension(180,50));
 
 		//On ajoute le panel (scrollable) des flux à gauche
 		innerSplitPane.setLeftComponent(new JScrollPane(feedTreePicker));
@@ -122,9 +118,7 @@ public class MainPanel extends JPanel {
 		mainSplitPane.setRightComponent(fsScrollPane);
 		this.add(mainSplitPane, BorderLayout.CENTER);		
 
-		/*TODO A mettre dans le controleur*/
-
-				
+		/*TODO A mettre dans le controleur*/				
 	}
 
 	public HashMap getAction() {
@@ -142,17 +136,9 @@ public class MainPanel extends JPanel {
 
 	public void update(ArrayList<Category> categoryList)
 	{
-		//this.categoryList.clear();
-		//System.out.println("COUCOU SUCE MA BITE");
-		//System.out.println("COUCOU"+categoryList.toString());
 		this.setCategoryList(categoryList);
-		//System.out.println("Ca devrait marcher connard"+this.categoryList);
-	
 		this.revalidate();
-		//this.repaint();
-		this.feedTreePicker.refreshFeeds(this.categoryList);
-		
-		
+		this.feedTreePicker.refreshFeeds(this.categoryList);	
 	}
 	
 	/**
@@ -178,7 +164,6 @@ public class MainPanel extends JPanel {
 		this.contentPanel = contentPanel;
 	}
 
-
 	/**
 	 * @return la liste des catégories qui sont affichées dans le FeedTreePicker
 	 */
@@ -191,7 +176,4 @@ public class MainPanel extends JPanel {
 
 	public Toolbar getToolbar() {return toolbar;}	
 	
-
-
-
 }
