@@ -1,1 +1,14 @@
+ca.usherbrooke.ift232.actuRSS
+ca.usherbrooke.ift232.actuRSS.bdd
+ca.usherbrooke.ift232.actuRSS.bddTest
+ca.usherbrooke.ift232.actuRSS.controller
+ca.usherbrooke.ift232.actuRSS.controller.command
+ca.usherbrooke.ift232.actuRSS.model
+ca.usherbrooke.ift232.actuRSS.modelTest
 ca.usherbrooke.ift232.actuRSS.view
+ca.usherbrooke.ift232.actuRSS.view.actulist
+ca.usherbrooke.ift232.actuRSS.view.filter
+ca.usherbrooke.ift232.actuRSS.view.parameters
+ca.usherbrooke.ift232.actuRSS.view.sorter
+ca.usherbrooke.ift232.actuRSS.view.treepicker
+ca.usherbrooke.ift232.actuRSSTest

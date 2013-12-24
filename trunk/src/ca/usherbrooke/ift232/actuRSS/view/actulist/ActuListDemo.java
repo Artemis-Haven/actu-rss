@@ -30,7 +30,7 @@ public class ActuListDemo {
 		});
 	}
 
-	/**Permet de récupérer une frame
+	/**Permet de recuperer une frame
 	 * @return frame
 	 */
 	protected Window getFrame() {
@@ -38,7 +38,7 @@ public class ActuListDemo {
 	}
 
 	/**
-	 * Crée l'application
+	 * Cree l'application
 	 */
 	public ActuListDemo() {
 		initialize();
